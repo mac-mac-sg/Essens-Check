@@ -152,10 +152,18 @@ mit absichtlich beschädigtem Service Worker — dann schlägt er fehl.
 
 ## Deployment
 
-Die App läuft auf GitHub Pages — kein zusätzliches Konto, kein Server. Der
-Workflow `.github/workflows/deploy.yml` baut bei jedem Push auf `main`, prüft
-Typen, Unit-Tests und den Offline-Test, und veröffentlicht erst danach. Schlägt
-eine Prüfung fehl, wird nichts ausgeliefert.
+Die App läuft auf GitHub Pages — kein zusätzliches Konto, kein Server.
+
+`.github/workflows/deploy.yml` trennt Prüfen und Veröffentlichen:
+
+| Auslöser | Was passiert |
+|---|---|
+| Pull Request | Typprüfung, Unit-Tests, Build und Offline-Test |
+| Push auf `main` | dieselben Prüfungen, danach das Deployment |
+
+Die Prüfungen laufen damit **vor** dem Merge, nicht erst währenddessen.
+Veröffentlicht wird nur bei einem Push auf `main` und nur, wenn alles
+durchgelaufen ist — schlägt eine Prüfung fehl, wird nichts ausgeliefert.
 
 Einmalig von Hand einzuschalten:
 
