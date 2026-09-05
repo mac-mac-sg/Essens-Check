@@ -49,10 +49,11 @@ Dieses Projekt gibt Auskunft, auf die im Laden eine Entscheidung folgt.
   hinzufügen, nicht Code.
 - Keine Abhängigkeiten für Dinge, die 20 Zeilen eigener Code lösen.
 - Keine Telemetrie, keine externen Fonts, keine Analytics.
-- Genau eine Ausnahme verlässt das Gerät: die Strichcode-Abfrage bei Open Food
-  Facts, und nur für einen Code, der lokal noch nicht zugeordnet ist. Dabei
-  erfährt der Dienst, welches Produkt gerade in der Hand gehalten wird. Diese
-  Ausnahme ist bewusst gesetzt und bleibt die einzige — jede weitere ist eine
+- Genau eine Ausnahme kann das Gerät verlassen: die Strichcode-Abfrage bei Open
+  Food Facts, und nur für einen Code, der lokal noch nicht zugeordnet ist. Sie
+  ist über einen Schalter steuerbar und **standardmässig aus** — einen
+  Strichcode wegzuschicken soll eine bewusste Entscheidung sein, keine
+  Voreinstellung. Diese Ausnahme bleibt die einzige; jede weitere ist eine
   eigene Entscheidung.
 - Was von aussen kommt, ist Fremdinhalt: es füllt Vorschläge, nie ein Urteil.
   Ein Produktname aus einer offen gepflegten Datenbank darf nie eine Freigabe

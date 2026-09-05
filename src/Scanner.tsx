@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { istGueltigeEan } from './engine/barcodes'
+import { Schalter } from './Schalter'
 
 type Zustand = 'startet' | 'laeuft' | 'nicht-unterstuetzt' | 'kein-zugriff'
 
@@ -13,9 +14,13 @@ type Zustand = 'startet' | 'laeuft' | 'nicht-unterstuetzt' | 'kein-zugriff'
 export function Scanner({
   onErkannt,
   onAbbruch,
+  onlineAbfrage,
+  onOnlineAendern,
 }: {
   onErkannt: (ean: string) => void
   onAbbruch: () => void
+  onlineAbfrage: boolean
+  onOnlineAendern: (an: boolean) => void
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [zustand, setZustand] = useState<Zustand>('startet')
@@ -110,6 +115,13 @@ export function Scanner({
           </p>
         </>
       )}
+
+      <Schalter
+        an={onlineAbfrage}
+        onAendern={onOnlineAendern}
+        beschriftung="Produktdatenbank abfragen"
+        erklaerung="Schlägt unbekannte Codes online nach. Ausgeschaltet bleibt alles auf dem Gerät — bereits zugeordnete Codes werden weiterhin erkannt."
+      />
 
       <button className="zurueck zurueck--flaeche" type="button" onClick={onAbbruch}>
         Abbrechen

@@ -2,9 +2,10 @@ import { useEffect, useMemo, useState } from 'react'
 import { lebensmittelKatalog } from './daten'
 import { holeProdukt, type Produkt } from './engine/produktsuche'
 import { MAX_TREFFER, MINDESTLAENGE, suche, vorschlaegeAusName } from './engine/suchen'
+import { Schalter } from './Schalter'
 import type { Lebensmittel } from './typen'
 
-type Nachschlag = 'laeuft' | 'gefunden' | 'ohne'
+type Nachschlag = 'aus' | 'laeuft' | 'gefunden' | 'ohne'
 
 /**
  * Ein unbekannter Strichcode wird einmal einem Eintrag zugeordnet, danach
@@ -16,18 +17,28 @@ type Nachschlag = 'laeuft' | 'gefunden' | 'ohne'
  */
 export function Zuordnen({
   ean,
+  onlineAbfrage,
+  onOnlineAendern,
   onZuordnen,
   onAbbruch,
 }: {
   ean: string
+  onlineAbfrage: boolean
+  onOnlineAendern: (an: boolean) => void
   onZuordnen: (id: string) => void
   onAbbruch: () => void
 }) {
   const [begriff, setBegriff] = useState('')
-  const [nachschlag, setNachschlag] = useState<Nachschlag>('laeuft')
+  const [nachschlag, setNachschlag] = useState<Nachschlag>(onlineAbfrage ? 'laeuft' : 'aus')
   const [produkt, setProdukt] = useState<Produkt | null>(null)
 
   useEffect(() => {
+    if (!onlineAbfrage) {
+      setProdukt(null)
+      setNachschlag('aus')
+      return
+    }
+    setNachschlag('laeuft')
     const steuerung = new AbortController()
     holeProdukt(ean, steuerung.signal).then((gefunden) => {
       if (steuerung.signal.aborted) return
@@ -35,7 +46,7 @@ export function Zuordnen({
       setNachschlag(gefunden ? 'gefunden' : 'ohne')
     })
     return () => steuerung.abort()
-  }, [ean])
+  }, [ean, onlineAbfrage])
 
   const eigeneTreffer = useMemo(() => suche(begriff, lebensmittelKatalog), [begriff])
   const vorschlaege = useMemo(
@@ -56,6 +67,13 @@ export function Zuordnen({
         zu — ab dann wird er sofort erkannt.
       </p>
 
+      <Schalter
+        an={onlineAbfrage}
+        onAendern={onOnlineAendern}
+        beschriftung="Produktdatenbank abfragen"
+        erklaerung="Sendet den Strichcode an Open Food Facts, um das Produkt vorzuschlagen. Ausgeschaltet bleibt alles auf dem Gerät."
+      />
+
       {nachschlag === 'laeuft' && <p className="zuordnen__stand">Datenbank wird abgefragt …</p>}
 
       {nachschlag === 'gefunden' && produkt && (
@@ -68,6 +86,13 @@ export function Zuordnen({
             Aus der Produktdatenbank. Bitte selbst prüfen, welcher Eintrag zutrifft.
           </p>
         </div>
+      )}
+
+      {nachschlag === 'aus' && (
+        <p className="zuordnen__stand">
+          Die Datenbankabfrage ist ausgeschaltet. Suche das Lebensmittel von Hand — oder
+          schalte sie oben ein.
+        </p>
       )}
 
       {nachschlag === 'ohne' && (

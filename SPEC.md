@@ -181,11 +181,15 @@ hinterlegtes Lebensmittel selbst einordnen.
 lesen. Zuordnungen liegen im `localStorage`; ein einmal zugeordneter Code wird
 danach sofort und ohne Netz erkannt.
 
-Ist ein Code unbekannt, fragt die App **Open Food Facts** ab und schlägt anhand
-des Produktnamens Katalogeinträge vor. Das ist die einzige Stelle, an der Daten
-das Gerät verlassen — der Dienst erfährt dabei, welches Produkt gerade
+Ist ein Code unbekannt, kann die App **Open Food Facts** abfragen und anhand des
+Produktnamens Katalogeinträge vorschlagen. Das ist die einzige Stelle, an der
+Daten das Gerät verlassen — der Dienst erfährt dabei, welches Produkt gerade
 gescannt wird. Bestätigt wird die Zuordnung von Hand: **ein fremder
 Produktname darf nie ein Urteil auslösen.**
+
+Die Abfrage hängt an einem Schalter und ist **standardmässig aus**. Ausgeschaltet
+arbeitet die App vollständig offline; Scannen und bereits zugeordnete Codes
+funktionieren unverändert.
 
 Ohne Netz oder ohne Fund funktioniert die Zuordnung von Hand unverändert
 weiter. Die Prüfziffer wird geprüft, damit ein Lesefehler nicht als Zuordnung

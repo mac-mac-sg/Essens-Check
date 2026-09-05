@@ -138,10 +138,15 @@ Die App liest EAN-8 und EAN-13 über die Kamera. Ein einmal zugeordneter Code
 wird danach sofort erkannt, ohne Netz — die Zuordnungen liegen im
 `localStorage`.
 
-Bei einem **unbekannten** Code fragt sie Open Food Facts ab und schlägt anhand
-des Produktnamens Katalogeinträge vor. Das ist die einzige Stelle, an der Daten
-das Gerät verlassen: der Dienst erfährt, welches Produkt gerade gescannt wird.
-Bestätigt wird von Hand — ein fremder Produktname löst nie ein Urteil aus.
+Bei einem **unbekannten** Code kann sie Open Food Facts abfragen und anhand des
+Produktnamens Katalogeinträge vorschlagen. Das ist die einzige Stelle, an der
+Daten das Gerät verlassen: der Dienst erfährt, welches Produkt gerade gescannt
+wird. Bestätigt wird von Hand — ein fremder Produktname löst nie ein Urteil aus.
+
+Diese Abfrage hängt an einem Schalter im Scanner und ist **standardmässig aus**.
+Ausgeschaltet arbeitet die App vollständig offline: Scannen und bereits
+zugeordnete Codes funktionieren unverändert, es geht kein einziger Aufruf
+hinaus. Die Einstellung bleibt im `localStorage`.
 
 Der lokale Bestand wächst dadurch genau um das, was tatsächlich eingekauft
 wird. Nach ein paar Einkäufen läuft der Alltag wieder ohne Netz.

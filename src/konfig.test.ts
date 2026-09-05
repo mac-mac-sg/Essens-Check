@@ -1,5 +1,18 @@
-import { describe, expect, it } from 'vitest'
-import { istPlausibel } from './konfig'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { istPlausibel, leseOnlineAbfrage, setzeOnlineAbfrage } from './konfig'
+
+function stelleSpeicher() {
+  const inhalt = new Map<string, string>()
+  Object.defineProperty(globalThis, 'localStorage', {
+    configurable: true,
+    value: {
+      getItem: (k: string) => inhalt.get(k) ?? null,
+      setItem: (k: string, v: string) => void inhalt.set(k, v),
+      removeItem: (k: string) => void inhalt.delete(k),
+    },
+  })
+  return inhalt
+}
 
 const HEUTE = new Date('2029-06-01T09:00:00Z')
 
@@ -26,5 +39,40 @@ describe('istPlausibel', () => {
     expect(istPlausibel('', HEUTE)).toBe(false)
     expect(istPlausibel('kein datum', HEUTE)).toBe(false)
     expect(istPlausibel('2029-13-45', HEUTE)).toBe(false)
+  })
+})
+
+
+describe('Online-Abfrage', () => {
+  beforeEach(() => {
+    stelleSpeicher()
+  })
+
+  it('ist standardmässig aus', () => {
+    // Einen Strichcode wegzuschicken soll eine bewusste Entscheidung sein.
+    expect(leseOnlineAbfrage()).toBe(false)
+  })
+
+  it('lässt sich ein- und ausschalten', () => {
+    setzeOnlineAbfrage(true)
+    expect(leseOnlineAbfrage()).toBe(true)
+    setzeOnlineAbfrage(false)
+    expect(leseOnlineAbfrage()).toBe(false)
+  })
+
+  it('gilt bei unbrauchbarem Speicherinhalt als aus', () => {
+    const speicher = stelleSpeicher()
+    speicher.set('essens-check.online-abfrage', 'vielleicht')
+    expect(leseOnlineAbfrage()).toBe(false)
+  })
+
+  it('gilt als aus, wenn der Speicher nicht lesbar ist', () => {
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      get() {
+        throw new Error('gesperrt')
+      },
+    })
+    expect(leseOnlineAbfrage()).toBe(false)
   })
 })

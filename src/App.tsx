@@ -3,7 +3,7 @@ import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
 import { leseZuordnungen, merkeZuordnung, vergissZuordnung } from './engine/barcodes'
 import { findeNachId, MINDESTLAENGE, suche } from './engine/suchen'
-import { leseGeburtstermin } from './konfig'
+import { leseGeburtstermin, leseOnlineAbfrage, setzeOnlineAbfrage } from './konfig'
 import { berechneStand } from './schwangerschaft'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
@@ -27,6 +27,12 @@ export function App() {
   const [neuerCode, setNeuerCode] = useState<string | null>(null)
   const [termin, setTermin] = useState(() => leseGeburtstermin())
   const [terminBearbeiten, setTerminBearbeiten] = useState(false)
+  const [onlineAbfrage, setOnlineAbfrage] = useState(() => leseOnlineAbfrage())
+
+  const onlineUmschalten = (an: boolean) => {
+    setzeOnlineAbfrage(an)
+    setOnlineAbfrage(an)
+  }
 
   // Ohne Termin bleibt die Wochenanzeige leer, statt eine falsche zu zeigen.
   const stand = useMemo(() => (termin ? berechneStand(termin, new Date()) : null), [termin])
@@ -141,9 +147,20 @@ export function App() {
             </button>
           </>
         ) : ansicht === 'scanner' ? (
-          <Scanner onErkannt={codeErkannt} onAbbruch={zumAnfang} />
+          <Scanner
+            onErkannt={codeErkannt}
+            onAbbruch={zumAnfang}
+            onlineAbfrage={onlineAbfrage}
+            onOnlineAendern={onlineUmschalten}
+          />
         ) : ansicht === 'zuordnen' && neuerCode ? (
-          <Zuordnen ean={neuerCode} onZuordnen={zuordnen} onAbbruch={zumAnfang} />
+          <Zuordnen
+            ean={neuerCode}
+            onlineAbfrage={onlineAbfrage}
+            onOnlineAendern={onlineUmschalten}
+            onZuordnen={zuordnen}
+            onAbbruch={zumAnfang}
+          />
         ) : ansicht === 'uebersicht' ? (
           <>
             <Uebersicht onOeffnen={(id) => oeffnen(id, 'uebersicht')} />
