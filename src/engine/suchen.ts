@@ -66,19 +66,49 @@ function bewerteTreffer(begriffe: string[], anfrage: string): number | null {
   return bestes
 }
 
+/** Schlechteste Güte, die noch als Wortanfang gilt. */
+export const GUETE_WORTANFANG = 2
+
+export interface Treffer {
+  eintrag: Lebensmittel
+  /** 0 wörtlich bis 3 irgendwo enthalten. */
+  guete: number
+}
+
 /**
- * Treffer nach Güte sortiert. Unter der Mindestlänge und bei Nulltreffer
- * bleibt die Liste leer — die Oberfläche verweist dann auf die Hebamme.
+ * Treffer samt Güte, nach Güte sortiert. Grundlage von `suche`; getrennt
+ * herausgeführt, weil die Produktnamen-Zuordnung die schwachen Treffer
+ * braucht — um sie wegzulassen.
  */
-export function suche(anfrage: string, katalog: LebensmittelKatalog): Lebensmittel[] {
+export function trefferMitGuete(anfrage: string, katalog: LebensmittelKatalog): Treffer[] {
   const gesucht = normalisiere(anfrage)
   if (gesucht.length < MINDESTLAENGE) return []
 
   return katalog.lebensmittel
     .map((eintrag) => ({ eintrag, guete: bewerteTreffer(suchbegriffe(eintrag), gesucht) }))
-    .filter((kandidat): kandidat is { eintrag: Lebensmittel; guete: number } => kandidat.guete !== null)
+    .filter((kandidat): kandidat is Treffer => kandidat.guete !== null)
     .sort((a, b) => a.guete - b.guete || a.eintrag.name.localeCompare(b.eintrag.name, 'de-CH'))
-    .map((kandidat) => kandidat.eintrag)
+}
+
+/**
+ * Treffer nach Güte sortiert. Unter der Mindestlänge und bei Nulltreffer
+ * bleibt die Liste leer — die Oberfläche verweist dann auf die Hebamme.
+ *
+ * Eine mehrteilige Eingabe wird zuerst als Ganzes gesucht. Bleibt sie ohne
+ * Treffer, entscheiden die einzelnen Wörter: «Tatar vom Lachs» stand sonst
+ * im Nichts, obwohl beide Wörter im Katalog liegen — und gerade dort steht
+ * ein «Nein», das sie sehen muss. Ein Vorschlag bleibt es trotzdem: gewählt
+ * wird aus der Liste, nichts wird automatisch beurteilt.
+ */
+export function suche(anfrage: string, katalog: LebensmittelKatalog): Lebensmittel[] {
+  const genau = trefferMitGuete(anfrage, katalog).map((kandidat) => kandidat.eintrag)
+  if (genau.length > 0) return genau
+  if (normalisiere(anfrage).split(/[ -]/).filter((wort) => wort.length >= MINDESTLAENGE).length < 2) {
+    return []
+  }
+  return bewerteteVorschlaege(anfrage, katalog, MAX_TREFFER, MINDESTLAENGE).map(
+    (vorschlag) => vorschlag.eintrag,
+  )
 }
 
 export function findeNachId(id: string, katalog: LebensmittelKatalog): Lebensmittel | undefined {
@@ -92,6 +122,13 @@ export function findeNachId(id: string, katalog: LebensmittelKatalog): Lebensmit
  * vergleicht Teilzeichenketten, und der Produktname ist länger als jeder
  * Katalogbegriff. Deshalb wortweise suchen und die Treffer zusammenführen.
  *
+ * Anders als bei der Handsuche zählen hier nur Wortanfänge. Wer selbst tippt,
+ * meint mit einer Zeichenfolge mitten im Wort oft etwas — ein Produktname
+ * dagegen enthält Wörter, die zufällig in Katalogbegriffen vorkommen: «Latte»
+ * steckt in «Himbeerblättertee», «Cola» in «Mousse au chocolat», «Rot» in
+ * «Brot». Solche Treffer sagen nichts über das Produkt und haben mehrfach
+ * verhindert, dass der richtige Eintrag sich durchsetzt.
+ *
  * Es bleibt ein Vorschlag: welcher Eintrag gemeint ist, bestätigt sie selbst.
  */
 export interface Vorschlag {
@@ -100,19 +137,30 @@ export interface Vorschlag {
   gewicht: number
 }
 
+/**
+ * Kürzestes Wort, das in einem Produktnamen zählt. Fremde Namen sind voll
+ * kurzer Füllsel («Bio», «Le», «di»); getippte Eingaben sind es nicht, dort
+ * gilt die Mindestlänge der Suche — «rohes ei» soll das Ei finden.
+ */
+export const MINDESTWORTLAENGE_PRODUKT = 3
+
 export function bewerteteVorschlaege(
   produktname: string,
   katalog: LebensmittelKatalog,
   hoechstens = 8,
+  mindestwortlaenge = MINDESTWORTLAENGE_PRODUKT,
 ): Vorschlag[] {
   // Auch am Bindestrich trennen, sonst findet «Coca-Cola» das Wort «Cola» nie.
   const woerter = [...new Set(normalisiere(produktname).split(/[ -]/))].filter(
-    (wort) => wort.length >= 3,
+    (wort) => wort.length >= mindestwortlaenge,
   )
 
   const gewichtet = new Map<string, { eintrag: Lebensmittel; gewicht: number; platz: number }>()
   for (const wort of woerter) {
-    suche(wort, katalog).forEach((eintrag, platz) => {
+    const treffer = trefferMitGuete(wort, katalog).filter(
+      (kandidat) => kandidat.guete <= GUETE_WORTANFANG,
+    )
+    treffer.forEach(({ eintrag }, platz) => {
       const bisher = gewichtet.get(eintrag.id)
       // Längere Wörter wiegen schwerer: «Haferdrink» sagt mehr als «Bio».
       if (bisher) {

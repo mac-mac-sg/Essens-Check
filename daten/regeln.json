@@ -15,13 +15,13 @@
     },
     {
       "id": "listerien-weichkaese",
-      "titel": "Weichkäse aus Rohmilch",
+      "titel": "Weichkäse",
       "trifft_auf": ["rohmilch-weichkaese"],
       "status": "meiden",
       "begruendung": "Hoher Wassergehalt und kurze Reifung lassen Listerien wachsen. Hartkäse ist davon nicht betroffen.",
       "entschaerfung": [
         { "durch": "durcherhitzt", "auf": "ok", "text": "Überbacken oder in der Sauce mitgekocht unbedenklich." },
-        { "durch": "pasteurisiert", "auf": "bedingt", "text": "Aus pasteurisierter Milch vertretbar; Rinde wegschneiden, frisch angeschnitten essen." }
+        { "durch": "pasteurisiert", "auf": "meiden", "text": "Pasteurisierte Milch nimmt nur einen Teil des Risikos. Weichkäse reift feucht und wenig sauer; Listerien können nach dem Erhitzen der Milch wieder hineingelangen und wachsen bis zum Verfalldatum weiter. Erhitzt ist er unbedenklich." }
       ],
       "trimester_gewichtung": null
     },
@@ -148,6 +148,15 @@
       "entschaerfung": [
         { "durch": "durcherhitzt", "auf": "ok", "text": "Kurz mitgebraten oder blanchiert unbedenklich." }
       ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "botulismus-saeugling",
+      "titel": "Honig für Säuglinge",
+      "trifft_auf": ["honig-saeugling"],
+      "status": "meiden",
+      "begruendung": "Honig kann Sporen von Clostridium botulinum enthalten. Der Darm eines Säuglings kann sie nicht abwehren. Im ersten Lebensjahr deshalb kein Honig — auch nicht im Tee, im Brei oder am Nuggi.",
+      "entschaerfung": [],
       "trimester_gewichtung": null
     },
     {

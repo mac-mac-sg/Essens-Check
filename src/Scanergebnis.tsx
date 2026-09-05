@@ -99,6 +99,13 @@ export function Scanergebnis({
           <p className="scan-quelle">
             Gescannt: <strong>{produkt.name}</strong>
             {produkt.marke && <span> · {produkt.marke}</span>}
+            {gewaehlt && (
+              <>
+                <br />
+                Zugeordnet zu «{gewaehlt.name}». Stimmt das nicht, wähle unten
+                das richtige Lebensmittel.
+              </>
+            )}
           </p>
         )}
         <Ergebniskarte urteil={urteil} />

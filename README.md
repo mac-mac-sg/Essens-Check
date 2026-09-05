@@ -18,6 +18,10 @@ Die verbindliche Beschreibung steht in [`SPEC.md`](SPEC.md), die Arbeitsregeln i
 | `npm run build` | Typprüfung und Produktionsbuild nach `dist/` |
 | `npm run preview` | Gebaute App lokal ausliefern |
 | `npm run test:offline` | Offline-Test im simulierten Flugmodus (nach `build`) |
+| `npm run pruefstand katalog` | Alle 250 Einträge mit ihrem Urteil, zum Gegenlesen |
+| `npm run pruefstand suche <begriff> …` | Was die Suche zu einem Begriff liefert |
+| `npm run pruefstand produkt "<name>" …` | Was ein Produktname aus der Datenbank auslöst |
+| `npm run karte <id> …` | Eine Ergebniskarte so, wie die App sie ausgibt |
 
 ## Aufbau
 
@@ -160,6 +164,9 @@ nichts erfunden werden soll:
 - Süssstoffe wie Aspartam, Stevia und Sucralose
 - Zusatzstoffe in Sportprodukten und Energydrinks über das Koffein hinaus
 - Heilkräuter in Arzneidosis, im Unterschied zu Speise- und Teemengen
+- Nährstoffpräparate ausser Folsäure, Eisen, Omega-3 und Vitamin A —
+  Magnesium, Kalzium, Jod und Vitamin D fehlen, obwohl häufig gefragt
+- Alles, was kein Lebensmittel ist: Medikamente, Rauchen, Sauna
 
 Eine Suche danach liefert einen Nulltreffer mit dem Verweis auf die Hebamme.
 Das ist gewollt: lieber keine Auskunft als eine geratene.

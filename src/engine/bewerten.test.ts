@@ -11,6 +11,12 @@ function urteile(id: string, trimester?: number): Status[] {
   return bewerteLebensmittel(eintrag, regelKatalog, trimester).varianten.map((v) => v.status)
 }
 
+function urteilVon(id: string, trimester?: number) {
+  const eintrag = findeNachId(id, lebensmittelKatalog)
+  if (!eintrag) throw new Error(`Lebensmittel «${id}» fehlt im Katalog`)
+  return bewerteLebensmittel(eintrag, regelKatalog, trimester)
+}
+
 function ersteVariante(id: string, trimester?: number) {
   const eintrag = findeNachId(id, lebensmittelKatalog)
   if (!eintrag) throw new Error(`Lebensmittel «${id}» fehlt im Katalog`)
@@ -82,8 +88,61 @@ describe('nicht_entschaerfbar_durch', () => {
 describe('Schlechtester Status gewinnt', () => {
   it('bewertet Vitello tonnato über die kritischste Komponente', () => {
     // Restaurant: rohes Ei und Quecksilber trotz durchgegartem Fleisch.
-    // Gekaufte Sauce: pasteurisiertes Ei, kein Thunfisch mehr im Datensatz.
-    expect(urteile('vitello-tonnato')).toEqual(['meiden', 'ok'])
+    // Gekaufte Sauce: pasteurisiertes Ei — die Thunfischsauce bleibt aber
+    // Thunfischsauce, also greift die Mengenbegrenzung.
+    expect(urteile('vitello-tonnato')).toEqual(['meiden', 'bedingt'])
+  })
+
+  it('lässt die Thunfischsauce in beiden Varianten mitzählen', () => {
+    const eintrag = findeNachId('vitello-tonnato', lebensmittelKatalog)
+    if (!eintrag) throw new Error('Vitello tonnato fehlt im Katalog')
+    for (const variante of bewerteLebensmittel(eintrag, regelKatalog).varianten) {
+      expect(variante.komponenten.map((k) => k.tag)).toContain('raubfisch-mittel')
+    }
+  })
+})
+
+describe('Was eine Entschärfung verspricht, muss sie halten', () => {
+  it('erreicht mit jedem Entschärfungszustand genau den versprochenen Status', () => {
+    // Fehlerklasse: eine Regel entschärft, eine zweite auf demselben Tag hält
+    // dagegen. Der Text sagt dann «vertretbar», das Urteil sagt «besser nicht».
+    // Genau so stand pasteurisierter Camembert im Katalog.
+    for (const regel of regelKatalog.regeln) {
+      for (const entschaerfung of regel.entschaerfung) {
+        for (const tag of regel.trifft_auf) {
+          const urteil = bewerteKomponente({ tag, zustand: entschaerfung.durch }, regelKatalog)
+          expect(
+            urteil.status,
+            `${regel.id}: «${entschaerfung.durch}» auf ${tag} verspricht ${entschaerfung.auf}`,
+          ).toBe(entschaerfung.auf)
+        }
+      }
+    }
+  })
+
+  it('erklärt bei pasteurisiertem Weichkäse, warum es trotzdem nein bleibt', () => {
+    const variante = urteilVon('camembert').varianten[0]
+    expect(variante?.status).toBe('meiden')
+    expect(variante?.begruendungen.map((b) => b.text).join(' ')).toContain(
+      'nur einen Teil des Risikos',
+    )
+  })
+})
+
+describe('Honig trennt die Schwangere vom Säugling', () => {
+  it('gibt Honig für die Schwangere frei und für das Kind nicht', () => {
+    expect(urteile('saeuglingshonig')).toEqual(['ok', 'meiden'])
+  })
+
+  it('nennt den Grund beim Namen', () => {
+    const zweite = urteilVon('saeuglingshonig').varianten[1]
+    expect(zweite?.begruendungen[0]?.text).toContain('botulinum')
+  })
+})
+
+describe('Bärlauch wird bodennah gesammelt', () => {
+  it('gibt ihn gekocht und gewaschen frei, ungewaschen nur bedingt', () => {
+    expect(urteile('baerlauch')).toEqual(['ok', 'ok', 'bedingt'])
   })
 })
 
@@ -284,7 +343,7 @@ describe('Katalogabdeckung', () => {
       ei: ['ok', 'meiden'],
       tiramisu: ['meiden', 'ok'],
       // Mehrere Komponenten, schlechteste gewinnt
-      'vitello-tonnato': ['meiden', 'ok'],
+      'vitello-tonnato': ['meiden', 'bedingt'],
       // Getränke
       kaffee: ['bedingt', 'ok'],
       'wein-bier': ['meiden', 'ok'],
@@ -292,6 +351,10 @@ describe('Katalogabdeckung', () => {
       // Trimester-gewichtete Regeln
       leber: ['meiden'],
       kraeutertee: ['bedingt'],
+      // Der Adressat entscheidet, nicht der Fliesstext
+      saeuglingshonig: ['ok', 'meiden'],
+      // Bodennah gesammelt, deshalb wie frische Kräuter behandelt
+      baerlauch: ['ok', 'ok', 'bedingt'],
       // Waschen, Keime, offene Ware
       blattsalat: ['ok', 'bedingt'],
       sprossen: ['ok', 'meiden'],

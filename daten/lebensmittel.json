@@ -344,7 +344,7 @@
       "id": "milch",
       "name": "Milch",
       "gruppe": "Milchprodukte",
-      "synonyme": ["milch", "vollmilch", "halbrahm", "uht", "pastmilch"],
+      "synonyme": ["milch", "milk", "vollmilch", "halbrahm", "uht", "pastmilch"],
       "varianten": [
         {
           "label": null,
@@ -411,7 +411,7 @@
       "id": "pflanzendrink",
       "name": "Hafer-, Soja- und Mandeldrink",
       "gruppe": "Milchprodukte",
-      "synonyme": ["hafermilch", "haferdrink", "sojadrink", "sojamilch", "mandelmilch", "pflanzendrink"],
+      "synonyme": ["hafermilch", "haferdrink", "sojadrink", "soja drink", "soya", "soya drink", "sojamilch", "mandelmilch", "mandeldrink", "reisdrink", "pflanzendrink"],
       "varianten": [
         {
           "label": null,
@@ -425,7 +425,7 @@
       "id": "lachs",
       "name": "Lachs",
       "gruppe": "Fisch und Meeresfrüchte",
-      "synonyme": ["lachs", "salmon"],
+      "synonyme": ["lachs", "salmon", "gravlax", "graved lachs", "gebeizter lachs", "lachstatar", "lachs tatar"],
       "varianten": [
         {
           "label": "Gegart",
@@ -720,7 +720,7 @@
       "id": "sushi",
       "name": "Sushi und Sashimi",
       "gruppe": "Fisch und Meeresfrüchte",
-      "synonyme": ["sushi", "sashimi", "maki", "nigiri", "poke", "poké", "ceviche"],
+      "synonyme": ["sushi", "sashimi", "maki", "nigiri", "poke", "poké", "poke bowl", "poké bowl", "sushi bowl", "ceviche"],
       "varianten": [
         {
           "label": "Mit gegarter oder vegetarischer Füllung",
@@ -1064,7 +1064,7 @@
       "id": "salami",
       "name": "Salami, Rohschinken, Trockenfleisch",
       "gruppe": "Fleisch und Wurst",
-      "synonyme": ["salami", "rohschinken", "trockenfleisch", "bündnerfleisch", "prosciutto", "parmaschinken", "serrano", "coppa", "landjäger", "mettwurst", "chorizo", "salsiz"],
+      "synonyme": ["salami", "rohschinken", "trockenfleisch", "bündnerfleisch", "prosciutto", "parmaschinken", "serrano", "coppa", "landjäger", "mettwurst", "chorizo", "salsiz", "mostbröckli", "salametti", "bresaola", "fleischtrocknerei"],
       "varianten": [
         {
           "label": "Kalt, wie gekauft",
@@ -1199,7 +1199,7 @@
         },
         {
           "label": "Mit gekaufter Sauce",
-          "komponenten": [{"tag": "fleisch-durchgegart"}, {"tag": "ei-roh", "zustand": "pasteurisiert"}]
+          "komponenten": [{"tag": "fleisch-durchgegart"}, {"tag": "ei-roh", "zustand": "pasteurisiert"}, {"tag": "raubfisch-mittel", "zustand": "mengenbegrenzung"}]
         }
       ],
       "alternativen": ["Kalbsbraten mit Kräuterjoghurt"],
@@ -1227,7 +1227,7 @@
       "id": "ei",
       "name": "Eier",
       "gruppe": "Eier",
-      "synonyme": ["ei", "eier", "spiegelei", "rührei", "pochiertes ei", "omelette", "frühstücksei"],
+      "synonyme": ["ei", "eier", "spiegelei", "rührei", "pochiertes ei", "weiches ei", "wachsweiches ei", "onsen ei", "omelette", "frühstücksei"],
       "varianten": [
         {
           "label": "Hart durchgegart",
@@ -1570,7 +1570,7 @@
       "id": "kaffee",
       "name": "Kaffee",
       "gruppe": "Getränke",
-      "synonyme": ["kaffee", "espresso", "cappuccino", "latte", "koffein", "schale"],
+      "synonyme": ["kaffee", "espresso", "cappuccino", "capuccino", "latte", "latte macchiato", "milchkaffee", "flat white", "cortado", "koffein", "schale"],
       "varianten": [
         {
           "label": "Normal",
@@ -1701,7 +1701,7 @@
       "id": "wein-bier",
       "name": "Wein, Bier und Spirituosen",
       "gruppe": "Getränke",
-      "synonyme": ["wein", "bier", "prosecco", "champagner", "sekt", "spirituosen", "cocktail", "alkohol", "schnaps", "likör", "aperol", "gin", "wodka", "whisky"],
+      "synonyme": ["wein", "bier", "prosecco", "champagner", "sekt", "spirituosen", "cocktail", "alkohol", "schnaps", "likör", "aperol", "gin", "wodka", "whisky", "radler", "panaché", "shandy", "sangria", "cider", "cidre", "hugo"],
       "varianten": [
         {
           "label": "Alkoholisch",
@@ -1847,7 +1847,7 @@
       "id": "erdbeeren",
       "name": "Erdbeeren und Beeren",
       "gruppe": "Obst",
-      "synonyme": ["erdbeeren", "beeren", "himbeeren", "heidelbeeren", "brombeeren", "johannisbeeren"],
+      "synonyme": ["erdbeeren", "beeren", "himbeeren", "heidelbeeren", "brombeeren", "johannisbeeren", "waldbeeren", "waldheidelbeeren"],
       "varianten": [
         {
           "label": "Gründlich gewaschen oder geschält",
@@ -2594,7 +2594,7 @@
       "id": "gewuerze",
       "name": "Küchengewürze",
       "gruppe": "Kräuter, Gewürze, Präparate",
-      "synonyme": ["gewürze", "pfeffer", "paprikapulver", "curry pulver", "muskat", "oregano", "thymian", "rosmarin"],
+      "synonyme": ["gewürze", "pfeffer", "paprikapulver", "curry pulver", "muskat", "oregano", "thymian", "rosmarin", "kurkuma", "curcuma", "safran"],
       "varianten": [
         {
           "label": null,
@@ -2735,15 +2735,19 @@
       "id": "saeuglingshonig",
       "name": "Honig für das Baby",
       "gruppe": "Süsses und Snacks",
-      "synonyme": ["honig baby", "honig säugling"],
+      "synonyme": ["honig baby", "honig säugling", "säuglingshonig", "botulismus"],
       "varianten": [
         {
-          "label": null,
+          "label": "Für die Schwangere",
           "komponenten": [{"tag": "honig"}]
+        },
+        {
+          "label": "Für das Kind im ersten Lebensjahr",
+          "komponenten": [{"tag": "honig-saeugling"}]
         }
       ],
       "alternativen": [],
-      "eigener_text": "Für die Schwangere unbedenklich. Nach der Geburt gilt: im ersten Lebensjahr kein Honig für das Kind, wegen Botulismusgefahr."
+      "frage": "Für wen?"
     },
     {
       "id": "aelplermagronen",
@@ -3444,15 +3448,23 @@
       "id": "baerlauch",
       "name": "Bärlauch",
       "gruppe": "Gemüse und Salat",
-      "synonyme": ["bärlauch"],
+      "synonyme": ["bärlauch", "waldknoblauch"],
       "varianten": [
         {
-          "label": null,
-          "komponenten": [{"tag": "obst-gewaschen"}]
+          "label": "Gekocht, etwa als Pesto oder Suppe",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen", "zustand": "gekocht"}]
+        },
+        {
+          "label": "Roh und gründlich gewaschen",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen", "zustand": "gewaschen"}]
+        },
+        {
+          "label": "Roh, selber gesammelt und ungewaschen",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
         }
       ],
-      "alternativen": [],
-      "eigener_text": "Gründlich gewaschen unbedenklich."
+      "alternativen": ["Bärlauchpesto aus dem Glas", "Schnittlauch oder Petersilie"],
+      "frage": "Wie zubereitet?"
     },
     {
       "id": "cheesecake",

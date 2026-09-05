@@ -11,7 +11,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:offline": "node scripts/offline-test.mjs"
+    "test:offline": "node scripts/offline-test.mjs",
+    "pruefstand": "vite-node scripts/pruefstand.ts --",
+    "karte": "vite-node scripts/karte.ts --"
   },
   "dependencies": {
     "react": "^18.3.1",

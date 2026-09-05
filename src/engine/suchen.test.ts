@@ -133,14 +133,68 @@ describe('findeNachId', () => {
 })
 
 
+describe('Mehrwortsuche', () => {
+  it('findet über die einzelnen Wörter, wenn die ganze Eingabe nichts ergibt', () => {
+    expect(ids('tatar vom lachs')).toContain('lachs')
+    expect(ids('rohes ei im dessert')).toContain('ei')
+  })
+
+  it('erfindet dabei keine Treffer', () => {
+    expect(ids('blauer himmel')).toEqual([])
+    expect(ids('auto fahren')).toEqual([])
+  })
+
+  it('lässt die genaue Eingabe vorgehen', () => {
+    // «Frische Kräuter» ist ein Synonym und muss zuerst stehen, nicht die
+    // wortweise zusammengesuchte Liste.
+    expect(ids('frische kräuter')[0]).toBe('kraeuter-frisch')
+  })
+})
+
+describe('Wege, die vorher ins Leere liefen', () => {
+  const ersterTreffer = (anfrage: string) => ids(anfrage)[0]
+
+  it('findet gebeizten Fisch und Trockenfleisch unter ihren üblichen Namen', () => {
+    expect(ersterTreffer('graved lachs')).toBe('lachs')
+    expect(ersterTreffer('gravlax')).toBe('lachs')
+    expect(ersterTreffer('mostbröckli')).toBe('salami')
+    expect(ersterTreffer('poke bowl')).toBe('sushi')
+  })
+
+  it('findet Biermischgetränke, die Alkohol enthalten', () => {
+    expect(ersterTreffer('radler')).toBe('wein-bier')
+    expect(ersterTreffer('panaché')).toBe('wein-bier')
+    expect(ersterTreffer('shandy')).toBe('wein-bier')
+  })
+
+  it('findet das weiche Ei und die gängigen Kaffeebestellungen', () => {
+    expect(ersterTreffer('wachsweiches ei')).toBe('ei')
+    expect(ersterTreffer('latte macchiato')).toBe('kaffee')
+    expect(ersterTreffer('capuccino')).toBe('kaffee')
+  })
+})
+
 describe('vorschlaegeAusName', () => {
   const erster = (name: string) =>
     vorschlaegeAusName(name, lebensmittelKatalog)[0]?.id
 
   it('findet den Eintrag in einem längeren Produktnamen', () => {
-    // Als Ganzes gesucht ergäbe der Name keinen Treffer.
-    expect(suche('Le Rustique Camembert', lebensmittelKatalog)).toEqual([])
     expect(erster('Le Rustique Camembert')).toBe('camembert')
+  })
+
+  it('zählt nur Wortanfänge, nicht Zeichenfolgen mitten im Wort', () => {
+    // «latte» steckt in «Himbeerblättertee», «cola» in «Mousse au chocolat»,
+    // «rot» in «Brot». Solche Treffer sagen nichts über das Produkt.
+    const namen = (produkt: string) =>
+      vorschlaegeAusName(produkt, lebensmittelKatalog).map((e) => e.id)
+    expect(namen('Caffè Latte Macchiato')).not.toContain('himbeerblaettertee')
+    expect(namen('Coca-Cola Zero Sugar')).not.toContain('tiramisu')
+    expect(namen('Rivella Rot')).not.toContain('brot')
+  })
+
+  it('lässt dadurch den richtigen Eintrag sich durchsetzen', () => {
+    // Vorher blockierte ein Zufallstreffer auf «Vanille» das eindeutige Urteil.
+    expect(erster('Cristallina Vanille Joghurt')).toBe('joghurt')
   })
 
   it('trennt auch am Bindestrich', () => {

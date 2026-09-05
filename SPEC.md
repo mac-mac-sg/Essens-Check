@@ -184,13 +184,31 @@ welches Produkt gerade gescannt wird. Es gibt keinen lokalen Zwischenspeicher
 und keinen Schalter.
 
 Zeigt der Produktname eindeutig auf einen Katalogeintrag, erscheint direkt das
-Urteil, mit dem gescannten Namen als Herkunftszeile darüber. Eindeutig heisst:
-alleiniger Treffer oder mindestens doppelt so schwer wie der nächste. Bei
-Gleichstand oder ohne Fund kommt die Auswahl — ohne zu wissen, wovon die Rede
-ist, lässt sich keine Einschätzung zeigen.
+Urteil, mit dem gescannten Namen und dem zugeordneten Eintrag als Herkunftszeile
+darüber. Eindeutig heisst: alleiniger Treffer oder mindestens doppelt so schwer
+wie der nächste. Bei Gleichstand oder ohne Fund kommt die Auswahl — ohne zu
+wissen, wovon die Rede ist, lässt sich keine Einschätzung zeigen.
+
+Bei der Zuordnung eines Produktnamens zählen nur Wortanfänge. Zeichenfolgen
+mitten im Wort erzeugen bei fremden Namen nur Unsinn — «Latte» steckt in
+«Himbeerblättertee», «Cola» in «Mousse au chocolat», «Rot» in «Brot» — und
+verhinderten mehrfach, dass sich der richtige Eintrag durchsetzt.
+
+Die Grenze der Zuordnung ist benannt, nicht wegoptimiert: ein Produktname, der
+nur über ein Geschmackswort trifft, führt zum falschen Eintrag. «Danone Actimel
+Erdbeere» landet bei «Erdbeeren und Beeren». Über den Anteil am Produktnamen ist
+das nicht zu trennen — gemessen liegt dieser Fall bei 38 Prozent, der richtige
+Treffer «Migros Räucherlachs» ebenfalls. Deshalb nennt die Herkunftszeile die
+Zuordnung ausdrücklich, und «Anderes Lebensmittel» führt zurück zur Auswahl.
 
 Die Prüfziffer wird geprüft, damit ein Lesefehler nicht nachgeschlagen wird. Wo
 der Browser keine Strichcodes lesen kann, sagt die App das offen.
+
+**Mehrwortsuche.** Eine Eingabe wird zuerst als Ganzes gesucht. Bleibt sie ohne
+Treffer und besteht aus mehreren Wörtern, entscheiden die einzelnen Wörter.
+«Tatar vom Lachs» stand sonst im Nichts, obwohl beide Wörter im Katalog liegen —
+und gerade dort steht ein Nein. Erfunden wird dabei nichts: «blauer himmel»
+bleibt ein Nulltreffer.
 
 **Umgekehrte Frage.** Vom Startbildschirm aus erreichbar: «Was kann ich essen?»
 listet nach Warengruppe, was ein klares Ja hat, mit der Zubereitung, unter der

@@ -59,4 +59,8 @@ Dieses Projekt gibt Auskunft, auf die im Laden eine Entscheidung folgt.
   gefragt, nie geraten — «Zweifel Paprika Chips» trifft Tomaten, Gewürze und
   Chips gleich stark, und dort wäre jedes automatische Urteil falsch. Die
   Schwelle ist an echten Produktnamen geeicht und gehört zur Bewertungslogik:
-  Änderungen daran nur mit Tests.
+  Änderungen daran nur mit Tests. Bei der Zuordnung zählen nur Wortanfänge —
+  Zeichenfolgen mitten im Wort erzeugen bei fremden Namen nur Unsinn.
+- Die Zuordnung bleibt fehlbar: ein Geschmackswort im Produktnamen kann auf den
+  falschen Eintrag zeigen. Das wird benannt, nicht kaschiert — die Herkunftszeile
+  nennt die Zuordnung, und der Weg zurück zur Auswahl bleibt offen.
