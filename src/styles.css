@@ -58,6 +58,8 @@ body {
   min-height: 100dvh;
 }
 
+/* ---------------------------- Kopfzeile ---------------------------- */
+
 .kopfzeile {
   display: flex;
   align-items: baseline;
@@ -72,23 +74,29 @@ body {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .kopfzeile__stand {
+  margin: 0;
   text-align: right;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-variant-numeric: tabular-nums;
 }
 
 .kopfzeile__woche {
   display: block;
   font-weight: 600;
+  white-space: nowrap;
 }
 
-.kopfzeile__trimester {
+/* Eigene Zeilen, damit nie mitten in einer Angabe umgebrochen wird. */
+.kopfzeile__trimester,
+.kopfzeile__tage {
   display: block;
-  opacity: 0.85;
+  white-space: nowrap;
+  /* Auf Tannengrün ergibt das rund 6:1 — deutlich über AA. */
+  color: #b9cfc2;
 }
 
 .inhalt {
@@ -99,11 +107,83 @@ body {
   padding: var(--spur);
 }
 
+/* ---------------------------- Suche ---------------------------- */
+
+.feldtitel {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-gedaempft);
+}
+
+.suchfeld {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-family: inherit;
+  font-size: 1.0625rem;
+  color: var(--text);
+  background: var(--karte);
+  border: 1px solid #c9ccc3;
+  border-radius: var(--radius);
+}
+
+.suchfeld::placeholder {
+  color: #8a938c;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: var(--spur);
+}
+
+.chip {
+  padding: 0.45rem 0.9rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: #3b453e;
+  background: var(--karte);
+  border: 1px solid #cbcec5;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.chip:hover {
+  background: #eaece6;
+}
+
+.liste {
+  margin: var(--spur) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.liste li button {
+  width: 100%;
+  padding: 0.9rem 0.25rem;
+  font-family: inherit;
+  font-size: 1rem;
+  text-align: left;
+  color: var(--text);
+  background: none;
+  border: none;
+  border-bottom: 1px solid #e1e3dc;
+  cursor: pointer;
+}
+
+.liste li button:hover {
+  background: #eaece6;
+}
+
+/* ---------------------------- Ergebniskarte ---------------------------- */
+
 .karte {
+  margin-top: var(--spur);
+  padding: 1.25rem 1.125rem;
   background: var(--karte);
   border: 1px solid var(--linie);
   border-radius: var(--radius);
-  padding: var(--spur);
 }
 
 .karte__hinweis {
@@ -111,11 +191,131 @@ body {
   color: var(--text-gedaempft);
 }
 
+.titel {
+  margin: 0 0 1rem;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+/*
+ * Das Urteilswort steht deutlich grösser als der Fliesstext — so verlangt es
+ * SPEC.md. Der Prototyp setzt es kleiner; hier gilt die Spezifikation.
+ */
+.urteil {
+  display: inline-block;
+  margin-bottom: 0.875rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  border-radius: 6px;
+}
+
+.text {
+  margin: 0 0 var(--spur);
+  font-size: 0.96875rem;
+  line-height: 1.65;
+}
+
+.frage {
+  margin: 0 0 0.625rem;
+  font-size: 0.8125rem;
+  color: var(--text-gedaempft);
+}
+
+.zeile {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.8rem 0;
+  border-top: 1px solid #e5e7e0;
+}
+
+.zeile:first-of-type {
+  padding-top: 0.25rem;
+  border-top: none;
+}
+
+.marke {
+  flex: 0 0 auto;
+  min-width: 3.5rem;
+  margin-top: 0.15rem;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.zlabel {
+  margin: 0 0 0.2rem;
+  font-size: 0.96875rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.ztext {
+  margin: 0 0 0.35rem;
+  font-size: 0.90625rem;
+  line-height: 1.55;
+  color: #3b453e;
+}
+
+.ztext:last-child {
+  margin-bottom: 0;
+}
+
+.warnung {
+  margin: 0 0 var(--spur);
+  padding: 0.75rem 0.875rem;
+  font-size: 0.90625rem;
+  line-height: 1.55;
+  background: var(--ockerflaeche);
+  border-left: 3px solid var(--ocker);
+  border-radius: 0 6px 6px 0;
+}
+
+.alt {
+  margin-top: 0.25rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid #e5e7e0;
+}
+
+.alt p {
+  margin: 0 0 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-gedaempft);
+}
+
+.alt ul {
+  margin: 0;
+  padding-left: 1.125rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.zurueck {
+  margin-top: var(--spur);
+  padding: 0.5rem 0;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: var(--tannengruen);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ---------------------------- Fusszeile ---------------------------- */
+
 .fusszeile {
   padding: var(--spur) var(--spur) calc(var(--spur) + env(safe-area-inset-bottom));
   border-top: 1px solid var(--linie);
   color: var(--text-gedaempft);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   text-align: center;
 }
 

@@ -14,6 +14,8 @@ export interface Schwangerschaftsstand {
   tag: number
   /** 1, 2 oder 3. */
   trimester: 1 | 2 | 3
+  /** Tage bis zum Termin. Negativ, wenn er überschritten ist. */
+  tageBis: number
   /** Anzeigeform, etwa «12+3». */
   anzeige: string
 }
@@ -33,5 +35,5 @@ export function berechneStand(geburtstermin: string, heute: Date): Schwangerscha
   const tag = Math.max(0, tage) % 7
   const trimester: 1 | 2 | 3 = woche < 14 ? 1 : woche < 28 ? 2 : 3
 
-  return { woche, tag, trimester, anzeige: `${woche}+${tag}` }
+  return { woche, tag, trimester, tageBis: verbleibend, anzeige: `${woche}+${tag}` }
 }

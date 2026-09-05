@@ -27,7 +27,10 @@ src/daten.ts              Typisierter Zugang zu beiden Katalogen
 src/schwangerschaft.ts    Schwangerschaftswoche und Trimester
 src/engine/bewerten.ts    Regelmaschine
 src/engine/suchen.ts      Normalisierung und Matching
-src/App.tsx               Oberfläche
+src/ampel.ts              Beschriftung und Farbe je Urteil
+src/Ergebniskarte.tsx     Ergebnisdarstellung
+src/App.tsx               Suche und Zusammenbau
+prototyp/essen-check.jsx  Referenz für Interaktion und Formulierungen
 ```
 
 Die Kataloge liegen bewusst unter `daten/` statt unter `src/`: neue Lebensmittel
@@ -71,15 +74,30 @@ bei `meiden`. Camembert aus pasteurisierter Milch ist deshalb `meiden` — beide
 Begründungen werden angezeigt, damit die strengere Einstufung nachvollziehbar
 bleibt. Das ist so gewollt und durch Tests festgehalten.
 
+## Verhältnis zum Prototyp
+
+`prototyp/essen-check.jsx` bleibt unverändert als Referenz liegen, samt seiner
+transkribierten Umlaute — korrigiert werden sie bei der Übernahme in Katalog und
+Oberfläche, nicht in der Vorlage.
+
+Übernommen sind Interaktion, Ampelbeschriftung, Alternativenblock und die
+Formulierungen. Drei bewusste Abweichungen:
+
+- Das Urteilswort steht grösser als der Fliesstext, wie `SPEC.md` es verlangt.
+  Der Prototyp setzt es kleiner.
+- Der Nulltreffer verweist nur auf die Hebamme. Der Prototyp bittet zusätzlich,
+  den Begriff zu melden — ein Feedback-Kanal ist in v1 ausdrücklich kein Ziel.
+- Die Urteile stammen aus dem Regelkatalog statt aus dem Eintrag. Wo sich beide
+  unterscheiden, gilt die strengere Auskunft.
+
 ## Stand
 
-Aufgaben 1 und 2 aus `SPEC.md` sind umgesetzt: Projektgerüst, Datenmodell,
-Regelmaschine und Suche mit 57 Tests. Der erweiterte Katalog (Aufgabe 3), die
-PWA-Hülle (Aufgabe 4) und das Deployment (Aufgabe 5) stehen aus. Die Oberfläche
-zeigt bisher nur Kopf- und Fusszeile.
+Aufgaben 1 und 2 aus `SPEC.md` sind umgesetzt, dazu die Oberfläche auf der
+Regelmaschine: Suche, Trefferliste, Ergebniskarte mit allen Varianten,
+Alternativen, Trimester-Hinweise und Nulltreffer. 59 Tests.
 
-Der in `SPEC.md` erwähnte Prototyp `prototyp/essen-check.jsx` liegt noch nicht vor
-und wird separat nachgereicht.
+Offen: der erweiterte Katalog (Aufgabe 3), die PWA-Hülle (Aufgabe 4) und das
+Deployment (Aufgabe 5).
 
 ## Vorbehalt
 

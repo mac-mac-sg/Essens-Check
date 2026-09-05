@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { digraphform, findeNachId, MINDESTLAENGE, normalisiere, suche } from './suchen'
 import { lebensmittelKatalog } from '../daten'
+import { BELIEBT } from '../ampel'
 
 const ids = (anfrage: string) => suche(anfrage, lebensmittelKatalog).map((e) => e.id)
 
@@ -82,6 +83,15 @@ describe('suche', () => {
       for (const synonym of eintrag.synonyme) {
         expect(ids(synonym), `${eintrag.id}: ${synonym}`).toContain(eintrag.id)
       }
+    }
+  })
+})
+
+describe('Einstiegs-Chips', () => {
+  it('führt jeder häufige Begriff zu mindestens einem Treffer', () => {
+    // Ein Chip, der ins Leere führt, wäre die schlechteste Visitenkarte.
+    for (const eintrag of BELIEBT) {
+      expect(ids(eintrag), eintrag).not.toEqual([])
     }
   })
 })

@@ -12,6 +12,11 @@ describe('berechneStand', () => {
     expect(berechneStand(TERMIN, new Date('2029-12-27T09:00:00')).anzeige).toBe('39+2')
   })
 
+  it('zählt die Tage bis zum Termin', () => {
+    expect(berechneStand(TERMIN, new Date('2030-01-01T09:00:00')).tageBis).toBe(0)
+    expect(berechneStand(TERMIN, new Date('2029-12-25T09:00:00')).tageBis).toBe(7)
+  })
+
   it('ordnet das erste Trimester bis 13+6 zu', () => {
     const stand = berechneStand(TERMIN, new Date('2029-07-02T09:00:00'))
     expect(stand.woche).toBe(13)
