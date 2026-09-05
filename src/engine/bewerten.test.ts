@@ -146,6 +146,47 @@ describe('Bärlauch wird bodennah gesammelt', () => {
   })
 })
 
+describe('Nährstoffpräparate', () => {
+  it('gibt die vier häufig gefragten Präparate frei', () => {
+    for (const id of ['magnesium', 'kalzium', 'vitamin-d', 'folsaeure', 'eisen', 'omega3']) {
+      expect(urteile(id), id).toEqual(['ok'])
+    }
+  })
+
+  it('verweist bei der Menge auf die Ärztin statt eine Dosis zu nennen', () => {
+    const text = ersteVariante('magnesium').begruendungen.map((b) => b.text).join(' ')
+    expect(text).toMatch(/Ärztin|Hebamme/)
+    expect(text).not.toMatch(/\d+\s*(mg|µg|ug|IE|I\.E\.)/)
+  })
+
+  it('trennt das Schwangerschaftspräparat vom Vitamin-A-Präparat', () => {
+    // Ein Multivitamin für die Schwangerschaft ist kein Retinolpräparat.
+    // Ohne Angabe bleibt es beim strengeren Urteil.
+    expect(urteile('multivitamin')).toEqual(['ok', 'meiden'])
+  })
+
+  it('trennt Vitamin D von Vitamin A', () => {
+    expect(urteile('vitamin-d')).toEqual(['ok'])
+    expect(urteile('vitamin-a-praeparat')).toEqual(['meiden'])
+    expect(urteile('lebertran')).toEqual(['meiden'])
+  })
+})
+
+describe('Jod: zu wenig und zu viel liegen nah beieinander', () => {
+  it('gibt das verordnete Präparat frei und das Algenpräparat nicht', () => {
+    expect(urteile('jod')).toEqual(['ok', 'meiden'])
+  })
+
+  it('staffelt Algen nach Menge statt sie pauschal freizugeben', () => {
+    expect(urteile('algen')).toEqual(['ok', 'bedingt', 'meiden'])
+  })
+
+  it('begründet Nori mit der Menge, nicht mit gekochtem Gemüse', () => {
+    const erste = ersteVariante('algen')
+    expect(erste.begruendungen[0]?.titel).toBe('Zu viel Jod')
+  })
+})
+
 describe('Trimester-Hinweise', () => {
   it('zeigt den Retinol-Hinweis nur im ersten Trimester', () => {
     expect(ersteVariante('leber', 1).trimesterHinweise).toHaveLength(1)

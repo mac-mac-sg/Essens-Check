@@ -213,7 +213,7 @@ bleibt ein Nulltreffer.
 **Umgekehrte Frage.** Vom Startbildschirm aus erreichbar: «Was kann ich essen?»
 listet nach Warengruppe, was ein klares Ja hat, mit der Zubereitung, unter der
 es gilt. Die Gruppen sind zugeklappt — zwölf Titel auf einen Blick statt
-217 Einträge am Stück. `bedingt` bleibt draussen — eine Liste, die zum Zugreifen einlädt, darf
+222 Einträge am Stück. `bedingt` bleibt draussen — eine Liste, die zum Zugreifen einlädt, darf
 nichts enthalten, das noch eine Einschränkung mitbringt.
 
 Barrierefrei bis Kontrast AA, Tastaturfokus sichtbar, `prefers-reduced-motion`

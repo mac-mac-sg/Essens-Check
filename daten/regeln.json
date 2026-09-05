@@ -117,6 +117,18 @@
       "trimester_text": "Im ersten Trimester besonders relevant, da in dieser Phase die Organe angelegt werden."
     },
     {
+      "id": "jod-ueberschuss",
+      "titel": "Zu viel Jod",
+      "trifft_auf": ["jod-hochdosiert"],
+      "status": "meiden",
+      "begruendung": "Der Jodbedarf steigt in der Schwangerschaft, die Spanne zwischen zu wenig und zu viel ist aber schmal. Zu viel belastet die kindliche Schilddrüse. Kritisch sind Algen- und Seetangpräparate: ihr Jodgehalt schwankt stark und liegt oft weit über dem Bedarf.",
+      "entschaerfung": [
+        { "durch": "speisemenge", "auf": "ok", "text": "Ein Blatt Nori im Sushi oder eine Prise als Würze fällt nicht ins Gewicht." },
+        { "durch": "mengenbegrenzung", "auf": "bedingt", "text": "Gelegentlich als Beilage ist unproblematisch — täglich Algensalat oder ein Präparat ist es nicht." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
       "id": "koffein-limit",
       "titel": "Koffein",
       "trifft_auf": ["koffein"],
@@ -180,9 +192,10 @@
     }
   ],
   "zustaende": [
-    "roh", "durcherhitzt", "fleisch-rosa", "pasteurisiert", "rohmilch",
-    "kalt-geraeuchert", "tiefgefroren-3-tage", "gewaschen", "koffeinfrei",
-    "null-komma-null", "offene-ware", "abgepackt"
+    "roh", "durcherhitzt", "durchgegart", "gekocht", "fleisch-rosa",
+    "pasteurisiert", "rohmilch", "kalt-geraeuchert", "tiefgefroren-3-tage",
+    "gewaschen", "koffeinfrei", "null-komma-null", "mengenbegrenzung",
+    "speisemenge", "offene-ware", "abgepackt"
   ],
   "status_rangfolge": ["ok", "bedingt", "meiden", "unklar"],
   "unbedenkliche_tags": [
@@ -200,6 +213,7 @@
     { "tag": "gewuerz", "text": "Küchengewürze und koffeinfreie Aufgüsse ohne wehenfördernde Wirkung sind in Speisemengen unbedenklich." },
     { "tag": "zucker-suessware", "text": "Zucker und Süsswaren ohne weitere Risikozutat sind unbedenklich." },
     { "tag": "honig", "text": "Honig ist für die Schwangere unbedenklich." },
-    { "tag": "wasser", "text": "Leitungswasser ist in der Schweiz unbedenklich." }
+    { "tag": "wasser", "text": "Leitungswasser ist in der Schweiz unbedenklich." },
+    { "tag": "naehrstoff-praeparat", "text": "Nährstoffpräparate in der verordneten Dosis sind unbedenklich. Über die Menge entscheidet die Ärztin, nicht diese App." }
   ]
 }

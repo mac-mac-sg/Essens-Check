@@ -2937,7 +2937,7 @@
       "varianten": [
         {
           "label": null,
-          "komponenten": [{"tag": "gewuerz"}]
+          "komponenten": [{"tag": "naehrstoff-praeparat"}]
         }
       ],
       "alternativen": [],
@@ -2947,7 +2947,7 @@
       "id": "vitamin-a-praeparat",
       "name": "Vitamin-A-Präparat",
       "gruppe": "Kräuter, Gewürze, Präparate",
-      "synonyme": ["vitamin a", "retinol", "vitaminpräparat", "multivitamin"],
+      "synonyme": ["vitamin a", "retinol", "retinolpräparat", "vitamin-a-kapseln"],
       "varianten": [
         {
           "label": null,
@@ -2964,7 +2964,7 @@
       "varianten": [
         {
           "label": null,
-          "komponenten": [{"tag": "gewuerz"}]
+          "komponenten": [{"tag": "naehrstoff-praeparat"}]
         }
       ],
       "alternativen": [],
@@ -2978,7 +2978,7 @@
       "varianten": [
         {
           "label": null,
-          "komponenten": [{"tag": "oel-fett"}]
+          "komponenten": [{"tag": "naehrstoff-praeparat"}]
         }
       ],
       "alternativen": [],
@@ -2996,6 +2996,98 @@
         }
       ],
       "alternativen": ["Algenöl", "Zwei Portionen fetter Fisch pro Woche"]
+    },
+    {
+      "id": "multivitamin",
+      "name": "Multivitamin und Schwangerschaftspräparat",
+      "gruppe": "Kräuter, Gewürze, Präparate",
+      "synonyme": ["multivitamin", "vitaminpräparat", "schwangerschaftsvitamine", "kombipräparat", "prenatal", "vitamine"],
+      "varianten": [
+        {
+          "label": "Für die Schwangerschaft ausgewiesen",
+          "komponenten": [{"tag": "naehrstoff-praeparat"}]
+        },
+        {
+          "label": "Allgemeines Multivitamin ohne Angabe",
+          "komponenten": [{"tag": "retinol-supplement"}]
+        }
+      ],
+      "alternativen": ["Folsäure", "Vitamin D", "Jod"],
+      "frage": "Ist es für die Schwangerschaft gemacht?"
+    },
+    {
+      "id": "jod",
+      "name": "Jod",
+      "gruppe": "Kräuter, Gewürze, Präparate",
+      "synonyme": ["jod", "iod", "jodid", "jodpräparat", "schilddrüse"],
+      "varianten": [
+        {
+          "label": "Als Präparat in der verordneten Dosis",
+          "komponenten": [{"tag": "naehrstoff-praeparat"}]
+        },
+        {
+          "label": "Als Algen- oder Seetangpräparat",
+          "komponenten": [{"tag": "jod-hochdosiert"}]
+        }
+      ],
+      "alternativen": ["Jodiertes Speisesalz", "Milchprodukte", "Durchgegarter Seefisch"],
+      "frage": "Woraus?"
+    },
+    {
+      "id": "speisesalz",
+      "name": "Speisesalz und Jodsalz",
+      "gruppe": "Kräuter, Gewürze, Präparate",
+      "synonyme": ["salz", "speisesalz", "jodsalz", "kochsalz", "meersalz", "fleur de sel", "himalayasalz"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Salz selbst ist unbedenklich. In der Schweiz wird der Jodbedarf hauptsächlich über jodiertes Speisesalz gedeckt — Fleur de Sel, Meersalz und Himalayasalz enthalten praktisch kein Jod. Wer überwiegend solches Salz verwendet, viel auswärts isst oder salzarm kocht, bespricht die Jodversorgung mit der Ärztin."
+    },
+    {
+      "id": "vitamin-d",
+      "name": "Vitamin D",
+      "gruppe": "Kräuter, Gewürze, Präparate",
+      "synonyme": ["vitamin d", "vitamin d3", "cholecalciferol", "vitamin-d-präparat"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "naehrstoff-praeparat"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Vitamin D wird in der Schwangerschaft ergänzt; das Sonnenlicht reicht im Schweizer Winterhalbjahr für die eigene Bildung nicht aus. Über die Dosis entscheidet die Ärztin. Nicht zu verwechseln mit Vitamin A — das ist der Nährstoff, der in hoher Dosis schadet."
+    },
+    {
+      "id": "kalzium",
+      "name": "Kalzium",
+      "gruppe": "Kräuter, Gewürze, Präparate",
+      "synonyme": ["kalzium", "calcium", "kalziumpräparat", "kalk"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "naehrstoff-praeparat"}]
+        }
+      ],
+      "alternativen": ["Milch, Joghurt und Hartkäse", "Kalziumreiches Mineralwasser"],
+      "eigener_text": "Der Bedarf ist in der Schwangerschaft erhöht und mit Milchprodukten meist gedeckt. Wer sie meidet, bespricht eine Ergänzung mit der Ärztin. Kalzium und Eisen nicht zur gleichen Mahlzeit einnehmen — sie behindern sich gegenseitig bei der Aufnahme."
+    },
+    {
+      "id": "magnesium",
+      "name": "Magnesium",
+      "gruppe": "Kräuter, Gewürze, Präparate",
+      "synonyme": ["magnesium", "magnesiumpräparat", "wadenkrämpfe", "muskelkrämpfe"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "naehrstoff-praeparat"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Magnesium wird in der Schwangerschaft häufig gegen Wadenkrämpfe eingenommen und ist in der üblichen Dosis unbedenklich. Zu viel führt zu weichem Stuhl. Über die Dosis entscheiden Ärztin oder Hebamme."
     },
     {
       "id": "bubbletea",
@@ -3060,15 +3152,23 @@
       "id": "algen",
       "name": "Algen und Nori",
       "gruppe": "Fisch und Meeresfrüchte",
-      "synonyme": ["algen", "nori", "wakame", "seetang"],
+      "synonyme": ["algen", "nori", "wakame", "seetang", "kombu", "algensalat"],
       "varianten": [
         {
-          "label": null,
-          "komponenten": [{"tag": "gemuese-gekocht"}]
+          "label": "Nori im Sushi oder als Würze",
+          "komponenten": [{"tag": "jod-hochdosiert", "zustand": "speisemenge"}]
+        },
+        {
+          "label": "Als Salat oder in grösseren Mengen",
+          "komponenten": [{"tag": "jod-hochdosiert", "zustand": "mengenbegrenzung"}]
+        },
+        {
+          "label": "Als Algen- oder Seetangpräparat",
+          "komponenten": [{"tag": "jod-hochdosiert"}]
         }
       ],
-      "alternativen": [],
-      "eigener_text": "Nori im Sushi ist unbedenklich. Von grösseren Mengen Algen wird wegen des hohen Jodgehalts abgeraten."
+      "alternativen": ["Jodiertes Speisesalz", "Durchgegarter Seefisch"],
+      "frage": "In welcher Menge?"
     },
     {
       "id": "chia",
