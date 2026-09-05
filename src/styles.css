@@ -1,4 +1,8 @@
-/* Farbsystem exakt nach SPEC.md. Keine externen Fonts — die App verlässt das Gerät nicht. */
+/*
+ * Farbsystem exakt nach SPEC.md — die Palette ist vorgegeben und bleibt.
+ * Keine externen Fonts: die Systemschrift bringt optische Grössen, Tracking-
+ * Tabellen und Lesbarkeitsfeinschliff bereits mit.
+ */
 :root {
   --grundflaeche: #f4f5f2;
   --karte: #ffffff;
@@ -11,9 +15,20 @@
   --ocker: #7a5311;
   --ockerflaeche: #efe6d5;
   --linie: #d8dad2;
+  --unklar: #55605a;
+  --unklarflaeche: #e4e6e1;
 
-  --radius: 12px;
+  /* Flächen statt Ränder: getönte Abstufungen der Grundfläche. */
+  --flaeche-still: #eceee8;
+  --flaeche-gedrueckt: #e3e6df;
+  --schatten: 0 1px 2px rgba(22, 33, 28, 0.04), 0 8px 24px rgba(22, 33, 28, 0.06);
+
+  --radius: 20px;
+  --radius-klein: 12px;
   --spur: 1rem;
+
+  /* Die eingebauten CSS-Kurven sind zu weich. Diese hat Zug. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 17px;
@@ -33,21 +48,25 @@ body {
   background: var(--grundflaeche);
 }
 
-/* Tastaturfokus bleibt immer sichtbar. */
 :focus-visible {
   outline: 3px solid var(--tannengruen);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
-/* Bewegung nur als Antwort auf eine Eingabe — und nur, wenn gewünscht. */
+/*
+ * Reduzierte Bewegung heisst nicht keine Rückmeldung, sondern eine sanftere:
+ * Farb- und Deckkraftwechsel bleiben, Verschiebungen und Skalierungen fallen weg.
+ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-property: opacity, background-color, color !important;
+    transition-duration: 150ms !important;
+    transform: none !important;
     scroll-behavior: auto !important;
   }
 }
@@ -60,27 +79,40 @@ body {
 
 /* ---------------------------- Kopfzeile ---------------------------- */
 
+/*
+ * Durchscheinende Leiste, unter der der Inhalt durchläuft — statt eines
+ * undurchsichtigen Streifens mit harter Trennlinie darunter.
+ */
 .kopfzeile {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--spur);
-  padding: calc(var(--spur) + env(safe-area-inset-top)) var(--spur) var(--spur);
-  background: var(--tannengruen);
+  padding: calc(0.875rem + env(safe-area-inset-top)) var(--spur) 0.875rem;
+  background: rgba(20, 67, 47, 0.92);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   color: #ffffff;
 }
 
 .kopfzeile__titel {
   margin: 0;
-  font-size: 1.25rem;
+  min-width: 0;
+  /* Grosse Schrift läuft optisch auseinander — Tracking negativ, Zeilen eng. */
+  font-size: clamp(1.0625rem, 4.8vw, 1.3125rem);
   font-weight: 600;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: -0.021em;
 }
 
 .kopfzeile__stand {
   margin: 0;
   text-align: right;
   font-size: 0.8125rem;
+  line-height: 1.35;
   font-variant-numeric: tabular-nums;
 }
 
@@ -88,15 +120,34 @@ body {
   display: block;
   font-weight: 600;
   white-space: nowrap;
+  /* Kleine Schrift braucht etwas mehr Luft zwischen den Zeichen. */
+  letter-spacing: 0.005em;
 }
 
-/* Eigene Zeilen, damit nie mitten in einer Angabe umgebrochen wird. */
 .kopfzeile__trimester,
 .kopfzeile__tage {
   display: block;
   white-space: nowrap;
-  /* Auf Tannengrün ergibt das rund 6:1 — deutlich über AA. */
   color: #b9cfc2;
+}
+
+.kopfzeile__eintragen {
+  padding: 0.45rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 140ms var(--ease-out), background-color 140ms ease;
+}
+
+.kopfzeile__eintragen:active {
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .inhalt {
@@ -104,7 +155,7 @@ body {
   width: 100%;
   max-width: 34rem;
   margin: 0 auto;
-  padding: var(--spur);
+  padding: var(--spur) var(--spur) 2rem;
 }
 
 /* ---------------------------- Suche ---------------------------- */
@@ -113,22 +164,73 @@ body {
   display: block;
   margin-bottom: 0.5rem;
   font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.006em;
   color: var(--text-gedaempft);
+}
+
+.suchfeld-huelle {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.suchfeld-huelle svg {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-gedaempft);
+  pointer-events: none;
 }
 
 .suchfeld {
   width: 100%;
-  padding: 0.9rem 1rem;
+  padding: 0.95rem 3rem 0.95rem 2.9rem;
   font-family: inherit;
   font-size: 1.0625rem;
   color: var(--text);
   background: var(--karte);
-  border: 1px solid #c9ccc3;
-  border-radius: var(--radius);
+  border: none;
+  border-radius: var(--radius-klein);
+  box-shadow: var(--schatten);
+  transition: box-shadow 160ms ease;
+}
+
+/* Das Datumsfeld braucht kein Lupensymbol. */
+.suchfeld--datum {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .suchfeld::placeholder {
   color: #8a938c;
+}
+
+/* Chromiums eigener Lösch-Knopf ist knallblau und bricht die Palette. */
+.suchfeld::-webkit-search-cancel-button,
+.suchfeld::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.suchfeld-loeschen {
+  position: absolute;
+  right: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--text-gedaempft);
+  background: none;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), background-color 140ms ease;
+}
+
+.suchfeld-loeschen:active {
+  transform: scale(0.92);
+  background: var(--flaeche-still);
 }
 
 .chips {
@@ -139,117 +241,104 @@ body {
 }
 
 .chip {
-  padding: 0.45rem 0.9rem;
+  padding: 0.55rem 0.95rem;
   font-family: inherit;
-  font-size: 0.875rem;
-  color: #3b453e;
-  background: var(--karte);
-  border: 1px solid #cbcec5;
-  border-radius: 20px;
+  font-size: 0.9375rem;
+  color: var(--text);
+  background: var(--flaeche-still);
+  border: none;
+  border-radius: 999px;
   cursor: pointer;
+  transition: transform 140ms var(--ease-out), background-color 140ms ease;
 }
 
-.chip:hover {
-  background: #eaece6;
+.chip:active {
+  transform: scale(0.96);
+  background: var(--flaeche-gedrueckt);
+}
+
+/* Berührungsgeräte lösen Hover beim Tippen aus — deshalb abgegrenzt. */
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover {
+    background: var(--flaeche-gedrueckt);
+  }
 }
 
 .liste {
-  margin: var(--spur) 0 0;
+  margin: 0.875rem 0 0;
   padding: 0;
   list-style: none;
 }
 
 .liste li button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
   width: 100%;
-  padding: 0.9rem 0.25rem;
+  /* Tippfläche deutlich über der Mindestgrösse. */
+  min-height: 56px;
+  padding: 0.9rem 0.75rem 0.9rem 1rem;
   font-family: inherit;
   font-size: 1rem;
   text-align: left;
   color: var(--text);
   background: none;
   border: none;
-  border-bottom: 1px solid #e1e3dc;
+  border-radius: var(--radius-klein);
   cursor: pointer;
+  transition: transform 140ms var(--ease-out), background-color 140ms ease;
 }
 
-.liste li button:hover {
-  background: #eaece6;
+.liste li button:active {
+  transform: scale(0.985);
+  background: var(--flaeche-gedrueckt);
 }
 
-/* ---------------------------- Ergebniskarte ---------------------------- */
-
-.kopfzeile__eintragen {
-  padding: 0.35rem 0.7rem;
-  font-family: inherit;
-  font-size: 0.8125rem;
-  color: #ffffff;
-  background: none;
-  border: 1px solid #4a7360;
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap;
+@media (hover: hover) and (pointer: fine) {
+  .liste li button:hover {
+    background: var(--flaeche-still);
+  }
 }
 
-.termin__hinweis {
-  margin: 0.75rem 0 0;
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  color: var(--text-gedaempft);
-}
-
-.termin__fehler {
-  margin: 0.5rem 0 0;
-  font-size: 0.8125rem;
-  color: var(--weinrot);
-}
-
-.termin__knoepfe {
-  display: flex;
-  align-items: center;
-  gap: var(--spur);
-  margin-top: var(--spur);
-}
-
-.knopf {
-  padding: 0.6rem 1.1rem;
-  font-family: inherit;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: #ffffff;
-  background: var(--tannengruen);
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-}
-
-.termin__knoepfe .zurueck {
-  margin-top: 0;
-}
-
-.fusszeile__termin {
-  margin-top: 0.75rem;
-  padding: 0.25rem;
-  font-family: inherit;
-  font-size: 0.8125rem;
-  color: var(--tannengruen);
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
+.liste__pfeil {
+  flex: 0 0 auto;
+  color: #9aa39c;
 }
 
 .weitere {
   margin: 0.875rem 0 0;
+  padding-left: 1rem;
   font-size: 0.8125rem;
   color: var(--text-gedaempft);
 }
 
+/* ---------------------------- Karte ---------------------------- */
+
 .karte {
   margin-top: var(--spur);
-  padding: 1.25rem 1.125rem;
+  padding: 1.25rem;
   background: var(--karte);
-  border: 1px solid var(--linie);
+  border: none;
   border-radius: var(--radius);
+  box-shadow: var(--schatten);
+}
+
+/*
+ * Die Karte erscheint als Antwort auf ein Tippen — kurz, mit Zug, und aus
+ * einer angedeuteten Grösse heraus statt aus dem Nichts.
+ */
+.karte--ergebnis {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  transition: transform 200ms var(--ease-out), opacity 200ms var(--ease-out);
+}
+
+@starting-style {
+  .karte--ergebnis {
+    transform: translateY(8px) scale(0.985);
+    opacity: 0;
+  }
 }
 
 .karte__hinweis {
@@ -258,74 +347,80 @@ body {
 }
 
 .titel {
-  margin: 0 0 1rem;
-  font-size: 1.375rem;
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-}
-
-/*
- * Das Urteilswort steht deutlich grösser als der Fliesstext — so verlangt es
- * SPEC.md. Der Prototyp setzt es kleiner; hier gilt die Spezifikation.
- */
-.urteil {
-  display: inline-block;
-  margin-bottom: 0.875rem;
-  padding: 0.4rem 0.75rem;
+  margin: 0 0 1.125rem;
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.01em;
-  border-radius: 6px;
+  letter-spacing: -0.021em;
+}
+
+/* Einzelurteil: das Wort trägt die Karte. */
+.urteil {
+  display: inline-block;
+  margin-bottom: 0.875rem;
+  padding: 0.5rem 0.9rem;
+  font-size: 1.75rem;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  border-radius: var(--radius-klein);
 }
 
 .text {
   margin: 0 0 var(--spur);
-  font-size: 0.96875rem;
-  line-height: 1.65;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .frage {
-  margin: 0 0 0.625rem;
+  margin: 0 0 0.75rem;
   font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.006em;
   color: var(--text-gedaempft);
 }
 
+/*
+ * Jede Variante ist ein eigener getönter Block statt einer Zeile mit
+ * Farbchip. Die Zubereitung als entscheidender Faktor wird dadurch zur
+ * Gliederung der Karte, nicht zur Fussnote.
+ */
 .zeile {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.7rem;
-  padding: 0.8rem 0;
-  border-top: 1px solid #e5e7e0;
+  padding: 0.875rem 1rem 1rem;
+  border-radius: var(--radius-klein);
+  border: none;
 }
 
-.zeile:first-of-type {
-  padding-top: 0.25rem;
-  border-top: none;
+.zeile + .zeile {
+  margin-top: 0.625rem;
+}
+
+.zeile__kopf {
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+  margin-bottom: 0.35rem;
 }
 
 .marke {
   flex: 0 0 auto;
-  min-width: 3.5rem;
-  margin-top: 0.15rem;
-  padding: 0.25rem 0.55rem;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  text-align: center;
-  border-radius: 4px;
+  font-size: 1.0625rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
 }
 
 .zlabel {
-  margin: 0 0 0.2rem;
-  font-size: 0.96875rem;
-  font-weight: 600;
-  line-height: 1.35;
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text);
 }
 
 .ztext {
   margin: 0 0 0.35rem;
-  font-size: 0.90625rem;
+  font-size: 0.9375rem;
   line-height: 1.55;
   color: #3b453e;
 }
@@ -336,23 +431,25 @@ body {
 
 .warnung {
   margin: 0 0 var(--spur);
-  padding: 0.75rem 0.875rem;
-  font-size: 0.90625rem;
+  padding: 0.8rem 0.95rem;
+  font-size: 0.9375rem;
   line-height: 1.55;
   background: var(--ockerflaeche);
   border-left: 3px solid var(--ocker);
-  border-radius: 0 6px 6px 0;
+  border-radius: 0 var(--radius-klein) var(--radius-klein) 0;
 }
 
 .alt {
-  margin-top: 0.25rem;
-  padding-top: 0.875rem;
-  border-top: 1px solid #e5e7e0;
+  margin-top: 1.125rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--linie);
 }
 
 .alt p {
   margin: 0 0 0.5rem;
   font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.006em;
   color: var(--text-gedaempft);
 }
 
@@ -363,29 +460,130 @@ body {
   line-height: 1.7;
 }
 
-.zurueck {
-  margin-top: var(--spur);
-  padding: 0.5rem 0;
+/* ---------------------------- Knöpfe ---------------------------- */
+
+.knopf {
+  padding: 0.7rem 1.25rem;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--tannengruen);
+  border: none;
+  border-radius: var(--radius-klein);
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), opacity 140ms ease;
+}
+
+.knopf:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+.zurueck {
+  margin-top: 1.125rem;
+  padding: 0.5rem 0.25rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
   color: var(--tannengruen);
   background: none;
   border: none;
   cursor: pointer;
-  text-decoration: underline;
+  transition: transform 140ms var(--ease-out), opacity 140ms ease;
+}
+
+.zurueck:active {
+  transform: scale(0.97);
+  opacity: 0.7;
+}
+
+.zurueck--flaeche {
+  padding: 0.7rem 1.1rem;
+  background: var(--flaeche-still);
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.zurueck--flaeche:active {
+  background: var(--flaeche-gedrueckt);
+  opacity: 1;
+}
+
+.termin__hinweis {
+  margin: 0.875rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text-gedaempft);
+}
+
+.termin__fehler {
+  margin: 0.625rem 0 0;
+  font-size: 0.875rem;
+  color: var(--weinrot);
+}
+
+.termin__knoepfe {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-top: var(--spur);
+}
+
+.termin__knoepfe .zurueck {
+  margin-top: 0;
 }
 
 /* ---------------------------- Fusszeile ---------------------------- */
 
 .fusszeile {
-  padding: var(--spur) var(--spur) calc(var(--spur) + env(safe-area-inset-bottom));
-  border-top: 1px solid var(--linie);
+  padding: 1.25rem var(--spur) calc(1.25rem + env(safe-area-inset-bottom));
   color: var(--text-gedaempft);
   font-size: 0.8125rem;
+  line-height: 1.6;
   text-align: center;
 }
 
 .fusszeile p {
   max-width: 34rem;
   margin: 0 auto;
+}
+
+.fusszeile__termin {
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: var(--tannengruen);
+  background: var(--flaeche-still);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out);
+}
+
+.fusszeile__termin:active {
+  transform: scale(0.96);
+}
+
+/* ---------------------------- Barrierefreiheit ---------------------------- */
+
+/* Wer weniger Transparenz will, bekommt eine deckende Leiste. */
+@media (prefers-reduced-transparency: reduce) {
+  .kopfzeile {
+    background: var(--tannengruen);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Wer mehr Kontrast will, bekommt definierte Ränder zurück. */
+@media (prefers-contrast: more) {
+  .karte,
+  .suchfeld,
+  .chip,
+  .zeile {
+    border: 1px solid var(--text);
+    box-shadow: none;
+  }
 }

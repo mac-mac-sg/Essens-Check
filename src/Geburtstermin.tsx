@@ -34,7 +34,7 @@ export function Geburtstermin({
       </label>
       <input
         id="termin"
-        className="suchfeld"
+        className="suchfeld suchfeld--datum"
         type="date"
         value={wert}
         onChange={(e) => {

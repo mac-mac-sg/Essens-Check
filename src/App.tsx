@@ -71,7 +71,7 @@ export function App() {
         {urteil ? (
           <>
             <Ergebniskarte urteil={urteil} />
-            <button className="zurueck" type="button" onClick={zuruecksetzen}>
+            <button className="zurueck zurueck--flaeche" type="button" onClick={zuruecksetzen}>
               Neue Suche
             </button>
           </>
@@ -80,18 +80,44 @@ export function App() {
             <label className="feldtitel" htmlFor="suche">
               Lebensmittel eingeben
             </label>
-            <input
-              id="suche"
-              className="suchfeld"
-              type="search"
-              placeholder="Camembert, Lachs, Kaffee …"
-              value={begriff}
-              onChange={(ereignis) => setBegriff(ereignis.target.value)}
-              autoFocus
-              autoComplete="off"
-              autoCorrect="off"
-              spellCheck={false}
-            />
+            <div className="suchfeld-huelle">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="2" />
+                <path d="M13.5 13.5 L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+              <input
+                id="suche"
+                className="suchfeld"
+                type="search"
+                placeholder="Camembert, Lachs, Kaffee …"
+                value={begriff}
+                onChange={(ereignis) => setBegriff(ereignis.target.value)}
+                autoFocus
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck={false}
+              />
+              {begriff.length > 0 && (
+                <button
+                  className="suchfeld-loeschen"
+                  type="button"
+                  aria-label="Suche leeren"
+                  onClick={() => {
+                    setBegriff('')
+                    document.getElementById('suche')?.focus()
+                  }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M4 4 L12 12 M12 4 L4 12"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+              )}
+            </div>
 
             {!gesucht && (
               <div className="chips">
@@ -114,7 +140,23 @@ export function App() {
                   {sichtbar.map((eintrag) => (
                     <li key={eintrag.id}>
                       <button type="button" onClick={() => setOffeneId(eintrag.id)}>
-                        {eintrag.name}
+                        <span>{eintrag.name}</span>
+                        <svg
+                          className="liste__pfeil"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M6 3.5 L10.5 8 L6 12.5"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
                       </button>
                     </li>
                   ))}
@@ -129,7 +171,7 @@ export function App() {
 
             {/* Nulltreffer: nicht raten, sondern sagen, dass nichts hinterlegt ist. */}
             {gesucht && treffer.length === 0 && (
-              <div className="karte" role="status">
+              <div className="karte karte--ergebnis" role="status">
                 <span
                   className="urteil"
                   style={{ color: AMPEL.unklar.farbe, background: AMPEL.unklar.flaeche }}

@@ -150,6 +150,32 @@ Er lässt den Service Worker ablegen, kappt die Verbindung und prüft dann
 Neuladevorgang, Suche, Urteil und Kaltstart in einem frischen Tab. Gegengeprüft
 mit absichtlich beschädigtem Service Worker — dann schlägt er fehl.
 
+## Gestaltung
+
+Die Palette ist durch `SPEC.md` vorgegeben und bleibt unangetastet. Die
+Bauweise darüber folgt zwei Grundsätzen:
+
+- **Flächen statt Ränder.** Getönte Abstufungen und eine weiche Schattenstufe
+  gliedern die Oberfläche; 1px-Umrandungen gibt es nur noch unter
+  `prefers-contrast: more`.
+- **Grössenabhängige Typografie.** Grosse Schrift bekommt negatives Tracking
+  und enge Zeilen, kleine etwas mehr Laufweite. Hierarchie entsteht aus
+  Gewicht, Grösse und Zeilenabstand zusammen, nicht aus der Grösse allein.
+
+Bewegung ist bewusst knapp gehalten. Was oft gesehen wird, wird nicht
+animiert — die Trefferliste aktualisiert sich bei jedem Tastendruck und bleibt
+deshalb völlig ruhig. Animiert sind nur die Druckrückmeldung auf tippbaren
+Flächen und das Erscheinen der Ergebniskarte. Alles unter 200 ms, nur
+`transform` und `opacity`, mit einer Kurve mit Zug statt der weichen
+CSS-Vorgaben.
+
+Unter `prefers-reduced-motion` bleiben Farb- und Deckkraftwechsel erhalten,
+Verschiebungen fallen weg — reduzierte Bewegung heisst sanfter, nicht gar
+keine Rückmeldung.
+
+Die Skills unter `.agents/skills/` sind eingecheckt, damit spätere Arbeit an
+der Oberfläche auf derselben Grundlage aufsetzt.
+
 ## Deployment
 
 Die App läuft auf GitHub Pages — kein zusätzliches Konto, kein Server.

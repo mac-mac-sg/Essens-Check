@@ -1,19 +1,6 @@
 import { AMPEL } from './ampel'
 import type { Urteil, VariantenUrteil } from './engine/bewerten'
 
-/** Farbige Marke, die das Urteil immer auch ausschreibt. */
-function Marke({ urteil, lang = false }: { urteil: VariantenUrteil; lang?: boolean }) {
-  const stufe = AMPEL[urteil.status]
-  return (
-    <span
-      className={lang ? 'urteil' : 'marke'}
-      style={{ color: stufe.farbe, background: stufe.flaeche }}
-    >
-      {lang ? stufe.wort : stufe.kurz}
-    </span>
-  )
-}
-
 function Begruendungen({ urteil }: { urteil: VariantenUrteil }) {
   return (
     <>
@@ -27,13 +14,12 @@ function Begruendungen({ urteil }: { urteil: VariantenUrteil }) {
 }
 
 export function Ergebniskarte({ urteil }: { urteil: Urteil }) {
-  // Eine einzelne Variante ohne Bezeichnung ist keine Zubereitungsfrage.
   const erste = urteil.varianten[0]
   const einzeln = urteil.varianten.length === 1 && erste?.label === null
   const trimesterHinweise = urteil.varianten.flatMap((variante) => variante.trimesterHinweise)
 
   return (
-    <article className="karte" aria-labelledby="ergebnis-titel">
+    <article className="karte karte--ergebnis" aria-labelledby="ergebnis-titel">
       <h2 className="titel" id="ergebnis-titel">
         {urteil.name}
       </h2>
@@ -46,25 +32,39 @@ export function Ergebniskarte({ urteil }: { urteil: Urteil }) {
 
       {einzeln && erste ? (
         <>
-          <Marke urteil={erste} lang />
+          <span
+            className="urteil"
+            style={{ color: AMPEL[erste.status].farbe, background: AMPEL[erste.status].flaeche }}
+          >
+            {AMPEL[erste.status].wort}
+          </span>
           <div className="text">
             <Begruendungen urteil={erste} />
           </div>
         </>
       ) : (
         <>
-          {/* Alle Varianten sind gleichzeitig sichtbar: die Zubereitung ist
-              der entscheidende Faktor, das soll auf einen Blick erkennbar sein. */}
+          {/* Alle Varianten gleichzeitig sichtbar: die Zubereitung gliedert die
+              Karte, statt als Randnotiz danebenzustehen. */}
           <p className="frage">{urteil.frage ?? 'Je nach Zubereitung'}</p>
-          {urteil.varianten.map((variante, i) => (
-            <div className="zeile" key={variante.label ?? i}>
-              <Marke urteil={variante} />
-              <div>
-                {variante.label && <p className="zlabel">{variante.label}</p>}
+          {urteil.varianten.map((variante, i) => {
+            const stufe = AMPEL[variante.status]
+            return (
+              <div
+                className="zeile"
+                key={variante.label ?? i}
+                style={{ background: stufe.flaeche }}
+              >
+                <div className="zeile__kopf">
+                  <span className="marke" style={{ color: stufe.farbe }}>
+                    {stufe.kurz}
+                  </span>
+                  {variante.label && <p className="zlabel">{variante.label}</p>}
+                </div>
                 <Begruendungen urteil={variante} />
               </div>
-            </div>
-          ))}
+            )
+          })}
         </>
       )}
 
