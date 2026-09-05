@@ -35,7 +35,7 @@ describe('Zubereitung entscheidet', () => {
   })
 
   it('gibt Eier nur durchgegart frei', () => {
-    expect(urteile('spiegelei')).toEqual(['ok', 'meiden'])
+    expect(urteile('ei')).toEqual(['ok', 'meiden'])
   })
 
   it('gibt Austern und Sprossen nur gegart frei', () => {
@@ -228,35 +228,64 @@ describe('Katalogabdeckung', () => {
     }
   })
 
-  it('hält die Urteile aller Varianten fest', () => {
-    const stand = Object.fromEntries(
-      lebensmittelKatalog.lebensmittel.map((eintrag) => [
-        eintrag.id,
-        bewerteLebensmittel(eintrag, regelKatalog).varianten.map((v) => v.status),
-      ]),
-    )
-    expect(stand).toEqual({
+  /**
+   * Referenzurteile. Kein Abbild des ganzen Katalogs — der wächst —, sondern
+   * die Fälle, die je ein Regelmuster festhalten. Dreht ein Regelumbau eines
+   * davon, schlägt dieser Test an.
+   */
+  it('hält die Referenzurteile fest', () => {
+    const referenz: Record<string, Status[]> = {
+      // Weichkäse: die strengere der beiden Listerien-Regeln gewinnt
       camembert: ['meiden', 'meiden', 'ok'],
       hartkaese: ['ok'],
+      feta: ['ok', 'meiden'],
+      // Fisch: Garung, Räucherung, Quecksilber
       lachs: ['ok', 'meiden', 'meiden'],
       thunfisch: ['bedingt', 'meiden'],
       schwertfisch: ['meiden'],
+      // Fleisch: Toxoplasmose und ihre Entschärfungen
       salami: ['meiden', 'ok', 'bedingt'],
       tatar: ['meiden'],
       steak: ['ok', 'meiden'],
       gefluegel: ['bedingt'],
+      // Ei
+      ei: ['ok', 'meiden'],
       tiramisu: ['meiden', 'ok'],
-      spiegelei: ['ok', 'meiden'],
-      kaffee: ['bedingt', 'ok'],
-      leber: ['meiden'],
-      austern: ['ok', 'meiden'],
-      sprossen: ['ok', 'meiden'],
+      // Mehrere Komponenten, schlechteste gewinnt
       'vitello-tonnato': ['meiden', 'ok'],
-      ananas: ['ok'],
+      // Getränke
+      kaffee: ['bedingt', 'ok'],
       'wein-bier': ['meiden', 'ok'],
-      lakritze: ['bedingt'],
-      blattsalat: ['ok', 'bedingt'],
+      alkoholfrei: ['ok', 'meiden'],
+      // Trimester-gewichtete Regeln
+      leber: ['meiden'],
       kraeutertee: ['bedingt'],
-    })
+      // Waschen, Keime, offene Ware
+      blattsalat: ['ok', 'bedingt'],
+      sprossen: ['ok', 'meiden'],
+      fertigsalat: ['meiden'],
+      rohmilch: ['ok', 'meiden'],
+      // Unbedenkliche Tags
+      ananas: ['ok'],
+      brot: ['ok'],
+      wasser: ['ok'],
+    }
+    const gemessen = Object.fromEntries(
+      Object.keys(referenz).map((id) => [id, urteile(id)]),
+    )
+    expect(gemessen).toEqual(referenz)
+  })
+
+  it('deckt jedes Variantenmuster mit mindestens einem Eintrag ab', () => {
+    const muster = new Set(
+      lebensmittelKatalog.lebensmittel.map((eintrag) => eintrag.varianten.length),
+    )
+    expect(muster.has(1)).toBe(true)
+    expect(muster.has(2)).toBe(true)
+    expect(muster.has(3)).toBe(true)
+  })
+
+  it('erreicht den Zielumfang von rund 250 Einträgen', () => {
+    expect(lebensmittelKatalog.lebensmittel.length).toBeGreaterThanOrEqual(240)
   })
 })

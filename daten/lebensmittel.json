@@ -1,219 +1,3638 @@
 {
-  "version": "0.1",
-  "hinweis": "Startkatalog. Deckt bewusst jede Regel und jedes Variantenmuster mindestens einmal ab, damit er als Testgrundlage für die Regelmaschine dient. Von hier aus auf rund 250 Einträge erweitern.",
+  "version": "0.2",
+  "hinweis": "Lebensmittelkatalog. Einträge tragen keine eigene Bewertung, sondern verweisen über Komponenten-Tags auf den Regelkatalog. Inhaltlich nicht fachlich verifiziert — vor produktivem Einsatz durch Hebamme oder Gynäkologin gegenlesen lassen.",
   "lebensmittel": [
     {
       "id": "camembert",
       "name": "Camembert und Brie",
-      "synonyme": ["camembert", "brie", "weichkäse", "weissschimmel", "tomme"],
+      "synonyme": ["camembert", "brie", "weichkäse", "weissschimmel", "chaource", "tomme"],
       "varianten": [
-        { "label": "Aus pasteurisierter Milch", "komponenten": [{ "tag": "rohmilch-weichkaese", "zustand": "pasteurisiert" }] },
-        { "label": "Aus Rohmilch", "komponenten": [{ "tag": "rohmilch-weichkaese", "zustand": "rohmilch" }] },
-        { "label": "Überbacken", "komponenten": [{ "tag": "rohmilch-weichkaese", "zustand": "durcherhitzt" }] }
+        {
+          "label": "Aus pasteurisierter Milch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Aus Rohmilch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "rohmilch"}]
+        },
+        {
+          "label": "Überbacken",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "durcherhitzt"}]
+        }
       ],
-      "alternativen": ["Hartkäse wie Gruyère oder Sbrinz", "Frischkäse aus pasteurisierter Milch"]
+      "alternativen": ["Hartkäse wie Gruyère oder Sbrinz", "Frischkäse aus pasteurisierter Milch", "Mozzarella aus pasteurisierter Milch"],
+      "frage": "Aus welcher Milch?"
+    },
+    {
+      "id": "blauschimmel",
+      "name": "Blauschimmelkäse",
+      "synonyme": ["blauschimmel", "gorgonzola", "roquefort", "bleu", "stilton", "bergader"],
+      "varianten": [
+        {
+          "label": "Aus pasteurisierter Milch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Aus Rohmilch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "rohmilch"}]
+        },
+        {
+          "label": "Überbacken oder mitgekocht",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "durcherhitzt"}]
+        }
+      ],
+      "alternativen": ["Blauschimmel in einer gekochten Sauce", "Kräuterfrischkäse"],
+      "frage": "Aus welcher Milch?"
+    },
+    {
+      "id": "ziegenkaese",
+      "name": "Ziegenkäse",
+      "synonyme": ["ziegenkäse", "chèvre", "chevre", "ziegenfrischkäse"],
+      "varianten": [
+        {
+          "label": "Aus pasteurisierter Milch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Aus Rohmilch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "rohmilch"}]
+        },
+        {
+          "label": "Überbacken oder mitgekocht",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "durcherhitzt"}]
+        }
+      ],
+      "alternativen": ["Ziegenkäse überbacken auf dem Salat", "Hartkäse"],
+      "frage": "Aus welcher Milch?"
+    },
+    {
+      "id": "vacherin",
+      "name": "Vacherin Mont-d'Or",
+      "synonyme": ["vacherin", "mont dor", "mont-d'or"],
+      "varianten": [
+        {
+          "label": "Aus pasteurisierter Milch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Aus Rohmilch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "rohmilch"}]
+        },
+        {
+          "label": "Überbacken oder mitgekocht",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "durcherhitzt"}]
+        }
+      ],
+      "alternativen": ["Vacherin im Ofen, vollständig heiss", "Fondue"],
+      "frage": "Aus welcher Milch?"
+    },
+    {
+      "id": "rotschmierkaese",
+      "name": "Rotschmierkäse",
+      "synonyme": ["rotschmiere", "taleggio", "reblochon", "munster", "limburger", "romadur"],
+      "varianten": [
+        {
+          "label": "Aus pasteurisierter Milch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Aus Rohmilch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "rohmilch"}]
+        },
+        {
+          "label": "Überbacken oder mitgekocht",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "durcherhitzt"}]
+        }
+      ],
+      "alternativen": ["Hartkäse", "Raclettekäse, heiss geschmolzen"],
+      "frage": "Aus welcher Milch?"
+    },
+    {
+      "id": "robiola",
+      "name": "Robiola und Crescenza",
+      "synonyme": ["robiola", "crescenza", "stracchino"],
+      "varianten": [
+        {
+          "label": "Aus pasteurisierter Milch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Aus Rohmilch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "rohmilch"}]
+        }
+      ],
+      "alternativen": ["Hartkäse wie Gruyère oder Sbrinz", "Frischkäse aus pasteurisierter Milch"],
+      "frage": "Aus welcher Milch?"
     },
     {
       "id": "hartkaese",
-      "name": "Hartkäse",
-      "synonyme": ["hartkäse", "gruyère", "greyerzer", "sbrinz", "parmesan", "emmentaler", "appenzeller", "bergkäse"],
-      "varianten": [{ "label": null, "komponenten": [{ "tag": "hartkaese" }] }],
-      "eigener_text": "Auch aus Rohmilch unbedenklich: niedriger Wassergehalt und lange Reifung lassen Listerien nicht wachsen. Rinde bei Rohmilchkäse trotzdem wegschneiden.",
+      "name": "Hartkäse und Halbhartkäse",
+      "synonyme": ["hartkäse", "halbhartkäse", "gruyère", "greyerzer", "sbrinz", "parmesan", "grana padano", "emmentaler", "appenzeller", "bergkäse", "tilsiter", "comté", "pecorino", "manchego"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "hartkaese"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Hartkäse und Halbhartkäse sind auch aus Rohmilch unbedenklich: der niedrige Wassergehalt und die lange Reifung lassen Listerien nicht wachsen. Rinde bei Rohmilchkäse trotzdem wegschneiden."
+    },
+    {
+      "id": "tete-de-moine",
+      "name": "Tête de Moine",
+      "synonyme": ["tête de moine", "tete de moine", "mönchskopf"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "hartkaese"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Halbhartkäse mit langer Reifung — unbedenklich. Die Rinde wird beim Hobeln ohnehin nicht mitgenommen."
+    },
+    {
+      "id": "raclette",
+      "name": "Raclette",
+      "synonyme": ["raclette", "raclettekäse"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "hartkaese"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Raclettekäse ist Halbhartkäse und wird zusätzlich geschmolzen. Darauf achten, dass er durchgehend heiss ist und nicht nur oben angebräunt."
+    },
+    {
+      "id": "fondue",
+      "name": "Käsefondue",
+      "synonyme": ["fondue", "käsefondue", "moitié-moitié"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "hartkaese"}]
+        }
+      ],
+      "alternativen": ["Fondue mit Bouillon statt Weisswein"],
+      "eigener_text": "Der Käse wird vollständig geschmolzen und damit ausreichend erhitzt. Der Weisswein im Caquelon verkocht nicht restlos — ein Fondue ohne Wein ist die sichere Variante."
+    },
+    {
+      "id": "halloumi",
+      "name": "Halloumi",
+      "synonyme": ["halloumi", "grillkäse", "bratkäse"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "hartkaese"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Halloumi wird gebraten oder gegrillt und damit durcherhitzt — unbedenklich."
+    },
+    {
+      "id": "frischkaese",
+      "name": "Frischkäse",
+      "synonyme": ["frischkäse", "philadelphia", "doppelrahmfrischkäse", "streichkäse"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "frischkaese-pasteurisiert"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Aus pasteurisierter Milch unbedenklich. Nach dem Öffnen gekühlt lagern und innert weniger Tage aufbrauchen."
+    },
+    {
+      "id": "huettenkaese",
+      "name": "Hüttenkäse und Quark",
+      "synonyme": ["hüttenkäse", "cottage cheese", "quark", "magerquark", "seré"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "frischkaese-pasteurisiert"}]
+        }
+      ],
       "alternativen": []
+    },
+    {
+      "id": "ricotta",
+      "name": "Ricotta",
+      "synonyme": ["ricotta"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "frischkaese-pasteurisiert"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "mascarpone",
+      "name": "Mascarpone",
+      "synonyme": ["mascarpone"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "frischkaese-pasteurisiert"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Mascarpone selbst ist unbedenklich. Entscheidend ist, was damit zubereitet wird — im Tiramisu steckt meist rohes Ei."
+    },
+    {
+      "id": "feta",
+      "name": "Feta und Salzlakenkäse",
+      "synonyme": ["feta", "schafskäse", "salzlakenkäse", "hirtenkäse"],
+      "varianten": [
+        {
+          "label": "Aus pasteurisierter Milch",
+          "komponenten": [{"tag": "frischkaese-pasteurisiert"}]
+        },
+        {
+          "label": "Aus Rohmilch oder ohne Angabe",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "rohmilch"}]
+        }
+      ],
+      "alternativen": ["Abgepackter Feta mit Hinweis auf Pasteurisierung", "Hartkäse"],
+      "frage": "Steht Pasteurisierung auf der Packung?"
+    },
+    {
+      "id": "mozzarella",
+      "name": "Mozzarella",
+      "synonyme": ["mozzarella", "kuhmilchmozzarella"],
+      "varianten": [
+        {
+          "label": "Aus pasteurisierter Milch",
+          "komponenten": [{"tag": "frischkaese-pasteurisiert"}]
+        },
+        {
+          "label": "Aus Rohmilch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "rohmilch"}]
+        }
+      ],
+      "alternativen": ["Abgepackter Kuhmilch-Mozzarella", "Ricotta aus pasteurisierter Milch"],
+      "frage": "Aus welcher Milch?"
+    },
+    {
+      "id": "burrata",
+      "name": "Burrata und Büffelmozzarella",
+      "synonyme": ["burrata", "büffelmozzarella", "bufala"],
+      "varianten": [
+        {
+          "label": "Aus pasteurisierter Milch",
+          "komponenten": [{"tag": "frischkaese-pasteurisiert"}]
+        },
+        {
+          "label": "Aus Rohmilch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "rohmilch"}]
+        }
+      ],
+      "alternativen": ["Abgepackter Kuhmilch-Mozzarella"],
+      "frage": "Aus welcher Milch?"
+    },
+    {
+      "id": "schmelzkaese",
+      "name": "Schmelzkäse",
+      "synonyme": ["schmelzkäse", "cheddar-scheiben", "sandwichkäse", "streichkäsli"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "frischkaese-pasteurisiert"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Schmelzkäse wird bei der Herstellung erhitzt — unbedenklich."
+    },
+    {
+      "id": "kaese-offen",
+      "name": "Käse von der offenen Theke",
+      "synonyme": ["offene theke", "käsetheke", "vorgeschnittener käse", "käseplatte"],
+      "varianten": [
+        {
+          "label": "Hartkäse am Stück",
+          "komponenten": [{"tag": "hartkaese"}]
+        },
+        {
+          "label": "Vorgeschnitten oder offen abgepackt",
+          "komponenten": [{"tag": "vorgeschnitten"}]
+        }
+      ],
+      "alternativen": ["Original abgepackter Käse", "Am Stück kaufen und selber schneiden"],
+      "frage": "Am Stück oder vorgeschnitten?"
+    },
+    {
+      "id": "milch",
+      "name": "Milch",
+      "synonyme": ["milch", "vollmilch", "halbrahm", "uht", "pastmilch"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "milch-pasteurisiert"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Pasteurisierte und UHT-Milch sind unbedenklich. Rohmilch ab Hof ist es nicht — sie muss vor dem Trinken aufgekocht werden."
+    },
+    {
+      "id": "joghurt",
+      "name": "Joghurt",
+      "synonyme": ["joghurt", "jogurt", "griechischer joghurt", "skyr"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "milch-pasteurisiert"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "rahm",
+      "name": "Rahm und Schlagsahne",
+      "synonyme": ["rahm", "sahne", "schlagrahm", "crème fraîche", "sauerrahm"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "milch-pasteurisiert"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "butter",
+      "name": "Butter",
+      "synonyme": ["butter", "streichbutter"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "oel-fett"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "kefir",
+      "name": "Kefir und Buttermilch",
+      "synonyme": ["kefir", "buttermilch", "ayran"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "milch-pasteurisiert"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Aus pasteurisierter Milch unbedenklich. Selbst angesetzter Kefir aus Rohmilch nicht."
+    },
+    {
+      "id": "pflanzendrink",
+      "name": "Hafer-, Soja- und Mandeldrink",
+      "synonyme": ["hafermilch", "haferdrink", "sojadrink", "sojamilch", "mandelmilch", "pflanzendrink"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "milch-pasteurisiert"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Abgepackte Pflanzendrinks sind erhitzt und unbedenklich."
     },
     {
       "id": "lachs",
       "name": "Lachs",
       "synonyme": ["lachs", "salmon"],
-      "frage": "Wie zubereitet?",
       "varianten": [
-        { "label": "Gegart", "komponenten": [{ "tag": "fisch-gegart" }] },
-        { "label": "Kalt geräuchert", "komponenten": [{ "tag": "kalt-geraeuchert" }] },
-        { "label": "Roh oder gebeizt", "komponenten": [{ "tag": "fisch-roh" }] }
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Kalt geräuchert",
+          "komponenten": [{"tag": "kalt-geraeuchert"}]
+        },
+        {
+          "label": "Roh oder gebeizt",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
       ],
-      "alternativen": ["Gebratenes oder pochiertes Lachsfilet", "Lachs aus der Dose", "Räucherlachs kurz durcherhitzt"]
+      "alternativen": ["Gebratenes oder pochiertes Lachsfilet", "Lachs aus der Dose", "Räucherlachs kurz durcherhitzt"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "forelle",
+      "name": "Forelle",
+      "synonyme": ["forelle", "lachsforelle", "regenbogenforelle"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "felchen",
+      "name": "Felchen",
+      "synonyme": ["felchen", "balchen", "renke"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "egli",
+      "name": "Egli",
+      "synonyme": ["egli", "flussbarsch", "barsch", "eglifilet"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "dorsch",
+      "name": "Dorsch und Kabeljau",
+      "synonyme": ["dorsch", "kabeljau", "skrei", "bacalao"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "seelachs",
+      "name": "Seelachs",
+      "synonyme": ["seelachs", "köhler", "pollock"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "scholle",
+      "name": "Scholle und Flunder",
+      "synonyme": ["scholle", "flunder", "seezunge"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "zander",
+      "name": "Zander",
+      "synonyme": ["zander"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "dorade",
+      "name": "Dorade und Wolfsbarsch",
+      "synonyme": ["dorade", "wolfsbarsch", "loup de mer", "branzino"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "rotbarsch",
+      "name": "Rotbarsch",
+      "synonyme": ["rotbarsch"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "sardine",
+      "name": "Sardinen und Sardellen",
+      "synonyme": ["sardine", "sardinen", "sardelle", "anchovis"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Sardinen aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "makrele",
+      "name": "Makrele",
+      "synonyme": ["makrele"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "hering",
+      "name": "Hering",
+      "synonyme": ["hering", "matjes", "rollmops", "bismarckhering"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Brathering", "Hering aus der Dose"],
+      "frage": "Wie zubereitet?"
     },
     {
       "id": "thunfisch",
       "name": "Thunfisch",
       "synonyme": ["thunfisch", "tuna", "thon"],
       "varianten": [
-        { "label": "Gegart oder aus der Dose", "komponenten": [{ "tag": "raubfisch-mittel", "zustand": "mengenbegrenzung" }] },
-        { "label": "Roh", "komponenten": [{ "tag": "fisch-roh" }, { "tag": "raubfisch-mittel" }] }
+        {
+          "label": "Gegart oder aus der Dose",
+          "komponenten": [{"tag": "raubfisch-mittel", "zustand": "mengenbegrenzung"}]
+        },
+        {
+          "label": "Roh",
+          "komponenten": [{"tag": "fisch-roh"}, {"tag": "raubfisch-mittel"}]
+        }
       ],
-      "alternativen": ["Lachs, Forelle oder Felchen", "Sardinen aus der Dose"]
+      "alternativen": ["Lachs, Forelle oder Felchen", "Sardinen aus der Dose"],
+      "frage": "Wie zubereitet?"
     },
     {
       "id": "schwertfisch",
       "name": "Schwertfisch, Hai, Marlin",
-      "synonyme": ["schwertfisch", "hai", "marlin", "raubfisch"],
-      "varianten": [{ "label": null, "komponenten": [{ "tag": "raubfisch-hoch", "zustand": "durcherhitzt" }] }],
+      "synonyme": ["schwertfisch", "hai", "marlin", "raubfisch", "butterfisch", "escolar"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "raubfisch-hoch", "zustand": "durcherhitzt"}]
+        }
+      ],
       "alternativen": ["Lachs", "Forelle", "Egli oder Felchen"]
     },
     {
-      "id": "salami",
-      "name": "Salami, Rohschinken, Trockenfleisch",
-      "synonyme": ["salami", "rohschinken", "trockenfleisch", "bündnerfleisch", "prosciutto", "parmaschinken", "chorizo"],
-      "frage": "Wie servierst du es?",
+      "id": "aal",
+      "name": "Aal",
+      "synonyme": ["aal", "räucheraal"],
       "varianten": [
-        { "label": "Kalt, wie gekauft", "komponenten": [{ "tag": "rohwurst" }] },
-        { "label": "Durcherhitzt, etwa auf der Pizza", "komponenten": [{ "tag": "rohwurst", "zustand": "durcherhitzt" }] },
-        { "label": "Vorher drei Tage tiefgefroren", "komponenten": [{ "tag": "rohwurst", "zustand": "tiefgefroren-3-tage" }] }
+        {
+          "label": null,
+          "komponenten": [{"tag": "raubfisch-hoch", "zustand": "durcherhitzt"}]
+        }
       ],
-      "alternativen": ["Gekochter Schinken", "Fleischkäse", "Cervelat"]
+      "alternativen": ["Forelle", "Lachs"]
     },
     {
-      "id": "tatar",
-      "name": "Tatar und Carpaccio",
-      "synonyme": ["tatar", "tartar", "carpaccio", "mett", "rohes fleisch"],
-      "varianten": [{ "label": null, "komponenten": [{ "tag": "fleisch-roh" }] }],
-      "alternativen": ["Kurz gebratenes, aber durchgegartes Rindsfilet"]
-    },
-    {
-      "id": "steak",
-      "name": "Steak",
-      "synonyme": ["steak", "entrecôte", "filet", "roastbeef", "rindfleisch", "burger"],
-      "frage": "Wie durch?",
+      "id": "hecht",
+      "name": "Hecht",
+      "synonyme": ["hecht"],
       "varianten": [
-        { "label": "Durchgebraten", "komponenten": [{ "tag": "fleisch-durchgegart" }] },
-        { "label": "Rosa oder blutig", "komponenten": [{ "tag": "fleisch-rosa" }] }
+        {
+          "label": null,
+          "komponenten": [{"tag": "raubfisch-mittel", "zustand": "mengenbegrenzung"}]
+        }
       ],
-      "alternativen": ["Schmorgerichte wie Ragout oder Braten sind ohnehin durchgegart"]
+      "alternativen": ["Egli oder Felchen", "Forelle"]
     },
     {
-      "id": "gefluegel",
-      "name": "Geflügel",
-      "synonyme": ["poulet", "hähnchen", "huhn", "geflügel", "truthahn"],
-      "varianten": [{ "label": null, "komponenten": [{ "tag": "gefluegel" }] }],
-      "alternativen": []
-    },
-    {
-      "id": "tiramisu",
-      "name": "Tiramisu und Mousse au chocolat",
-      "synonyme": ["tiramisu", "mousse au chocolat", "zabaione", "rohes ei"],
+      "id": "sushi",
+      "name": "Sushi und Sashimi",
+      "synonyme": ["sushi", "sashimi", "maki", "nigiri", "poke", "poké", "ceviche"],
       "varianten": [
-        { "label": "Im Restaurant oder hausgemacht", "komponenten": [{ "tag": "ei-roh" }] },
-        { "label": "Abgepackt gekauft", "komponenten": [{ "tag": "ei-roh", "zustand": "pasteurisiert" }] }
+        {
+          "label": "Mit gegarter oder vegetarischer Füllung",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Mit rohem Fisch",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
       ],
-      "alternativen": ["Panna cotta", "Selber machen mit pasteurisiertem Ei"]
+      "alternativen": ["Maki mit Gurke, Avocado oder Tamago", "Ebi-Sushi — die Garnele ist gekocht", "California Roll mit Surimi"],
+      "frage": "Was ist drin?"
     },
     {
-      "id": "spiegelei",
-      "name": "Eier",
-      "synonyme": ["ei", "eier", "spiegelei", "rührei", "pochiertes ei", "omelette"],
-      "frage": "Wie zubereitet?",
+      "id": "raeucherfisch",
+      "name": "Räucherfisch",
+      "synonyme": ["räucherfisch", "räucherforelle", "räucherlachs", "makrele geräuchert", "stremellachs"],
       "varianten": [
-        { "label": "Hart durchgegart", "komponenten": [{ "tag": "ei-roh", "zustand": "durchgegart" }] },
-        { "label": "Laufendes Eigelb", "komponenten": [{ "tag": "ei-weich" }] }
+        {
+          "label": "Heiss geräuchert",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Kalt geräuchert",
+          "komponenten": [{"tag": "kalt-geraeuchert"}]
+        }
       ],
-      "alternativen": ["Rührei gut stocken lassen", "Hartgekochtes Ei"]
+      "alternativen": ["Räucherfisch kurz in der Pfanne durcherhitzt", "Fisch aus der Dose"],
+      "frage": "Heiss oder kalt geräuchert?"
     },
     {
-      "id": "kaffee",
-      "name": "Kaffee",
-      "synonyme": ["kaffee", "espresso", "cappuccino", "koffein", "latte"],
+      "id": "fischstaebchen",
+      "name": "Fischstäbchen",
+      "synonyme": ["fischstäbchen", "fischknusperli", "backfisch"],
       "varianten": [
-        { "label": "Normal", "komponenten": [{ "tag": "koffein" }] },
-        { "label": "Entkoffeiniert", "komponenten": [{ "tag": "koffein", "zustand": "koffeinfrei" }] }
+        {
+          "label": null,
+          "komponenten": [{"tag": "fisch-gegart"}]
+        }
       ],
-      "alternativen": ["Getreidekaffee", "Rooibos"]
+      "alternativen": [],
+      "eigener_text": "Vollständig durchgebacken unbedenklich. Auf die Kerntemperatur achten, nicht nur auf die Panade."
     },
     {
-      "id": "leber",
-      "name": "Leber und Leberprodukte",
-      "synonyme": ["leber", "leberwurst", "leberpastete", "foie gras", "kalbsleber"],
-      "varianten": [{ "label": null, "komponenten": [{ "tag": "leber" }] }],
-      "alternativen": ["Fleischkäse oder gekochter Schinken", "Karotten decken Vitamin A als Beta-Carotin ab"]
+      "id": "fischkonserve",
+      "name": "Fisch aus der Dose",
+      "synonyme": ["fischkonserve", "dosenfisch", "thon dose", "sardinen dose"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fisch-gegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Konserven sind sterilisiert und unbedenklich. Bei Thunfisch gilt trotzdem die Mengenempfehlung wegen Quecksilber."
+    },
+    {
+      "id": "surimi",
+      "name": "Surimi",
+      "synonyme": ["surimi", "krebsfleisch imitat", "california roll"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fisch-gegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Surimi ist gegarte Fischmasse — unbedenklich. Gekühlt lagern und rasch aufbrauchen."
+    },
+    {
+      "id": "fischsauce",
+      "name": "Fischsauce und Sardellenpaste",
+      "synonyme": ["fischsauce", "nam pla", "sardellenpaste", "worcestersauce"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fisch-gegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Fermentierte Fischsaucen werden in kleinen Mengen und meist mitgekocht verwendet — unbedenklich."
     },
     {
       "id": "austern",
       "name": "Austern und Muscheln",
-      "synonyme": ["austern", "muscheln", "meeresfrüchte", "jakobsmuscheln"],
-      "frage": "Wie zubereitet?",
+      "synonyme": ["austern", "muscheln", "miesmuscheln", "jakobsmuscheln", "venusmuscheln", "meeresfrüchte"],
       "varianten": [
-        { "label": "Durchgegart", "komponenten": [{ "tag": "schalentier-roh", "zustand": "durcherhitzt" }] },
-        { "label": "Roh", "komponenten": [{ "tag": "schalentier-roh" }] }
+        {
+          "label": "Durchgegart",
+          "komponenten": [{"tag": "schalentier-roh", "zustand": "durcherhitzt"}]
+        },
+        {
+          "label": "Roh",
+          "komponenten": [{"tag": "schalentier-roh"}]
+        }
       ],
-      "alternativen": ["Muscheln im Weissweinsud, gut durchgekocht"]
+      "alternativen": ["Muscheln im Weissweinsud, gut durchgekocht"],
+      "frage": "Wie zubereitet?"
     },
     {
-      "id": "sprossen",
-      "name": "Sprossen und Keimlinge",
-      "synonyme": ["sprossen", "keimlinge", "alfalfa", "mungbohnen", "kresse"],
-      "frage": "Roh oder gegart?",
+      "id": "crevetten",
+      "name": "Crevetten und Garnelen",
+      "synonyme": ["crevetten", "garnelen", "shrimps", "gambas", "scampi"],
       "varianten": [
-        { "label": "Gegart", "komponenten": [{ "tag": "keimling-roh", "zustand": "durcherhitzt" }] },
-        { "label": "Roh", "komponenten": [{ "tag": "keimling-roh" }] }
+        {
+          "label": "Durchgegart",
+          "komponenten": [{"tag": "schalentier-roh", "zustand": "durcherhitzt"}]
+        },
+        {
+          "label": "Roh",
+          "komponenten": [{"tag": "schalentier-roh"}]
+        }
       ],
-      "alternativen": ["Sprossen im Wok mitbraten", "Geriebene Karotte im Salat"]
+      "alternativen": ["Gebratene Crevetten"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "tintenfisch",
+      "name": "Tintenfisch und Calamari",
+      "synonyme": ["tintenfisch", "calamari", "kalmar", "oktopus", "pulpo"],
+      "varianten": [
+        {
+          "label": "Durchgegart",
+          "komponenten": [{"tag": "schalentier-roh", "zustand": "durcherhitzt"}]
+        },
+        {
+          "label": "Roh",
+          "komponenten": [{"tag": "schalentier-roh"}]
+        }
+      ],
+      "alternativen": ["Frittierte Calamari, gut durchgegart"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "hummer",
+      "name": "Hummer und Krebs",
+      "synonyme": ["hummer", "krebs", "languste", "krevette"],
+      "varianten": [
+        {
+          "label": "Durchgegart",
+          "komponenten": [{"tag": "schalentier-roh", "zustand": "durcherhitzt"}]
+        },
+        {
+          "label": "Roh",
+          "komponenten": [{"tag": "schalentier-roh"}]
+        }
+      ],
+      "alternativen": [],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "kaviar",
+      "name": "Kaviar und Fischrogen",
+      "synonyme": ["kaviar", "rogen", "forellenkaviar", "lachskaviar", "keta"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Erhitzte Fischgerichte"],
+      "eigener_text": "Roher Rogen wird nicht erhitzt und ist ein Listerienrisiko. Pasteurisierte Ware ist die Ausnahme — nur mit ausdrücklichem Hinweis auf der Packung."
+    },
+    {
+      "id": "steak",
+      "name": "Steak",
+      "synonyme": ["steak", "entrecôte", "filet", "roastbeef", "rindfleisch", "rumpsteak"],
+      "varianten": [
+        {
+          "label": "Durchgebraten",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Rosa oder blutig",
+          "komponenten": [{"tag": "fleisch-rosa"}]
+        }
+      ],
+      "alternativen": ["Schmorgerichte wie Ragout oder Braten sind ohnehin durchgegart"],
+      "frage": "Wie durch?"
+    },
+    {
+      "id": "burger",
+      "name": "Hamburger",
+      "synonyme": ["burger", "hamburger", "cheeseburger", "hacktätschli"],
+      "varianten": [
+        {
+          "label": "Durchgebraten",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Rosa oder blutig",
+          "komponenten": [{"tag": "fleisch-rosa"}]
+        }
+      ],
+      "alternativen": ["Burger gut durchgebraten bestellen"],
+      "frage": "Wie durch?"
+    },
+    {
+      "id": "lamm",
+      "name": "Lamm",
+      "synonyme": ["lamm", "lammkotelett", "gigot", "lammfilet"],
+      "varianten": [
+        {
+          "label": "Durchgebraten",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Rosa oder blutig",
+          "komponenten": [{"tag": "fleisch-rosa"}]
+        }
+      ],
+      "alternativen": ["Schmorgerichte wie Ragout oder Braten sind ohnehin durchgegart"],
+      "frage": "Wie durch?"
+    },
+    {
+      "id": "kalb",
+      "name": "Kalbfleisch",
+      "synonyme": ["kalb", "kalbfleisch", "kalbsschnitzel", "kalbsbraten"],
+      "varianten": [
+        {
+          "label": "Durchgebraten",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Rosa oder blutig",
+          "komponenten": [{"tag": "fleisch-rosa"}]
+        }
+      ],
+      "alternativen": ["Schmorgerichte wie Ragout oder Braten sind ohnehin durchgegart"],
+      "frage": "Wie durch?"
+    },
+    {
+      "id": "ente",
+      "name": "Entenbrust",
+      "synonyme": ["ente", "entenbrust", "barbarie"],
+      "varianten": [
+        {
+          "label": "Durchgebraten",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Rosa oder blutig",
+          "komponenten": [{"tag": "fleisch-rosa"}]
+        }
+      ],
+      "alternativen": ["Schmorgerichte wie Ragout oder Braten sind ohnehin durchgegart"],
+      "frage": "Wie durch?"
+    },
+    {
+      "id": "wild",
+      "name": "Wild",
+      "synonyme": ["wild", "reh", "hirsch", "wildschwein", "pfeffer"],
+      "varianten": [
+        {
+          "label": "Durchgebraten",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Rosa oder blutig",
+          "komponenten": [{"tag": "fleisch-rosa"}]
+        }
+      ],
+      "alternativen": ["Schmorgerichte wie Ragout oder Braten sind ohnehin durchgegart"],
+      "frage": "Wie durch?"
+    },
+    {
+      "id": "schwein",
+      "name": "Schweinefleisch",
+      "synonyme": ["schwein", "schweinefleisch", "schnitzel", "kotelett", "schweinsbraten"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Schweinefleisch wird ohnehin durchgegart serviert. Wenn kein rosa Fleischsaft mehr austritt, ist es unbedenklich."
+    },
+    {
+      "id": "gefluegel",
+      "name": "Geflügel",
+      "synonyme": ["poulet", "hähnchen", "huhn", "geflügel", "pouletbrust", "truthahn", "pute"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gefluegel"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "tatar",
+      "name": "Tatar und Carpaccio",
+      "synonyme": ["tatar", "tartar", "carpaccio", "mett", "hackfleisch roh", "rohes fleisch"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-roh"}]
+        }
+      ],
+      "alternativen": ["Kurz gebratenes, aber durchgegartes Rindsfilet", "Vitello tonnato mit durchgegartem Kalbfleisch"]
+    },
+    {
+      "id": "hackfleisch",
+      "name": "Hackfleisch",
+      "synonyme": ["hackfleisch", "gehacktes", "hackbraten", "bolognese"],
+      "varianten": [
+        {
+          "label": "Durchgegart",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Roh oder rosa",
+          "komponenten": [{"tag": "fleisch-roh"}]
+        }
+      ],
+      "alternativen": ["Bolognese lange köcheln lassen"],
+      "frage": "Wie durch?"
+    },
+    {
+      "id": "salami",
+      "name": "Salami, Rohschinken, Trockenfleisch",
+      "synonyme": ["salami", "rohschinken", "trockenfleisch", "bündnerfleisch", "prosciutto", "parmaschinken", "serrano", "coppa", "landjäger", "mettwurst", "chorizo", "salsiz"],
+      "varianten": [
+        {
+          "label": "Kalt, wie gekauft",
+          "komponenten": [{"tag": "rohwurst"}]
+        },
+        {
+          "label": "Durcherhitzt, etwa auf der Pizza",
+          "komponenten": [{"tag": "rohwurst", "zustand": "durcherhitzt"}]
+        },
+        {
+          "label": "Vorher drei Tage tiefgefroren",
+          "komponenten": [{"tag": "rohwurst", "zustand": "tiefgefroren-3-tage"}]
+        }
+      ],
+      "alternativen": ["Gekochter Schinken", "Fleischkäse", "Cervelat"],
+      "frage": "Wie servierst du es?"
+    },
+    {
+      "id": "kochschinken",
+      "name": "Gekochter Schinken",
+      "synonyme": ["kochschinken", "hinterschinken", "vorderschinken", "schinken"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekochter Schinken ist gegart und unbedenklich. Abgepackte Ware der offenen Theke vorziehen und nach dem Öffnen rasch aufbrauchen."
+    },
+    {
+      "id": "cervelat",
+      "name": "Cervelat und Brühwurst",
+      "synonyme": ["cervelat", "wienerli", "frankfurter", "bratwurst", "fleischkäse", "lyoner", "mortadella", "schüblig"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Brühwürste sind bei der Herstellung gegart. Warm gegessen ist die sichere Variante."
+    },
+    {
+      "id": "pastete",
+      "name": "Pastete und Terrine",
+      "synonyme": ["pastete", "terrine", "rillettes", "sülze", "aspik"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "rohwurst"}]
+        }
+      ],
+      "alternativen": ["Gekochter Schinken", "Fleischkäse"],
+      "eigener_text": "Pasteten und Terrinen werden oft nicht durcherhitzt und offen gelagert. Leberhaltige Sorten sind zusätzlich wegen Vitamin A problematisch."
+    },
+    {
+      "id": "leber",
+      "name": "Leber und Leberprodukte",
+      "synonyme": ["leber", "leberwurst", "leberpastete", "foie gras", "kalbsleber", "leberli"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "leber"}]
+        }
+      ],
+      "alternativen": ["Fleischkäse oder gekochter Schinken aufs Brot", "Karotten decken Vitamin A als Beta-Carotin ab — das ist unproblematisch"]
+    },
+    {
+      "id": "innereien",
+      "name": "Innereien",
+      "synonyme": ["innereien", "niere", "kutteln", "herz", "bries", "milken"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgegart unbedenklich. Leber ist die Ausnahme — sie fällt unter die Vitamin-A-Regel."
+    },
+    {
+      "id": "speck",
+      "name": "Speck und Bacon",
+      "synonyme": ["speck", "bacon", "pancetta", "guanciale", "rippli"],
+      "varianten": [
+        {
+          "label": "Ausgebraten oder mitgekocht",
+          "komponenten": [{"tag": "rohwurst", "zustand": "durcherhitzt"}]
+        },
+        {
+          "label": "Roh, etwa als Rohspeck",
+          "komponenten": [{"tag": "rohwurst"}]
+        }
+      ],
+      "alternativen": ["Speck knusprig ausbraten"],
+      "frage": "Roh oder gebraten?"
+    },
+    {
+      "id": "kebab",
+      "name": "Kebab und Döner",
+      "synonyme": ["kebab", "döner", "dürüm", "gyros", "shawarma"],
+      "varianten": [
+        {
+          "label": "Frisch vom Spiess, heiss",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Mit rohem Salat oder Sauce mit rohem Ei",
+          "komponenten": [{"tag": "fleisch-durchgegart"}, {"tag": "vorgeschnitten"}]
+        }
+      ],
+      "alternativen": ["Kebab ohne Salat, dafür mit gekochtem Gemüse"],
+      "frage": "Mit oder ohne rohen Salat?"
     },
     {
       "id": "vitello-tonnato",
       "name": "Vitello tonnato",
       "synonyme": ["vitello tonnato", "kalbfleisch mit thunfischsauce"],
-      "frage": "Woher stammt die Sauce?",
       "varianten": [
         {
           "label": "Restaurant oder hausgemacht",
-          "komponenten": [
-            { "tag": "fleisch-durchgegart" },
-            { "tag": "ei-roh" },
-            { "tag": "raubfisch-mittel", "zustand": "durcherhitzt" }
-          ]
+          "komponenten": [{"tag": "fleisch-durchgegart"}, {"tag": "ei-roh"}, {"tag": "raubfisch-mittel", "zustand": "durcherhitzt"}]
         },
         {
           "label": "Mit gekaufter Sauce",
-          "komponenten": [
-            { "tag": "fleisch-durchgegart" },
-            { "tag": "ei-roh", "zustand": "pasteurisiert" }
-          ]
+          "komponenten": [{"tag": "fleisch-durchgegart"}, {"tag": "ei-roh", "zustand": "pasteurisiert"}]
         }
       ],
-      "alternativen": ["Kalbsbraten mit Kräuterjoghurt"]
+      "alternativen": ["Kalbsbraten mit Kräuterjoghurt"],
+      "frage": "Woher stammt die Sauce?"
     },
     {
-      "id": "ananas",
-      "name": "Ananas",
-      "synonyme": ["ananas", "papaya", "mango"],
-      "varianten": [{ "label": null, "komponenten": [{ "tag": "obst-gewaschen" }] }],
-      "eigener_text": "Der Mythos, Ananas löse Wehen aus, hält sich hartnäckig. In normalen Essmengen gibt es dafür keine Belege. Unreife Papaya ist die einzige begründete Ausnahme.",
-      "alternativen": []
+      "id": "fondue-chinoise",
+      "name": "Fondue chinoise und Bourguignonne",
+      "synonyme": ["fondue chinoise", "bourguignonne", "fleischfondue"],
+      "varianten": [
+        {
+          "label": "Fleisch vollständig durchgegart",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Kurz eingetaucht, innen rosa",
+          "komponenten": [{"tag": "fleisch-rosa"}]
+        }
+      ],
+      "alternativen": ["Fleisch länger im Sud lassen", "Saucen aus dem Laden statt hausgemachter Mayonnaise"],
+      "frage": "Wie lange im Sud?"
+    },
+    {
+      "id": "ei",
+      "name": "Eier",
+      "synonyme": ["ei", "eier", "spiegelei", "rührei", "pochiertes ei", "omelette", "frühstücksei"],
+      "varianten": [
+        {
+          "label": "Hart durchgegart",
+          "komponenten": [{"tag": "ei-roh", "zustand": "durchgegart"}]
+        },
+        {
+          "label": "Weich, laufendes Eigelb",
+          "komponenten": [{"tag": "ei-weich"}]
+        }
+      ],
+      "alternativen": ["Rührei gut stocken lassen", "Hartgekochtes Ei"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "tiramisu",
+      "name": "Tiramisu und Mousse au chocolat",
+      "synonyme": ["tiramisu", "mousse au chocolat", "zabaione", "rohes ei", "eischnee", "meringue italienne"],
+      "varianten": [
+        {
+          "label": "Im Restaurant oder hausgemacht",
+          "komponenten": [{"tag": "ei-roh"}]
+        },
+        {
+          "label": "Abgepackt gekauft",
+          "komponenten": [{"tag": "ei-roh", "zustand": "pasteurisiert"}]
+        }
+      ],
+      "alternativen": ["Panna cotta", "Selber machen mit pasteurisiertem Ei"],
+      "frage": "Woher stammt es?"
+    },
+    {
+      "id": "mayonnaise",
+      "name": "Mayonnaise und Aioli",
+      "synonyme": ["mayonnaise", "mayo", "aioli", "sauce tartare", "cocktailsauce", "remoulade"],
+      "varianten": [
+        {
+          "label": "Aus dem Laden",
+          "komponenten": [{"tag": "ei-roh", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Hausgemacht oder Restaurant",
+          "komponenten": [{"tag": "ei-roh"}]
+        }
+      ],
+      "alternativen": ["Gekaufte Mayonnaise", "Joghurt-Kräuter-Dip"],
+      "frage": "Woher stammt sie?"
+    },
+    {
+      "id": "hollandaise",
+      "name": "Sauce hollandaise und Béarnaise",
+      "synonyme": ["hollandaise", "béarnaise", "bearnaise", "sauce hollandaise"],
+      "varianten": [
+        {
+          "label": "Aus der Packung",
+          "komponenten": [{"tag": "ei-roh", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Frisch aufgeschlagen",
+          "komponenten": [{"tag": "ei-roh"}]
+        }
+      ],
+      "alternativen": ["Fertige Sauce aus dem Laden", "Zitronenbutter"],
+      "frage": "Woher stammt sie?"
+    },
+    {
+      "id": "caesar-dressing",
+      "name": "Caesar Dressing",
+      "synonyme": ["caesar", "caesar dressing", "caesarsalat"],
+      "varianten": [
+        {
+          "label": "Aus der Flasche",
+          "komponenten": [{"tag": "ei-roh", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Frisch angerührt",
+          "komponenten": [{"tag": "ei-roh"}, {"tag": "vorgeschnitten"}]
+        }
+      ],
+      "alternativen": ["Dressing aus der Flasche", "Essig und Öl"],
+      "frage": "Woher stammt das Dressing?"
+    },
+    {
+      "id": "meringue",
+      "name": "Meringue und Baiser",
+      "synonyme": ["meringue", "baiser", "vacherin glacé", "pavlova"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "ei-roh", "zustand": "durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gebackene Meringue ist durchgetrocknet und unbedenklich. Nicht gebackene Eischneemassen wie Mousse fallen dagegen unter die Rohei-Regel."
+    },
+    {
+      "id": "eierlikoer",
+      "name": "Eierlikör",
+      "synonyme": ["eierlikör", "advocaat"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "alkohol"}]
+        }
+      ],
+      "alternativen": ["Alkoholfreier Vanilledrink"]
+    },
+    {
+      "id": "pizza",
+      "name": "Pizza",
+      "synonyme": ["pizza", "pizza margherita", "pizza salami", "pizza prosciutto"],
+      "varianten": [
+        {
+          "label": "Frisch gebacken, heiss",
+          "komponenten": [{"tag": "fleisch-durchgegart"}, {"tag": "rohmilch-weichkaese", "zustand": "durcherhitzt"}]
+        },
+        {
+          "label": "Mit nachträglich aufgelegtem Rohschinken oder Rucola",
+          "komponenten": [{"tag": "rohwurst"}]
+        }
+      ],
+      "alternativen": ["Pizza mit Salami oder Schinken mitbacken lassen", "Pizza Margherita"],
+      "frage": "Kommt etwas Rohes nach dem Backen dazu?"
+    },
+    {
+      "id": "pasta",
+      "name": "Teigwaren",
+      "synonyme": ["pasta", "teigwaren", "spaghetti", "penne", "nudeln", "lasagne", "ravioli"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Teigwaren sind unbedenklich. Entscheidend ist die Sauce — Carbonara und Vitello-Saucen enthalten teils rohes Ei."
+    },
+    {
+      "id": "carbonara",
+      "name": "Spaghetti carbonara",
+      "synonyme": ["carbonara", "spaghetti carbonara"],
+      "varianten": [
+        {
+          "label": "Ei vollständig gestockt",
+          "komponenten": [{"tag": "ei-roh", "zustand": "durchgegart"}, {"tag": "rohwurst", "zustand": "durcherhitzt"}]
+        },
+        {
+          "label": "Cremig, Ei nicht durchgegart",
+          "komponenten": [{"tag": "ei-roh"}, {"tag": "rohwurst"}]
+        }
+      ],
+      "alternativen": ["Pasta all'Amatriciana", "Carbonara zu Hause gut durchziehen lassen"],
+      "frage": "Ist das Ei gestockt?"
+    },
+    {
+      "id": "risotto",
+      "name": "Risotto",
+      "synonyme": ["risotto", "risi e bisi"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Risotto ist durchgekocht und unbedenklich. Bei Zugabe von Rohmilchkäse oder Weisswein auf die Zutaten achten."
+    },
+    {
+      "id": "lasagne",
+      "name": "Lasagne",
+      "synonyme": ["lasagne", "cannelloni"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Im Ofen durchgebacken unbedenklich. Auf eine heisse Mitte achten, nicht nur auf die gratinierte Oberfläche."
+    },
+    {
+      "id": "suppe",
+      "name": "Suppe und Bouillon",
+      "synonyme": ["suppe", "bouillon", "brühe", "eintopf", "minestrone"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekochte Suppen sind unbedenklich. Kalte Suppen wie Gazpacho fallen unter die Rohkost-Regel."
+    },
+    {
+      "id": "gazpacho",
+      "name": "Gazpacho und kalte Suppen",
+      "synonyme": ["gazpacho", "kalte suppe"],
+      "varianten": [
+        {
+          "label": "Aus selbst gewaschenem Gemüse",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen", "zustand": "gewaschen"}]
+        },
+        {
+          "label": "Auswärts bestellt",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
+      ],
+      "alternativen": ["Warme Gemüsesuppe"],
+      "frage": "Selber gemacht?"
+    },
+    {
+      "id": "quiche",
+      "name": "Quiche und Wähe",
+      "synonyme": ["quiche", "wähe", "gemüsekuchen", "zwiebelkuchen", "tarte"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "ei-roh", "zustand": "durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Im Ofen gebacken ist der Guss durchgegart. Auf eine feste, nicht mehr flüssige Füllung achten."
+    },
+    {
+      "id": "auflauf",
+      "name": "Gratin und Auflauf",
+      "synonyme": ["gratin", "auflauf", "kartoffelgratin", "überbacken"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgebacken unbedenklich — auch mit Weichkäse, der dabei ausreichend erhitzt wird."
+    },
+    {
+      "id": "asia-wok",
+      "name": "Wokgerichte",
+      "synonyme": ["wok", "stir fry", "pad thai", "chop suey", "nasi goreng"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Kurz und heiss gebraten unbedenklich. Auf rohe Sprossen als Garnitur achten — die werden oft erst am Schluss aufgestreut."
+    },
+    {
+      "id": "curry",
+      "name": "Curry",
+      "synonyme": ["curry", "thai curry", "indisches curry", "massaman"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht unbedenklich. Frische Kräuter und rohe Sprossen als Garnitur separat beurteilen."
+    },
+    {
+      "id": "hummus",
+      "name": "Hummus und Falafel",
+      "synonyme": ["hummus", "falafel", "kichererbsen", "baba ganoush"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "huelsenfrucht-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekochte Kichererbsen sind unbedenklich. Bei offener Ware auf frische Zubereitung achten."
+    },
+    {
+      "id": "sandwich",
+      "name": "Sandwich und belegtes Brot",
+      "synonyme": ["sandwich", "belegtes brot", "baguette", "wrap", "tramezzini"],
+      "varianten": [
+        {
+          "label": "Frisch belegt, mit gekochtem Belag",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Vorgefertigt aus der Kühltheke",
+          "komponenten": [{"tag": "vorgeschnitten"}]
+        }
+      ],
+      "alternativen": ["Selber belegen", "Frisch zubereitet bestellen"],
+      "frage": "Frisch oder vorgefertigt?"
+    },
+    {
+      "id": "fertiggericht",
+      "name": "Fertiggericht",
+      "synonyme": ["fertiggericht", "fertigmenü", "tiefkühlmenü", "mikrowelle"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Vollständig nach Packungsangabe erhitzt unbedenklich. Entscheidend ist eine durchgehend heisse Mitte, nicht nur ein heisser Rand."
+    },
+    {
+      "id": "raclette-abend",
+      "name": "Raclette-Abend",
+      "synonyme": ["racletteabend", "raclette mit fleisch"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "hartkaese"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Der Käse ist unbedenklich. Auf getrennte Bretter und Pfännchen für rohes Fleisch achten und Trockenfleisch als Beilage weglassen."
+    },
+    {
+      "id": "kaffee",
+      "name": "Kaffee",
+      "synonyme": ["kaffee", "espresso", "cappuccino", "latte", "koffein", "schale"],
+      "varianten": [
+        {
+          "label": "Normal",
+          "komponenten": [{"tag": "koffein"}]
+        },
+        {
+          "label": "Entkoffeiniert",
+          "komponenten": [{"tag": "koffein", "zustand": "koffeinfrei"}]
+        }
+      ],
+      "alternativen": ["Getreidekaffee", "Rooibos"],
+      "frage": "Mit oder ohne Koffein?"
+    },
+    {
+      "id": "schwarztee",
+      "name": "Schwarztee",
+      "synonyme": ["schwarztee", "earl grey", "english breakfast", "tee"],
+      "varianten": [
+        {
+          "label": "Normal",
+          "komponenten": [{"tag": "koffein"}]
+        },
+        {
+          "label": "Entkoffeiniert",
+          "komponenten": [{"tag": "koffein", "zustand": "koffeinfrei"}]
+        }
+      ],
+      "alternativen": ["Rooibos", "Früchtetee"],
+      "frage": "Mit oder ohne Koffein?"
+    },
+    {
+      "id": "gruentee",
+      "name": "Grüntee und Matcha",
+      "synonyme": ["grüntee", "matcha", "sencha", "grüner tee"],
+      "varianten": [
+        {
+          "label": "Normal",
+          "komponenten": [{"tag": "koffein"}]
+        },
+        {
+          "label": "Entkoffeiniert",
+          "komponenten": [{"tag": "koffein", "zustand": "koffeinfrei"}]
+        }
+      ],
+      "alternativen": ["Rooibos", "Kräutertee"],
+      "frage": "Mit oder ohne Koffein?"
+    },
+    {
+      "id": "cola",
+      "name": "Cola und koffeinhaltige Limonaden",
+      "synonyme": ["cola", "coca cola", "pepsi", "limonade"],
+      "varianten": [
+        {
+          "label": "Normal",
+          "komponenten": [{"tag": "koffein"}]
+        },
+        {
+          "label": "Koffeinfrei",
+          "komponenten": [{"tag": "koffein", "zustand": "koffeinfrei"}]
+        }
+      ],
+      "alternativen": ["Mineralwasser mit Zitrone", "Apfelschorle"],
+      "frage": "Mit oder ohne Koffein?"
+    },
+    {
+      "id": "energydrink",
+      "name": "Energydrink",
+      "synonyme": ["energydrink", "red bull", "energy"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "koffein"}]
+        }
+      ],
+      "alternativen": ["Mineralwasser", "Apfelschorle"],
+      "eigener_text": "Energydrinks enthalten viel Koffein und zählen ins Tagesbudget von rund 200 mg. Zu weiteren Zusätzen wie Taurin ist hier nichts hinterlegt — im Zweifel die Hebamme fragen."
+    },
+    {
+      "id": "eistee",
+      "name": "Eistee",
+      "synonyme": ["eistee", "ice tea"],
+      "varianten": [
+        {
+          "label": "Auf Schwarz- oder Grünteebasis",
+          "komponenten": [{"tag": "koffein"}]
+        },
+        {
+          "label": "Aus Früchtetee",
+          "komponenten": [{"tag": "koffein", "zustand": "koffeinfrei"}]
+        }
+      ],
+      "alternativen": ["Selbst gemachter Früchtetee"],
+      "frage": "Woraus gemacht?"
+    },
+    {
+      "id": "mate",
+      "name": "Mate und Guarana",
+      "synonyme": ["mate", "guarana", "club mate"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "koffein"}]
+        }
+      ],
+      "alternativen": ["Rooibos"]
+    },
+    {
+      "id": "kakao",
+      "name": "Kakao und heisse Schokolade",
+      "synonyme": ["kakao", "heisse schokolade", "ovomaltine", "schoggi"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "koffein"}]
+        }
+      ],
+      "alternativen": ["Warme Milch mit Honig"],
+      "eigener_text": "Kakao enthält wenig Koffein, zählt aber mit ins Tagesbudget. In üblichen Mengen unproblematisch."
     },
     {
       "id": "wein-bier",
       "name": "Wein, Bier und Spirituosen",
-      "synonyme": ["wein", "bier", "prosecco", "champagner", "sekt", "spirituosen", "cocktail", "alkohol", "schnaps", "likör"],
-      "frage": "Mit oder ohne Alkohol?",
+      "synonyme": ["wein", "bier", "prosecco", "champagner", "sekt", "spirituosen", "cocktail", "alkohol", "schnaps", "likör", "aperol", "gin", "wodka", "whisky"],
       "varianten": [
-        { "label": "Alkoholisch", "komponenten": [{ "tag": "alkohol" }] },
-        { "label": "Ausgewiesen 0,0 Prozent", "komponenten": [{ "tag": "alkohol", "zustand": "null-komma-null" }] }
+        {
+          "label": "Alkoholisch",
+          "komponenten": [{"tag": "alkohol"}]
+        },
+        {
+          "label": "Ausgewiesen 0,0 Prozent",
+          "komponenten": [{"tag": "alkohol", "zustand": "null-komma-null"}]
+        }
       ],
-      "alternativen": ["Alkoholfreies Bier mit ausgewiesenen 0,0 Prozent", "Traubensaft mit Mineralwasser"]
+      "alternativen": ["Alkoholfreies Bier mit ausgewiesenen 0,0 Prozent", "Traubensaft mit Mineralwasser", "Ingwer-Limette mit Sprudel"],
+      "frage": "Mit oder ohne Alkohol?"
     },
     {
-      "id": "lakritze",
-      "name": "Lakritze",
-      "synonyme": ["lakritze", "lakritz", "süssholz", "salmiak", "salmiakpastillen"],
-      "varianten": [{ "label": null, "komponenten": [{ "tag": "lakritz" }] }],
-      "alternativen": ["Fruchtgummi ohne Lakritz"]
+      "id": "alkoholfrei",
+      "name": "Alkoholfreies Bier und alkoholfreier Wein",
+      "synonyme": ["alkoholfreies bier", "alkoholfrei", "0.0", "alkoholfreier wein", "alkoholfreier sekt"],
+      "varianten": [
+        {
+          "label": "Ausgewiesen 0,0 Prozent",
+          "komponenten": [{"tag": "alkohol", "zustand": "null-komma-null"}]
+        },
+        {
+          "label": "Nur als alkoholfrei deklariert",
+          "komponenten": [{"tag": "alkohol"}]
+        }
+      ],
+      "alternativen": ["Getränke mit ausgewiesenen 0,0 Prozent", "Mineralwasser mit Fruchtsaft"],
+      "frage": "Steht 0,0 auf der Flasche?"
+    },
+    {
+      "id": "glühwein",
+      "name": "Glühwein und Punsch",
+      "synonyme": ["glühwein", "punsch", "grog", "feuerzangenbowle"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "alkohol"}]
+        }
+      ],
+      "alternativen": ["Alkoholfreier Punsch", "Heisser Apfelsaft mit Zimtstange"],
+      "eigener_text": "Beim Erwärmen verdampft nur ein Teil des Alkohols. Der Rest bleibt und geht auf das Kind über."
+    },
+    {
+      "id": "kombucha",
+      "name": "Kombucha",
+      "synonyme": ["kombucha", "fermentiertes teegetränk"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "alkohol"}]
+        }
+      ],
+      "alternativen": ["Rooibos", "Mineralwasser mit Zitrone"],
+      "eigener_text": "Bei der Fermentation entsteht Restalkohol, dessen Menge im Produkt schwankt. Zusätzlich ist nicht pasteurisierte Ware ein Keimrisiko."
+    },
+    {
+      "id": "wasser",
+      "name": "Leitungswasser und Mineralwasser",
+      "synonyme": ["wasser", "leitungswasser", "hahnenwasser", "mineralwasser", "sprudel"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "wasser"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "In der Schweiz unbedenklich und die beste Durstlöscherin. Nach längerer Standzeit kurz ablaufen lassen."
+    },
+    {
+      "id": "fruchtsaft",
+      "name": "Fruchtsaft",
+      "synonyme": ["fruchtsaft", "orangensaft", "apfelsaft", "saft", "schorle"],
+      "varianten": [
+        {
+          "label": "Pasteurisiert aus der Packung",
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        },
+        {
+          "label": "Frisch gepresst an der Bar",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
+      ],
+      "alternativen": ["Saft aus der Packung", "Zu Hause selber pressen"],
+      "frage": "Woher stammt er?"
+    },
+    {
+      "id": "smoothie",
+      "name": "Smoothie",
+      "synonyme": ["smoothie", "shake", "acai bowl"],
+      "varianten": [
+        {
+          "label": "Abgepackt aus dem Laden",
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        },
+        {
+          "label": "Aus der Smoothie-Bar",
+          "komponenten": [{"tag": "vorgeschnitten"}]
+        }
+      ],
+      "alternativen": ["Abgepackter Smoothie", "Zu Hause mixen"],
+      "frage": "Woher stammt er?"
+    },
+    {
+      "id": "getreidekaffee",
+      "name": "Getreidekaffee und Lupinenkaffee",
+      "synonyme": ["getreidekaffee", "caro", "lupinenkaffee", "malzkaffee"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Koffeinfrei und unbedenklich."
     },
     {
       "id": "blattsalat",
       "name": "Blattsalat und Rohkost",
-      "synonyme": ["salat", "blattsalat", "rohkost", "nüsslisalat", "rucola", "randen", "karotten"],
-      "frage": "Selber gewaschen?",
+      "synonyme": ["salat", "blattsalat", "rohkost", "nüsslisalat", "rucola", "kopfsalat", "eisberg"],
       "varianten": [
-        { "label": "Gründlich gewaschen oder geschält", "komponenten": [{ "tag": "erdgemuese-ungewaschen", "zustand": "gewaschen" }] },
-        { "label": "Ungewaschen oder auswärts serviert", "komponenten": [{ "tag": "erdgemuese-ungewaschen" }] }
+        {
+          "label": "Gründlich gewaschen oder geschält",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen", "zustand": "gewaschen"}]
+        },
+        {
+          "label": "Ungewaschen oder auswärts serviert",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
       ],
-      "alternativen": ["Gekochtes Gemüse", "Salat zu Hause selber waschen"]
+      "alternativen": ["Gekochtes Gemüse", "Zu Hause selber waschen"],
+      "frage": "Selber gewaschen?"
+    },
+    {
+      "id": "erdbeeren",
+      "name": "Erdbeeren und Beeren",
+      "synonyme": ["erdbeeren", "beeren", "himbeeren", "heidelbeeren", "brombeeren", "johannisbeeren"],
+      "varianten": [
+        {
+          "label": "Gründlich gewaschen oder geschält",
+          "komponenten": [{"tag": "beeren-bodennah", "zustand": "gewaschen"}]
+        },
+        {
+          "label": "Ungewaschen oder auswärts serviert",
+          "komponenten": [{"tag": "beeren-bodennah"}]
+        }
+      ],
+      "alternativen": ["Beeren gründlich waschen", "Tiefgekühlte Beeren, aufgekocht"],
+      "frage": "Selber gewaschen?"
+    },
+    {
+      "id": "tomate",
+      "name": "Tomaten",
+      "synonyme": ["tomate", "tomaten", "cherrytomaten", "peperoni", "paprika"],
+      "varianten": [
+        {
+          "label": "Gründlich gewaschen oder geschält",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen", "zustand": "gewaschen"}]
+        },
+        {
+          "label": "Ungewaschen oder auswärts serviert",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
+      ],
+      "alternativen": ["Gekochtes Gemüse", "Zu Hause selber waschen"],
+      "frage": "Selber gewaschen?"
+    },
+    {
+      "id": "gurke",
+      "name": "Gurke",
+      "synonyme": ["gurke", "salatgurke", "zucchetti", "zucchini"],
+      "varianten": [
+        {
+          "label": "Gründlich gewaschen oder geschält",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen", "zustand": "gewaschen"}]
+        },
+        {
+          "label": "Ungewaschen oder auswärts serviert",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
+      ],
+      "alternativen": ["Gekochtes Gemüse", "Zu Hause selber waschen"],
+      "frage": "Selber gewaschen?"
+    },
+    {
+      "id": "karotte",
+      "name": "Karotten und Wurzelgemüse",
+      "synonyme": ["karotte", "rüebli", "karotten", "randen", "rande", "sellerie", "pastinake"],
+      "varianten": [
+        {
+          "label": "Gründlich gewaschen oder geschält",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen", "zustand": "gewaschen"}]
+        },
+        {
+          "label": "Ungewaschen oder auswärts serviert",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
+      ],
+      "alternativen": ["Gekochtes Gemüse", "Zu Hause selber waschen"],
+      "frage": "Selber gewaschen?"
+    },
+    {
+      "id": "lauch",
+      "name": "Lauch und Zwiebeln",
+      "synonyme": ["lauch", "zwiebel", "frühlingszwiebel", "knoblauch"],
+      "varianten": [
+        {
+          "label": "Gründlich gewaschen oder geschält",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen", "zustand": "gewaschen"}]
+        },
+        {
+          "label": "Ungewaschen oder auswärts serviert",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
+      ],
+      "alternativen": ["Gekochtes Gemüse", "Zu Hause selber waschen"],
+      "frage": "Selber gewaschen?"
+    },
+    {
+      "id": "pilze",
+      "name": "Pilze",
+      "synonyme": ["pilze", "champignons", "steinpilze", "eierschwämme"],
+      "varianten": [
+        {
+          "label": "Gründlich gewaschen oder geschält",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen", "zustand": "gewaschen"}]
+        },
+        {
+          "label": "Ungewaschen oder auswärts serviert",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
+      ],
+      "alternativen": ["Pilze immer durchgaren"],
+      "frage": "Selber gewaschen?"
+    },
+    {
+      "id": "kraeuter-frisch",
+      "name": "Frische Kräuter",
+      "synonyme": ["petersilie", "schnittlauch", "basilikum", "koriander", "frische kräuter", "dill"],
+      "varianten": [
+        {
+          "label": "Gründlich gewaschen oder geschält",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen", "zustand": "gewaschen"}]
+        },
+        {
+          "label": "Ungewaschen oder auswärts serviert",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
+      ],
+      "alternativen": ["Gekochtes Gemüse", "Zu Hause selber waschen"],
+      "frage": "Selber gewaschen?"
+    },
+    {
+      "id": "kartoffel",
+      "name": "Kartoffeln",
+      "synonyme": ["kartoffel", "härdöpfel", "pommes", "rösti", "kartoffelstock", "gnocchi"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekochte Kartoffeln sind unbedenklich. Grüne Stellen und Keime wegschneiden — sie enthalten Solanin, unabhängig von der Schwangerschaft."
+    },
+    {
+      "id": "gemuese-gekocht",
+      "name": "Gekochtes Gemüse",
+      "synonyme": ["gekochtes gemüse", "dampfgemüse", "broccoli", "blumenkohl", "bohnen", "erbsen", "spinat", "spargel"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "avocado",
+      "name": "Avocado",
+      "synonyme": ["avocado", "guacamole"],
+      "varianten": [
+        {
+          "label": "Selber aufgeschnitten",
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        },
+        {
+          "label": "Vorgeschnitten oder als offene Guacamole",
+          "komponenten": [{"tag": "vorgeschnitten"}]
+        }
+      ],
+      "alternativen": ["Avocado selber halbieren"],
+      "frage": "Frisch aufgeschnitten?"
+    },
+    {
+      "id": "apfel",
+      "name": "Äpfel und Birnen",
+      "synonyme": ["apfel", "äpfel", "birne", "birnen"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gewaschen oder geschält unbedenklich und empfehlenswert."
+    },
+    {
+      "id": "banane",
+      "name": "Bananen",
+      "synonyme": ["banane", "bananen"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Geschältes Obst ist unbedenklich."
+    },
+    {
+      "id": "zitrusfruechte",
+      "name": "Zitrusfrüchte",
+      "synonyme": ["orange", "mandarine", "zitrone", "limette", "grapefruit"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "steinobst",
+      "name": "Steinobst",
+      "synonyme": ["pfirsich", "nektarine", "aprikose", "kirschen", "zwetschgen", "pflaumen"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "melone",
+      "name": "Melone",
+      "synonyme": ["melone", "wassermelone", "honigmelone", "cantaloupe"],
+      "varianten": [
+        {
+          "label": "Selber aufgeschnitten",
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        },
+        {
+          "label": "Vorgeschnitten gekauft",
+          "komponenten": [{"tag": "vorgeschnitten"}]
+        }
+      ],
+      "alternativen": ["Melone selber aufschneiden"],
+      "frage": "Frisch aufgeschnitten?"
+    },
+    {
+      "id": "ananas",
+      "name": "Ananas",
+      "synonyme": ["ananas"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Der Mythos, Ananas löse Wehen aus, hält sich hartnäckig. In normalen Essmengen gibt es dafür keine Belege."
+    },
+    {
+      "id": "papaya",
+      "name": "Papaya und Mango",
+      "synonyme": ["papaya", "mango"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Reife Papaya und Mango sind unbedenklich. Unreife Papaya enthält Papain und wird in der Schwangerschaft nicht empfohlen."
+    },
+    {
+      "id": "trockenfruechte",
+      "name": "Trockenfrüchte",
+      "synonyme": ["trockenfrüchte", "rosinen", "dörrpflaumen", "datteln", "aprikosen getrocknet"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Unbedenklich. Vor dem Essen abspülen, wenn sie offen verkauft wurden."
+    },
+    {
+      "id": "oliven",
+      "name": "Oliven",
+      "synonyme": ["oliven", "olive"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Eingelegte Oliven sind unbedenklich. Bei offener Ware auf saubere Handhabung achten."
+    },
+    {
+      "id": "sprossen",
+      "name": "Sprossen und Keimlinge",
+      "synonyme": ["sprossen", "keimlinge", "alfalfa", "mungbohnen", "kresse"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "keimling-roh", "zustand": "durcherhitzt"}]
+        },
+        {
+          "label": "Roh",
+          "komponenten": [{"tag": "keimling-roh"}]
+        }
+      ],
+      "alternativen": ["Sprossen im Wok mitbraten", "Geriebene Karotte im Salat"],
+      "frage": "Roh oder gegart?"
+    },
+    {
+      "id": "fertigsalat",
+      "name": "Fertigsalat und Salatbuffet",
+      "synonyme": ["fertigsalat", "salatbuffet", "abgepackter salat", "vorgeschnitten", "smoothie bar", "buffet"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "vorgeschnitten"}]
+        }
+      ],
+      "alternativen": ["Salat selber rüsten und waschen", "Gekochtes Gemüse als Beilage"]
+    },
+    {
+      "id": "sauerkraut",
+      "name": "Sauerkraut und eingelegtes Gemüse",
+      "synonyme": ["sauerkraut", "eingelegtes gemüse", "gurken sauer", "kimchi", "essiggurken"],
+      "varianten": [
+        {
+          "label": "Gekocht oder pasteurisiert",
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        },
+        {
+          "label": "Roh und unpasteurisiert",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
+      ],
+      "alternativen": ["Sauerkraut aufkochen"],
+      "frage": "Erhitzt oder roh?"
+    },
+    {
+      "id": "huelsenfruechte",
+      "name": "Hülsenfrüchte",
+      "synonyme": ["linsen", "kichererbsen", "bohnen", "hülsenfrüchte", "kidneybohnen"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "huelsenfrucht-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekocht unbedenklich. Rohe Bohnen sind auch ausserhalb der Schwangerschaft giftig."
+    },
+    {
+      "id": "tofu",
+      "name": "Tofu und Sojaprodukte",
+      "synonyme": ["tofu", "tempeh", "sojaprodukte", "edamame"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "huelsenfrucht-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Abgepackter Tofu ist erhitzt und unbedenklich. Vor dem Essen trotzdem kurz erhitzen."
+    },
+    {
+      "id": "schokolade",
+      "name": "Schokolade",
+      "synonyme": ["schokolade", "schoggi", "praline", "dunkle schokolade", "milchschokolade"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "koffein"}]
+        }
+      ],
+      "alternativen": ["Weisse Schokolade enthält kein Kakaopulver"],
+      "eigener_text": "Schokolade enthält etwas Koffein und zählt ins Tagesbudget von rund 200 mg. In üblichen Mengen unproblematisch; dunkle Schokolade enthält mehr als helle."
+    },
+    {
+      "id": "lakritze",
+      "name": "Lakritze",
+      "synonyme": ["lakritze", "lakritz", "süssholz", "salmiak", "succus"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "lakritz"}]
+        }
+      ],
+      "alternativen": ["Fruchtgummi ohne Lakritz"]
+    },
+    {
+      "id": "glace",
+      "name": "Glace und Softeis",
+      "synonyme": ["glace", "eis", "softeis", "gelato", "speiseeis", "rahmglace"],
+      "varianten": [
+        {
+          "label": "Abgepackt aus dem Laden",
+          "komponenten": [{"tag": "zucker-suessware"}]
+        },
+        {
+          "label": "Offen aus der Gelateria",
+          "komponenten": [{"tag": "offene-ware"}]
+        },
+        {
+          "label": "Softeis aus der Maschine",
+          "komponenten": [{"tag": "softeis-maschine"}]
+        }
+      ],
+      "alternativen": ["Abgepacktes Glace", "Sorbet aus der Packung"],
+      "frage": "Woher stammt es?"
+    },
+    {
+      "id": "sorbet",
+      "name": "Sorbet",
+      "synonyme": ["sorbet", "fruchteis", "wassereis"],
+      "varianten": [
+        {
+          "label": "Abgepackt aus dem Laden",
+          "komponenten": [{"tag": "zucker-suessware"}]
+        },
+        {
+          "label": "Offen aus der Gelateria",
+          "komponenten": [{"tag": "offene-ware"}]
+        }
+      ],
+      "alternativen": ["Abgepacktes Sorbet"],
+      "frage": "Woher stammt es?"
+    },
+    {
+      "id": "gummibaerchen",
+      "name": "Gummibärchen und Fruchtgummi",
+      "synonyme": ["gummibärchen", "fruchtgummi", "haribo", "bonbons", "zuckerwaren"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "zucker-suessware"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Unbedenklich. Lakritzhaltige Sorten fallen unter die Lakritz-Regel."
+    },
+    {
+      "id": "kuchen",
+      "name": "Kuchen und Gebäck",
+      "synonyme": ["kuchen", "gebäck", "muffin", "cake", "biskuit", "guetzli", "keks"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "ei-roh", "zustand": "durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgebacken ist das Ei gestockt und unbedenklich. Roher Teig dagegen nicht — wegen Ei und rohem Mehl."
+    },
+    {
+      "id": "teig-roh",
+      "name": "Roher Teig",
+      "synonyme": ["roher teig", "keksteig", "cookie dough", "teig naschen", "hefeteig roh"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "ei-roh"}]
+        }
+      ],
+      "alternativen": ["Fertig gebackenes Gebäck"],
+      "eigener_text": "Roher Teig enthält rohes Ei und rohes Mehl. Beides kann Keime tragen; das Mehl wird vor dem Backen nicht behandelt."
+    },
+    {
+      "id": "dessert",
+      "name": "Panna cotta, Crème brûlée und Pudding",
+      "synonyme": ["panna cotta", "crème brûlée", "creme brulee", "pudding", "flan", "caramelköpfli"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "ei-roh", "zustand": "durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekochte und gebackene Cremes sind unbedenklich. Nicht erhitzte Eiercremes wie Mousse fallen unter die Rohei-Regel."
+    },
+    {
+      "id": "konfitüre",
+      "name": "Konfitüre und Honig",
+      "synonyme": ["konfitüre", "marmelade", "gelee", "sirup"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "zucker-suessware"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "honig",
+      "name": "Honig",
+      "synonyme": ["honig", "waldhonig", "bienenhonig", "blütenhonig"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "honig"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Für die Schwangere unbedenklich. Wichtig für später: Säuglinge dürfen im ersten Lebensjahr keinen Honig bekommen."
+    },
+    {
+      "id": "nuesse",
+      "name": "Nüsse und Mandeln",
+      "synonyme": ["nüsse", "erdnüsse", "mandeln", "baumnüsse", "haselnüsse", "cashew", "erdnussbutter", "nussmus"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "nuesse"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Die früher empfohlene Vermeidung ist überholt. Nüsse in der Schwangerschaft schützen eher vor Allergien beim Kind, als sie zu fördern."
+    },
+    {
+      "id": "chips",
+      "name": "Chips und Salzgebäck",
+      "synonyme": ["chips", "salzgebäck", "cracker", "bretzel", "popcorn"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "zucker-suessware"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "brot",
+      "name": "Brot",
+      "synonyme": ["brot", "brötchen", "weggli", "gipfeli", "croissant", "zopf", "toast"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "muesli",
+      "name": "Müesli und Frühstücksflocken",
+      "synonyme": ["müesli", "birchermüesli", "cornflakes", "haferflocken", "granola", "porridge"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Unbedenklich. Birchermüesli mit Rahm oder Joghurt aus pasteurisierter Milch ist es ebenso."
+    },
+    {
+      "id": "reis",
+      "name": "Reis",
+      "synonyme": ["reis", "risottoreis", "basmati", "sushi reis"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekochter Reis ist unbedenklich. Gekochten Reis rasch abkühlen und nicht lange warm stehen lassen."
+    },
+    {
+      "id": "mehl-roh",
+      "name": "Rohes Mehl",
+      "synonyme": ["mehl", "rohes mehl", "teigwaren roh"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "ei-roh"}]
+        }
+      ],
+      "alternativen": ["Mehl vor dem Verwenden im Ofen erhitzen"],
+      "eigener_text": "Rohes Mehl wird vor dem Verkauf nicht keimreduziert. In gebackenen Speisen ist es unbedenklich."
+    },
+    {
+      "id": "polenta",
+      "name": "Polenta und Couscous",
+      "synonyme": ["polenta", "couscous", "bulgur", "quinoa", "hirse"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "salbeitee",
+      "name": "Salbeitee",
+      "synonyme": ["salbei", "salbeitee"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "kraut-wehenfoerdernd"}]
+        }
+      ],
+      "alternativen": ["Rooibos", "Fenchel", "Kamille", "Früchtetee"]
+    },
+    {
+      "id": "himbeerblaetter",
+      "name": "Himbeerblättertee",
+      "synonyme": ["himbeerblätter", "himbeerblättertee"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "kraut-wehenfoerdernd"}]
+        }
+      ],
+      "alternativen": ["Rooibos", "Fenchel", "Kamille", "Früchtetee"]
+    },
+    {
+      "id": "zimt",
+      "name": "Zimt und Zimtrinde",
+      "synonyme": ["zimt", "zimtrinde", "cassia", "zimtstern"],
+      "varianten": [
+        {
+          "label": "Als Gewürz in Speisemengen",
+          "komponenten": [{"tag": "gewuerz"}]
+        },
+        {
+          "label": "Als Tee oder in grösseren Mengen",
+          "komponenten": [{"tag": "kraut-wehenfoerdernd"}]
+        }
+      ],
+      "alternativen": ["Vanille", "Kardamom"],
+      "frage": "Als Gewürz oder als Tee?"
     },
     {
       "id": "kraeutertee",
-      "name": "Salbeitee, Himbeerblättertee und Zimt",
-      "synonyme": ["salbei", "salbeitee", "himbeerblätter", "himbeerblättertee", "zimt", "zimtrinde", "kräutertee"],
-      "varianten": [{ "label": null, "komponenten": [{ "tag": "kraut-wehenfoerdernd" }] }],
-      "alternativen": ["Rooibos", "Pfefferminztee", "Früchtetee"]
+      "name": "Kräutertee",
+      "synonyme": ["kräutertee", "kräuteraufguss", "teemischung"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "kraut-wehenfoerdernd"}]
+        }
+      ],
+      "alternativen": ["Rooibos", "Fenchel", "Kamille", "Früchtetee"],
+      "eigener_text": "Die meisten Sorten sind in normalen Mengen unproblematisch. Einzelne wirken jedoch wehenfördernd — Salbei, Himbeerblätter und Zimtrinde erst gegen Ende der Schwangerschaft und nur nach Rücksprache mit der Hebamme."
+    },
+    {
+      "id": "rooibos",
+      "name": "Rooibos und Früchtetee",
+      "synonyme": ["rooibos", "früchtetee", "hagebutte", "rotbusch"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Koffeinfrei und ohne wehenfördernde Wirkung — unbedenklich."
+    },
+    {
+      "id": "pfefferminztee",
+      "name": "Pfefferminztee",
+      "synonyme": ["pfefferminztee", "pfefferminze", "minze"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "In üblichen Teemengen unbedenklich."
+    },
+    {
+      "id": "kamillentee",
+      "name": "Kamillentee",
+      "synonyme": ["kamille", "kamillentee"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "fencheltee",
+      "name": "Fenchel- und Anistee",
+      "synonyme": ["fenchel", "fencheltee", "anis", "kümmel"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "ingwer",
+      "name": "Ingwer",
+      "synonyme": ["ingwer", "ingwertee", "ginger"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "In Speise- und Teemengen unbedenklich und ein verbreitetes Hausmittel gegen Übelkeit. Zu hoch dosierten Ingwerpräparaten ist hier nichts hinterlegt."
+    },
+    {
+      "id": "gewuerze",
+      "name": "Küchengewürze",
+      "synonyme": ["gewürze", "pfeffer", "paprikapulver", "curry pulver", "muskat", "oregano", "thymian", "rosmarin"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "In Speisemengen unbedenklich. Zu Heilkräutern in Arzneidosis ist hier nichts hinterlegt."
+    },
+    {
+      "id": "brennnessel",
+      "name": "Brennnessel- und Entwässerungstees",
+      "synonyme": ["brennnessel", "brennnesseltee", "entwässerungstee", "blasentee"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "kraut-wehenfoerdernd"}]
+        }
+      ],
+      "alternativen": ["Rooibos", "Fenchel", "Kamille", "Früchtetee"],
+      "eigener_text": "Entwässernde Tees sind in der Schwangerschaft nicht für den Dauergebrauch gedacht. Menge und Dauer entscheidet die Hebamme, nicht diese App."
+    },
+    {
+      "id": "essig",
+      "name": "Essig und Senf",
+      "synonyme": ["essig", "balsamico", "senf", "aceto"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "oel",
+      "name": "Speiseöl",
+      "synonyme": ["öl", "olivenöl", "rapsöl", "sonnenblumenöl", "leinöl"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "oel-fett"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "sojasauce",
+      "name": "Sojasauce",
+      "synonyme": ["sojasauce", "soja sauce", "tamari"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "kaeserinde",
+      "name": "Käserinde",
+      "synonyme": ["käserinde", "rinde", "rinde essen"],
+      "varianten": [
+        {
+          "label": "Von Hartkäse",
+          "komponenten": [{"tag": "hartkaese"}]
+        },
+        {
+          "label": "Von Weichkäse",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "pasteurisiert"}]
+        }
+      ],
+      "alternativen": ["Rinde wegschneiden", "Hartkäse"],
+      "frage": "Von welchem Käse?"
+    },
+    {
+      "id": "mikrowelle",
+      "name": "Essen aus der Mikrowelle",
+      "synonyme": ["mikrowelle", "aufgewärmt", "aufwärmen"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Die Mikrowelle selbst ist unbedenklich. Wichtig ist, dass die Speise durchgehend heiss wird — Mikrowellen erhitzen ungleichmässig."
+    },
+    {
+      "id": "resten",
+      "name": "Resten vom Vortag",
+      "synonyme": ["resten", "reste", "übriggebliebenes", "vom vortag", "meal prep"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Rasch abkühlen, kühl lagern und vor dem Essen vollständig durcherhitzen. Nicht mehrfach aufwärmen."
+    },
+    {
+      "id": "erdnussallergie",
+      "name": "Nüsse und Allergierisiko",
+      "synonyme": ["allergie", "erdnussallergie", "allergierisiko"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "nuesse"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Die früher empfohlene Vermeidung von Nüssen ist überholt und wird heute nicht mehr geraten. Bei eigener Allergie gilt selbstverständlich weiterhin Verzicht."
+    },
+    {
+      "id": "scharf",
+      "name": "Scharfes Essen",
+      "synonyme": ["scharf", "chili", "peperoncini", "sambal", "harissa"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Scharfes Essen löst keine Wehen aus. Es kann Sodbrennen verstärken, das in der Schwangerschaft ohnehin häufiger vorkommt."
+    },
+    {
+      "id": "saeuglingshonig",
+      "name": "Honig für das Baby",
+      "synonyme": ["honig baby", "honig säugling"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "honig"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Für die Schwangere unbedenklich. Nach der Geburt gilt: im ersten Lebensjahr kein Honig für das Kind, wegen Botulismusgefahr."
+    },
+    {
+      "id": "aelplermagronen",
+      "name": "Älplermagronen",
+      "synonyme": ["älplermagronen", "magronen", "alplermagronen"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "hartkaese"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht und mit Halbhartkäse überbacken — unbedenklich."
+    },
+    {
+      "id": "geschnetzeltes",
+      "name": "Zürcher Geschnetzeltes",
+      "synonyme": ["geschnetzeltes", "zürcher geschnetzeltes", "züri gschnätzlets"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Das Fleisch wird durchgegart, der Rahm ist pasteurisiert. Der Weisswein verkocht beim Ablöschen weitgehend; wer sicher gehen will, lässt ihn weg."
+    },
+    {
+      "id": "cordonbleu",
+      "name": "Cordon bleu",
+      "synonyme": ["cordon bleu", "cordonbleu"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgebraten unbedenklich. Auf eine heisse Mitte achten — der Käse soll geschmolzen sein."
+    },
+    {
+      "id": "capuns",
+      "name": "Capuns und Pizokel",
+      "synonyme": ["capuns", "pizokel", "maluns"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht unbedenklich. Bei Capuns steckt Salsiz im Teig, der dabei miterhitzt wird."
+    },
+    {
+      "id": "fotzelschnitten",
+      "name": "Fotzelschnitten und French Toast",
+      "synonyme": ["fotzelschnitten", "french toast", "arme ritter", "pancakes", "waffeln", "crêpes"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "ei-roh", "zustand": "durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Vollständig ausgebacken ist das Ei gestockt und die Speise unbedenklich."
+    },
+    {
+      "id": "znueni",
+      "name": "Znüni und Apéro",
+      "synonyme": ["znüni", "apéro", "apero", "znacht", "zvieri", "häppchen"],
+      "varianten": [
+        {
+          "label": "Warme, frisch zubereitete Häppchen",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Kalte Platte mit Trockenfleisch und Weichkäse",
+          "komponenten": [{"tag": "rohwurst"}, {"tag": "rohmilch-weichkaese", "zustand": "pasteurisiert"}]
+        }
+      ],
+      "alternativen": ["Warme Blätterteigstangen", "Gemüsesticks mit Hummus", "Hartkäsewürfel"],
+      "frage": "Warm oder kalte Platte?"
+    },
+    {
+      "id": "antipasti",
+      "name": "Antipasti",
+      "synonyme": ["antipasti", "antipasto", "eingelegtes gemüse öl"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "offene-ware"}]
+        }
+      ],
+      "alternativen": ["Antipasti aus dem geschlossenen Glas", "Selbst eingelegtes Gemüse"],
+      "eigener_text": "Offen angebotene Antipasti stehen lange und werden viel angefasst. Abgepackte Ware aus dem verschlossenen Glas ist die sichere Wahl."
+    },
+    {
+      "id": "bruschetta",
+      "name": "Bruschetta und Tapas",
+      "synonyme": ["bruschetta", "tapas", "crostini"],
+      "varianten": [
+        {
+          "label": "Warm serviert",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Kalt mit rohem Belag",
+          "komponenten": [{"tag": "erdgemuese-ungewaschen"}]
+        }
+      ],
+      "alternativen": ["Warme Tapas", "Tortilla española"],
+      "frage": "Warm oder kalt?"
+    },
+    {
+      "id": "tzatziki",
+      "name": "Tzatziki und Dips",
+      "synonyme": ["tzatziki", "dip", "kräuterquark", "sauerrahmdip"],
+      "varianten": [
+        {
+          "label": "Abgepackt gekauft",
+          "komponenten": [{"tag": "milch-pasteurisiert"}]
+        },
+        {
+          "label": "Offen aus der Theke",
+          "komponenten": [{"tag": "offene-ware"}]
+        }
+      ],
+      "alternativen": ["Abgepackte Dips", "Selber anrühren"],
+      "frage": "Woher stammt er?"
+    },
+    {
+      "id": "pommes",
+      "name": "Pommes frites",
+      "synonyme": ["pommes", "pommes frites", "fritten", "wedges"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Frittiert und damit durcherhitzt — unbedenklich."
+    },
+    {
+      "id": "hotdog",
+      "name": "Hot Dog",
+      "synonyme": ["hotdog", "hot dog"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Das Würstchen ist gebrüht. Warm serviert ist es unbedenklich; kalte Ware aus der Auslage besser meiden."
+    },
+    {
+      "id": "fastfood",
+      "name": "Burger und Fast Food",
+      "synonyme": ["fastfood", "mcdonalds", "big mac", "nuggets", "chicken nuggets"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gefluegel"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Frisch und heiss zubereitet unbedenklich. Auf durchgegartes Fleisch bestehen und kalte Saucen mit rohem Ei weglassen."
+    },
+    {
+      "id": "folsaeure",
+      "name": "Folsäure",
+      "synonyme": ["folsäure", "folat", "folsäurepräparat"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Folsäure wird in der Schwangerschaft ausdrücklich empfohlen. Die Dosierung legt die Ärztin fest, nicht diese App."
+    },
+    {
+      "id": "vitamin-a-praeparat",
+      "name": "Vitamin-A-Präparat",
+      "synonyme": ["vitamin a", "retinol", "vitaminpräparat", "multivitamin"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "retinol-supplement"}]
+        }
+      ],
+      "alternativen": ["Präparate ausdrücklich für die Schwangerschaft", "Beta-Carotin aus Gemüse"]
+    },
+    {
+      "id": "eisen",
+      "name": "Eisenpräparat",
+      "synonyme": ["eisen", "eisenpräparat", "eisentabletten"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Eisen wird bei Mangel verordnet. Nicht zusammen mit Grüntee oder Kaffee einnehmen — die hemmen die Aufnahme. Über die Dosis entscheidet die Ärztin."
+    },
+    {
+      "id": "omega3",
+      "name": "Omega-3-Präparat",
+      "synonyme": ["omega 3", "fischöl", "dha", "algenöl"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "oel-fett"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Algenöl und gereinigtes Fischöl sind gängig. Lebertran dagegen enthält viel Vitamin A und fällt unter die Retinol-Regel."
+    },
+    {
+      "id": "lebertran",
+      "name": "Lebertran",
+      "synonyme": ["lebertran", "dorschlebertran"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "retinol-supplement"}]
+        }
+      ],
+      "alternativen": ["Algenöl", "Zwei Portionen fetter Fisch pro Woche"]
+    },
+    {
+      "id": "bubbletea",
+      "name": "Bubble Tea",
+      "synonyme": ["bubble tea", "boba"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "koffein"}]
+        }
+      ],
+      "alternativen": ["Früchtetee mit Perlen"],
+      "eigener_text": "Meist auf Schwarz- oder Grünteebasis — das Koffein zählt mit."
+    },
+    {
+      "id": "milchshake",
+      "name": "Milchshake",
+      "synonyme": ["milchshake", "shake", "frappé"],
+      "varianten": [
+        {
+          "label": "Aus pasteurisierter Milch",
+          "komponenten": [{"tag": "milch-pasteurisiert"}]
+        },
+        {
+          "label": "Aus der Softeismaschine",
+          "komponenten": [{"tag": "softeis-maschine"}]
+        }
+      ],
+      "alternativen": ["Selbst gemixter Shake"],
+      "frage": "Woher stammt er?"
+    },
+    {
+      "id": "tonic",
+      "name": "Tonic Water und Ginger Ale",
+      "synonyme": ["tonic", "ginger ale", "bitter lemon", "rivella"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "zucker-suessware"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Alkoholfreie Limonaden sind unbedenklich. Tonic enthält Chinin in geringer Menge; als Getränk gilt das als unproblematisch."
+    },
+    {
+      "id": "sirup",
+      "name": "Sirup",
+      "synonyme": ["sirup", "himbeersirup", "holundersirup"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "zucker-suessware"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "algen",
+      "name": "Algen und Nori",
+      "synonyme": ["algen", "nori", "wakame", "seetang"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Nori im Sushi ist unbedenklich. Von grösseren Mengen Algen wird wegen des hohen Jodgehalts abgeraten."
+    },
+    {
+      "id": "chia",
+      "name": "Chia und Leinsamen",
+      "synonyme": ["chia", "leinsamen", "flohsamen", "samen"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "In üblichen Mengen unbedenklich. Immer mit genügend Flüssigkeit einnehmen."
+    },
+    {
+      "id": "proteinpulver",
+      "name": "Proteinpulver",
+      "synonyme": ["proteinpulver", "eiweisspulver", "whey"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "milch-pasteurisiert"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Molkenpulver ist erhitzt und unbedenklich. Zu weiteren Zusätzen in Sportprodukten ist hier nichts hinterlegt — im Zweifel die Hebamme fragen."
+    },
+    {
+      "id": "hefe",
+      "name": "Hefe und Hefeflocken",
+      "synonyme": ["hefe", "hefeflocken", "backhefe"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "bouillonwuerfel",
+      "name": "Bouillonwürfel und Aromat",
+      "synonyme": ["bouillonwürfel", "aromat", "streuwürze", "maggi"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "rohmilch",
+      "name": "Rohmilch",
+      "synonyme": ["rohmilch", "milch ab hof", "vorzugsmilch", "unbehandelte milch"],
+      "varianten": [
+        {
+          "label": "Abgekocht",
+          "komponenten": [{"tag": "rohmilch-trinken", "zustand": "durcherhitzt"}]
+        },
+        {
+          "label": "Roh ab Hof",
+          "komponenten": [{"tag": "rohmilch-trinken"}]
+        }
+      ],
+      "alternativen": ["Pasteurisierte Milch", "UHT-Milch"],
+      "frage": "Abgekocht oder roh?"
+    },
+    {
+      "id": "ramen",
+      "name": "Ramen und Pho",
+      "synonyme": ["ramen", "pho", "nudelsuppe", "udon"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht und heiss serviert unbedenklich. Rohe Beilagen wie Salat, Sprossen oder Sauce mit rohem Ei separat beurteilen."
+    },
+    {
+      "id": "paella",
+      "name": "Paella",
+      "synonyme": ["paella"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht und heiss serviert unbedenklich. Rohe Beilagen wie Salat, Sprossen oder Sauce mit rohem Ei separat beurteilen."
+    },
+    {
+      "id": "moussaka",
+      "name": "Moussaka und Souvlaki",
+      "synonyme": ["moussaka", "souvlaki", "gyros teller"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht und heiss serviert unbedenklich. Rohe Beilagen wie Salat, Sprossen oder Sauce mit rohem Ei separat beurteilen."
+    },
+    {
+      "id": "tacos",
+      "name": "Tacos und Burrito",
+      "synonyme": ["tacos", "burrito", "quesadilla", "enchilada", "fajita"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht und heiss serviert unbedenklich. Rohe Beilagen wie Salat, Sprossen oder Sauce mit rohem Ei separat beurteilen."
+    },
+    {
+      "id": "bibimbap",
+      "name": "Bibimbap und Reisgerichte",
+      "synonyme": ["bibimbap", "reisgericht", "donburi"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht und heiss serviert unbedenklich. Rohe Beilagen wie Salat, Sprossen oder Sauce mit rohem Ei separat beurteilen."
+    },
+    {
+      "id": "chili",
+      "name": "Chili con carne",
+      "synonyme": ["chili con carne", "chili"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht und heiss serviert unbedenklich. Rohe Beilagen wie Salat, Sprossen oder Sauce mit rohem Ei separat beurteilen."
+    },
+    {
+      "id": "gulasch",
+      "name": "Gulasch und Ragout",
+      "synonyme": ["gulasch", "ragout", "voressen", "schmorbraten"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht und heiss serviert unbedenklich. Rohe Beilagen wie Salat, Sprossen oder Sauce mit rohem Ei separat beurteilen."
+    },
+    {
+      "id": "pastetli",
+      "name": "Pastetli und Blätterteig",
+      "synonyme": ["pastetli", "blätterteig", "vol au vent"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Durchgekocht und heiss serviert unbedenklich. Rohe Beilagen wie Salat, Sprossen oder Sauce mit rohem Ei separat beurteilen."
+    },
+    {
+      "id": "brunch",
+      "name": "Brunch und Buffet",
+      "synonyme": ["brunch", "buffet", "frühstücksbuffet", "sonntagsbrunch"],
+      "varianten": [
+        {
+          "label": "Warme Speisen, frisch nachgefüllt",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Kalte Platte aus der Auslage",
+          "komponenten": [{"tag": "offene-ware"}]
+        }
+      ],
+      "alternativen": ["Warme Speisen wählen", "Frisch zubereitetes Omelette bestellen"],
+      "frage": "Warm oder kalt?"
+    },
+    {
+      "id": "wurstsalat",
+      "name": "Wurstsalat und Fleischsalat",
+      "synonyme": ["wurstsalat", "fleischsalat", "cervelatsalat"],
+      "varianten": [
+        {
+          "label": "Frisch zu Hause angemacht",
+          "komponenten": [{"tag": "fleisch-durchgegart"}, {"tag": "ei-roh", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Fertig aus der Kühltheke",
+          "komponenten": [{"tag": "vorgeschnitten"}]
+        }
+      ],
+      "alternativen": ["Zu Hause frisch anmachen"],
+      "frage": "Frisch oder fertig gekauft?"
+    },
+    {
+      "id": "schinkengipfeli",
+      "name": "Schinkengipfeli und Käseküchlein",
+      "synonyme": ["schinkengipfeli", "käseküchlein", "blätterteigsnack", "pizzaschnecke"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Frisch gebacken und warm unbedenklich. Lange in der Auslage gestandene Ware besser aufbacken."
+    },
+    {
+      "id": "kuerbis",
+      "name": "Kürbis",
+      "synonyme": ["kürbis", "hokkaido", "butternuss"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekocht unbedenklich. Roh gegessen gilt die Waschregel für bodennahes Gemüse."
+    },
+    {
+      "id": "aubergine",
+      "name": "Aubergine",
+      "synonyme": ["aubergine", "melanzane"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekocht unbedenklich. Roh gegessen gilt die Waschregel für bodennahes Gemüse."
+    },
+    {
+      "id": "artischocke",
+      "name": "Artischocke",
+      "synonyme": ["artischocke"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekocht unbedenklich. Roh gegessen gilt die Waschregel für bodennahes Gemüse."
+    },
+    {
+      "id": "mais",
+      "name": "Mais",
+      "synonyme": ["mais", "maiskolben", "zuckermais"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekocht unbedenklich. Roh gegessen gilt die Waschregel für bodennahes Gemüse."
+    },
+    {
+      "id": "rosenkohl",
+      "name": "Rosenkohl und Kohl",
+      "synonyme": ["rosenkohl", "kohl", "wirz", "weisskohl", "federkohl"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekocht unbedenklich. Roh gegessen gilt die Waschregel für bodennahes Gemüse."
+    },
+    {
+      "id": "spinat",
+      "name": "Spinat und Mangold",
+      "synonyme": ["spinat", "mangold"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gekocht unbedenklich. Roh gegessen gilt die Waschregel für bodennahes Gemüse."
+    },
+    {
+      "id": "kiwi",
+      "name": "Kiwi",
+      "synonyme": ["kiwi"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gründlich gewaschen unbedenklich."
+    },
+    {
+      "id": "trauben",
+      "name": "Trauben",
+      "synonyme": ["trauben", "weintrauben"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gründlich gewaschen unbedenklich."
+    },
+    {
+      "id": "feigen",
+      "name": "Feigen",
+      "synonyme": ["feigen", "feige"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gründlich gewaschen unbedenklich."
+    },
+    {
+      "id": "granatapfel",
+      "name": "Granatapfel",
+      "synonyme": ["granatapfel"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gründlich gewaschen unbedenklich."
+    },
+    {
+      "id": "baerlauch",
+      "name": "Bärlauch",
+      "synonyme": ["bärlauch"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "obst-gewaschen"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gründlich gewaschen unbedenklich."
+    },
+    {
+      "id": "cheesecake",
+      "name": "Cheesecake und Rahmtorte",
+      "synonyme": ["cheesecake", "käsekuchen", "rahmtorte", "schwarzwälder", "torte", "cremeschnitte"],
+      "varianten": [
+        {
+          "label": "Gebacken",
+          "komponenten": [{"tag": "ei-roh", "zustand": "durchgegart"}]
+        },
+        {
+          "label": "Ungebacken, mit roher Creme",
+          "komponenten": [{"tag": "ei-roh"}]
+        }
+      ],
+      "alternativen": ["Gebackener Käsekuchen", "Obsttorte"],
+      "frage": "Gebacken oder kalt gerührt?"
+    },
+    {
+      "id": "nutella",
+      "name": "Nussaufstrich",
+      "synonyme": ["nutella", "nussaufstrich", "schokoaufstrich"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "zucker-suessware"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "halva",
+      "name": "Halva und Sesampaste",
+      "synonyme": ["halva", "tahini", "sesampaste", "sesam"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "nuesse"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "marzipan",
+      "name": "Marzipan und Nougat",
+      "synonyme": ["marzipan", "nougat", "persipan"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "nuesse"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "rumkugel",
+      "name": "Rumkugeln und Weinbrandbohnen",
+      "synonyme": ["rumkugel", "weinbrandbohne", "likörpraline", "alkoholpraline"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "alkohol"}]
+        }
+      ],
+      "alternativen": ["Pralinen ohne Alkoholfüllung"]
+    },
+    {
+      "id": "chai",
+      "name": "Chai Latte",
+      "synonyme": ["chai", "chai latte", "gewürztee"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "koffein"}]
+        }
+      ],
+      "alternativen": ["Rooibos Latte"],
+      "eigener_text": "Chai enthält Schwarztee und damit Koffein. Der Zimtanteil ist in Getränkemengen unproblematisch."
+    },
+    {
+      "id": "cheddar",
+      "name": "Cheddar und Gouda",
+      "synonyme": ["cheddar", "gouda", "edamer", "maasdam"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "hartkaese"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Gereifter Schnitt- und Hartkäse ist unbedenklich."
+    },
+    {
+      "id": "sushi-ingwer",
+      "name": "Sushi-Ingwer und Wasabi",
+      "synonyme": ["sushi ingwer", "gari", "wasabi"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gewuerz"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Eingelegter Ingwer und Wasabi sind unbedenklich. Entscheidend ist der Fisch daneben."
+    },
+    {
+      "id": "pangasius",
+      "name": "Pangasius und Tilapia",
+      "synonyme": ["pangasius", "tilapia", "wels"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "saibling",
+      "name": "Saibling",
+      "synonyme": ["saibling"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "heilbutt",
+      "name": "Heilbutt",
+      "synonyme": ["heilbutt"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "fischsuppe",
+      "name": "Fischsuppe und Bouillabaisse",
+      "synonyme": ["fischsuppe", "bouillabaisse"],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Filet", "Fisch aus der Dose"],
+      "frage": "Wie zubereitet?"
+    },
+    {
+      "id": "blutwurst",
+      "name": "Blutwurst und Weisswurst",
+      "synonyme": ["blutwurst", "weisswurst", "boudin"],
+      "varianten": [
+        {
+          "label": "Durcherhitzt",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Kalt aus der Auslage",
+          "komponenten": [{"tag": "rohwurst"}]
+        }
+      ],
+      "alternativen": ["Warm servierte Brühwurst"],
+      "frage": "Warm oder kalt?"
+    },
+    {
+      "id": "aufschnitt",
+      "name": "Geflügelaufschnitt",
+      "synonyme": ["aufschnitt", "trutenbrust", "pouletbrust aufschnitt", "putenbrust"],
+      "varianten": [
+        {
+          "label": "Frisch abgepackt, rasch gegessen",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Offen von der Theke",
+          "komponenten": [{"tag": "vorgeschnitten"}]
+        }
+      ],
+      "alternativen": ["Original abgepackte Ware", "Frisch gebratene Pouletbrust"],
+      "frage": "Abgepackt oder offen?"
+    },
+    {
+      "id": "raeuchertofu",
+      "name": "Räuchertofu",
+      "synonyme": ["räuchertofu", "smoked tofu"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "huelsenfrucht-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Räuchertofu ist erhitzt und unbedenklich."
+    },
+    {
+      "id": "ziegenmilch",
+      "name": "Schaf- und Ziegenmilch",
+      "synonyme": ["ziegenmilch", "schafmilch", "schafjoghurt"],
+      "varianten": [
+        {
+          "label": "Pasteurisiert",
+          "komponenten": [{"tag": "milch-pasteurisiert"}]
+        },
+        {
+          "label": "Roh ab Hof",
+          "komponenten": [{"tag": "rohmilch-trinken"}]
+        }
+      ],
+      "alternativen": ["Pasteurisierte Kuhmilch"],
+      "frage": "Pasteurisiert oder roh?"
+    },
+    {
+      "id": "kondensmilch",
+      "name": "Kondensmilch und Milchpulver",
+      "synonyme": ["kondensmilch", "milchpulver", "rahmpulver"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "milch-pasteurisiert"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "kokosmilch",
+      "name": "Kokosmilch",
+      "synonyme": ["kokosmilch", "kokosnuss", "kokoscreme"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "nuesse"}]
+        }
+      ],
+      "alternativen": []
+    },
+    {
+      "id": "miso",
+      "name": "Miso und Fermentiertes",
+      "synonyme": ["miso", "misosuppe", "natto"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "huelsenfrucht-gekocht"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Miso wird meist in heisser Suppe verwendet und ist unbedenklich. Nicht pasteurisierte Ware nicht roh löffeln."
+    },
+    {
+      "id": "kaugummi",
+      "name": "Kaugummi und Pastillen",
+      "synonyme": ["kaugummi", "pastillen", "bonbon", "hustenbonbon"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "zucker-suessware"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Unbedenklich. Lakritz- und Süssholzpastillen fallen unter die Lakritz-Regel."
+    },
+    {
+      "id": "kaese-allgemein",
+      "name": "Käse allgemein",
+      "synonyme": ["käse", "chäs", "welcher käse"],
+      "varianten": [
+        {
+          "label": "Hartkäse und Halbhartkäse",
+          "komponenten": [{"tag": "hartkaese"}]
+        },
+        {
+          "label": "Weichkäse aus pasteurisierter Milch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "pasteurisiert"}]
+        },
+        {
+          "label": "Weichkäse aus Rohmilch",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "rohmilch"}]
+        },
+        {
+          "label": "Überbacken oder mitgekocht",
+          "komponenten": [{"tag": "rohmilch-weichkaese", "zustand": "durcherhitzt"}]
+        }
+      ],
+      "alternativen": ["Hartkäse wie Gruyère oder Sbrinz", "Frischkäse aus pasteurisierter Milch"],
+      "frage": "Welche Sorte?"
+    },
+    {
+      "id": "fisch-allgemein",
+      "name": "Fisch allgemein",
+      "synonyme": ["fisch", "welcher fisch", "fisch essen"],
+      "varianten": [
+        {
+          "label": "Gegart, magerer oder fetter Speisefisch",
+          "komponenten": [{"tag": "fisch-gegart"}]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [{"tag": "fisch-roh"}]
+        },
+        {
+          "label": "Grosse Raubfische",
+          "komponenten": [{"tag": "raubfisch-hoch", "zustand": "durcherhitzt"}]
+        }
+      ],
+      "alternativen": ["Ein bis zwei Portionen gegarter fetter Fisch pro Woche", "Lachs, Forelle, Felchen"],
+      "frage": "Welcher und wie zubereitet?"
+    },
+    {
+      "id": "wurst-allgemein",
+      "name": "Wurst allgemein",
+      "synonyme": ["wurst", "wurstwaren", "welche wurst"],
+      "varianten": [
+        {
+          "label": "Brühwurst, warm serviert",
+          "komponenten": [{"tag": "fleisch-durchgegart"}]
+        },
+        {
+          "label": "Rohwurst wie Salami oder Rohschinken",
+          "komponenten": [{"tag": "rohwurst"}]
+        }
+      ],
+      "alternativen": ["Cervelat", "Fleischkäse", "Gekochter Schinken"],
+      "frage": "Welche Art?"
+    },
+    {
+      "id": "pesto",
+      "name": "Pesto",
+      "synonyme": ["pesto", "pesto genovese", "pesto rosso"],
+      "varianten": [
+        {
+          "label": "Abgepackt aus dem Glas",
+          "komponenten": [{"tag": "hartkaese"}]
+        },
+        {
+          "label": "Frisch von der offenen Theke",
+          "komponenten": [{"tag": "offene-ware"}]
+        }
+      ],
+      "alternativen": ["Pesto aus dem geschlossenen Glas", "Tomatensauce"],
+      "frage": "Woher stammt es?"
+    },
+    {
+      "id": "sushi-reis",
+      "name": "Sushi-Reis",
+      "synonyme": ["sushi reis", "essigreis"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "getreide"}]
+        }
+      ],
+      "alternativen": [],
+      "eigener_text": "Der Reis selbst ist unbedenklich. Entscheidend ist der Belag."
+    },
+    {
+      "id": "eistee-selbst",
+      "name": "Selbst gemachter Eistee",
+      "synonyme": ["eistee selber", "kalter tee"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "koffein"}]
+        }
+      ],
+      "alternativen": ["Kalter Früchtetee", "Rooibos kalt"]
+    },
+    {
+      "id": "gemuesebruehe",
+      "name": "Gemüsebrühe",
+      "synonyme": ["gemüsebrühe", "gemüsebouillon"],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [{"tag": "gemuese-gekocht"}]
+        }
+      ],
+      "alternativen": []
     }
   ]
 }

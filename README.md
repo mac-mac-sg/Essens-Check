@@ -90,14 +90,38 @@ Formulierungen. Drei bewusste Abweichungen:
 - Die Urteile stammen aus dem Regelkatalog statt aus dem Eintrag. Wo sich beide
   unterscheiden, gilt die strengere Auskunft.
 
+## Katalog
+
+250 Einträge mit 356 Varianten, entlang realer Suchbegriffe: Käsesorten,
+Fischarten, Wurstwaren, Fertiggerichte, Restaurantklassiker, Getränke,
+Süsswaren, Kräuter und Gewürze, verbreitete Mythen.
+
+Kein Eintrag bringt eine eigene Bewertung mit. Jeder verweist über
+Komponenten-Tags auf den Regelkatalog — die Urteile entstehen erst dort. Neue
+Lebensmittel sind damit reine Datenpflege.
+
+Zwei Prüfungen laufen bei jedem Testlauf mit: jedes verwendete Tag muss von
+einer Regel oder von `unbedenkliche_tags` abgedeckt sein, und kein Eintrag darf
+`unklar` ergeben. Ein Tippfehler in einem Tag fällt so sofort auf.
+
+## Was noch nicht hinterlegt ist
+
+Bewusst offen gelassen, weil der Regelkatalog dafür kein Prinzip kennt und
+nichts erfunden werden soll:
+
+- Süssstoffe wie Aspartam, Stevia und Sucralose
+- Zusatzstoffe in Sportprodukten und Energydrinks über das Koffein hinaus
+- Heilkräuter in Arzneidosis, im Unterschied zu Speise- und Teemengen
+
+Eine Suche danach liefert einen Nulltreffer mit dem Verweis auf die Hebamme.
+Das ist gewollt: lieber keine Auskunft als eine geratene.
+
 ## Stand
 
-Aufgaben 1 und 2 aus `SPEC.md` sind umgesetzt, dazu die Oberfläche auf der
-Regelmaschine: Suche, Trefferliste, Ergebniskarte mit allen Varianten,
-Alternativen, Trimester-Hinweise und Nulltreffer. 59 Tests.
+Aufgaben 1 bis 3 aus `SPEC.md` sind umgesetzt: Projektgerüst, Regelmaschine,
+Oberfläche und der Katalog mit 250 Einträgen. 64 Tests.
 
-Offen: der erweiterte Katalog (Aufgabe 3), die PWA-Hülle (Aufgabe 4) und das
-Deployment (Aufgabe 5).
+Offen: die PWA-Hülle (Aufgabe 4) und das Deployment (Aufgabe 5).
 
 ## Vorbehalt
 

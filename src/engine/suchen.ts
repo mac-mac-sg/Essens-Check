@@ -10,6 +10,9 @@ import type { Lebensmittel, LebensmittelKatalog } from '../typen'
 /** Ab zwei Zeichen wird gesucht. */
 export const MINDESTLAENGE = 2
 
+/** Höchstzahl gleichzeitig angezeigter Treffer. Betrifft nur die Anzeige. */
+export const MAX_TREFFER = 15
+
 const KOMBINIERENDE_ZEICHEN = /[\u0300-\u036f]/g
 
 /** Kleinschreibung, Akzente weg, ß zu ss, Leerraum vereinheitlicht. */
@@ -42,11 +45,22 @@ function suchbegriffe(eintrag: Lebensmittel): string[] {
   return [...new Set([...roh.map(normalisiere), ...roh.map(digraphform)])]
 }
 
-/** 0 wörtlich, 1 Wortanfang, 2 enthalten, null kein Treffer. */
+/**
+ * 0 wörtlich, 1 Anfang des Begriffs, 2 Anfang eines Wortes darin,
+ * 3 irgendwo enthalten, null kein Treffer.
+ *
+ * Die Wortanfang-Stufe ist bei kurzen Eingaben entscheidend: «ei» soll
+ * «Eier» vor «eingelegtes Gemüse» stellen. Gefunden wird trotzdem beides —
+ * ausgeblendet wird nichts, nur anders sortiert.
+ */
 function bewerteTreffer(begriffe: string[], anfrage: string): number | null {
   let bestes: number | null = null
   for (const begriff of begriffe) {
-    const guete = begriff === anfrage ? 0 : begriff.startsWith(anfrage) ? 1 : begriff.includes(anfrage) ? 2 : null
+    let guete: number | null = null
+    if (begriff === anfrage) guete = 0
+    else if (begriff.startsWith(anfrage)) guete = 1
+    else if (begriff.split(/[ -]/).some((wort) => wort.startsWith(anfrage))) guete = 2
+    else if (begriff.includes(anfrage)) guete = 3
     if (guete !== null && (bestes === null || guete < bestes)) bestes = guete
   }
   return bestes

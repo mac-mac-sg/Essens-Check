@@ -178,6 +178,12 @@ body {
 
 /* ---------------------------- Ergebniskarte ---------------------------- */
 
+.weitere {
+  margin: 0.875rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-gedaempft);
+}
+
 .karte {
   margin-top: var(--spur);
   padding: 1.25rem 1.125rem;

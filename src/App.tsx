@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { AMPEL, BELIEBT } from './ampel'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
-import { findeNachId, MINDESTLAENGE, suche } from './engine/suchen'
+import { findeNachId, MAX_TREFFER, MINDESTLAENGE, suche } from './engine/suchen'
 import { GEBURTSTERMIN } from './konfig'
 import { berechneStand } from './schwangerschaft'
 import { Ergebniskarte } from './Ergebniskarte'
@@ -24,6 +24,10 @@ export function App() {
   }
 
   const gesucht = begriff.trim().length >= MINDESTLAENGE
+  // Lange Listen sind auf dem Handy unbrauchbar. Es wird nichts weggelassen,
+  // nur später gezeigt — der Hinweis darunter sagt, wie viele noch folgen.
+  const sichtbar = treffer.slice(0, MAX_TREFFER)
+  const weitere = treffer.length - sichtbar.length
 
   return (
     <div className="app">
@@ -80,15 +84,22 @@ export function App() {
             )}
 
             {gesucht && treffer.length > 0 && (
-              <ul className="liste">
-                {treffer.map((eintrag) => (
-                  <li key={eintrag.id}>
-                    <button type="button" onClick={() => setOffeneId(eintrag.id)}>
-                      {eintrag.name}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              <>
+                <ul className="liste">
+                  {sichtbar.map((eintrag) => (
+                    <li key={eintrag.id}>
+                      <button type="button" onClick={() => setOffeneId(eintrag.id)}>
+                        {eintrag.name}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+                {weitere > 0 && (
+                  <p className="weitere">
+                    {weitere} weitere Treffer — Suchbegriff verfeinern.
+                  </p>
+                )}
+              </>
             )}
 
             {/* Nulltreffer: nicht raten, sondern sagen, dass nichts hinterlegt ist. */}

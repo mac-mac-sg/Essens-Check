@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { digraphform, findeNachId, MINDESTLAENGE, normalisiere, suche } from './suchen'
+import { digraphform, findeNachId, MAX_TREFFER, MINDESTLAENGE, normalisiere, suche } from './suchen'
 import { lebensmittelKatalog } from '../daten'
 import { BELIEBT } from '../ampel'
 
@@ -62,8 +62,8 @@ describe('suche', () => {
   })
 
   it('liefert bei einem unbekannten Begriff einen Nulltreffer', () => {
-    expect(ids('kartoffelgratin')).toEqual([])
-    expect(ids('xyzzy')).toEqual([])
+    expect(ids('straussenfleisch')).toEqual([])
+    expect(ids('quittenbrot')).toEqual([])
   })
 
   it('rät nicht über Wortähnlichkeit', () => {
@@ -84,6 +84,23 @@ describe('suche', () => {
         expect(ids(synonym), `${eintrag.id}: ${synonym}`).toContain(eintrag.id)
       }
     }
+  })
+})
+
+describe('Rangfolge bei vielen Treffern', () => {
+  it('stellt den wörtlichen Treffer an die Spitze', () => {
+    expect(ids('ei')[0]).toBe('ei')
+    expect(ids('tee')[0]).toBe('schwarztee')
+  })
+
+  it('stellt Wortanfänge vor Treffer mitten im Wort', () => {
+    // «Eierlikör» beginnt mit «ei», «Fleischkäse» trägt es nur in der Wortmitte.
+    const treffer = ids('ei')
+    expect(treffer.indexOf('eierlikoer')).toBeLessThan(treffer.indexOf('cervelat'))
+  })
+
+  it('blendet nichts aus — die Deckelung betrifft nur die Anzeige', () => {
+    expect(ids('ei').length).toBeGreaterThan(MAX_TREFFER)
   })
 })
 

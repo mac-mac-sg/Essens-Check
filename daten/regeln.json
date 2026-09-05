@@ -5,7 +5,7 @@
     {
       "id": "listerien-nicht-erhitzt",
       "titel": "Listerien in nicht erhitzten Lebensmitteln",
-      "trifft_auf": ["rohmilch-weichkaese", "kalt-geraeuchert", "offene-ware", "softeis-maschine", "vorgeschnitten"],
+      "trifft_auf": ["rohmilch-weichkaese", "rohmilch-trinken", "kalt-geraeuchert", "offene-ware", "softeis-maschine", "vorgeschnitten"],
       "status": "meiden",
       "begruendung": "Listerien vermehren sich auch im Kühlschrank. Eine Infektion verläuft bei der Mutter oft harmlos, kann aber auf das Kind übergehen.",
       "entschaerfung": [
@@ -180,6 +180,17 @@
     { "tag": "hartkaese", "text": "Niedriger Wassergehalt und lange Reifung lassen Listerien nicht wachsen." },
     { "tag": "fisch-gegart", "text": "Durchgegarter Fisch ist unbedenklich und ausdrücklich empfohlen." },
     { "tag": "fleisch-durchgegart", "text": "Vollständig durchgegartes Fleisch ist unbedenklich." },
-    { "tag": "obst-gewaschen", "text": "Gewaschenes Obst ist unbedenklich." }
+    { "tag": "obst-gewaschen", "text": "Gewaschenes Obst ist unbedenklich." },
+    { "tag": "gemuese-gekocht", "text": "Gekochtes Gemüse ist unbedenklich." },
+    { "tag": "huelsenfrucht-gekocht", "text": "Gekochte Hülsenfrüchte sind unbedenklich." },
+    { "tag": "getreide", "text": "Brot, Teigwaren, Reis und Flocken sind unbedenklich." },
+    { "tag": "milch-pasteurisiert", "text": "Pasteurisierte Milch und Milchprodukte sind unbedenklich." },
+    { "tag": "frischkaese-pasteurisiert", "text": "Frisch- und Salzlakenkäse aus pasteurisierter Milch sind unbedenklich; nach dem Öffnen gekühlt lagern und rasch aufbrauchen." },
+    { "tag": "nuesse", "text": "Nüsse und Samen sind unbedenklich." },
+    { "tag": "oel-fett", "text": "Speiseöl und Butter aus pasteurisiertem Rahm sind unbedenklich." },
+    { "tag": "gewuerz", "text": "Küchengewürze und koffeinfreie Aufgüsse ohne wehenfördernde Wirkung sind in Speisemengen unbedenklich." },
+    { "tag": "zucker-suessware", "text": "Zucker und Süsswaren ohne weitere Risikozutat sind unbedenklich." },
+    { "tag": "honig", "text": "Honig ist für die Schwangere unbedenklich." },
+    { "tag": "wasser", "text": "Leitungswasser ist in der Schweiz unbedenklich." }
   ]
 }
