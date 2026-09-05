@@ -3,7 +3,10 @@
 Persönliche App für eine Schwangere. Sie tippt ein Lebensmittel ein und bekommt in
 Sekunden eine eindeutige Antwort — auch offline, auch im Supermarkt-Untergeschoss.
 
-Der errechnete Geburtstermin wird konfiguriert, nicht im Code hinterlegt.
+Der errechnete Geburtstermin steht weder im Repo noch im ausgelieferten Bundle.
+Er wird einmal in der App eingetragen und bleibt danach ausschliesslich im
+Browser des Geräts. Ohne Termin bleibt die Suche vollständig nutzbar; es fehlen
+nur die Wochenanzeige und die Hinweise zum Trimester.
 
 ## Ziel und Nicht-Ziele
 
@@ -130,6 +133,8 @@ gesetzt als der Fliesstext. Keine Versalien-Labels.
 **Aufbau**
 
 1. Kopfzeile in Tannengrün: Titel links, Schwangerschaftswoche und Trimester rechts.
+   Ist kein Termin eingetragen, steht dort stattdessen die Einladung, einen zu
+   erfassen — nie eine geratene Woche.
 2. Suchfeld direkt darunter, beim Start fokussiert. Häufige Begriffe als Chips.
 3. Trefferliste ab zwei Zeichen.
 4. Ergebniskarte: Name, dann bei Zubereitungsabhängigkeit **alle Varianten

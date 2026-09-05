@@ -178,6 +178,66 @@ body {
 
 /* ---------------------------- Ergebniskarte ---------------------------- */
 
+.kopfzeile__eintragen {
+  padding: 0.35rem 0.7rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: #ffffff;
+  background: none;
+  border: 1px solid #4a7360;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.termin__hinweis {
+  margin: 0.75rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-gedaempft);
+}
+
+.termin__fehler {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--weinrot);
+}
+
+.termin__knoepfe {
+  display: flex;
+  align-items: center;
+  gap: var(--spur);
+  margin-top: var(--spur);
+}
+
+.knopf {
+  padding: 0.6rem 1.1rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--tannengruen);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.termin__knoepfe .zurueck {
+  margin-top: 0;
+}
+
+.fusszeile__termin {
+  margin-top: 0.75rem;
+  padding: 0.25rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: var(--tannengruen);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .weitere {
   margin: 0.875rem 0 0;
   font-size: 0.8125rem;

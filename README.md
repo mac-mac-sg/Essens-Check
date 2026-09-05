@@ -43,8 +43,17 @@ sie über den Alias `@daten/…`, der in `vite.config.ts` und `tsconfig.json` ge
 
 ## Geburtstermin
 
-Der Termin steht nicht im Repo. Er wird über die
-Umgebungsvariable `VITE_GEBURTSTERMIN` als ISO-Datum überschreibbar:
+Der Termin steht nirgends im Repo und auch nicht in der veröffentlichten App.
+Er wird beim ersten Start einmal eingetragen und liegt danach nur im
+`localStorage` des Geräts — er wird nirgendwohin übertragen, und wer die
+veröffentlichte Seite aufruft, sieht keine Woche.
+
+Ohne Termin funktioniert die Suche unverändert; es fehlen die Wochenanzeige und
+die Hinweise zum Trimester. Eine falsche Woche wird nie angezeigt: unplausible
+Eingaben werden abgewiesen, und ohne Termin bleibt die Anzeige leer.
+
+Für die lokale Entwicklung lässt sich ein Termin über `VITE_GEBURTSTERMIN`
+vorgeben; gesetzt ist die Variable nicht.
 
 ```
 VITE_GEBURTSTERMIN=2030-01-01 npm run dev
