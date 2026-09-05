@@ -1,0 +1,62 @@
+# Baut die App und veröffentlicht sie auf GitHub Pages.
+# Voraussetzung, einmalig: Settings -> Pages -> Source auf "GitHub Actions".
+name: Deployment
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Laufendes Deployment nicht abbrechen, aber nur eines gleichzeitig zulassen.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  bauen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typen und Unit-Tests
+        run: |
+          npm run typecheck
+          npm test
+
+      - name: Bauen
+        run: npm run build
+
+      # Der Offline-Test läuft gegen den echten Build. Wenn der Service Worker
+      # nicht trägt, wird nichts veröffentlicht.
+      - name: Offline-Test
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:offline
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  veroeffentlichen:
+    needs: bauen
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

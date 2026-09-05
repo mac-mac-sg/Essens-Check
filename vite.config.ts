@@ -5,7 +5,15 @@ import { fileURLToPath } from 'node:url'
 
 // Die Datenkataloge liegen bewusst ausserhalb von /src unter /daten:
 // Datenpflege und Logik bleiben so getrennt (siehe CLAUDE.md).
+/**
+ * GitHub Pages liefert Projektseiten unter /<Repo>/ aus, nicht unter der
+ * Wurzel. Der Pfad steht deshalb fest im Build — was lokal getestet wird,
+ * ist genau das, was deployt wird.
+ */
+const BASIS = '/Essens-Check/'
+
 export default defineConfig({
+  base: BASIS,
   plugins: [
     react(),
     VitePWA({
@@ -15,7 +23,7 @@ export default defineConfig({
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,webmanifest}'],
-        navigateFallback: 'index.html',
+        navigateFallback: `${BASIS}index.html`,
         cleanupOutdatedCaches: true,
       },
       manifest: {
@@ -24,8 +32,9 @@ export default defineConfig({
         description:
           'Nachschlagewerk für die Schwangerschaft: Lebensmittel eingeben, eindeutige Antwort bekommen.',
         lang: 'de-CH',
-        start_url: '/',
-        scope: '/',
+        start_url: BASIS,
+        scope: BASIS,
+        id: BASIS,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#F4F5F2',

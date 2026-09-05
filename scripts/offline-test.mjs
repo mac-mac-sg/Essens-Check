@@ -9,9 +9,13 @@
 import { chromium } from 'playwright'
 import { spawn } from 'node:child_process'
 import { existsSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
 const PORT = 4183
-const URL = `http://localhost:${PORT}/`
+// Muss zu `base` in vite.config.ts passen — sonst prüft der Test einen
+// anderen Pfad als den, der ausgeliefert wird.
+const BASIS = '/Essens-Check/'
+const ADRESSE = `http://localhost:${PORT}${BASIS}`
 // In dieser Umgebung liegt Chromium an fester Stelle; sonst sucht Playwright selbst.
 const CHROMIUM = '/opt/pw-browsers/chromium'
 const start = { ...(existsSync(CHROMIUM) && { executablePath: CHROMIUM }) }
@@ -22,21 +26,53 @@ const pruefe = (name, bedingung, zusatz = '') => {
   console.log(`${bedingung ? '  ok  ' : ' FEHL '} ${name}${zusatz ? ` — ${zusatz}` : ''}`)
 }
 
-const server = spawn('npx', ['vite', 'preview', '--port', String(PORT)], { stdio: 'ignore' })
-const aufraeumen = () => server.kill()
+// Ein fremder Server auf dem Port würde einen veralteten Build ausliefern und
+// den Test still gegen das Falsche laufen lassen. Lieber sofort abbrechen.
+try {
+  await fetch(`http://localhost:${PORT}/`)
+  console.error(`Port ${PORT} ist belegt. Bitte den Prozess beenden und erneut starten.`)
+  process.exit(1)
+} catch {
+  /* frei, wie erwartet */
+}
+
+// Direkt die lokale Vite-Binärdatei starten, nicht über npx: sonst bleibt beim
+// Beenden der eigentliche Serverprozess als Waise zurück. `detached` legt eine
+// eigene Prozessgruppe an, die sich vollständig beenden lässt.
+const viteBin = fileURLToPath(new URL('../node_modules/.bin/vite', import.meta.url))
+const server = spawn(viteBin, ['preview', '--port', String(PORT), '--strictPort'], {
+  stdio: 'ignore',
+  detached: true,
+})
+
+let beendet = false
+const aufraeumen = () => {
+  if (beendet || server.pid === undefined) return
+  beendet = true
+  try {
+    process.kill(-server.pid, 'SIGTERM')
+  } catch {
+    /* schon beendet */
+  }
+}
 process.on('exit', aufraeumen)
+process.on('SIGINT', () => process.exit(130))
 
 try {
-  // Auf den Server warten, statt blind zu schlafen.
-  for (let i = 0; i < 40; i++) {
+  let bereit = false
+  for (let i = 0; i < 60; i++) {
     try {
-      const antwort = await fetch(URL)
-      if (antwort.ok) break
+      const antwort = await fetch(ADRESSE)
+      if (antwort.ok) {
+        bereit = true
+        break
+      }
     } catch {
       /* noch nicht bereit */
     }
     await new Promise((r) => setTimeout(r, 250))
   }
+  if (!bereit) throw new Error(`Vorschau unter ${URL} nicht erreichbar`)
 
   const browser = await chromium.launch(start)
   const kontext = await browser.newContext({ viewport: { width: 390, height: 844 } })
@@ -45,7 +81,7 @@ try {
   seite.on('pageerror', (e) => seitenfehler.push(String(e)))
 
   console.log('\nMit Netz:')
-  await seite.goto(URL, { waitUntil: 'networkidle' })
+  await seite.goto(ADRESSE, { waitUntil: 'networkidle' })
   await seite.waitForFunction(() => navigator.serviceWorker?.controller !== null, null, {
     timeout: 20000,
   })
@@ -77,7 +113,7 @@ try {
   )
 
   const zweite = await kontext.newPage()
-  await zweite.goto(URL, { waitUntil: 'load' })
+  await zweite.goto(ADRESSE, { waitUntil: 'load' })
   const chips = await zweite.locator('.chip').allInnerTexts()
   pruefe('Kaltstart in einem neuen Tab', chips.length > 0, `${chips.length} Chips`)
 

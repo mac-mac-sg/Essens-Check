@@ -141,13 +141,29 @@ Er lässt den Service Worker ablegen, kappt die Verbindung und prüft dann
 Neuladevorgang, Suche, Urteil und Kaltstart in einem frischen Tab. Gegengeprüft
 mit absichtlich beschädigtem Service Worker — dann schlägt er fehl.
 
+## Deployment
+
+Die App läuft auf GitHub Pages — kein zusätzliches Konto, kein Server. Der
+Workflow `.github/workflows/deploy.yml` baut bei jedem Push auf `main`, prüft
+Typen, Unit-Tests und den Offline-Test, und veröffentlicht erst danach. Schlägt
+eine Prüfung fehl, wird nichts ausgeliefert.
+
+Einmalig von Hand einzuschalten:
+
+1. Im Repo auf **Settings → Pages**
+2. Unter **Source** den Eintrag **GitHub Actions** wählen
+
+Danach liegt die App unter `https://mac-mac-sg.github.io/Essens-Check/`.
+
+GitHub Pages liefert Projektseiten unter dem Repo-Pfad aus, nicht unter der
+Wurzel. Der Pfad steht deshalb als `base` in `vite.config.ts` und ebenso im
+Offline-Test — was lokal geprüft wird, ist genau das, was deployt wird. Wird das
+Repo je umbenannt, muss er an beiden Stellen mitgeändert werden.
+
 ## Stand
 
-Aufgaben 1 bis 4 aus `SPEC.md` sind umgesetzt: Projektgerüst, Regelmaschine,
-Oberfläche, Katalog mit 250 Einträgen und die PWA-Hülle. 64 Unit-Tests und
+Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 64 Unit-Tests und
 5 Offline-Prüfungen.
-
-Offen: das Deployment (Aufgabe 5).
 
 ## Vorbehalt
 
