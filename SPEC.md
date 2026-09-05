@@ -177,6 +177,17 @@ gesetzt als der Fliesstext. Keine Versalien-Labels.
 Katalog wird nie vollständig sein; wer das Muster kennt, kann ein nicht
 hinterlegtes Lebensmittel selbst einordnen.
 
+**Strichcode** (Erweiterung). Über die Kamera lassen sich EAN-8 und EAN-13
+lesen. Bewusst **ohne Produktdatenbank**: eine Online-Abfrage würde verraten,
+was eingekauft wird, im Untergeschoss ohnehin nicht funktionieren und dem
+Grundsatz widersprechen, dass die App das Gerät nicht verlässt. Stattdessen
+lernt sie: ein unbekannter Code wird einmal von Hand einem Eintrag zugeordnet
+und danach sofort erkannt. Die Zuordnungen liegen im `localStorage`.
+
+Die Prüfziffer wird geprüft, damit ein Lesefehler nicht als Zuordnung
+gespeichert wird und später auf ein falsches Lebensmittel auflöst. Wo der
+Browser keine Strichcodes lesen kann, sagt die App das offen.
+
 **Umgekehrte Frage.** Vom Startbildschirm aus erreichbar: «Was kann ich essen?»
 listet nach Warengruppe, was ein klares Ja hat, mit der Zubereitung, unter der
 es gilt. `bedingt` bleibt draussen — eine Liste, die zum Zugreifen einlädt, darf

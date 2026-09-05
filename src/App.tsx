@@ -1,21 +1,31 @@
 import { useMemo, useState } from 'react'
-import { AMPEL, BELIEBT } from './ampel'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
-import { findeNachId, MAX_TREFFER, MINDESTLAENGE, suche } from './engine/suchen'
+import { leseZuordnungen, merkeZuordnung, vergissZuordnung } from './engine/barcodes'
+import { findeNachId, MINDESTLAENGE, suche } from './engine/suchen'
 import { leseGeburtstermin } from './konfig'
 import { berechneStand } from './schwangerschaft'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
+import { Scanner } from './Scanner'
+import { Suchansicht } from './Suchansicht'
 import { Uebersicht } from './Uebersicht'
+import { Zuordnen } from './Zuordnen'
 import { Fusszeile } from './Fusszeile'
 
+type Ansicht = 'suche' | 'uebersicht' | 'scanner' | 'zuordnen'
+
 export function App() {
+  const [ansicht, setAnsicht] = useState<Ansicht>('suche')
   const [begriff, setBegriff] = useState('')
   const [offeneId, setOffeneId] = useState<string | null>(null)
+  /** Wohin der Rücksprung aus der Ergebniskarte führt. */
+  const [herkunft, setHerkunft] = useState<Ansicht>('suche')
+  /** Code, der die offene Karte gebracht hat — für «Zuordnung aufheben». */
+  const [erkannterCode, setErkannterCode] = useState<string | null>(null)
+  /** Noch nicht zugeordneter Code. */
+  const [neuerCode, setNeuerCode] = useState<string | null>(null)
   const [termin, setTermin] = useState(() => leseGeburtstermin())
-  // Merkt sich, wohin «zurück» führt: zur Suche oder zur Übersicht.
-  const [herkunft, setHerkunft] = useState<'suche' | 'uebersicht'>('suche')
   const [terminBearbeiten, setTerminBearbeiten] = useState(false)
 
   // Ohne Termin bleibt die Wochenanzeige leer, statt eine falsche zu zeigen.
@@ -25,19 +35,56 @@ export function App() {
   const offen = offeneId ? findeNachId(offeneId, lebensmittelKatalog) : undefined
   const urteil = offen ? bewerteLebensmittel(offen, regelKatalog, stand?.trimester) : undefined
 
-  const zuruecksetzen = () => {
+  const zumAnfang = () => {
     setBegriff('')
     setOffeneId(null)
+    setErkannterCode(null)
+    setNeuerCode(null)
     setHerkunft('suche')
+    setAnsicht('suche')
   }
 
-  const zurueckZurUebersicht = () => setOffeneId(null)
+  const oeffnen = (id: string, woher: Ansicht) => {
+    setOffeneId(id)
+    setHerkunft(woher)
+    window.scrollTo({ top: 0 })
+  }
 
-  const gesucht = begriff.trim().length >= MINDESTLAENGE
-  // Lange Listen sind auf dem Handy unbrauchbar. Es wird nichts weggelassen,
-  // nur später gezeigt — der Hinweis darunter sagt, wie viele noch folgen.
-  const sichtbar = treffer.slice(0, MAX_TREFFER)
-  const weitere = treffer.length - sichtbar.length
+  /** Ein gelesener Code führt direkt zum Urteil — oder zur einmaligen Zuordnung. */
+  const codeErkannt = (ean: string) => {
+    const id = leseZuordnungen()[ean]
+    const eintrag = id ? findeNachId(id, lebensmittelKatalog) : undefined
+    if (eintrag) {
+      setErkannterCode(ean)
+      oeffnen(eintrag.id, 'scanner')
+      setAnsicht('suche')
+    } else {
+      setNeuerCode(ean)
+      setAnsicht('zuordnen')
+    }
+  }
+
+  const zuordnen = (id: string) => {
+    if (neuerCode) merkeZuordnung(neuerCode, id)
+    setErkannterCode(neuerCode)
+    setNeuerCode(null)
+    oeffnen(id, 'scanner')
+    setAnsicht('suche')
+  }
+
+  const zurueck = () => {
+    setOffeneId(null)
+    setErkannterCode(null)
+    if (herkunft === 'uebersicht' || herkunft === 'scanner') setAnsicht(herkunft)
+    else zumAnfang()
+  }
+
+  const rueckspruch =
+    herkunft === 'uebersicht'
+      ? 'Zurück zur Übersicht'
+      : herkunft === 'scanner'
+        ? 'Nochmal scannen'
+        : 'Neue Suche'
 
   return (
     <div className="app">
@@ -47,9 +94,7 @@ export function App() {
           <p className="kopfzeile__stand">
             <span className="kopfzeile__woche">Woche {stand.anzeige}</span>
             <span className="kopfzeile__trimester">{stand.trimester}. Trimester</span>
-            {stand.tageBis > 0 && (
-              <span className="kopfzeile__tage">noch {stand.tageBis} Tage</span>
-            )}
+            {stand.tageBis > 0 && <span className="kopfzeile__tage">noch {stand.tageBis} Tage</span>}
           </p>
         ) : (
           <button
@@ -77,155 +122,49 @@ export function App() {
         {urteil ? (
           <>
             <Ergebniskarte urteil={urteil} />
-            {herkunft === 'uebersicht' ? (
-              <button
-                className="zurueck zurueck--flaeche"
-                type="button"
-                onClick={zurueckZurUebersicht}
-              >
-                Zurück zur Übersicht
-              </button>
-            ) : (
-              <button className="zurueck zurueck--flaeche" type="button" onClick={zuruecksetzen}>
-                Neue Suche
-              </button>
+            {erkannterCode && (
+              <p className="scan-herkunft">
+                Über Strichcode {erkannterCode} erkannt.{' '}
+                <button
+                  type="button"
+                  onClick={() => {
+                    vergissZuordnung(erkannterCode)
+                    setErkannterCode(null)
+                  }}
+                >
+                  Zuordnung aufheben
+                </button>
+              </p>
             )}
+            <button className="zurueck zurueck--flaeche" type="button" onClick={zurueck}>
+              {rueckspruch}
+            </button>
           </>
-        ) : herkunft === 'uebersicht' ? (
+        ) : ansicht === 'scanner' ? (
+          <Scanner onErkannt={codeErkannt} onAbbruch={zumAnfang} />
+        ) : ansicht === 'zuordnen' && neuerCode ? (
+          <Zuordnen ean={neuerCode} onZuordnen={zuordnen} onAbbruch={zumAnfang} />
+        ) : ansicht === 'uebersicht' ? (
           <>
-            <Uebersicht
-              onOeffnen={(id) => {
-                setOffeneId(id)
-                window.scrollTo({ top: 0 })
-              }}
-            />
-            <button className="zurueck zurueck--flaeche" type="button" onClick={zuruecksetzen}>
+            <Uebersicht onOeffnen={(id) => oeffnen(id, 'uebersicht')} />
+            <button className="zurueck zurueck--flaeche" type="button" onClick={zumAnfang}>
               Zurück zur Suche
             </button>
           </>
         ) : (
-          <>
-            <label className="feldtitel" htmlFor="suche">
-              Lebensmittel eingeben
-            </label>
-            <div className="suchfeld-huelle">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="2" />
-                <path d="M13.5 13.5 L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-              <input
-                id="suche"
-                className="suchfeld"
-                type="search"
-                placeholder="Camembert, Lachs, Kaffee …"
-                value={begriff}
-                onChange={(ereignis) => setBegriff(ereignis.target.value)}
-                autoFocus
-                autoComplete="off"
-                autoCorrect="off"
-                spellCheck={false}
-              />
-              {begriff.length > 0 && (
-                <button
-                  className="suchfeld-loeschen"
-                  type="button"
-                  aria-label="Suche leeren"
-                  onClick={() => {
-                    setBegriff('')
-                    document.getElementById('suche')?.focus()
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path
-                      d="M4 4 L12 12 M12 4 L4 12"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              )}
-            </div>
-
-            {!gesucht && (
-              <div className="chips">
-                {BELIEBT.map((eintrag) => (
-                  <button
-                    key={eintrag}
-                    className="chip"
-                    type="button"
-                    onClick={() => setBegriff(eintrag)}
-                  >
-                    {eintrag}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {!gesucht && (
-              <button
-                className="umkehr"
-                type="button"
-                onClick={() => setHerkunft('uebersicht')}
-              >
-                Was kann ich essen?
-              </button>
-            )}
-
-            {gesucht && treffer.length > 0 && (
-              <>
-                <ul className="liste">
-                  {sichtbar.map((eintrag) => (
-                    <li key={eintrag.id}>
-                      <button type="button" onClick={() => setOffeneId(eintrag.id)}>
-                        <span>{eintrag.name}</span>
-                        <svg
-                          className="liste__pfeil"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M6 3.5 L10.5 8 L6 12.5"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                {weitere > 0 && (
-                  <p className="weitere">
-                    {weitere} weitere Treffer — Suchbegriff verfeinern.
-                  </p>
-                )}
-              </>
-            )}
-
-            {/* Nulltreffer: nicht raten, sondern sagen, dass nichts hinterlegt ist. */}
-            {gesucht && treffer.length === 0 && (
-              <div className="karte karte--ergebnis" role="status">
-                <span className="urteil" data-status="unklar">
-                  {AMPEL.unklar.wort}
-                </span>
-                <p className="text">
-                  Zu «{begriff.trim()}» ist hier nichts geprüft hinterlegt. Statt zu raten: im
-                  Zweifel kurz die Hebamme fragen.
-                </p>
-              </div>
-            )}
-          </>
+          <Suchansicht
+            begriff={begriff}
+            setBegriff={setBegriff}
+            treffer={treffer}
+            gesucht={begriff.trim().length >= MINDESTLAENGE}
+            onOeffnen={(id) => oeffnen(id, 'suche')}
+            onUebersicht={() => setAnsicht('uebersicht')}
+            onScannen={() => setAnsicht('scanner')}
+          />
         )}
       </main>
 
-      <Fusszeile
-        onTerminAendern={stand ? () => setTerminBearbeiten(true) : undefined}
-      />
+      <Fusszeile onTerminAendern={stand ? () => setTerminBearbeiten(true) : undefined} />
     </div>
   )
 }

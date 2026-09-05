@@ -132,6 +132,25 @@ hat — Listerien, Toxoplasmose, Quecksilber. Der Katalog wird nie vollständig
 sein; wer das Muster kennt, kann ein nicht hinterlegtes Lebensmittel selbst
 einordnen.
 
+## Strichcode
+
+Die App liest EAN-8 und EAN-13 über die Kamera — **ohne Produktdatenbank**.
+Eine Online-Abfrage würde verraten, was eingekauft wird, offline nicht
+funktionieren und dem Grundsatz widersprechen, dass die App das Gerät nicht
+verlässt.
+
+Stattdessen lernt sie: beim ersten Scan eines unbekannten Codes fragt sie
+einmal nach, danach ist er sofort erkannt. Die Zuordnungen liegen im
+`localStorage` und gehen nirgendwohin.
+
+Gelesen wird über die native `BarcodeDetector`-Schnittstelle des Browsers,
+nicht über eine Bibliothek — das hält das Bundle klein. Sie fehlt auf iOS und
+auf Linux-Desktops; dort sagt die App es offen und die Suche bleibt der Weg.
+
+Die Prüfziffer jedes Codes wird geprüft. Ein Lesefehler soll nicht als
+Zuordnung im Speicher landen und später auf ein falsches Lebensmittel
+auflösen.
+
 ## Was noch nicht hinterlegt ist
 
 Bewusst offen gelassen, weil der Regelkatalog dafür kein Prinzip kennt und
