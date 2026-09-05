@@ -356,6 +356,84 @@ body {
   color: var(--pfeil);
 }
 
+.umkehr {
+  display: block;
+  width: 100%;
+  margin-top: 1.25rem;
+  padding: 0.9rem 1.1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--akzent);
+  background: var(--flaeche-still);
+  border: none;
+  border-radius: var(--radius-klein);
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), background-color 140ms ease;
+}
+
+.umkehr:active {
+  transform: scale(0.985);
+  background: var(--flaeche-gedrueckt);
+}
+
+.uebersicht__titel {
+  margin: 0 0 0.4rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.021em;
+}
+
+.uebersicht__hinweis {
+  margin: 0 0 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-gedaempft);
+}
+
+.uebersicht__sprung {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.uebersicht__sprung .chip {
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.uebersicht__gruppe {
+  /* Die Kopfzeile klebt oben — der Anker darf nicht darunter verschwinden. */
+  scroll-margin-top: 5.5rem;
+}
+
+.uebersicht__gruppe + .uebersicht__gruppe {
+  margin-top: 1.75rem;
+}
+
+.uebersicht__gruppenname {
+  margin: 0 0 0.25rem;
+  padding-left: 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.012em;
+  color: var(--text-gedaempft);
+}
+
+.uebersicht__gruppe .liste {
+  margin-top: 0;
+}
+
+.uebersicht__bedingung {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: 0.8125rem;
+  color: var(--text-gedaempft);
+}
+
 .weitere {
   margin: 0.875rem 0 0;
   padding-left: 1rem;
@@ -508,6 +586,19 @@ body {
   font-weight: 500;
   line-height: 1.3;
   color: var(--text);
+}
+
+.grund + .grund {
+  margin-top: 0.7rem;
+}
+
+.grund__prinzip {
+  margin: 0 0 0.15rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  /* Kleine Schrift verträgt etwas mehr Laufweite. */
+  letter-spacing: 0.012em;
+  color: var(--text-gedaempft);
 }
 
 .ztext {

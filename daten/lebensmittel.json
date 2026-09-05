@@ -5,6 +5,7 @@
     {
       "id": "camembert",
       "name": "Camembert und Brie",
+      "gruppe": "Käse",
       "synonyme": ["camembert", "brie", "weichkäse", "weissschimmel", "chaource", "tomme"],
       "varianten": [
         {
@@ -26,6 +27,7 @@
     {
       "id": "blauschimmel",
       "name": "Blauschimmelkäse",
+      "gruppe": "Käse",
       "synonyme": ["blauschimmel", "gorgonzola", "roquefort", "bleu", "stilton", "bergader"],
       "varianten": [
         {
@@ -47,6 +49,7 @@
     {
       "id": "ziegenkaese",
       "name": "Ziegenkäse",
+      "gruppe": "Käse",
       "synonyme": ["ziegenkäse", "chèvre", "chevre", "ziegenfrischkäse"],
       "varianten": [
         {
@@ -68,6 +71,7 @@
     {
       "id": "vacherin",
       "name": "Vacherin Mont-d'Or",
+      "gruppe": "Käse",
       "synonyme": ["vacherin", "mont dor", "mont-d'or"],
       "varianten": [
         {
@@ -89,6 +93,7 @@
     {
       "id": "rotschmierkaese",
       "name": "Rotschmierkäse",
+      "gruppe": "Käse",
       "synonyme": ["rotschmiere", "taleggio", "reblochon", "munster", "limburger", "romadur"],
       "varianten": [
         {
@@ -110,6 +115,7 @@
     {
       "id": "robiola",
       "name": "Robiola und Crescenza",
+      "gruppe": "Käse",
       "synonyme": ["robiola", "crescenza", "stracchino"],
       "varianten": [
         {
@@ -127,6 +133,7 @@
     {
       "id": "hartkaese",
       "name": "Hartkäse und Halbhartkäse",
+      "gruppe": "Käse",
       "synonyme": ["hartkäse", "halbhartkäse", "gruyère", "greyerzer", "sbrinz", "parmesan", "grana padano", "emmentaler", "appenzeller", "bergkäse", "tilsiter", "comté", "pecorino", "manchego"],
       "varianten": [
         {
@@ -140,6 +147,7 @@
     {
       "id": "tete-de-moine",
       "name": "Tête de Moine",
+      "gruppe": "Käse",
       "synonyme": ["tête de moine", "tete de moine", "mönchskopf"],
       "varianten": [
         {
@@ -153,6 +161,7 @@
     {
       "id": "raclette",
       "name": "Raclette",
+      "gruppe": "Käse",
       "synonyme": ["raclette", "raclettekäse"],
       "varianten": [
         {
@@ -166,6 +175,7 @@
     {
       "id": "fondue",
       "name": "Käsefondue",
+      "gruppe": "Käse",
       "synonyme": ["fondue", "käsefondue", "moitié-moitié"],
       "varianten": [
         {
@@ -179,6 +189,7 @@
     {
       "id": "halloumi",
       "name": "Halloumi",
+      "gruppe": "Käse",
       "synonyme": ["halloumi", "grillkäse", "bratkäse"],
       "varianten": [
         {
@@ -192,6 +203,7 @@
     {
       "id": "frischkaese",
       "name": "Frischkäse",
+      "gruppe": "Käse",
       "synonyme": ["frischkäse", "philadelphia", "doppelrahmfrischkäse", "streichkäse"],
       "varianten": [
         {
@@ -205,6 +217,7 @@
     {
       "id": "huettenkaese",
       "name": "Hüttenkäse und Quark",
+      "gruppe": "Käse",
       "synonyme": ["hüttenkäse", "cottage cheese", "quark", "magerquark", "seré"],
       "varianten": [
         {
@@ -217,6 +230,7 @@
     {
       "id": "ricotta",
       "name": "Ricotta",
+      "gruppe": "Käse",
       "synonyme": ["ricotta"],
       "varianten": [
         {
@@ -229,6 +243,7 @@
     {
       "id": "mascarpone",
       "name": "Mascarpone",
+      "gruppe": "Käse",
       "synonyme": ["mascarpone"],
       "varianten": [
         {
@@ -242,6 +257,7 @@
     {
       "id": "feta",
       "name": "Feta und Salzlakenkäse",
+      "gruppe": "Käse",
       "synonyme": ["feta", "schafskäse", "salzlakenkäse", "hirtenkäse"],
       "varianten": [
         {
@@ -259,6 +275,7 @@
     {
       "id": "mozzarella",
       "name": "Mozzarella",
+      "gruppe": "Käse",
       "synonyme": ["mozzarella", "kuhmilchmozzarella"],
       "varianten": [
         {
@@ -276,6 +293,7 @@
     {
       "id": "burrata",
       "name": "Burrata und Büffelmozzarella",
+      "gruppe": "Käse",
       "synonyme": ["burrata", "büffelmozzarella", "bufala"],
       "varianten": [
         {
@@ -293,6 +311,7 @@
     {
       "id": "schmelzkaese",
       "name": "Schmelzkäse",
+      "gruppe": "Käse",
       "synonyme": ["schmelzkäse", "cheddar-scheiben", "sandwichkäse", "streichkäsli"],
       "varianten": [
         {
@@ -306,6 +325,7 @@
     {
       "id": "kaese-offen",
       "name": "Käse von der offenen Theke",
+      "gruppe": "Käse",
       "synonyme": ["offene theke", "käsetheke", "vorgeschnittener käse", "käseplatte"],
       "varianten": [
         {
@@ -323,6 +343,7 @@
     {
       "id": "milch",
       "name": "Milch",
+      "gruppe": "Milchprodukte",
       "synonyme": ["milch", "vollmilch", "halbrahm", "uht", "pastmilch"],
       "varianten": [
         {
@@ -336,6 +357,7 @@
     {
       "id": "joghurt",
       "name": "Joghurt",
+      "gruppe": "Milchprodukte",
       "synonyme": ["joghurt", "jogurt", "griechischer joghurt", "skyr"],
       "varianten": [
         {
@@ -348,6 +370,7 @@
     {
       "id": "rahm",
       "name": "Rahm und Schlagsahne",
+      "gruppe": "Milchprodukte",
       "synonyme": ["rahm", "sahne", "schlagrahm", "crème fraîche", "sauerrahm"],
       "varianten": [
         {
@@ -360,6 +383,7 @@
     {
       "id": "butter",
       "name": "Butter",
+      "gruppe": "Milchprodukte",
       "synonyme": ["butter", "streichbutter"],
       "varianten": [
         {
@@ -372,6 +396,7 @@
     {
       "id": "kefir",
       "name": "Kefir und Buttermilch",
+      "gruppe": "Milchprodukte",
       "synonyme": ["kefir", "buttermilch", "ayran"],
       "varianten": [
         {
@@ -385,6 +410,7 @@
     {
       "id": "pflanzendrink",
       "name": "Hafer-, Soja- und Mandeldrink",
+      "gruppe": "Milchprodukte",
       "synonyme": ["hafermilch", "haferdrink", "sojadrink", "sojamilch", "mandelmilch", "pflanzendrink"],
       "varianten": [
         {
@@ -398,6 +424,7 @@
     {
       "id": "lachs",
       "name": "Lachs",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["lachs", "salmon"],
       "varianten": [
         {
@@ -419,6 +446,7 @@
     {
       "id": "forelle",
       "name": "Forelle",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["forelle", "lachsforelle", "regenbogenforelle"],
       "varianten": [
         {
@@ -436,6 +464,7 @@
     {
       "id": "felchen",
       "name": "Felchen",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["felchen", "balchen", "renke"],
       "varianten": [
         {
@@ -453,6 +482,7 @@
     {
       "id": "egli",
       "name": "Egli",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["egli", "flussbarsch", "barsch", "eglifilet"],
       "varianten": [
         {
@@ -470,6 +500,7 @@
     {
       "id": "dorsch",
       "name": "Dorsch und Kabeljau",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["dorsch", "kabeljau", "skrei", "bacalao"],
       "varianten": [
         {
@@ -487,6 +518,7 @@
     {
       "id": "seelachs",
       "name": "Seelachs",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["seelachs", "köhler", "pollock"],
       "varianten": [
         {
@@ -504,6 +536,7 @@
     {
       "id": "scholle",
       "name": "Scholle und Flunder",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["scholle", "flunder", "seezunge"],
       "varianten": [
         {
@@ -521,6 +554,7 @@
     {
       "id": "zander",
       "name": "Zander",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["zander"],
       "varianten": [
         {
@@ -538,6 +572,7 @@
     {
       "id": "dorade",
       "name": "Dorade und Wolfsbarsch",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["dorade", "wolfsbarsch", "loup de mer", "branzino"],
       "varianten": [
         {
@@ -555,6 +590,7 @@
     {
       "id": "rotbarsch",
       "name": "Rotbarsch",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["rotbarsch"],
       "varianten": [
         {
@@ -572,6 +608,7 @@
     {
       "id": "sardine",
       "name": "Sardinen und Sardellen",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["sardine", "sardinen", "sardelle", "anchovis"],
       "varianten": [
         {
@@ -589,6 +626,7 @@
     {
       "id": "makrele",
       "name": "Makrele",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["makrele"],
       "varianten": [
         {
@@ -606,6 +644,7 @@
     {
       "id": "hering",
       "name": "Hering",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["hering", "matjes", "rollmops", "bismarckhering"],
       "varianten": [
         {
@@ -623,6 +662,7 @@
     {
       "id": "thunfisch",
       "name": "Thunfisch",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["thunfisch", "tuna", "thon"],
       "varianten": [
         {
@@ -640,6 +680,7 @@
     {
       "id": "schwertfisch",
       "name": "Schwertfisch, Hai, Marlin",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["schwertfisch", "hai", "marlin", "raubfisch", "butterfisch", "escolar"],
       "varianten": [
         {
@@ -652,6 +693,7 @@
     {
       "id": "aal",
       "name": "Aal",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["aal", "räucheraal"],
       "varianten": [
         {
@@ -664,6 +706,7 @@
     {
       "id": "hecht",
       "name": "Hecht",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["hecht"],
       "varianten": [
         {
@@ -676,6 +719,7 @@
     {
       "id": "sushi",
       "name": "Sushi und Sashimi",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["sushi", "sashimi", "maki", "nigiri", "poke", "poké", "ceviche"],
       "varianten": [
         {
@@ -693,6 +737,7 @@
     {
       "id": "raeucherfisch",
       "name": "Räucherfisch",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["räucherfisch", "räucherforelle", "räucherlachs", "makrele geräuchert", "stremellachs"],
       "varianten": [
         {
@@ -710,6 +755,7 @@
     {
       "id": "fischstaebchen",
       "name": "Fischstäbchen",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["fischstäbchen", "fischknusperli", "backfisch"],
       "varianten": [
         {
@@ -723,6 +769,7 @@
     {
       "id": "fischkonserve",
       "name": "Fisch aus der Dose",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["fischkonserve", "dosenfisch", "thon dose", "sardinen dose"],
       "varianten": [
         {
@@ -736,6 +783,7 @@
     {
       "id": "surimi",
       "name": "Surimi",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["surimi", "krebsfleisch imitat", "california roll"],
       "varianten": [
         {
@@ -749,6 +797,7 @@
     {
       "id": "fischsauce",
       "name": "Fischsauce und Sardellenpaste",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["fischsauce", "nam pla", "sardellenpaste", "worcestersauce"],
       "varianten": [
         {
@@ -762,6 +811,7 @@
     {
       "id": "austern",
       "name": "Austern und Muscheln",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["austern", "muscheln", "miesmuscheln", "jakobsmuscheln", "venusmuscheln", "meeresfrüchte"],
       "varianten": [
         {
@@ -779,6 +829,7 @@
     {
       "id": "crevetten",
       "name": "Crevetten und Garnelen",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["crevetten", "garnelen", "shrimps", "gambas", "scampi"],
       "varianten": [
         {
@@ -796,6 +847,7 @@
     {
       "id": "tintenfisch",
       "name": "Tintenfisch und Calamari",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["tintenfisch", "calamari", "kalmar", "oktopus", "pulpo"],
       "varianten": [
         {
@@ -813,6 +865,7 @@
     {
       "id": "hummer",
       "name": "Hummer und Krebs",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["hummer", "krebs", "languste", "krevette"],
       "varianten": [
         {
@@ -830,6 +883,7 @@
     {
       "id": "kaviar",
       "name": "Kaviar und Fischrogen",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["kaviar", "rogen", "forellenkaviar", "lachskaviar", "keta"],
       "varianten": [
         {
@@ -843,6 +897,7 @@
     {
       "id": "steak",
       "name": "Steak",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["steak", "entrecôte", "filet", "roastbeef", "rindfleisch", "rumpsteak"],
       "varianten": [
         {
@@ -860,6 +915,7 @@
     {
       "id": "burger",
       "name": "Hamburger",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["burger", "hamburger", "cheeseburger", "hacktätschli"],
       "varianten": [
         {
@@ -877,6 +933,7 @@
     {
       "id": "lamm",
       "name": "Lamm",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["lamm", "lammkotelett", "gigot", "lammfilet"],
       "varianten": [
         {
@@ -894,6 +951,7 @@
     {
       "id": "kalb",
       "name": "Kalbfleisch",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["kalb", "kalbfleisch", "kalbsschnitzel", "kalbsbraten"],
       "varianten": [
         {
@@ -911,6 +969,7 @@
     {
       "id": "ente",
       "name": "Entenbrust",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["ente", "entenbrust", "barbarie"],
       "varianten": [
         {
@@ -928,6 +987,7 @@
     {
       "id": "wild",
       "name": "Wild",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["wild", "reh", "hirsch", "wildschwein", "pfeffer"],
       "varianten": [
         {
@@ -945,6 +1005,7 @@
     {
       "id": "schwein",
       "name": "Schweinefleisch",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["schwein", "schweinefleisch", "schnitzel", "kotelett", "schweinsbraten"],
       "varianten": [
         {
@@ -958,6 +1019,7 @@
     {
       "id": "gefluegel",
       "name": "Geflügel",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["poulet", "hähnchen", "huhn", "geflügel", "pouletbrust", "truthahn", "pute"],
       "varianten": [
         {
@@ -970,6 +1032,7 @@
     {
       "id": "tatar",
       "name": "Tatar und Carpaccio",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["tatar", "tartar", "carpaccio", "mett", "hackfleisch roh", "rohes fleisch"],
       "varianten": [
         {
@@ -982,6 +1045,7 @@
     {
       "id": "hackfleisch",
       "name": "Hackfleisch",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["hackfleisch", "gehacktes", "hackbraten", "bolognese"],
       "varianten": [
         {
@@ -999,6 +1063,7 @@
     {
       "id": "salami",
       "name": "Salami, Rohschinken, Trockenfleisch",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["salami", "rohschinken", "trockenfleisch", "bündnerfleisch", "prosciutto", "parmaschinken", "serrano", "coppa", "landjäger", "mettwurst", "chorizo", "salsiz"],
       "varianten": [
         {
@@ -1020,6 +1085,7 @@
     {
       "id": "kochschinken",
       "name": "Gekochter Schinken",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["kochschinken", "hinterschinken", "vorderschinken", "schinken"],
       "varianten": [
         {
@@ -1033,6 +1099,7 @@
     {
       "id": "cervelat",
       "name": "Cervelat und Brühwurst",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["cervelat", "wienerli", "frankfurter", "bratwurst", "fleischkäse", "lyoner", "mortadella", "schüblig"],
       "varianten": [
         {
@@ -1046,6 +1113,7 @@
     {
       "id": "pastete",
       "name": "Pastete und Terrine",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["pastete", "terrine", "rillettes", "sülze", "aspik"],
       "varianten": [
         {
@@ -1059,6 +1127,7 @@
     {
       "id": "leber",
       "name": "Leber und Leberprodukte",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["leber", "leberwurst", "leberpastete", "foie gras", "kalbsleber", "leberli"],
       "varianten": [
         {
@@ -1071,6 +1140,7 @@
     {
       "id": "innereien",
       "name": "Innereien",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["innereien", "niere", "kutteln", "herz", "bries", "milken"],
       "varianten": [
         {
@@ -1084,6 +1154,7 @@
     {
       "id": "speck",
       "name": "Speck und Bacon",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["speck", "bacon", "pancetta", "guanciale", "rippli"],
       "varianten": [
         {
@@ -1101,6 +1172,7 @@
     {
       "id": "kebab",
       "name": "Kebab und Döner",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["kebab", "döner", "dürüm", "gyros", "shawarma"],
       "varianten": [
         {
@@ -1118,6 +1190,7 @@
     {
       "id": "vitello-tonnato",
       "name": "Vitello tonnato",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["vitello tonnato", "kalbfleisch mit thunfischsauce"],
       "varianten": [
         {
@@ -1135,6 +1208,7 @@
     {
       "id": "fondue-chinoise",
       "name": "Fondue chinoise und Bourguignonne",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["fondue chinoise", "bourguignonne", "fleischfondue"],
       "varianten": [
         {
@@ -1152,6 +1226,7 @@
     {
       "id": "ei",
       "name": "Eier",
+      "gruppe": "Eier",
       "synonyme": ["ei", "eier", "spiegelei", "rührei", "pochiertes ei", "omelette", "frühstücksei"],
       "varianten": [
         {
@@ -1169,6 +1244,7 @@
     {
       "id": "tiramisu",
       "name": "Tiramisu und Mousse au chocolat",
+      "gruppe": "Eier",
       "synonyme": ["tiramisu", "mousse au chocolat", "zabaione", "rohes ei", "eischnee", "meringue italienne"],
       "varianten": [
         {
@@ -1186,6 +1262,7 @@
     {
       "id": "mayonnaise",
       "name": "Mayonnaise und Aioli",
+      "gruppe": "Eier",
       "synonyme": ["mayonnaise", "mayo", "aioli", "sauce tartare", "cocktailsauce", "remoulade"],
       "varianten": [
         {
@@ -1203,6 +1280,7 @@
     {
       "id": "hollandaise",
       "name": "Sauce hollandaise und Béarnaise",
+      "gruppe": "Eier",
       "synonyme": ["hollandaise", "béarnaise", "bearnaise", "sauce hollandaise"],
       "varianten": [
         {
@@ -1220,6 +1298,7 @@
     {
       "id": "caesar-dressing",
       "name": "Caesar Dressing",
+      "gruppe": "Eier",
       "synonyme": ["caesar", "caesar dressing", "caesarsalat"],
       "varianten": [
         {
@@ -1237,6 +1316,7 @@
     {
       "id": "meringue",
       "name": "Meringue und Baiser",
+      "gruppe": "Eier",
       "synonyme": ["meringue", "baiser", "vacherin glacé", "pavlova"],
       "varianten": [
         {
@@ -1250,6 +1330,7 @@
     {
       "id": "eierlikoer",
       "name": "Eierlikör",
+      "gruppe": "Getränke",
       "synonyme": ["eierlikör", "advocaat"],
       "varianten": [
         {
@@ -1262,6 +1343,7 @@
     {
       "id": "pizza",
       "name": "Pizza",
+      "gruppe": "Gerichte",
       "synonyme": ["pizza", "pizza margherita", "pizza salami", "pizza prosciutto"],
       "varianten": [
         {
@@ -1279,6 +1361,7 @@
     {
       "id": "pasta",
       "name": "Teigwaren",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["pasta", "teigwaren", "spaghetti", "penne", "nudeln", "lasagne", "ravioli"],
       "varianten": [
         {
@@ -1292,6 +1375,7 @@
     {
       "id": "carbonara",
       "name": "Spaghetti carbonara",
+      "gruppe": "Gerichte",
       "synonyme": ["carbonara", "spaghetti carbonara"],
       "varianten": [
         {
@@ -1309,6 +1393,7 @@
     {
       "id": "risotto",
       "name": "Risotto",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["risotto", "risi e bisi"],
       "varianten": [
         {
@@ -1322,6 +1407,7 @@
     {
       "id": "lasagne",
       "name": "Lasagne",
+      "gruppe": "Gerichte",
       "synonyme": ["lasagne", "cannelloni"],
       "varianten": [
         {
@@ -1335,6 +1421,7 @@
     {
       "id": "suppe",
       "name": "Suppe und Bouillon",
+      "gruppe": "Gerichte",
       "synonyme": ["suppe", "bouillon", "brühe", "eintopf", "minestrone"],
       "varianten": [
         {
@@ -1348,6 +1435,7 @@
     {
       "id": "gazpacho",
       "name": "Gazpacho und kalte Suppen",
+      "gruppe": "Gerichte",
       "synonyme": ["gazpacho", "kalte suppe"],
       "varianten": [
         {
@@ -1365,6 +1453,7 @@
     {
       "id": "quiche",
       "name": "Quiche und Wähe",
+      "gruppe": "Eier",
       "synonyme": ["quiche", "wähe", "gemüsekuchen", "zwiebelkuchen", "tarte"],
       "varianten": [
         {
@@ -1378,6 +1467,7 @@
     {
       "id": "auflauf",
       "name": "Gratin und Auflauf",
+      "gruppe": "Gerichte",
       "synonyme": ["gratin", "auflauf", "kartoffelgratin", "überbacken"],
       "varianten": [
         {
@@ -1391,6 +1481,7 @@
     {
       "id": "asia-wok",
       "name": "Wokgerichte",
+      "gruppe": "Gerichte",
       "synonyme": ["wok", "stir fry", "pad thai", "chop suey", "nasi goreng"],
       "varianten": [
         {
@@ -1404,6 +1495,7 @@
     {
       "id": "curry",
       "name": "Curry",
+      "gruppe": "Gerichte",
       "synonyme": ["curry", "thai curry", "indisches curry", "massaman"],
       "varianten": [
         {
@@ -1417,6 +1509,7 @@
     {
       "id": "hummus",
       "name": "Hummus und Falafel",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["hummus", "falafel", "kichererbsen", "baba ganoush"],
       "varianten": [
         {
@@ -1430,6 +1523,7 @@
     {
       "id": "sandwich",
       "name": "Sandwich und belegtes Brot",
+      "gruppe": "Gerichte",
       "synonyme": ["sandwich", "belegtes brot", "baguette", "wrap", "tramezzini"],
       "varianten": [
         {
@@ -1447,6 +1541,7 @@
     {
       "id": "fertiggericht",
       "name": "Fertiggericht",
+      "gruppe": "Gerichte",
       "synonyme": ["fertiggericht", "fertigmenü", "tiefkühlmenü", "mikrowelle"],
       "varianten": [
         {
@@ -1460,6 +1555,7 @@
     {
       "id": "raclette-abend",
       "name": "Raclette-Abend",
+      "gruppe": "Gerichte",
       "synonyme": ["racletteabend", "raclette mit fleisch"],
       "varianten": [
         {
@@ -1473,6 +1569,7 @@
     {
       "id": "kaffee",
       "name": "Kaffee",
+      "gruppe": "Getränke",
       "synonyme": ["kaffee", "espresso", "cappuccino", "latte", "koffein", "schale"],
       "varianten": [
         {
@@ -1490,6 +1587,7 @@
     {
       "id": "schwarztee",
       "name": "Schwarztee",
+      "gruppe": "Getränke",
       "synonyme": ["schwarztee", "earl grey", "english breakfast", "tee"],
       "varianten": [
         {
@@ -1507,6 +1605,7 @@
     {
       "id": "gruentee",
       "name": "Grüntee und Matcha",
+      "gruppe": "Getränke",
       "synonyme": ["grüntee", "matcha", "sencha", "grüner tee"],
       "varianten": [
         {
@@ -1524,6 +1623,7 @@
     {
       "id": "cola",
       "name": "Cola und koffeinhaltige Limonaden",
+      "gruppe": "Getränke",
       "synonyme": ["cola", "coca cola", "pepsi", "limonade"],
       "varianten": [
         {
@@ -1541,6 +1641,7 @@
     {
       "id": "energydrink",
       "name": "Energydrink",
+      "gruppe": "Getränke",
       "synonyme": ["energydrink", "red bull", "energy"],
       "varianten": [
         {
@@ -1554,6 +1655,7 @@
     {
       "id": "eistee",
       "name": "Eistee",
+      "gruppe": "Getränke",
       "synonyme": ["eistee", "ice tea"],
       "varianten": [
         {
@@ -1571,6 +1673,7 @@
     {
       "id": "mate",
       "name": "Mate und Guarana",
+      "gruppe": "Getränke",
       "synonyme": ["mate", "guarana", "club mate"],
       "varianten": [
         {
@@ -1583,6 +1686,7 @@
     {
       "id": "kakao",
       "name": "Kakao und heisse Schokolade",
+      "gruppe": "Getränke",
       "synonyme": ["kakao", "heisse schokolade", "ovomaltine", "schoggi"],
       "varianten": [
         {
@@ -1596,6 +1700,7 @@
     {
       "id": "wein-bier",
       "name": "Wein, Bier und Spirituosen",
+      "gruppe": "Getränke",
       "synonyme": ["wein", "bier", "prosecco", "champagner", "sekt", "spirituosen", "cocktail", "alkohol", "schnaps", "likör", "aperol", "gin", "wodka", "whisky"],
       "varianten": [
         {
@@ -1613,6 +1718,7 @@
     {
       "id": "alkoholfrei",
       "name": "Alkoholfreies Bier und alkoholfreier Wein",
+      "gruppe": "Getränke",
       "synonyme": ["alkoholfreies bier", "alkoholfrei", "0.0", "alkoholfreier wein", "alkoholfreier sekt"],
       "varianten": [
         {
@@ -1630,6 +1736,7 @@
     {
       "id": "glühwein",
       "name": "Glühwein und Punsch",
+      "gruppe": "Getränke",
       "synonyme": ["glühwein", "punsch", "grog", "feuerzangenbowle"],
       "varianten": [
         {
@@ -1643,6 +1750,7 @@
     {
       "id": "kombucha",
       "name": "Kombucha",
+      "gruppe": "Getränke",
       "synonyme": ["kombucha", "fermentiertes teegetränk"],
       "varianten": [
         {
@@ -1656,6 +1764,7 @@
     {
       "id": "wasser",
       "name": "Leitungswasser und Mineralwasser",
+      "gruppe": "Getränke",
       "synonyme": ["wasser", "leitungswasser", "hahnenwasser", "mineralwasser", "sprudel"],
       "varianten": [
         {
@@ -1669,6 +1778,7 @@
     {
       "id": "fruchtsaft",
       "name": "Fruchtsaft",
+      "gruppe": "Getränke",
       "synonyme": ["fruchtsaft", "orangensaft", "apfelsaft", "saft", "schorle"],
       "varianten": [
         {
@@ -1686,6 +1796,7 @@
     {
       "id": "smoothie",
       "name": "Smoothie",
+      "gruppe": "Getränke",
       "synonyme": ["smoothie", "shake", "acai bowl"],
       "varianten": [
         {
@@ -1703,6 +1814,7 @@
     {
       "id": "getreidekaffee",
       "name": "Getreidekaffee und Lupinenkaffee",
+      "gruppe": "Getränke",
       "synonyme": ["getreidekaffee", "caro", "lupinenkaffee", "malzkaffee"],
       "varianten": [
         {
@@ -1716,6 +1828,7 @@
     {
       "id": "blattsalat",
       "name": "Blattsalat und Rohkost",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["salat", "blattsalat", "rohkost", "nüsslisalat", "rucola", "kopfsalat", "eisberg"],
       "varianten": [
         {
@@ -1733,6 +1846,7 @@
     {
       "id": "erdbeeren",
       "name": "Erdbeeren und Beeren",
+      "gruppe": "Obst",
       "synonyme": ["erdbeeren", "beeren", "himbeeren", "heidelbeeren", "brombeeren", "johannisbeeren"],
       "varianten": [
         {
@@ -1750,6 +1864,7 @@
     {
       "id": "tomate",
       "name": "Tomaten",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["tomate", "tomaten", "cherrytomaten", "peperoni", "paprika"],
       "varianten": [
         {
@@ -1767,6 +1882,7 @@
     {
       "id": "gurke",
       "name": "Gurke",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["gurke", "salatgurke", "zucchetti", "zucchini"],
       "varianten": [
         {
@@ -1784,6 +1900,7 @@
     {
       "id": "karotte",
       "name": "Karotten und Wurzelgemüse",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["karotte", "rüebli", "karotten", "randen", "rande", "sellerie", "pastinake"],
       "varianten": [
         {
@@ -1801,6 +1918,7 @@
     {
       "id": "lauch",
       "name": "Lauch und Zwiebeln",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["lauch", "zwiebel", "frühlingszwiebel", "knoblauch"],
       "varianten": [
         {
@@ -1818,6 +1936,7 @@
     {
       "id": "pilze",
       "name": "Pilze",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["pilze", "champignons", "steinpilze", "eierschwämme"],
       "varianten": [
         {
@@ -1835,6 +1954,7 @@
     {
       "id": "kraeuter-frisch",
       "name": "Frische Kräuter",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["petersilie", "schnittlauch", "basilikum", "koriander", "frische kräuter", "dill"],
       "varianten": [
         {
@@ -1852,6 +1972,7 @@
     {
       "id": "kartoffel",
       "name": "Kartoffeln",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["kartoffel", "härdöpfel", "pommes", "rösti", "kartoffelstock", "gnocchi"],
       "varianten": [
         {
@@ -1865,6 +1986,7 @@
     {
       "id": "gemuese-gekocht",
       "name": "Gekochtes Gemüse",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["gekochtes gemüse", "dampfgemüse", "broccoli", "blumenkohl", "bohnen", "erbsen", "spinat", "spargel"],
       "varianten": [
         {
@@ -1877,6 +1999,7 @@
     {
       "id": "avocado",
       "name": "Avocado",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["avocado", "guacamole"],
       "varianten": [
         {
@@ -1894,6 +2017,7 @@
     {
       "id": "apfel",
       "name": "Äpfel und Birnen",
+      "gruppe": "Obst",
       "synonyme": ["apfel", "äpfel", "birne", "birnen"],
       "varianten": [
         {
@@ -1907,6 +2031,7 @@
     {
       "id": "banane",
       "name": "Bananen",
+      "gruppe": "Obst",
       "synonyme": ["banane", "bananen"],
       "varianten": [
         {
@@ -1920,6 +2045,7 @@
     {
       "id": "zitrusfruechte",
       "name": "Zitrusfrüchte",
+      "gruppe": "Obst",
       "synonyme": ["orange", "mandarine", "zitrone", "limette", "grapefruit"],
       "varianten": [
         {
@@ -1932,6 +2058,7 @@
     {
       "id": "steinobst",
       "name": "Steinobst",
+      "gruppe": "Obst",
       "synonyme": ["pfirsich", "nektarine", "aprikose", "kirschen", "zwetschgen", "pflaumen"],
       "varianten": [
         {
@@ -1944,6 +2071,7 @@
     {
       "id": "melone",
       "name": "Melone",
+      "gruppe": "Obst",
       "synonyme": ["melone", "wassermelone", "honigmelone", "cantaloupe"],
       "varianten": [
         {
@@ -1961,6 +2089,7 @@
     {
       "id": "ananas",
       "name": "Ananas",
+      "gruppe": "Obst",
       "synonyme": ["ananas"],
       "varianten": [
         {
@@ -1974,6 +2103,7 @@
     {
       "id": "papaya",
       "name": "Papaya und Mango",
+      "gruppe": "Obst",
       "synonyme": ["papaya", "mango"],
       "varianten": [
         {
@@ -1987,6 +2117,7 @@
     {
       "id": "trockenfruechte",
       "name": "Trockenfrüchte",
+      "gruppe": "Obst",
       "synonyme": ["trockenfrüchte", "rosinen", "dörrpflaumen", "datteln", "aprikosen getrocknet"],
       "varianten": [
         {
@@ -2000,6 +2131,7 @@
     {
       "id": "oliven",
       "name": "Oliven",
+      "gruppe": "Obst",
       "synonyme": ["oliven", "olive"],
       "varianten": [
         {
@@ -2013,6 +2145,7 @@
     {
       "id": "sprossen",
       "name": "Sprossen und Keimlinge",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["sprossen", "keimlinge", "alfalfa", "mungbohnen", "kresse"],
       "varianten": [
         {
@@ -2030,6 +2163,7 @@
     {
       "id": "fertigsalat",
       "name": "Fertigsalat und Salatbuffet",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["fertigsalat", "salatbuffet", "abgepackter salat", "vorgeschnitten", "smoothie bar", "buffet"],
       "varianten": [
         {
@@ -2042,6 +2176,7 @@
     {
       "id": "sauerkraut",
       "name": "Sauerkraut und eingelegtes Gemüse",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["sauerkraut", "eingelegtes gemüse", "gurken sauer", "kimchi", "essiggurken"],
       "varianten": [
         {
@@ -2059,6 +2194,7 @@
     {
       "id": "huelsenfruechte",
       "name": "Hülsenfrüchte",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["linsen", "kichererbsen", "bohnen", "hülsenfrüchte", "kidneybohnen"],
       "varianten": [
         {
@@ -2072,6 +2208,7 @@
     {
       "id": "tofu",
       "name": "Tofu und Sojaprodukte",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["tofu", "tempeh", "sojaprodukte", "edamame"],
       "varianten": [
         {
@@ -2085,6 +2222,7 @@
     {
       "id": "schokolade",
       "name": "Schokolade",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["schokolade", "schoggi", "praline", "dunkle schokolade", "milchschokolade"],
       "varianten": [
         {
@@ -2098,6 +2236,7 @@
     {
       "id": "lakritze",
       "name": "Lakritze",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["lakritze", "lakritz", "süssholz", "salmiak", "succus"],
       "varianten": [
         {
@@ -2110,6 +2249,7 @@
     {
       "id": "glace",
       "name": "Glace und Softeis",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["glace", "eis", "softeis", "gelato", "speiseeis", "rahmglace"],
       "varianten": [
         {
@@ -2131,6 +2271,7 @@
     {
       "id": "sorbet",
       "name": "Sorbet",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["sorbet", "fruchteis", "wassereis"],
       "varianten": [
         {
@@ -2148,6 +2289,7 @@
     {
       "id": "gummibaerchen",
       "name": "Gummibärchen und Fruchtgummi",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["gummibärchen", "fruchtgummi", "haribo", "bonbons", "zuckerwaren"],
       "varianten": [
         {
@@ -2161,6 +2303,7 @@
     {
       "id": "kuchen",
       "name": "Kuchen und Gebäck",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["kuchen", "gebäck", "muffin", "cake", "biskuit", "guetzli", "keks"],
       "varianten": [
         {
@@ -2174,6 +2317,7 @@
     {
       "id": "teig-roh",
       "name": "Roher Teig",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["roher teig", "keksteig", "cookie dough", "teig naschen", "hefeteig roh"],
       "varianten": [
         {
@@ -2187,6 +2331,7 @@
     {
       "id": "dessert",
       "name": "Panna cotta, Crème brûlée und Pudding",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["panna cotta", "crème brûlée", "creme brulee", "pudding", "flan", "caramelköpfli"],
       "varianten": [
         {
@@ -2200,6 +2345,7 @@
     {
       "id": "konfitüre",
       "name": "Konfitüre und Honig",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["konfitüre", "marmelade", "gelee", "sirup"],
       "varianten": [
         {
@@ -2212,6 +2358,7 @@
     {
       "id": "honig",
       "name": "Honig",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["honig", "waldhonig", "bienenhonig", "blütenhonig"],
       "varianten": [
         {
@@ -2225,6 +2372,7 @@
     {
       "id": "nuesse",
       "name": "Nüsse und Mandeln",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["nüsse", "erdnüsse", "mandeln", "baumnüsse", "haselnüsse", "cashew", "erdnussbutter", "nussmus"],
       "varianten": [
         {
@@ -2238,6 +2386,7 @@
     {
       "id": "chips",
       "name": "Chips und Salzgebäck",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["chips", "salzgebäck", "cracker", "bretzel", "popcorn"],
       "varianten": [
         {
@@ -2250,6 +2399,7 @@
     {
       "id": "brot",
       "name": "Brot",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["brot", "brötchen", "weggli", "gipfeli", "croissant", "zopf", "toast"],
       "varianten": [
         {
@@ -2262,6 +2412,7 @@
     {
       "id": "muesli",
       "name": "Müesli und Frühstücksflocken",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["müesli", "birchermüesli", "cornflakes", "haferflocken", "granola", "porridge"],
       "varianten": [
         {
@@ -2275,6 +2426,7 @@
     {
       "id": "reis",
       "name": "Reis",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["reis", "risottoreis", "basmati", "sushi reis"],
       "varianten": [
         {
@@ -2288,6 +2440,7 @@
     {
       "id": "mehl-roh",
       "name": "Rohes Mehl",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["mehl", "rohes mehl", "teigwaren roh"],
       "varianten": [
         {
@@ -2301,6 +2454,7 @@
     {
       "id": "polenta",
       "name": "Polenta und Couscous",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["polenta", "couscous", "bulgur", "quinoa", "hirse"],
       "varianten": [
         {
@@ -2313,6 +2467,7 @@
     {
       "id": "salbeitee",
       "name": "Salbeitee",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["salbei", "salbeitee"],
       "varianten": [
         {
@@ -2325,6 +2480,7 @@
     {
       "id": "himbeerblaetter",
       "name": "Himbeerblättertee",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["himbeerblätter", "himbeerblättertee"],
       "varianten": [
         {
@@ -2337,6 +2493,7 @@
     {
       "id": "zimt",
       "name": "Zimt und Zimtrinde",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["zimt", "zimtrinde", "cassia", "zimtstern"],
       "varianten": [
         {
@@ -2354,6 +2511,7 @@
     {
       "id": "kraeutertee",
       "name": "Kräutertee",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["kräutertee", "kräuteraufguss", "teemischung"],
       "varianten": [
         {
@@ -2367,6 +2525,7 @@
     {
       "id": "rooibos",
       "name": "Rooibos und Früchtetee",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["rooibos", "früchtetee", "hagebutte", "rotbusch"],
       "varianten": [
         {
@@ -2380,6 +2539,7 @@
     {
       "id": "pfefferminztee",
       "name": "Pfefferminztee",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["pfefferminztee", "pfefferminze", "minze"],
       "varianten": [
         {
@@ -2393,6 +2553,7 @@
     {
       "id": "kamillentee",
       "name": "Kamillentee",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["kamille", "kamillentee"],
       "varianten": [
         {
@@ -2405,6 +2566,7 @@
     {
       "id": "fencheltee",
       "name": "Fenchel- und Anistee",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["fenchel", "fencheltee", "anis", "kümmel"],
       "varianten": [
         {
@@ -2417,6 +2579,7 @@
     {
       "id": "ingwer",
       "name": "Ingwer",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["ingwer", "ingwertee", "ginger"],
       "varianten": [
         {
@@ -2430,6 +2593,7 @@
     {
       "id": "gewuerze",
       "name": "Küchengewürze",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["gewürze", "pfeffer", "paprikapulver", "curry pulver", "muskat", "oregano", "thymian", "rosmarin"],
       "varianten": [
         {
@@ -2443,6 +2607,7 @@
     {
       "id": "brennnessel",
       "name": "Brennnessel- und Entwässerungstees",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["brennnessel", "brennnesseltee", "entwässerungstee", "blasentee"],
       "varianten": [
         {
@@ -2456,6 +2621,7 @@
     {
       "id": "essig",
       "name": "Essig und Senf",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["essig", "balsamico", "senf", "aceto"],
       "varianten": [
         {
@@ -2468,6 +2634,7 @@
     {
       "id": "oel",
       "name": "Speiseöl",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["öl", "olivenöl", "rapsöl", "sonnenblumenöl", "leinöl"],
       "varianten": [
         {
@@ -2480,6 +2647,7 @@
     {
       "id": "sojasauce",
       "name": "Sojasauce",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["sojasauce", "soja sauce", "tamari"],
       "varianten": [
         {
@@ -2492,6 +2660,7 @@
     {
       "id": "kaeserinde",
       "name": "Käserinde",
+      "gruppe": "Käse",
       "synonyme": ["käserinde", "rinde", "rinde essen"],
       "varianten": [
         {
@@ -2509,6 +2678,7 @@
     {
       "id": "mikrowelle",
       "name": "Essen aus der Mikrowelle",
+      "gruppe": "Gerichte",
       "synonyme": ["mikrowelle", "aufgewärmt", "aufwärmen"],
       "varianten": [
         {
@@ -2522,6 +2692,7 @@
     {
       "id": "resten",
       "name": "Resten vom Vortag",
+      "gruppe": "Gerichte",
       "synonyme": ["resten", "reste", "übriggebliebenes", "vom vortag", "meal prep"],
       "varianten": [
         {
@@ -2535,6 +2706,7 @@
     {
       "id": "erdnussallergie",
       "name": "Nüsse und Allergierisiko",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["allergie", "erdnussallergie", "allergierisiko"],
       "varianten": [
         {
@@ -2548,6 +2720,7 @@
     {
       "id": "scharf",
       "name": "Scharfes Essen",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["scharf", "chili", "peperoncini", "sambal", "harissa"],
       "varianten": [
         {
@@ -2561,6 +2734,7 @@
     {
       "id": "saeuglingshonig",
       "name": "Honig für das Baby",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["honig baby", "honig säugling"],
       "varianten": [
         {
@@ -2574,6 +2748,7 @@
     {
       "id": "aelplermagronen",
       "name": "Älplermagronen",
+      "gruppe": "Gerichte",
       "synonyme": ["älplermagronen", "magronen", "alplermagronen"],
       "varianten": [
         {
@@ -2587,6 +2762,7 @@
     {
       "id": "geschnetzeltes",
       "name": "Zürcher Geschnetzeltes",
+      "gruppe": "Gerichte",
       "synonyme": ["geschnetzeltes", "zürcher geschnetzeltes", "züri gschnätzlets"],
       "varianten": [
         {
@@ -2600,6 +2776,7 @@
     {
       "id": "cordonbleu",
       "name": "Cordon bleu",
+      "gruppe": "Gerichte",
       "synonyme": ["cordon bleu", "cordonbleu"],
       "varianten": [
         {
@@ -2613,6 +2790,7 @@
     {
       "id": "capuns",
       "name": "Capuns und Pizokel",
+      "gruppe": "Gerichte",
       "synonyme": ["capuns", "pizokel", "maluns"],
       "varianten": [
         {
@@ -2626,6 +2804,7 @@
     {
       "id": "fotzelschnitten",
       "name": "Fotzelschnitten und French Toast",
+      "gruppe": "Gerichte",
       "synonyme": ["fotzelschnitten", "french toast", "arme ritter", "pancakes", "waffeln", "crêpes"],
       "varianten": [
         {
@@ -2639,6 +2818,7 @@
     {
       "id": "znueni",
       "name": "Znüni und Apéro",
+      "gruppe": "Gerichte",
       "synonyme": ["znüni", "apéro", "apero", "znacht", "zvieri", "häppchen"],
       "varianten": [
         {
@@ -2656,6 +2836,7 @@
     {
       "id": "antipasti",
       "name": "Antipasti",
+      "gruppe": "Gerichte",
       "synonyme": ["antipasti", "antipasto", "eingelegtes gemüse öl"],
       "varianten": [
         {
@@ -2669,6 +2850,7 @@
     {
       "id": "bruschetta",
       "name": "Bruschetta und Tapas",
+      "gruppe": "Gerichte",
       "synonyme": ["bruschetta", "tapas", "crostini"],
       "varianten": [
         {
@@ -2686,6 +2868,7 @@
     {
       "id": "tzatziki",
       "name": "Tzatziki und Dips",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["tzatziki", "dip", "kräuterquark", "sauerrahmdip"],
       "varianten": [
         {
@@ -2703,6 +2886,7 @@
     {
       "id": "pommes",
       "name": "Pommes frites",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["pommes", "pommes frites", "fritten", "wedges"],
       "varianten": [
         {
@@ -2716,6 +2900,7 @@
     {
       "id": "hotdog",
       "name": "Hot Dog",
+      "gruppe": "Gerichte",
       "synonyme": ["hotdog", "hot dog"],
       "varianten": [
         {
@@ -2729,6 +2914,7 @@
     {
       "id": "fastfood",
       "name": "Burger und Fast Food",
+      "gruppe": "Gerichte",
       "synonyme": ["fastfood", "mcdonalds", "big mac", "nuggets", "chicken nuggets"],
       "varianten": [
         {
@@ -2742,6 +2928,7 @@
     {
       "id": "folsaeure",
       "name": "Folsäure",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["folsäure", "folat", "folsäurepräparat"],
       "varianten": [
         {
@@ -2755,6 +2942,7 @@
     {
       "id": "vitamin-a-praeparat",
       "name": "Vitamin-A-Präparat",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["vitamin a", "retinol", "vitaminpräparat", "multivitamin"],
       "varianten": [
         {
@@ -2767,6 +2955,7 @@
     {
       "id": "eisen",
       "name": "Eisenpräparat",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["eisen", "eisenpräparat", "eisentabletten"],
       "varianten": [
         {
@@ -2780,6 +2969,7 @@
     {
       "id": "omega3",
       "name": "Omega-3-Präparat",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["omega 3", "fischöl", "dha", "algenöl"],
       "varianten": [
         {
@@ -2793,6 +2983,7 @@
     {
       "id": "lebertran",
       "name": "Lebertran",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["lebertran", "dorschlebertran"],
       "varianten": [
         {
@@ -2805,6 +2996,7 @@
     {
       "id": "bubbletea",
       "name": "Bubble Tea",
+      "gruppe": "Getränke",
       "synonyme": ["bubble tea", "boba"],
       "varianten": [
         {
@@ -2818,6 +3010,7 @@
     {
       "id": "milchshake",
       "name": "Milchshake",
+      "gruppe": "Getränke",
       "synonyme": ["milchshake", "shake", "frappé"],
       "varianten": [
         {
@@ -2835,6 +3028,7 @@
     {
       "id": "tonic",
       "name": "Tonic Water und Ginger Ale",
+      "gruppe": "Getränke",
       "synonyme": ["tonic", "ginger ale", "bitter lemon", "rivella"],
       "varianten": [
         {
@@ -2848,6 +3042,7 @@
     {
       "id": "sirup",
       "name": "Sirup",
+      "gruppe": "Getränke",
       "synonyme": ["sirup", "himbeersirup", "holundersirup"],
       "varianten": [
         {
@@ -2860,6 +3055,7 @@
     {
       "id": "algen",
       "name": "Algen und Nori",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["algen", "nori", "wakame", "seetang"],
       "varianten": [
         {
@@ -2873,6 +3069,7 @@
     {
       "id": "chia",
       "name": "Chia und Leinsamen",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["chia", "leinsamen", "flohsamen", "samen"],
       "varianten": [
         {
@@ -2886,6 +3083,7 @@
     {
       "id": "proteinpulver",
       "name": "Proteinpulver",
+      "gruppe": "Milchprodukte",
       "synonyme": ["proteinpulver", "eiweisspulver", "whey"],
       "varianten": [
         {
@@ -2899,6 +3097,7 @@
     {
       "id": "hefe",
       "name": "Hefe und Hefeflocken",
+      "gruppe": "Getreide und Beilagen",
       "synonyme": ["hefe", "hefeflocken", "backhefe"],
       "varianten": [
         {
@@ -2911,6 +3110,7 @@
     {
       "id": "bouillonwuerfel",
       "name": "Bouillonwürfel und Aromat",
+      "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": ["bouillonwürfel", "aromat", "streuwürze", "maggi"],
       "varianten": [
         {
@@ -2923,6 +3123,7 @@
     {
       "id": "rohmilch",
       "name": "Rohmilch",
+      "gruppe": "Milchprodukte",
       "synonyme": ["rohmilch", "milch ab hof", "vorzugsmilch", "unbehandelte milch"],
       "varianten": [
         {
@@ -2940,6 +3141,7 @@
     {
       "id": "ramen",
       "name": "Ramen und Pho",
+      "gruppe": "Gerichte",
       "synonyme": ["ramen", "pho", "nudelsuppe", "udon"],
       "varianten": [
         {
@@ -2953,6 +3155,7 @@
     {
       "id": "paella",
       "name": "Paella",
+      "gruppe": "Gerichte",
       "synonyme": ["paella"],
       "varianten": [
         {
@@ -2966,6 +3169,7 @@
     {
       "id": "moussaka",
       "name": "Moussaka und Souvlaki",
+      "gruppe": "Gerichte",
       "synonyme": ["moussaka", "souvlaki", "gyros teller"],
       "varianten": [
         {
@@ -2979,6 +3183,7 @@
     {
       "id": "tacos",
       "name": "Tacos und Burrito",
+      "gruppe": "Gerichte",
       "synonyme": ["tacos", "burrito", "quesadilla", "enchilada", "fajita"],
       "varianten": [
         {
@@ -2992,6 +3197,7 @@
     {
       "id": "bibimbap",
       "name": "Bibimbap und Reisgerichte",
+      "gruppe": "Gerichte",
       "synonyme": ["bibimbap", "reisgericht", "donburi"],
       "varianten": [
         {
@@ -3005,6 +3211,7 @@
     {
       "id": "chili",
       "name": "Chili con carne",
+      "gruppe": "Gerichte",
       "synonyme": ["chili con carne", "chili"],
       "varianten": [
         {
@@ -3018,6 +3225,7 @@
     {
       "id": "gulasch",
       "name": "Gulasch und Ragout",
+      "gruppe": "Gerichte",
       "synonyme": ["gulasch", "ragout", "voressen", "schmorbraten"],
       "varianten": [
         {
@@ -3031,6 +3239,7 @@
     {
       "id": "pastetli",
       "name": "Pastetli und Blätterteig",
+      "gruppe": "Gerichte",
       "synonyme": ["pastetli", "blätterteig", "vol au vent"],
       "varianten": [
         {
@@ -3044,6 +3253,7 @@
     {
       "id": "brunch",
       "name": "Brunch und Buffet",
+      "gruppe": "Gerichte",
       "synonyme": ["brunch", "buffet", "frühstücksbuffet", "sonntagsbrunch"],
       "varianten": [
         {
@@ -3061,6 +3271,7 @@
     {
       "id": "wurstsalat",
       "name": "Wurstsalat und Fleischsalat",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["wurstsalat", "fleischsalat", "cervelatsalat"],
       "varianten": [
         {
@@ -3078,6 +3289,7 @@
     {
       "id": "schinkengipfeli",
       "name": "Schinkengipfeli und Käseküchlein",
+      "gruppe": "Gerichte",
       "synonyme": ["schinkengipfeli", "käseküchlein", "blätterteigsnack", "pizzaschnecke"],
       "varianten": [
         {
@@ -3091,6 +3303,7 @@
     {
       "id": "kuerbis",
       "name": "Kürbis",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["kürbis", "hokkaido", "butternuss"],
       "varianten": [
         {
@@ -3104,6 +3317,7 @@
     {
       "id": "aubergine",
       "name": "Aubergine",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["aubergine", "melanzane"],
       "varianten": [
         {
@@ -3117,6 +3331,7 @@
     {
       "id": "artischocke",
       "name": "Artischocke",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["artischocke"],
       "varianten": [
         {
@@ -3130,6 +3345,7 @@
     {
       "id": "mais",
       "name": "Mais",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["mais", "maiskolben", "zuckermais"],
       "varianten": [
         {
@@ -3143,6 +3359,7 @@
     {
       "id": "rosenkohl",
       "name": "Rosenkohl und Kohl",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["rosenkohl", "kohl", "wirz", "weisskohl", "federkohl"],
       "varianten": [
         {
@@ -3156,6 +3373,7 @@
     {
       "id": "spinat",
       "name": "Spinat und Mangold",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["spinat", "mangold"],
       "varianten": [
         {
@@ -3169,6 +3387,7 @@
     {
       "id": "kiwi",
       "name": "Kiwi",
+      "gruppe": "Obst",
       "synonyme": ["kiwi"],
       "varianten": [
         {
@@ -3182,6 +3401,7 @@
     {
       "id": "trauben",
       "name": "Trauben",
+      "gruppe": "Obst",
       "synonyme": ["trauben", "weintrauben"],
       "varianten": [
         {
@@ -3195,6 +3415,7 @@
     {
       "id": "feigen",
       "name": "Feigen",
+      "gruppe": "Obst",
       "synonyme": ["feigen", "feige"],
       "varianten": [
         {
@@ -3208,6 +3429,7 @@
     {
       "id": "granatapfel",
       "name": "Granatapfel",
+      "gruppe": "Obst",
       "synonyme": ["granatapfel"],
       "varianten": [
         {
@@ -3221,6 +3443,7 @@
     {
       "id": "baerlauch",
       "name": "Bärlauch",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["bärlauch"],
       "varianten": [
         {
@@ -3234,6 +3457,7 @@
     {
       "id": "cheesecake",
       "name": "Cheesecake und Rahmtorte",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["cheesecake", "käsekuchen", "rahmtorte", "schwarzwälder", "torte", "cremeschnitte"],
       "varianten": [
         {
@@ -3251,6 +3475,7 @@
     {
       "id": "nutella",
       "name": "Nussaufstrich",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["nutella", "nussaufstrich", "schokoaufstrich"],
       "varianten": [
         {
@@ -3263,6 +3488,7 @@
     {
       "id": "halva",
       "name": "Halva und Sesampaste",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["halva", "tahini", "sesampaste", "sesam"],
       "varianten": [
         {
@@ -3275,6 +3501,7 @@
     {
       "id": "marzipan",
       "name": "Marzipan und Nougat",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["marzipan", "nougat", "persipan"],
       "varianten": [
         {
@@ -3287,6 +3514,7 @@
     {
       "id": "rumkugel",
       "name": "Rumkugeln und Weinbrandbohnen",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["rumkugel", "weinbrandbohne", "likörpraline", "alkoholpraline"],
       "varianten": [
         {
@@ -3299,6 +3527,7 @@
     {
       "id": "chai",
       "name": "Chai Latte",
+      "gruppe": "Getränke",
       "synonyme": ["chai", "chai latte", "gewürztee"],
       "varianten": [
         {
@@ -3312,6 +3541,7 @@
     {
       "id": "cheddar",
       "name": "Cheddar und Gouda",
+      "gruppe": "Käse",
       "synonyme": ["cheddar", "gouda", "edamer", "maasdam"],
       "varianten": [
         {
@@ -3325,6 +3555,7 @@
     {
       "id": "sushi-ingwer",
       "name": "Sushi-Ingwer und Wasabi",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["sushi ingwer", "gari", "wasabi"],
       "varianten": [
         {
@@ -3338,6 +3569,7 @@
     {
       "id": "pangasius",
       "name": "Pangasius und Tilapia",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["pangasius", "tilapia", "wels"],
       "varianten": [
         {
@@ -3355,6 +3587,7 @@
     {
       "id": "saibling",
       "name": "Saibling",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["saibling"],
       "varianten": [
         {
@@ -3372,6 +3605,7 @@
     {
       "id": "heilbutt",
       "name": "Heilbutt",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["heilbutt"],
       "varianten": [
         {
@@ -3389,6 +3623,7 @@
     {
       "id": "fischsuppe",
       "name": "Fischsuppe und Bouillabaisse",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["fischsuppe", "bouillabaisse"],
       "varianten": [
         {
@@ -3406,6 +3641,7 @@
     {
       "id": "blutwurst",
       "name": "Blutwurst und Weisswurst",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["blutwurst", "weisswurst", "boudin"],
       "varianten": [
         {
@@ -3423,6 +3659,7 @@
     {
       "id": "aufschnitt",
       "name": "Geflügelaufschnitt",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["aufschnitt", "trutenbrust", "pouletbrust aufschnitt", "putenbrust"],
       "varianten": [
         {
@@ -3440,6 +3677,7 @@
     {
       "id": "raeuchertofu",
       "name": "Räuchertofu",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["räuchertofu", "smoked tofu"],
       "varianten": [
         {
@@ -3453,6 +3691,7 @@
     {
       "id": "ziegenmilch",
       "name": "Schaf- und Ziegenmilch",
+      "gruppe": "Milchprodukte",
       "synonyme": ["ziegenmilch", "schafmilch", "schafjoghurt"],
       "varianten": [
         {
@@ -3470,6 +3709,7 @@
     {
       "id": "kondensmilch",
       "name": "Kondensmilch und Milchpulver",
+      "gruppe": "Milchprodukte",
       "synonyme": ["kondensmilch", "milchpulver", "rahmpulver"],
       "varianten": [
         {
@@ -3482,6 +3722,7 @@
     {
       "id": "kokosmilch",
       "name": "Kokosmilch",
+      "gruppe": "Obst",
       "synonyme": ["kokosmilch", "kokosnuss", "kokoscreme"],
       "varianten": [
         {
@@ -3494,6 +3735,7 @@
     {
       "id": "miso",
       "name": "Miso und Fermentiertes",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["miso", "misosuppe", "natto"],
       "varianten": [
         {
@@ -3507,6 +3749,7 @@
     {
       "id": "kaugummi",
       "name": "Kaugummi und Pastillen",
+      "gruppe": "Süsses und Snacks",
       "synonyme": ["kaugummi", "pastillen", "bonbon", "hustenbonbon"],
       "varianten": [
         {
@@ -3520,6 +3763,7 @@
     {
       "id": "kaese-allgemein",
       "name": "Käse allgemein",
+      "gruppe": "Käse",
       "synonyme": ["käse", "chäs", "welcher käse"],
       "varianten": [
         {
@@ -3545,6 +3789,7 @@
     {
       "id": "fisch-allgemein",
       "name": "Fisch allgemein",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["fisch", "welcher fisch", "fisch essen"],
       "varianten": [
         {
@@ -3566,6 +3811,7 @@
     {
       "id": "wurst-allgemein",
       "name": "Wurst allgemein",
+      "gruppe": "Fleisch und Wurst",
       "synonyme": ["wurst", "wurstwaren", "welche wurst"],
       "varianten": [
         {
@@ -3583,6 +3829,7 @@
     {
       "id": "pesto",
       "name": "Pesto",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["pesto", "pesto genovese", "pesto rosso"],
       "varianten": [
         {
@@ -3600,6 +3847,7 @@
     {
       "id": "sushi-reis",
       "name": "Sushi-Reis",
+      "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": ["sushi reis", "essigreis"],
       "varianten": [
         {
@@ -3613,6 +3861,7 @@
     {
       "id": "eistee-selbst",
       "name": "Selbst gemachter Eistee",
+      "gruppe": "Getränke",
       "synonyme": ["eistee selber", "kalter tee"],
       "varianten": [
         {
@@ -3625,6 +3874,7 @@
     {
       "id": "gemuesebruehe",
       "name": "Gemüsebrühe",
+      "gruppe": "Gemüse und Salat",
       "synonyme": ["gemüsebrühe", "gemüsebouillon"],
       "varianten": [
         {

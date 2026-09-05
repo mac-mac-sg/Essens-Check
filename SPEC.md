@@ -76,6 +76,10 @@ Komponenten auf Regeln, statt eine eigene Bewertung mitzubringen:
 }
 ```
 
+Jeder Eintrag trägt zusätzlich eine `gruppe` — eine grobe Warengruppe, die
+ausschliesslich die Übersicht «Was kann ich essen?» gliedert. Auf die Bewertung
+hat sie keinen Einfluss.
+
 `eigener_text` überschreibt die generierte Begründung, wenn ein Eintrag eine
 Formulierung braucht, die die Regel nicht hergibt. Sparsam einsetzen — sonst
 zerfällt der Katalog wieder in eine Liste.
@@ -168,6 +172,15 @@ gesetzt als der Fliesstext. Keine Versalien-Labels.
    sehen, dass die Zubereitung der entscheidende Faktor ist.
 5. Alternativen darunter.
 6. Fusszeile mit dem Hinweis auf Hebamme und Ärztin, auf jedem Screen sichtbar.
+
+Über jeder Begründung steht das Risikoprinzip, das sie ausgelöst hat. Der
+Katalog wird nie vollständig sein; wer das Muster kennt, kann ein nicht
+hinterlegtes Lebensmittel selbst einordnen.
+
+**Umgekehrte Frage.** Vom Startbildschirm aus erreichbar: «Was kann ich essen?»
+listet nach Warengruppe, was ein klares Ja hat, mit der Zubereitung, unter der
+es gilt. `bedingt` bleibt draussen — eine Liste, die zum Zugreifen einlädt, darf
+nichts enthalten, das noch eine Einschränkung mitbringt.
 
 Barrierefrei bis Kontrast AA, Tastaturfokus sichtbar, `prefers-reduced-motion`
 respektiert. Bewegung nur als Antwort auf eine Eingabe.

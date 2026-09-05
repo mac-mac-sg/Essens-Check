@@ -1,13 +1,19 @@
 import { AMPEL } from './ampel'
 import type { Urteil, VariantenUrteil } from './engine/bewerten'
 
+/**
+ * Über jeder Begründung steht das Risikoprinzip, das sie ausgelöst hat. Wer
+ * weiss, dass es um Listerien geht, kann ein nicht hinterlegtes Lebensmittel
+ * selbst einordnen — der Katalog wird nie vollständig sein.
+ */
 function Begruendungen({ urteil }: { urteil: VariantenUrteil }) {
   return (
     <>
       {urteil.begruendungen.map((begruendung) => (
-        <p className="ztext" key={begruendung.regel + begruendung.text}>
-          {begruendung.text}
-        </p>
+        <div className="grund" key={begruendung.regel + begruendung.text}>
+          {begruendung.titel && <p className="grund__prinzip">{begruendung.titel}</p>}
+          <p className="ztext">{begruendung.text}</p>
+        </div>
       ))}
     </>
   )

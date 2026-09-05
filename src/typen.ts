@@ -57,6 +57,8 @@ export interface Variante {
 export interface Lebensmittel {
   id: string
   name: string
+  /** Grobe Warengruppe, nur für die Übersicht «Was kann ich essen?». */
+  gruppe: string
   synonyme: string[]
   frage?: string
   varianten: Variante[]

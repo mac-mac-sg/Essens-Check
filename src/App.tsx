@@ -7,12 +7,15 @@ import { leseGeburtstermin } from './konfig'
 import { berechneStand } from './schwangerschaft'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
+import { Uebersicht } from './Uebersicht'
 import { Fusszeile } from './Fusszeile'
 
 export function App() {
   const [begriff, setBegriff] = useState('')
   const [offeneId, setOffeneId] = useState<string | null>(null)
   const [termin, setTermin] = useState(() => leseGeburtstermin())
+  // Merkt sich, wohin «zurück» führt: zur Suche oder zur Übersicht.
+  const [herkunft, setHerkunft] = useState<'suche' | 'uebersicht'>('suche')
   const [terminBearbeiten, setTerminBearbeiten] = useState(false)
 
   // Ohne Termin bleibt die Wochenanzeige leer, statt eine falsche zu zeigen.
@@ -25,7 +28,10 @@ export function App() {
   const zuruecksetzen = () => {
     setBegriff('')
     setOffeneId(null)
+    setHerkunft('suche')
   }
+
+  const zurueckZurUebersicht = () => setOffeneId(null)
 
   const gesucht = begriff.trim().length >= MINDESTLAENGE
   // Lange Listen sind auf dem Handy unbrauchbar. Es wird nichts weggelassen,
@@ -71,8 +77,30 @@ export function App() {
         {urteil ? (
           <>
             <Ergebniskarte urteil={urteil} />
+            {herkunft === 'uebersicht' ? (
+              <button
+                className="zurueck zurueck--flaeche"
+                type="button"
+                onClick={zurueckZurUebersicht}
+              >
+                Zurück zur Übersicht
+              </button>
+            ) : (
+              <button className="zurueck zurueck--flaeche" type="button" onClick={zuruecksetzen}>
+                Neue Suche
+              </button>
+            )}
+          </>
+        ) : herkunft === 'uebersicht' ? (
+          <>
+            <Uebersicht
+              onOeffnen={(id) => {
+                setOffeneId(id)
+                window.scrollTo({ top: 0 })
+              }}
+            />
             <button className="zurueck zurueck--flaeche" type="button" onClick={zuruecksetzen}>
-              Neue Suche
+              Zurück zur Suche
             </button>
           </>
         ) : (
@@ -132,6 +160,16 @@ export function App() {
                   </button>
                 ))}
               </div>
+            )}
+
+            {!gesucht && (
+              <button
+                className="umkehr"
+                type="button"
+                onClick={() => setHerkunft('uebersicht')}
+              >
+                Was kann ich essen?
+              </button>
             )}
 
             {gesucht && treffer.length > 0 && (

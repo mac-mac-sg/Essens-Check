@@ -123,6 +123,38 @@ describe('Unbedenkliche und unbekannte Tags', () => {
   })
 })
 
+describe('Risikoprinzip', () => {
+  it('nennt zu jeder Regelbegründung den Titel des Prinzips', () => {
+    const variante = ersteVariante('schwertfisch')
+    expect(variante.begruendungen[0]?.titel).toBe('Quecksilber in grossen Raubfischen')
+  })
+
+  it('nennt den Titel auch bei entschärften Regeln', () => {
+    const variante = ersteVariante('kaffee')
+    expect(variante.begruendungen[0]?.titel).toBe('Koffein')
+  })
+
+  it('lässt den Titel weg, wo keine Regel dahintersteht', () => {
+    expect(ersteVariante('hartkaese').begruendungen[0]?.titel).toBeUndefined()
+    expect(ersteVariante('ananas').begruendungen[0]?.titel).toBeUndefined()
+    expect(bewerteKomponente({ tag: 'gibt-es-nicht' }, regelKatalog).begruendungen[0]?.titel)
+      .toBeUndefined()
+  })
+
+  it('gibt jeder Regelbegründung im ganzen Katalog einen Titel', () => {
+    const ohneTitel = new Set<string>()
+    for (const eintrag of lebensmittelKatalog.lebensmittel) {
+      for (const variante of bewerteLebensmittel(eintrag, regelKatalog).varianten) {
+        for (const grund of variante.begruendungen) {
+          const ausRegel = !['unbedenklich', 'unklar', 'eigener_text'].includes(grund.regel)
+          if (ausRegel && !grund.titel) ohneTitel.add(grund.regel)
+        }
+      }
+    }
+    expect([...ohneTitel]).toEqual([])
+  })
+})
+
 describe('eigener_text', () => {
   it('ersetzt die Begründung, nicht das Urteil', () => {
     const variante = ersteVariante('ananas')

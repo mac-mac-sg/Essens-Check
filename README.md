@@ -117,6 +117,21 @@ Zwei Prüfungen laufen bei jedem Testlauf mit: jedes verwendete Tag muss von
 einer Regel oder von `unbedenkliche_tags` abgedeckt sein, und kein Eintrag darf
 `unklar` ergeben. Ein Tippfehler in einem Tag fällt so sofort auf.
 
+## Zwei Wege zur Antwort
+
+Die Suche beantwortet «darf ich X essen?». Über den Startbildschirm ist
+zusätzlich die umgekehrte Frage erreichbar: **«Was kann ich essen?»** listet
+nach Warengruppe, was ein klares Ja hat — mit der Zubereitung, unter der es
+gilt. Camembert erscheint dort als «Überbacken», nicht als Camembert.
+
+Aufgenommen wird nur `ok`. `bedingt` bleibt draussen, weil eine Liste zum
+Zugreifen nichts enthalten darf, das noch eine Einschränkung mitbringt.
+
+Über jeder Begründung steht ausserdem das **Risikoprinzip**, das sie ausgelöst
+hat — Listerien, Toxoplasmose, Quecksilber. Der Katalog wird nie vollständig
+sein; wer das Muster kennt, kann ein nicht hinterlegtes Lebensmittel selbst
+einordnen.
+
 ## Was noch nicht hinterlegt ist
 
 Bewusst offen gelassen, weil der Regelkatalog dafür kein Prinzip kennt und

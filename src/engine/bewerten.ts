@@ -15,8 +15,14 @@ import type {
 
 /** Eine Zeile Begründung samt auslösender Regel. */
 export interface Begruendung {
-  /** Regel-ID, oder 'unbedenklich' beziehungsweise 'unklar'. */
+  /** Regel-ID, oder 'unbedenklich', 'unklar' beziehungsweise 'eigener_text'. */
   regel: string
+  /**
+   * Titel des Risikoprinzips, sofern eine Regel die Begründung erzeugt hat.
+   * Sichtbar gemacht, damit das Muster erkennbar wird: wer weiss, dass es um
+   * Listerien geht, kann ein nicht hinterlegtes Lebensmittel selbst einordnen.
+   */
+  titel?: string
   text: string
 }
 
@@ -99,10 +105,10 @@ function wendeRegelAn(
       undefined,
     )
     if (strengste) {
-      return { regel: regel.id, status: strengste.auf, text: strengste.text }
+      return { regel: regel.id, titel: regel.titel, status: strengste.auf, text: strengste.text }
     }
   }
-  return { regel: regel.id, status: regel.status, text: regel.begruendung }
+  return { regel: regel.id, titel: regel.titel, status: regel.status, text: regel.begruendung }
 }
 
 export function bewerteKomponente(
@@ -138,14 +144,18 @@ export function bewerteKomponente(
   for (const regel of treffer) {
     const ergebnis = wendeRegelAn(regel, komponente.zustand, katalog.status_rangfolge)
     status.push(ergebnis.status)
-    begruendungen.push({ regel: ergebnis.regel, text: ergebnis.text })
+    begruendungen.push({
+      regel: ergebnis.regel,
+      ...(ergebnis.titel !== undefined && { titel: ergebnis.titel }),
+      text: ergebnis.text,
+    })
 
     if (
       regel.trimester_gewichtung !== null &&
       regel.trimester_gewichtung === trimester &&
       regel.trimester_text
     ) {
-      trimesterHinweise.push({ regel: regel.id, text: regel.trimester_text })
+      trimesterHinweise.push({ regel: regel.id, titel: regel.titel, text: regel.trimester_text })
     }
   }
 
