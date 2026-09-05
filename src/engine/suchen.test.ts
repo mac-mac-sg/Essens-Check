@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { digraphform, findeNachId, MAX_TREFFER, MINDESTLAENGE, normalisiere, suche } from './suchen'
+import {
+  digraphform,
+  findeNachId,
+  MAX_TREFFER,
+  MINDESTLAENGE,
+  normalisiere,
+  suche,
+  vorschlaegeAusName,
+} from './suchen'
 import { lebensmittelKatalog } from '../daten'
 import { BELIEBT } from '../ampel'
 
@@ -120,5 +128,42 @@ describe('findeNachId', () => {
 
   it('liefert für eine unbekannte ID undefined', () => {
     expect(findeNachId('gibt-es-nicht', lebensmittelKatalog)).toBeUndefined()
+  })
+})
+
+
+describe('vorschlaegeAusName', () => {
+  const erster = (name: string) =>
+    vorschlaegeAusName(name, lebensmittelKatalog)[0]?.id
+
+  it('findet den Eintrag in einem längeren Produktnamen', () => {
+    // Als Ganzes gesucht ergäbe der Name keinen Treffer.
+    expect(suche('Le Rustique Camembert', lebensmittelKatalog)).toEqual([])
+    expect(erster('Le Rustique Camembert')).toBe('camembert')
+  })
+
+  it('trennt auch am Bindestrich', () => {
+    expect(erster('Coca-Cola Zero')).toBe('cola')
+  })
+
+  it('gewichtet lange Wörter höher als kurze Füllwörter', () => {
+    // «Bio» trifft zufällig auf «Robiola» — «Haferdrink» muss gewinnen.
+    expect(erster('Alnatura Bio Haferdrink')).toBe('pflanzendrink')
+  })
+
+  it('liefert nichts, wenn kein Wort passt', () => {
+    expect(vorschlaegeAusName('Kinder Country', lebensmittelKatalog)).toEqual([])
+    expect(vorschlaegeAusName('', lebensmittelKatalog)).toEqual([])
+  })
+
+  it('begrenzt die Anzahl der Vorschläge', () => {
+    expect(vorschlaegeAusName('Käse Fisch Wurst Salat Brot Tee', lebensmittelKatalog).length)
+      .toBeLessThanOrEqual(8)
+    expect(vorschlaegeAusName('Käse', lebensmittelKatalog, 3).length).toBe(3)
+  })
+
+  it('führt jeden Eintrag höchstens einmal', () => {
+    const ids = vorschlaegeAusName('Käse Käserinde Hartkäse', lebensmittelKatalog).map((e) => e.id)
+    expect(new Set(ids).size).toBe(ids.length)
   })
 })

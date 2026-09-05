@@ -178,13 +178,17 @@ Katalog wird nie vollständig sein; wer das Muster kennt, kann ein nicht
 hinterlegtes Lebensmittel selbst einordnen.
 
 **Strichcode** (Erweiterung). Über die Kamera lassen sich EAN-8 und EAN-13
-lesen. Bewusst **ohne Produktdatenbank**: eine Online-Abfrage würde verraten,
-was eingekauft wird, im Untergeschoss ohnehin nicht funktionieren und dem
-Grundsatz widersprechen, dass die App das Gerät nicht verlässt. Stattdessen
-lernt sie: ein unbekannter Code wird einmal von Hand einem Eintrag zugeordnet
-und danach sofort erkannt. Die Zuordnungen liegen im `localStorage`.
+lesen. Zuordnungen liegen im `localStorage`; ein einmal zugeordneter Code wird
+danach sofort und ohne Netz erkannt.
 
-Die Prüfziffer wird geprüft, damit ein Lesefehler nicht als Zuordnung
+Ist ein Code unbekannt, fragt die App **Open Food Facts** ab und schlägt anhand
+des Produktnamens Katalogeinträge vor. Das ist die einzige Stelle, an der Daten
+das Gerät verlassen — der Dienst erfährt dabei, welches Produkt gerade
+gescannt wird. Bestätigt wird die Zuordnung von Hand: **ein fremder
+Produktname darf nie ein Urteil auslösen.**
+
+Ohne Netz oder ohne Fund funktioniert die Zuordnung von Hand unverändert
+weiter. Die Prüfziffer wird geprüft, damit ein Lesefehler nicht als Zuordnung
 gespeichert wird und später auf ein falsches Lebensmittel auflöst. Wo der
 Browser keine Strichcodes lesen kann, sagt die App das offen.
 

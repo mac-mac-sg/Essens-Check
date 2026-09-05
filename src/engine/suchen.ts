@@ -84,3 +84,42 @@ export function suche(anfrage: string, katalog: LebensmittelKatalog): Lebensmitt
 export function findeNachId(id: string, katalog: LebensmittelKatalog): Lebensmittel | undefined {
   return katalog.lebensmittel.find((eintrag) => eintrag.id === id)
 }
+
+/**
+ * Katalogvorschläge zu einem Produktnamen aus einer fremden Datenbank.
+ *
+ * «Le Rustique Camembert» ergibt als Ganzes keinen Treffer — die Suche
+ * vergleicht Teilzeichenketten, und der Produktname ist länger als jeder
+ * Katalogbegriff. Deshalb wortweise suchen und die Treffer zusammenführen.
+ *
+ * Es bleibt ein Vorschlag: welcher Eintrag gemeint ist, bestätigt sie selbst.
+ */
+export function vorschlaegeAusName(
+  produktname: string,
+  katalog: LebensmittelKatalog,
+  hoechstens = 8,
+): Lebensmittel[] {
+  // Auch am Bindestrich trennen, sonst findet «Coca-Cola» das Wort «Cola» nie.
+  const woerter = [...new Set(normalisiere(produktname).split(/[ -]/))].filter(
+    (wort) => wort.length >= 3,
+  )
+
+  const gewichtet = new Map<string, { eintrag: Lebensmittel; gewicht: number; platz: number }>()
+  for (const wort of woerter) {
+    suche(wort, katalog).forEach((eintrag, platz) => {
+      const bisher = gewichtet.get(eintrag.id)
+      // Längere Wörter wiegen schwerer: «Haferdrink» sagt mehr als «Bio».
+      if (bisher) {
+        bisher.gewicht += wort.length
+        bisher.platz = Math.min(bisher.platz, platz)
+      } else {
+        gewichtet.set(eintrag.id, { eintrag, gewicht: wort.length, platz })
+      }
+    })
+  }
+
+  return [...gewichtet.values()]
+    .sort((a, b) => b.gewicht - a.gewicht || a.platz - b.platz)
+    .slice(0, hoechstens)
+    .map((k) => k.eintrag)
+}

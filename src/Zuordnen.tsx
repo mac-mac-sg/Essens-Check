@@ -1,11 +1,18 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { lebensmittelKatalog } from './daten'
-import { MAX_TREFFER, MINDESTLAENGE, suche } from './engine/suchen'
+import { holeProdukt, type Produkt } from './engine/produktsuche'
+import { MAX_TREFFER, MINDESTLAENGE, suche, vorschlaegeAusName } from './engine/suchen'
+import type { Lebensmittel } from './typen'
+
+type Nachschlag = 'laeuft' | 'gefunden' | 'ohne'
 
 /**
- * Ein unbekannter Strichcode wird einmal von Hand einem Eintrag zugeordnet.
- * Danach erkennt die App ihn ohne Nachfrage — ohne dass je ein Code das
- * Gerät verlässt.
+ * Ein unbekannter Strichcode wird einmal einem Eintrag zugeordnet, danach
+ * erkennt die App ihn ohne Nachfrage.
+ *
+ * Der Produktname aus der Datenbank füllt dabei nur die Vorschläge — welcher
+ * Eintrag gemeint ist, bestätigt sie. Ein fremder Name darf keine Freigabe
+ * auslösen.
  */
 export function Zuordnen({
   ean,
@@ -17,8 +24,27 @@ export function Zuordnen({
   onAbbruch: () => void
 }) {
   const [begriff, setBegriff] = useState('')
-  const treffer = useMemo(() => suche(begriff, lebensmittelKatalog), [begriff])
+  const [nachschlag, setNachschlag] = useState<Nachschlag>('laeuft')
+  const [produkt, setProdukt] = useState<Produkt | null>(null)
+
+  useEffect(() => {
+    const steuerung = new AbortController()
+    holeProdukt(ean, steuerung.signal).then((gefunden) => {
+      if (steuerung.signal.aborted) return
+      setProdukt(gefunden)
+      setNachschlag(gefunden ? 'gefunden' : 'ohne')
+    })
+    return () => steuerung.abort()
+  }, [ean])
+
+  const eigeneTreffer = useMemo(() => suche(begriff, lebensmittelKatalog), [begriff])
+  const vorschlaege = useMemo(
+    () => (produkt ? vorschlaegeAusName(produkt.name, lebensmittelKatalog) : []),
+    [produkt],
+  )
+
   const gesucht = begriff.trim().length >= MINDESTLAENGE
+  const liste: Lebensmittel[] = gesucht ? eigeneTreffer.slice(0, MAX_TREFFER) : vorschlaege
 
   return (
     <section aria-labelledby="zuordnen-titel">
@@ -26,12 +52,32 @@ export function Zuordnen({
         Noch nicht zugeordnet
       </h2>
       <p className="uebersicht__hinweis">
-        Der Code <span className="zuordnen__code">{ean}</span> ist neu. Suche das
-        Lebensmittel einmal heraus — ab dann wird er sofort erkannt.
+        Der Code <span className="zuordnen__code">{ean}</span> ist neu. Ordne ihn einmal
+        zu — ab dann wird er sofort erkannt.
       </p>
 
+      {nachschlag === 'laeuft' && <p className="zuordnen__stand">Datenbank wird abgefragt …</p>}
+
+      {nachschlag === 'gefunden' && produkt && (
+        <div className="zuordnen__fund">
+          <p className="zuordnen__fundname">
+            {produkt.name}
+            {produkt.marke && <span className="zuordnen__marke">{produkt.marke}</span>}
+          </p>
+          <p className="zuordnen__pruefen">
+            Aus der Produktdatenbank. Bitte selbst prüfen, welcher Eintrag zutrifft.
+          </p>
+        </div>
+      )}
+
+      {nachschlag === 'ohne' && (
+        <p className="zuordnen__stand">
+          In der Produktdatenbank nicht gefunden — oder gerade kein Netz. Suche es von Hand.
+        </p>
+      )}
+
       <label className="feldtitel" htmlFor="zuordnen-suche">
-        Lebensmittel suchen
+        {gesucht || vorschlaege.length === 0 ? 'Lebensmittel suchen' : 'Oder selbst suchen'}
       </label>
       <input
         id="zuordnen-suche"
@@ -40,25 +86,34 @@ export function Zuordnen({
         placeholder="Camembert, Lachs, Kaffee …"
         value={begriff}
         onChange={(ereignis) => setBegriff(ereignis.target.value)}
-        autoFocus
         autoComplete="off"
         spellCheck={false}
       />
 
-      {gesucht && treffer.length > 0 && (
+      {!gesucht && vorschlaege.length > 0 && (
+        <p className="zuordnen__vorschlagtitel">Passt eines davon?</p>
+      )}
+
+      {liste.length > 0 && (
         <ul className="liste">
-          {treffer.slice(0, MAX_TREFFER).map((eintrag) => (
+          {liste.map((eintrag) => (
             <li key={eintrag.id}>
               <button type="button" onClick={() => onZuordnen(eintrag.id)}>
                 <span>{eintrag.name}</span>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <svg
+                  className="liste__pfeil"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
                   <path
                     d="M6 3.5 L10.5 8 L6 12.5"
                     stroke="currentColor"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="liste__pfeil"
                   />
                 </svg>
               </button>
@@ -67,10 +122,10 @@ export function Zuordnen({
         </ul>
       )}
 
-      {gesucht && treffer.length === 0 && (
+      {gesucht && eigeneTreffer.length === 0 && (
         <p className="uebersicht__hinweis">
-          Nichts gefunden. Dieses Produkt ist im Katalog nicht hinterlegt — im Zweifel
-          die Hebamme fragen.
+          Nichts gefunden. Dieses Produkt ist im Katalog nicht hinterlegt — im Zweifel die
+          Hebamme fragen.
         </p>
       )}
 

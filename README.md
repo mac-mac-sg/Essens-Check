@@ -134,14 +134,19 @@ einordnen.
 
 ## Strichcode
 
-Die App liest EAN-8 und EAN-13 über die Kamera — **ohne Produktdatenbank**.
-Eine Online-Abfrage würde verraten, was eingekauft wird, offline nicht
-funktionieren und dem Grundsatz widersprechen, dass die App das Gerät nicht
-verlässt.
+Die App liest EAN-8 und EAN-13 über die Kamera. Ein einmal zugeordneter Code
+wird danach sofort erkannt, ohne Netz — die Zuordnungen liegen im
+`localStorage`.
 
-Stattdessen lernt sie: beim ersten Scan eines unbekannten Codes fragt sie
-einmal nach, danach ist er sofort erkannt. Die Zuordnungen liegen im
-`localStorage` und gehen nirgendwohin.
+Bei einem **unbekannten** Code fragt sie Open Food Facts ab und schlägt anhand
+des Produktnamens Katalogeinträge vor. Das ist die einzige Stelle, an der Daten
+das Gerät verlassen: der Dienst erfährt, welches Produkt gerade gescannt wird.
+Bestätigt wird von Hand — ein fremder Produktname löst nie ein Urteil aus.
+
+Der lokale Bestand wächst dadurch genau um das, was tatsächlich eingekauft
+wird. Nach ein paar Einkäufen läuft der Alltag wieder ohne Netz.
+
+Ohne Verbindung oder ohne Fund funktioniert die Zuordnung von Hand unverändert.
 
 Gelesen wird über die native `BarcodeDetector`-Schnittstelle des Browsers,
 nicht über eine Bibliothek — das hält das Bundle klein. Sie fehlt auf iOS und
