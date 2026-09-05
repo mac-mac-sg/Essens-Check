@@ -16,6 +16,8 @@ Die verbindliche Beschreibung steht in [`SPEC.md`](SPEC.md), die Arbeitsregeln i
 | `npm run test:watch` | Tests im Watch-Modus |
 | `npm run typecheck` | Nur Typprüfung |
 | `npm run build` | Typprüfung und Produktionsbuild nach `dist/` |
+| `npm run preview` | Gebaute App lokal ausliefern |
+| `npm run test:offline` | Offline-Test im simulierten Flugmodus (nach `build`) |
 
 ## Aufbau
 
@@ -30,6 +32,8 @@ src/engine/suchen.ts      Normalisierung und Matching
 src/ampel.ts              Beschriftung und Farbe je Urteil
 src/Ergebniskarte.tsx     Ergebnisdarstellung
 src/App.tsx               Suche und Zusammenbau
+public/                   Icons und Favicon
+scripts/offline-test.mjs  Offline-Test
 prototyp/essen-check.jsx  Referenz für Interaktion und Formulierungen
 ```
 
@@ -116,12 +120,34 @@ nichts erfunden werden soll:
 Eine Suche danach liefert einen Nulltreffer mit dem Verweis auf die Hebamme.
 Das ist gewollt: lieber keine Auskunft als eine geratene.
 
+## PWA und Offline
+
+Die App ist eine statische PWA. Kataloge und Code liegen vollständig im Bundle,
+der Service Worker legt alles ab — nach dem ersten Laden braucht sie kein Netz
+mehr. Über das Manifest legt sie sich auf den Homescreen.
+
+Icons entstehen aus `public/icon.svg`. Die gerasterten PNG liegen daneben und
+sind eingecheckt, damit der Build ohne Bildwerkzeuge auskommt. Die Variante
+`icon-maskable-512.png` hält das Zeichen auf 78 Prozent, damit Android es beim
+Zuschneiden auf runde Kacheln nicht anschneidet.
+
+Der Offline-Test läuft gegen den echten Build:
+
+```
+npm run build && npm run test:offline
+```
+
+Er lässt den Service Worker ablegen, kappt die Verbindung und prüft dann
+Neuladevorgang, Suche, Urteil und Kaltstart in einem frischen Tab. Gegengeprüft
+mit absichtlich beschädigtem Service Worker — dann schlägt er fehl.
+
 ## Stand
 
-Aufgaben 1 bis 3 aus `SPEC.md` sind umgesetzt: Projektgerüst, Regelmaschine,
-Oberfläche und der Katalog mit 250 Einträgen. 64 Tests.
+Aufgaben 1 bis 4 aus `SPEC.md` sind umgesetzt: Projektgerüst, Regelmaschine,
+Oberfläche, Katalog mit 250 Einträgen und die PWA-Hülle. 64 Unit-Tests und
+5 Offline-Prüfungen.
 
-Offen: die PWA-Hülle (Aufgabe 4) und das Deployment (Aufgabe 5).
+Offen: das Deployment (Aufgabe 5).
 
 ## Vorbehalt
 
