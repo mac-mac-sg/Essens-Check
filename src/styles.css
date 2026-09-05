@@ -1,0 +1,125 @@
+/* Farbsystem exakt nach SPEC.md. Keine externen Fonts — die App verlässt das Gerät nicht. */
+:root {
+  --grundflaeche: #f4f5f2;
+  --karte: #ffffff;
+  --text: #16211c;
+  --text-gedaempft: #5f6b62;
+  --tannengruen: #14432f;
+  --gruenflaeche: #dbe7de;
+  --weinrot: #7a1e28;
+  --rotflaeche: #f0dcde;
+  --ocker: #7a5311;
+  --ockerflaeche: #efe6d5;
+  --linie: #d8dad2;
+
+  --radius: 12px;
+  --spur: 1rem;
+
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--grundflaeche);
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--grundflaeche);
+}
+
+/* Tastaturfokus bleibt immer sichtbar. */
+:focus-visible {
+  outline: 3px solid var(--tannengruen);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Bewegung nur als Antwort auf eine Eingabe — und nur, wenn gewünscht. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.kopfzeile {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spur);
+  padding: calc(var(--spur) + env(safe-area-inset-top)) var(--spur) var(--spur);
+  background: var(--tannengruen);
+  color: #ffffff;
+}
+
+.kopfzeile__titel {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.kopfzeile__stand {
+  text-align: right;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.kopfzeile__woche {
+  display: block;
+  font-weight: 600;
+}
+
+.kopfzeile__trimester {
+  display: block;
+  opacity: 0.85;
+}
+
+.inhalt {
+  flex: 1;
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: var(--spur);
+}
+
+.karte {
+  background: var(--karte);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  padding: var(--spur);
+}
+
+.karte__hinweis {
+  margin: 0;
+  color: var(--text-gedaempft);
+}
+
+.fusszeile {
+  padding: var(--spur) var(--spur) calc(var(--spur) + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--linie);
+  color: var(--text-gedaempft);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.fusszeile p {
+  max-width: 34rem;
+  margin: 0 auto;
+}

@@ -1,0 +1,179 @@
+{
+  "version": "0.1",
+  "hinweis": "Regelkatalog. Jede Regel beschreibt EIN Risikoprinzip. Lebensmittel verweisen über Komponenten-Tags auf diese Regeln. Vor produktivem Einsatz durch Hebamme oder Gynäkologin gegenlesen lassen.",
+  "regeln": [
+    {
+      "id": "listerien-nicht-erhitzt",
+      "titel": "Listerien in nicht erhitzten Lebensmitteln",
+      "trifft_auf": ["rohmilch-weichkaese", "kalt-geraeuchert", "offene-ware", "softeis-maschine", "vorgeschnitten"],
+      "status": "meiden",
+      "begruendung": "Listerien vermehren sich auch im Kühlschrank. Eine Infektion verläuft bei der Mutter oft harmlos, kann aber auf das Kind übergehen.",
+      "entschaerfung": [
+        { "durch": "durcherhitzt", "auf": "ok", "text": "Über 70 °C Kerntemperatur werden Listerien abgetötet." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "listerien-weichkaese",
+      "titel": "Weichkäse aus Rohmilch",
+      "trifft_auf": ["rohmilch-weichkaese"],
+      "status": "meiden",
+      "begruendung": "Hoher Wassergehalt und kurze Reifung lassen Listerien wachsen. Hartkäse ist davon nicht betroffen.",
+      "entschaerfung": [
+        { "durch": "durcherhitzt", "auf": "ok", "text": "Überbacken oder in der Sauce mitgekocht unbedenklich." },
+        { "durch": "pasteurisiert", "auf": "bedingt", "text": "Aus pasteurisierter Milch vertretbar; Rinde wegschneiden, frisch angeschnitten essen." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "toxoplasmose-rohes-fleisch",
+      "titel": "Toxoplasmose durch rohes oder luftgetrocknetes Fleisch",
+      "trifft_auf": ["fleisch-roh", "fleisch-rosa", "rohwurst", "trockenfleisch"],
+      "status": "meiden",
+      "begruendung": "Rohes Fleisch ist die häufigste Infektionsquelle. Relevant für alle ohne durchgemachte Toxoplasmose — das ist die Mehrheit.",
+      "entschaerfung": [
+        { "durch": "durcherhitzt", "auf": "ok", "text": "Kerntemperatur über 70 °C, kein rosa Fleischsaft mehr." },
+        { "durch": "tiefgefroren-3-tage", "auf": "bedingt", "text": "Mehrere Tage bei −18 °C inaktivieren Toxoplasmen, nicht aber Listerien." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "toxoplasmose-erdkontakt",
+      "titel": "Erdreste an Gemüse und Früchten",
+      "trifft_auf": ["erdgemuese-ungewaschen", "beeren-bodennah"],
+      "status": "bedingt",
+      "begruendung": "Toxoplasmose-Oozysten überdauern im Erdreich.",
+      "entschaerfung": [
+        { "durch": "gewaschen", "auf": "ok", "text": "Gründlich waschen oder schälen genügt." },
+        { "durch": "gekocht", "auf": "ok", "text": "Gegartes Gemüse ist unbedenklich." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "salmonellen-rohei",
+      "titel": "Rohes Ei",
+      "trifft_auf": ["ei-roh", "ei-weich"],
+      "status": "meiden",
+      "begruendung": "Salmonellen überleben in nicht durchgegartem Ei. Betrifft auch Speisen, in denen rohes Ei nur Zutat ist.",
+      "entschaerfung": [
+        { "durch": "pasteurisiert", "auf": "ok", "text": "Industriell verarbeitetes Ei ist pasteurisiert." },
+        { "durch": "durchgegart", "auf": "ok", "text": "Eigelb und Eiweiss fest." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "salmonellen-gefluegel",
+      "titel": "Geflügel",
+      "trifft_auf": ["gefluegel"],
+      "status": "bedingt",
+      "begruendung": "Salmonellenrisiko bei ungenügender Garung und über Küchen-Kreuzkontamination.",
+      "entschaerfung": [
+        { "durch": "durcherhitzt", "auf": "ok", "text": "Vollständig durchgaren, Schneidebretter trennen." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "viren-rohe-schalentiere",
+      "titel": "Rohe Schalen- und Weichtiere",
+      "trifft_auf": ["schalentier-roh"],
+      "status": "meiden",
+      "begruendung": "Austern und rohe Muscheln filtern Wasser und reichern Noroviren und Vibrionen an.",
+      "entschaerfung": [
+        { "durch": "durcherhitzt", "auf": "ok", "text": "Gekocht unbedenklich; nicht geöffnete Muscheln wegwerfen." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "parasiten-roher-fisch",
+      "titel": "Roher Fisch",
+      "trifft_auf": ["fisch-roh"],
+      "status": "meiden",
+      "begruendung": "Listerien und Parasiten. Betrifft Sushi, Sashimi, Ceviche und gebeizten Fisch.",
+      "entschaerfung": [
+        { "durch": "durcherhitzt", "auf": "ok", "text": "Durchgegarter Fisch ist empfehlenswert — ein bis zwei Portionen fetter Fisch pro Woche." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "quecksilber-raubfisch",
+      "titel": "Quecksilber in grossen Raubfischen",
+      "trifft_auf": ["raubfisch-hoch", "raubfisch-mittel"],
+      "status": "meiden",
+      "begruendung": "Methylquecksilber reichert sich entlang der Nahrungskette an und wirkt auf das kindliche Nervensystem.",
+      "entschaerfung": [
+        { "durch": "mengenbegrenzung", "auf": "bedingt", "text": "Thunfisch höchstens einmal pro Woche; Schwertfisch, Hai und Marlin ganz weglassen." }
+      ],
+      "trimester_gewichtung": null,
+      "nicht_entschaerfbar_durch": ["durcherhitzt"]
+    },
+    {
+      "id": "retinol-vitamin-a",
+      "titel": "Vitamin A als Retinol",
+      "trifft_auf": ["leber", "retinol-supplement"],
+      "status": "meiden",
+      "begruendung": "Hohe Retinoldosen wirken fruchtschädigend. Beta-Carotin aus Gemüse ist davon nicht betroffen.",
+      "entschaerfung": [],
+      "trimester_gewichtung": 1,
+      "trimester_text": "Im ersten Trimester besonders relevant, da in dieser Phase die Organe angelegt werden."
+    },
+    {
+      "id": "koffein-limit",
+      "titel": "Koffein",
+      "trifft_auf": ["koffein"],
+      "status": "bedingt",
+      "begruendung": "Bis rund 200 mg pro Tag gelten als unbedenklich — etwa zwei Tassen Filterkaffee. Schwarztee, Grüntee, Cola und Schokolade zählen mit.",
+      "entschaerfung": [
+        { "durch": "koffeinfrei", "auf": "ok", "text": "Entkoffeinierte Varianten sind unbegrenzt möglich." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "alkohol",
+      "titel": "Alkohol",
+      "trifft_auf": ["alkohol"],
+      "status": "meiden",
+      "begruendung": "Es gibt keine bekannte unbedenkliche Menge. Alkohol geht direkt auf das Kind über.",
+      "entschaerfung": [
+        { "durch": "null-komma-null", "auf": "ok", "text": "Nur Produkte mit ausgewiesenen 0,0 Prozent; als alkoholfrei gilt in der Schweiz bis 0,5 Volumenprozent." }
+      ],
+      "trimester_gewichtung": null,
+      "nicht_entschaerfbar_durch": ["durcherhitzt"]
+    },
+    {
+      "id": "keimlinge",
+      "titel": "Rohe Sprossen und Keimlinge",
+      "trifft_auf": ["keimling-roh"],
+      "status": "meiden",
+      "begruendung": "Die feucht-warme Keimung begünstigt Salmonellen und E. coli. Waschen hilft nicht.",
+      "entschaerfung": [
+        { "durch": "durcherhitzt", "auf": "ok", "text": "Kurz mitgebraten oder blanchiert unbedenklich." }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "glycyrrhizin",
+      "titel": "Lakritze",
+      "trifft_auf": ["lakritz"],
+      "status": "bedingt",
+      "begruendung": "Grössere Mengen Glycyrrhizin können den Blutdruck erhöhen. Gelegentlich unproblematisch, täglich nicht.",
+      "entschaerfung": [],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "wehenfoerdernde-kraeuter",
+      "titel": "Wehenfördernde Kräuter",
+      "trifft_auf": ["kraut-wehenfoerdernd"],
+      "status": "bedingt",
+      "begruendung": "Salbei, Himbeerblätter und Zimtrinde in Teemengen erst gegen Ende der Schwangerschaft und nach Rücksprache mit der Hebamme.",
+      "entschaerfung": [],
+      "trimester_gewichtung": 3,
+      "trimester_text": "Gegen Ende der Schwangerschaft teilweise erwünscht — das entscheidet die Hebamme, nicht diese App."
+    }
+  ],
+  "zustaende": [
+    "roh", "durcherhitzt", "fleisch-rosa", "pasteurisiert", "rohmilch",
+    "kalt-geraeuchert", "tiefgefroren-3-tage", "gewaschen", "koffeinfrei",
+    "null-komma-null", "offene-ware", "abgepackt"
+  ],
+  "status_rangfolge": ["ok", "bedingt", "meiden", "unklar"]
+}

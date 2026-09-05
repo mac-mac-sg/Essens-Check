@@ -1,0 +1,183 @@
+{
+  "version": "0.1",
+  "hinweis": "Startkatalog. Deckt bewusst jede Regel und jedes Variantenmuster mindestens einmal ab, damit er als Testgrundlage für die Regelmaschine dient. Von hier aus auf rund 250 Einträge erweitern.",
+  "lebensmittel": [
+    {
+      "id": "camembert",
+      "name": "Camembert und Brie",
+      "synonyme": ["camembert", "brie", "weichkäse", "weissschimmel", "tomme"],
+      "varianten": [
+        { "label": "Aus pasteurisierter Milch", "komponenten": [{ "tag": "rohmilch-weichkaese", "zustand": "pasteurisiert" }] },
+        { "label": "Aus Rohmilch", "komponenten": [{ "tag": "rohmilch-weichkaese", "zustand": "rohmilch" }] },
+        { "label": "Überbacken", "komponenten": [{ "tag": "rohmilch-weichkaese", "zustand": "durcherhitzt" }] }
+      ],
+      "alternativen": ["Hartkäse wie Gruyère oder Sbrinz", "Frischkäse aus pasteurisierter Milch"]
+    },
+    {
+      "id": "hartkaese",
+      "name": "Hartkäse",
+      "synonyme": ["hartkäse", "gruyère", "greyerzer", "sbrinz", "parmesan", "emmentaler", "appenzeller", "bergkäse"],
+      "varianten": [{ "label": null, "komponenten": [{ "tag": "hartkaese" }] }],
+      "eigener_text": "Auch aus Rohmilch unbedenklich: niedriger Wassergehalt und lange Reifung lassen Listerien nicht wachsen. Rinde bei Rohmilchkäse trotzdem wegschneiden.",
+      "alternativen": []
+    },
+    {
+      "id": "lachs",
+      "name": "Lachs",
+      "synonyme": ["lachs", "salmon"],
+      "frage": "Wie zubereitet?",
+      "varianten": [
+        { "label": "Gegart", "komponenten": [{ "tag": "fisch-gegart" }] },
+        { "label": "Kalt geräuchert", "komponenten": [{ "tag": "kalt-geraeuchert" }] },
+        { "label": "Roh oder gebeizt", "komponenten": [{ "tag": "fisch-roh" }] }
+      ],
+      "alternativen": ["Gebratenes oder pochiertes Lachsfilet", "Lachs aus der Dose", "Räucherlachs kurz durcherhitzt"]
+    },
+    {
+      "id": "thunfisch",
+      "name": "Thunfisch",
+      "synonyme": ["thunfisch", "tuna", "thon"],
+      "varianten": [
+        { "label": "Gegart oder aus der Dose", "komponenten": [{ "tag": "raubfisch-mittel", "zustand": "mengenbegrenzung" }] },
+        { "label": "Roh", "komponenten": [{ "tag": "fisch-roh" }, { "tag": "raubfisch-mittel" }] }
+      ],
+      "alternativen": ["Lachs, Forelle oder Felchen", "Sardinen aus der Dose"]
+    },
+    {
+      "id": "schwertfisch",
+      "name": "Schwertfisch, Hai, Marlin",
+      "synonyme": ["schwertfisch", "hai", "marlin", "raubfisch"],
+      "varianten": [{ "label": null, "komponenten": [{ "tag": "raubfisch-hoch", "zustand": "durcherhitzt" }] }],
+      "alternativen": ["Lachs", "Forelle", "Egli oder Felchen"]
+    },
+    {
+      "id": "salami",
+      "name": "Salami, Rohschinken, Trockenfleisch",
+      "synonyme": ["salami", "rohschinken", "trockenfleisch", "bündnerfleisch", "prosciutto", "parmaschinken", "chorizo"],
+      "frage": "Wie servierst du es?",
+      "varianten": [
+        { "label": "Kalt, wie gekauft", "komponenten": [{ "tag": "rohwurst" }] },
+        { "label": "Durcherhitzt, etwa auf der Pizza", "komponenten": [{ "tag": "rohwurst", "zustand": "durcherhitzt" }] },
+        { "label": "Vorher drei Tage tiefgefroren", "komponenten": [{ "tag": "rohwurst", "zustand": "tiefgefroren-3-tage" }] }
+      ],
+      "alternativen": ["Gekochter Schinken", "Fleischkäse", "Cervelat"]
+    },
+    {
+      "id": "tatar",
+      "name": "Tatar und Carpaccio",
+      "synonyme": ["tatar", "tartar", "carpaccio", "mett", "rohes fleisch"],
+      "varianten": [{ "label": null, "komponenten": [{ "tag": "fleisch-roh" }] }],
+      "alternativen": ["Kurz gebratenes, aber durchgegartes Rindsfilet"]
+    },
+    {
+      "id": "steak",
+      "name": "Steak",
+      "synonyme": ["steak", "entrecôte", "filet", "roastbeef", "rindfleisch", "burger"],
+      "frage": "Wie durch?",
+      "varianten": [
+        { "label": "Durchgebraten", "komponenten": [{ "tag": "fleisch-durchgegart" }] },
+        { "label": "Rosa oder blutig", "komponenten": [{ "tag": "fleisch-rosa" }] }
+      ],
+      "alternativen": ["Schmorgerichte wie Ragout oder Braten sind ohnehin durchgegart"]
+    },
+    {
+      "id": "gefluegel",
+      "name": "Geflügel",
+      "synonyme": ["poulet", "hähnchen", "huhn", "geflügel", "truthahn"],
+      "varianten": [{ "label": null, "komponenten": [{ "tag": "gefluegel" }] }],
+      "alternativen": []
+    },
+    {
+      "id": "tiramisu",
+      "name": "Tiramisu und Mousse au chocolat",
+      "synonyme": ["tiramisu", "mousse au chocolat", "zabaione", "rohes ei"],
+      "varianten": [
+        { "label": "Im Restaurant oder hausgemacht", "komponenten": [{ "tag": "ei-roh" }] },
+        { "label": "Abgepackt gekauft", "komponenten": [{ "tag": "ei-roh", "zustand": "pasteurisiert" }] }
+      ],
+      "alternativen": ["Panna cotta", "Selber machen mit pasteurisiertem Ei"]
+    },
+    {
+      "id": "spiegelei",
+      "name": "Eier",
+      "synonyme": ["ei", "eier", "spiegelei", "rührei", "pochiertes ei", "omelette"],
+      "frage": "Wie zubereitet?",
+      "varianten": [
+        { "label": "Hart durchgegart", "komponenten": [{ "tag": "ei-roh", "zustand": "durchgegart" }] },
+        { "label": "Laufendes Eigelb", "komponenten": [{ "tag": "ei-weich" }] }
+      ],
+      "alternativen": ["Rührei gut stocken lassen", "Hartgekochtes Ei"]
+    },
+    {
+      "id": "kaffee",
+      "name": "Kaffee",
+      "synonyme": ["kaffee", "espresso", "cappuccino", "koffein", "latte"],
+      "varianten": [
+        { "label": "Normal", "komponenten": [{ "tag": "koffein" }] },
+        { "label": "Entkoffeiniert", "komponenten": [{ "tag": "koffein", "zustand": "koffeinfrei" }] }
+      ],
+      "alternativen": ["Getreidekaffee", "Rooibos"]
+    },
+    {
+      "id": "leber",
+      "name": "Leber und Leberprodukte",
+      "synonyme": ["leber", "leberwurst", "leberpastete", "foie gras", "kalbsleber"],
+      "varianten": [{ "label": null, "komponenten": [{ "tag": "leber" }] }],
+      "alternativen": ["Fleischkäse oder gekochter Schinken", "Karotten decken Vitamin A als Beta-Carotin ab"]
+    },
+    {
+      "id": "austern",
+      "name": "Austern und Muscheln",
+      "synonyme": ["austern", "muscheln", "meeresfrüchte", "jakobsmuscheln"],
+      "frage": "Wie zubereitet?",
+      "varianten": [
+        { "label": "Durchgegart", "komponenten": [{ "tag": "schalentier-roh", "zustand": "durcherhitzt" }] },
+        { "label": "Roh", "komponenten": [{ "tag": "schalentier-roh" }] }
+      ],
+      "alternativen": ["Muscheln im Weissweinsud, gut durchgekocht"]
+    },
+    {
+      "id": "sprossen",
+      "name": "Sprossen und Keimlinge",
+      "synonyme": ["sprossen", "keimlinge", "alfalfa", "mungbohnen", "kresse"],
+      "frage": "Roh oder gegart?",
+      "varianten": [
+        { "label": "Gegart", "komponenten": [{ "tag": "keimling-roh", "zustand": "durcherhitzt" }] },
+        { "label": "Roh", "komponenten": [{ "tag": "keimling-roh" }] }
+      ],
+      "alternativen": ["Sprossen im Wok mitbraten", "Geriebene Karotte im Salat"]
+    },
+    {
+      "id": "vitello-tonnato",
+      "name": "Vitello tonnato",
+      "synonyme": ["vitello tonnato", "kalbfleisch mit thunfischsauce"],
+      "frage": "Woher stammt die Sauce?",
+      "varianten": [
+        {
+          "label": "Restaurant oder hausgemacht",
+          "komponenten": [
+            { "tag": "fleisch-durchgegart" },
+            { "tag": "ei-roh" },
+            { "tag": "raubfisch-mittel", "zustand": "durcherhitzt" }
+          ]
+        },
+        {
+          "label": "Mit gekaufter Sauce",
+          "komponenten": [
+            { "tag": "fleisch-durchgegart" },
+            { "tag": "ei-roh", "zustand": "pasteurisiert" }
+          ]
+        }
+      ],
+      "alternativen": ["Kalbsbraten mit Kräuterjoghurt"]
+    },
+    {
+      "id": "ananas",
+      "name": "Ananas",
+      "synonyme": ["ananas", "papaya", "mango"],
+      "varianten": [{ "label": null, "komponenten": [{ "tag": "obst-gewaschen" }] }],
+      "eigener_text": "Der Mythos, Ananas löse Wehen aus, hält sich hartnäckig. In normalen Essmengen gibt es dafür keine Belege. Unreife Papaya ist die einzige begründete Ausnahme.",
+      "alternativen": []
+    }
+  ]
+}
