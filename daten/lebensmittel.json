@@ -178,6 +178,42 @@
       "varianten": [{ "label": null, "komponenten": [{ "tag": "obst-gewaschen" }] }],
       "eigener_text": "Der Mythos, Ananas löse Wehen aus, hält sich hartnäckig. In normalen Essmengen gibt es dafür keine Belege. Unreife Papaya ist die einzige begründete Ausnahme.",
       "alternativen": []
+    },
+    {
+      "id": "wein-bier",
+      "name": "Wein, Bier und Spirituosen",
+      "synonyme": ["wein", "bier", "prosecco", "champagner", "sekt", "spirituosen", "cocktail", "alkohol", "schnaps", "likör"],
+      "frage": "Mit oder ohne Alkohol?",
+      "varianten": [
+        { "label": "Alkoholisch", "komponenten": [{ "tag": "alkohol" }] },
+        { "label": "Ausgewiesen 0,0 Prozent", "komponenten": [{ "tag": "alkohol", "zustand": "null-komma-null" }] }
+      ],
+      "alternativen": ["Alkoholfreies Bier mit ausgewiesenen 0,0 Prozent", "Traubensaft mit Mineralwasser"]
+    },
+    {
+      "id": "lakritze",
+      "name": "Lakritze",
+      "synonyme": ["lakritze", "lakritz", "süssholz", "salmiak", "salmiakpastillen"],
+      "varianten": [{ "label": null, "komponenten": [{ "tag": "lakritz" }] }],
+      "alternativen": ["Fruchtgummi ohne Lakritz"]
+    },
+    {
+      "id": "blattsalat",
+      "name": "Blattsalat und Rohkost",
+      "synonyme": ["salat", "blattsalat", "rohkost", "nüsslisalat", "rucola", "randen", "karotten"],
+      "frage": "Selber gewaschen?",
+      "varianten": [
+        { "label": "Gründlich gewaschen oder geschält", "komponenten": [{ "tag": "erdgemuese-ungewaschen", "zustand": "gewaschen" }] },
+        { "label": "Ungewaschen oder auswärts serviert", "komponenten": [{ "tag": "erdgemuese-ungewaschen" }] }
+      ],
+      "alternativen": ["Gekochtes Gemüse", "Salat zu Hause selber waschen"]
+    },
+    {
+      "id": "kraeutertee",
+      "name": "Salbeitee, Himbeerblättertee und Zimt",
+      "synonyme": ["salbei", "salbeitee", "himbeerblätter", "himbeerblättertee", "zimt", "zimtrinde", "kräutertee"],
+      "varianten": [{ "label": null, "komponenten": [{ "tag": "kraut-wehenfoerdernd" }] }],
+      "alternativen": ["Rooibos", "Pfefferminztee", "Früchtetee"]
     }
   ]
 }

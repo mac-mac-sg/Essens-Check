@@ -23,12 +23,24 @@ export interface Regel {
   nicht_entschaerfbar_durch?: string[]
 }
 
+/**
+ * Tag, das bewusst keine Regel auslöst. Ohne diese Liste wäre nicht
+ * unterscheidbar, ob ein Tag unbedenklich oder schlicht unbewertet ist —
+ * und «keine Regel getroffen» dürfte nie stillschweigend ein Ja werden.
+ */
+export interface UnbedenklicherTag {
+  tag: string
+  text: string
+}
+
 export interface RegelKatalog {
   version: string
   hinweis: string
   regeln: Regel[]
   zustaende: string[]
+  /** Von unbedenklich nach bedenklich. Der Index ist der Schweregrad. */
   status_rangfolge: Status[]
+  unbedenkliche_tags: UnbedenklicherTag[]
 }
 
 /** Verweis eines Lebensmittels auf die Regelebene. */

@@ -25,7 +25,8 @@ daten/lebensmittel.json   Lebensmittelkatalog — verweist über Tags auf die Re
 src/typen.ts              Datenmodell
 src/daten.ts              Typisierter Zugang zu beiden Katalogen
 src/schwangerschaft.ts    Schwangerschaftswoche und Trimester
-src/engine/               Regelmaschine (Aufgabe 2)
+src/engine/bewerten.ts    Regelmaschine
+src/engine/suchen.ts      Normalisierung und Matching
 src/App.tsx               Oberfläche
 ```
 
@@ -42,11 +43,32 @@ Umgebungsvariable `VITE_GEBURTSTERMIN` als ISO-Datum überschreibbar:
 VITE_GEBURTSTERMIN=2030-01-01 npm run dev
 ```
 
+## Bewertung
+
+Ein Tag, das keine Regel auslöst, wird nur dann `ok`, wenn es in
+`unbedenkliche_tags` steht. Alles andere ohne Regeltreffer ergibt `unklar` —
+«kein Treffer» wird nie stillschweigend zu einem Ja.
+
+Die Suche vergleicht ausschliesslich Teilzeichenketten von Name und Synonymen.
+Umlaute, Akzente und Grossschreibung sind egal, Wortähnlichkeit wird nicht
+ausgewertet: ein Tippfehler liefert lieber einen Nulltreffer als ein falsches
+Urteil.
+
+## Offener Punkt im Regelkatalog
+
+Auf das Tag `rohmilch-weichkaese` greifen zwei Regeln. `listerien-weichkaese`
+stuft den Zustand `pasteurisiert` auf `bedingt` herab, `listerien-nicht-erhitzt`
+kennt für diesen Zustand keine Entschärfung und bleibt bei `meiden`. Da der
+schlechteste Status gewinnt, ist Camembert aus pasteurisierter Milch heute
+`meiden`. Das widerspricht dem Entschärfungstext der zweiten Regel und gehört
+in die Durchsicht durch die Hebamme.
+
 ## Stand
 
-Aufgabe 1 aus `SPEC.md` ist umgesetzt: Projektgerüst, Datenmodell, Testaufbau.
-Die Regelmaschine (Aufgabe 2), der erweiterte Katalog (Aufgabe 3), die PWA-Hülle
-(Aufgabe 4) und das Deployment (Aufgabe 5) stehen aus.
+Aufgaben 1 und 2 aus `SPEC.md` sind umgesetzt: Projektgerüst, Datenmodell,
+Regelmaschine und Suche mit 50 Tests. Der erweiterte Katalog (Aufgabe 3), die
+PWA-Hülle (Aufgabe 4) und das Deployment (Aufgabe 5) stehen aus. Die Oberfläche
+zeigt bisher nur Kopf- und Fusszeile.
 
 Der in `SPEC.md` erwähnte Prototyp `prototyp/essen-check.jsx` liegt noch nicht vor
 und wird separat nachgereicht.

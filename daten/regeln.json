@@ -175,5 +175,11 @@
     "kalt-geraeuchert", "tiefgefroren-3-tage", "gewaschen", "koffeinfrei",
     "null-komma-null", "offene-ware", "abgepackt"
   ],
-  "status_rangfolge": ["ok", "bedingt", "meiden", "unklar"]
+  "status_rangfolge": ["ok", "bedingt", "meiden", "unklar"],
+  "unbedenkliche_tags": [
+    { "tag": "hartkaese", "text": "Niedriger Wassergehalt und lange Reifung lassen Listerien nicht wachsen." },
+    { "tag": "fisch-gegart", "text": "Durchgegarter Fisch ist unbedenklich und ausdrücklich empfohlen." },
+    { "tag": "fleisch-durchgegart", "text": "Vollständig durchgegartes Fleisch ist unbedenklich." },
+    { "tag": "obst-gewaschen", "text": "Gewaschenes Obst ist unbedenklich." }
+  ]
 }
