@@ -32,10 +32,7 @@ export function Ergebniskarte({ urteil }: { urteil: Urteil }) {
 
       {einzeln && erste ? (
         <>
-          <span
-            className="urteil"
-            style={{ color: AMPEL[erste.status].farbe, background: AMPEL[erste.status].flaeche }}
-          >
+          <span className="urteil" data-status={erste.status}>
             {AMPEL[erste.status].wort}
           </span>
           <div className="text">
@@ -47,24 +44,17 @@ export function Ergebniskarte({ urteil }: { urteil: Urteil }) {
           {/* Alle Varianten gleichzeitig sichtbar: die Zubereitung gliedert die
               Karte, statt als Randnotiz danebenzustehen. */}
           <p className="frage">{urteil.frage ?? 'Je nach Zubereitung'}</p>
-          {urteil.varianten.map((variante, i) => {
-            const stufe = AMPEL[variante.status]
-            return (
-              <div
-                className="zeile"
-                key={variante.label ?? i}
-                style={{ background: stufe.flaeche }}
-              >
-                <div className="zeile__kopf">
-                  <span className="marke" style={{ color: stufe.farbe }}>
-                    {stufe.kurz}
-                  </span>
-                  {variante.label && <p className="zlabel">{variante.label}</p>}
-                </div>
-                <Begruendungen urteil={variante} />
+          {urteil.varianten.map((variante, i) => (
+            <div className="zeile" key={variante.label ?? i} data-status={variante.status}>
+              <div className="zeile__kopf">
+                <span className="marke" data-status={variante.status}>
+                  {AMPEL[variante.status].kurz}
+                </span>
+                {variante.label && <p className="zlabel">{variante.label}</p>}
               </div>
-            )
-          })}
+              <Begruendungen urteil={variante} />
+            </div>
+          ))}
         </>
       )}
 

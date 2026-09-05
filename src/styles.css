@@ -1,27 +1,35 @@
-/*
- * Farbsystem exakt nach SPEC.md — die Palette ist vorgegeben und bleibt.
- * Keine externen Fonts: die Systemschrift bringt optische Grössen, Tracking-
- * Tabellen und Lesbarkeitsfeinschliff bereits mit.
- */
 :root {
+  /* Helles Schema — exakt die Palette aus SPEC.md, unverändert. */
   --grundflaeche: #f4f5f2;
   --karte: #ffffff;
   --text: #16211c;
   --text-gedaempft: #5f6b62;
+  --text-zweitrangig: #3b453e;
   --tannengruen: #14432f;
-  --gruenflaeche: #dbe7de;
-  --weinrot: #7a1e28;
-  --rotflaeche: #f0dcde;
-  --ocker: #7a5311;
-  --ockerflaeche: #efe6d5;
+  /* Grüne Schrift auf der Grundfläche. Im Dunkeln aufgehellt — Tannengrün
+     als Schriftfarbe käme dort auf 1.5:1. */
+  --akzent: #14432f;
   --linie: #d8dad2;
-  --unklar: #55605a;
-  --unklarflaeche: #e4e6e1;
+  --platzhalter: #8a938c;
+  --pfeil: #9aa39c;
+
+  /* Urteilsfarben: Schrift und zugehörige Fläche. */
+  --farbe-ok: #14432f;
+  --flaeche-ok: #dbe7de;
+  --farbe-bedingt: #7a5311;
+  --flaeche-bedingt: #efe6d5;
+  --farbe-meiden: #7a1e28;
+  --flaeche-meiden: #f0dcde;
+  --farbe-unklar: #55605a;
+  --flaeche-unklar: #e4e6e1;
 
   /* Flächen statt Ränder: getönte Abstufungen der Grundfläche. */
   --flaeche-still: #eceee8;
   --flaeche-gedrueckt: #e3e6df;
   --schatten: 0 1px 2px rgba(22, 33, 28, 0.04), 0 8px 24px rgba(22, 33, 28, 0.06);
+  --kopfzeile: rgba(20, 67, 47, 0.92);
+  --kopfzeile-still: rgba(255, 255, 255, 0.14);
+  --kopfzeile-gedrueckt: rgba(255, 255, 255, 0.22);
 
   --radius: 20px;
   --radius-klein: 12px;
@@ -30,12 +38,54 @@
   /* Die eingebauten CSS-Kurven sind zu weich. Diese hat Zug. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 
+  color-scheme: light;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 17px;
   line-height: 1.5;
   color: var(--text);
   background: var(--grundflaeche);
   -webkit-text-size-adjust: 100%;
+}
+
+/*
+ * Dunkles Schema, aus derselben Palette abgeleitet: die Markenfarben sind als
+ * dunkle Schrift auf hellen Tönungen entworfen und wären auf dunklem Grund
+ * unlesbar. Deshalb kehrt sich das Verhältnis um — aufgehellte Farbe auf
+ * dunkler Tönung derselben Buntheit. Die Kopfzeile bleibt tannengrün, damit
+ * die App wiedererkennbar bleibt.
+ *
+ * Gesteuert allein über die Systemeinstellung: kein Schalter, kein
+ * gespeicherter Zustand, nichts zusätzlich zu bedienen.
+ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --grundflaeche: #0f1512;
+    --karte: #191f1b;
+    --text: #e9eee9;
+    --text-gedaempft: #9ca79f;
+    --text-zweitrangig: #c3ccc4;
+    --akzent: #86cca4;
+    --linie: #2c3430;
+    --platzhalter: #7d877f;
+    --pfeil: #77817a;
+
+    --farbe-ok: #7cc79b;
+    --flaeche-ok: #17301f;
+    --farbe-bedingt: #e3b662;
+    --flaeche-bedingt: #332614;
+    --farbe-meiden: #f0a3ab;
+    --flaeche-meiden: #34191d;
+    --farbe-unklar: #aab4ac;
+    --flaeche-unklar: #262c28;
+
+    --flaeche-still: #222923;
+    --flaeche-gedrueckt: #2a322c;
+    /* Schatten tragen auf dunklem Grund nicht — eine feine Kante schon. */
+    --schatten: 0 0 0 1px #262e29, 0 8px 24px rgba(0, 0, 0, 0.4);
+    --kopfzeile: rgba(15, 46, 32, 0.92);
+
+    color-scheme: dark;
+  }
 }
 
 * {
@@ -49,7 +99,7 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid var(--tannengruen);
+  outline: 3px solid var(--akzent);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -92,7 +142,7 @@ body {
   justify-content: space-between;
   gap: var(--spur);
   padding: calc(0.875rem + env(safe-area-inset-top)) var(--spur) 0.875rem;
-  background: rgba(20, 67, 47, 0.92);
+  background: var(--kopfzeile);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   color: #ffffff;
@@ -137,7 +187,7 @@ body {
   font-size: 0.8125rem;
   font-weight: 500;
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--kopfzeile-still);
   border: none;
   border-radius: 999px;
   cursor: pointer;
@@ -147,7 +197,7 @@ body {
 
 .kopfzeile__eintragen:active {
   transform: scale(0.96);
-  background: rgba(255, 255, 255, 0.22);
+  background: var(--kopfzeile-gedrueckt);
 }
 
 .inhalt {
@@ -202,7 +252,7 @@ body {
 }
 
 .suchfeld::placeholder {
-  color: #8a938c;
+  color: var(--platzhalter);
 }
 
 /* Chromiums eigener Lösch-Knopf ist knallblau und bricht die Palette. */
@@ -303,7 +353,7 @@ body {
 
 .liste__pfeil {
   flex: 0 0 auto;
-  color: #9aa39c;
+  color: var(--pfeil);
 }
 
 .weitere {
@@ -410,6 +460,48 @@ body {
   letter-spacing: -0.012em;
 }
 
+/* Urteilsfarben. Im TypeScript stünden sie als Inline-Style und wüssten
+   nichts vom Farbschema. */
+.urteil[data-status='ok'],
+.marke[data-status='ok'] {
+  color: var(--farbe-ok);
+}
+
+.urteil[data-status='ok'],
+.zeile[data-status='ok'] {
+  background: var(--flaeche-ok);
+}
+
+.urteil[data-status='bedingt'],
+.marke[data-status='bedingt'] {
+  color: var(--farbe-bedingt);
+}
+
+.urteil[data-status='bedingt'],
+.zeile[data-status='bedingt'] {
+  background: var(--flaeche-bedingt);
+}
+
+.urteil[data-status='meiden'],
+.marke[data-status='meiden'] {
+  color: var(--farbe-meiden);
+}
+
+.urteil[data-status='meiden'],
+.zeile[data-status='meiden'] {
+  background: var(--flaeche-meiden);
+}
+
+.urteil[data-status='unklar'],
+.marke[data-status='unklar'] {
+  color: var(--farbe-unklar);
+}
+
+.urteil[data-status='unklar'],
+.zeile[data-status='unklar'] {
+  background: var(--flaeche-unklar);
+}
+
 .zlabel {
   margin: 0;
   font-size: 0.9375rem;
@@ -422,7 +514,7 @@ body {
   margin: 0 0 0.35rem;
   font-size: 0.9375rem;
   line-height: 1.55;
-  color: #3b453e;
+  color: var(--text-zweitrangig);
 }
 
 .ztext:last-child {
@@ -434,8 +526,8 @@ body {
   padding: 0.8rem 0.95rem;
   font-size: 0.9375rem;
   line-height: 1.55;
-  background: var(--ockerflaeche);
-  border-left: 3px solid var(--ocker);
+  background: var(--flaeche-bedingt);
+  border-left: 3px solid var(--farbe-bedingt);
   border-radius: 0 var(--radius-klein) var(--radius-klein) 0;
 }
 
@@ -486,7 +578,7 @@ body {
   font-family: inherit;
   font-size: 0.9375rem;
   font-weight: 500;
-  color: var(--tannengruen);
+  color: var(--akzent);
   background: none;
   border: none;
   cursor: pointer;
@@ -520,7 +612,7 @@ body {
 .termin__fehler {
   margin: 0.625rem 0 0;
   font-size: 0.875rem;
-  color: var(--weinrot);
+  color: var(--farbe-meiden);
 }
 
 .termin__knoepfe {
@@ -554,7 +646,7 @@ body {
   padding: 0.4rem 0.75rem;
   font-family: inherit;
   font-size: 0.8125rem;
-  color: var(--tannengruen);
+  color: var(--akzent);
   background: var(--flaeche-still);
   border: none;
   border-radius: 999px;

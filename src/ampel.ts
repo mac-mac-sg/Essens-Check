@@ -1,25 +1,24 @@
 /**
- * Beschriftung und Farbe je Urteil. Formulierungen aus dem Prototyp.
+ * Beschriftung je Urteil. Die Farben stehen bewusst nicht hier, sondern in
+ * styles.css: sie hängen vom Farbschema ab, und ein Inline-Style kennt
+ * `prefers-color-scheme` nicht. Die Komponenten setzen `data-status`, das
+ * Stylesheet entscheidet über die Farbe.
  *
  * Jedes Urteil trägt immer auch das Wort, nie nur die Farbe — sonst wäre die
  * Auskunft bei Rot-Grün-Schwäche verloren.
  */
-import type { Status } from './typen'
-
 export interface Ampelstufe {
   /** Ausgeschrieben, für die Einzelaussage. */
   wort: string
   /** Kurzform für die Marke neben einer Variante. */
   kurz: string
-  farbe: string
-  flaeche: string
 }
 
-export const AMPEL: Record<Status, Ampelstufe> = {
-  ok: { wort: 'Ja', kurz: 'Ja', farbe: '#14432F', flaeche: '#DBE7DE' },
-  bedingt: { wort: 'Mit Bedingung', kurz: 'Bedingt', farbe: '#7A5311', flaeche: '#EFE6D5' },
-  meiden: { wort: 'Besser nicht', kurz: 'Nein', farbe: '#7A1E28', flaeche: '#F0DCDE' },
-  unklar: { wort: 'Nicht hinterlegt', kurz: 'Unklar', farbe: '#55605A', flaeche: '#E4E6E1' },
+export const AMPEL: Record<import('./typen').Status, Ampelstufe> = {
+  ok: { wort: 'Ja', kurz: 'Ja' },
+  bedingt: { wort: 'Mit Bedingung', kurz: 'Bedingt' },
+  meiden: { wort: 'Besser nicht', kurz: 'Nein' },
+  unklar: { wort: 'Nicht hinterlegt', kurz: 'Unklar' },
 }
 
 /** Häufige Begriffe als Einstieg. Alle im Katalog hinterlegt. */

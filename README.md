@@ -173,6 +173,12 @@ Unter `prefers-reduced-motion` bleiben Farb- und Deckkraftwechsel erhalten,
 Verschiebungen fallen weg — reduzierte Bewegung heisst sanfter, nicht gar
 keine Rückmeldung.
 
+Das dunkle Schema folgt `prefers-color-scheme` und hat keinen Schalter. Die
+Urteilsfarben stehen deshalb in `styles.css` und nicht mehr im TypeScript: ein
+Inline-Style kennt das Farbschema nicht. Die Komponenten setzen `data-status`,
+das Stylesheet entscheidet über die Farbe. Kontraste sind in beiden Schemata
+gemessen, alle 26 Textpaare liegen über AA.
+
 Die Skills unter `.agents/skills/` sind eingecheckt, damit spätere Arbeit an
 der Oberfläche auf derselben Grundlage aufsetzt.
 

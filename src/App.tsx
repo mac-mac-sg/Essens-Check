@@ -172,10 +172,7 @@ export function App() {
             {/* Nulltreffer: nicht raten, sondern sagen, dass nichts hinterlegt ist. */}
             {gesucht && treffer.length === 0 && (
               <div className="karte karte--ergebnis" role="status">
-                <span
-                  className="urteil"
-                  style={{ color: AMPEL.unklar.farbe, background: AMPEL.unklar.flaeche }}
-                >
+                <span className="urteil" data-status="unklar">
                   {AMPEL.unklar.wort}
                 </span>
                 <p className="text">

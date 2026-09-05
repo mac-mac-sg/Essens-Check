@@ -127,6 +127,31 @@ Rot und Grün sind gleichzeitig Markenfarben und Ampelsemantik — das ist gewol
 Ocker steht bewusst zurück und ist als dritte Farbe nur für `bedingt` zugelassen.
 Rot-Grün-Schwäche abfangen: jedes Urteil trägt immer auch das Wort, nie nur die Farbe.
 
+**Dunkles Schema** (Erweiterung). Die Markenfarben sind als dunkle Schrift auf
+hellen Tönungen entworfen und wären auf dunklem Grund unlesbar. Das Verhältnis
+kehrt sich deshalb um: aufgehellte Farbe auf dunkler Tönung derselben Buntheit.
+
+| Rolle | Hex |
+|---|---|
+| Grundfläche | `#0F1512` |
+| Karten | `#191F1B` |
+| Text | `#E9EEE9` |
+| Text gedämpft | `#9CA79F` |
+| Akzent (grüne Schrift) | `#86CCA4` |
+| Ja | `#7CC79B` auf `#17301F` |
+| Bedingt | `#E3B662` auf `#332614` |
+| Nein | `#F0A3AB` auf `#34191D` |
+| Unklar | `#AAB4AC` auf `#262C28` |
+| Linien | `#2C3430` |
+
+Die Kopfzeile bleibt tannengrün, damit die App wiedererkennbar bleibt. Gesteuert
+wird allein über `prefers-color-scheme` — kein Schalter, kein gespeicherter
+Zustand, nichts zusätzlich zu bedienen.
+
+Kontrast AA gilt in beiden Schemata und ist in beiden zu messen, nicht zu
+schätzen: das dunkle Tannengrün als Schriftfarbe käme auf dunklem Grund auf
+1.5:1.
+
 **Typografie**: eine Familie, moderne Grotesk. Urteilswort deutlich grösser
 gesetzt als der Fliesstext. Keine Versalien-Labels.
 
