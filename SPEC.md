@@ -178,27 +178,24 @@ Katalog wird nie vollständig sein; wer das Muster kennt, kann ein nicht
 hinterlegtes Lebensmittel selbst einordnen.
 
 **Strichcode** (Erweiterung). Über die Kamera lassen sich EAN-8 und EAN-13
-lesen. Zuordnungen liegen im `localStorage`; ein einmal zugeordneter Code wird
-danach sofort und ohne Netz erkannt.
+lesen. Jeder gelesene Code wird bei **Open Food Facts** nachgeschlagen — das ist
+die einzige Stelle, an der Daten das Gerät verlassen; der Dienst erfährt dabei,
+welches Produkt gerade gescannt wird. Es gibt keinen lokalen Zwischenspeicher
+und keinen Schalter.
 
-Ist ein Code unbekannt, kann die App **Open Food Facts** abfragen und anhand des
-Produktnamens Katalogeinträge vorschlagen. Das ist die einzige Stelle, an der
-Daten das Gerät verlassen — der Dienst erfährt dabei, welches Produkt gerade
-gescannt wird. Bestätigt wird die Zuordnung von Hand: **ein fremder
-Produktname darf nie ein Urteil auslösen.**
+Zeigt der Produktname eindeutig auf einen Katalogeintrag, erscheint direkt das
+Urteil, mit dem gescannten Namen als Herkunftszeile darüber. Eindeutig heisst:
+alleiniger Treffer oder mindestens doppelt so schwer wie der nächste. Bei
+Gleichstand oder ohne Fund kommt die Auswahl — ohne zu wissen, wovon die Rede
+ist, lässt sich keine Einschätzung zeigen.
 
-Die Abfrage hängt an einem Schalter und ist **standardmässig aus**. Ausgeschaltet
-arbeitet die App vollständig offline; Scannen und bereits zugeordnete Codes
-funktionieren unverändert.
-
-Ohne Netz oder ohne Fund funktioniert die Zuordnung von Hand unverändert
-weiter. Die Prüfziffer wird geprüft, damit ein Lesefehler nicht als Zuordnung
-gespeichert wird und später auf ein falsches Lebensmittel auflöst. Wo der
-Browser keine Strichcodes lesen kann, sagt die App das offen.
+Die Prüfziffer wird geprüft, damit ein Lesefehler nicht nachgeschlagen wird. Wo
+der Browser keine Strichcodes lesen kann, sagt die App das offen.
 
 **Umgekehrte Frage.** Vom Startbildschirm aus erreichbar: «Was kann ich essen?»
 listet nach Warengruppe, was ein klares Ja hat, mit der Zubereitung, unter der
-es gilt. `bedingt` bleibt draussen — eine Liste, die zum Zugreifen einlädt, darf
+es gilt. Die Gruppen sind zugeklappt — zwölf Titel auf einen Blick statt
+217 Einträge am Stück. `bedingt` bleibt draussen — eine Liste, die zum Zugreifen einlädt, darf
 nichts enthalten, das noch eine Einschränkung mitbringt.
 
 Barrierefrei bis Kontrast AA, Tastaturfokus sichtbar, `prefers-reduced-motion`

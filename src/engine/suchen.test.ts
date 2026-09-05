@@ -7,6 +7,7 @@ import {
   normalisiere,
   suche,
   vorschlaegeAusName,
+  eindeutigerVorschlag,
 } from './suchen'
 import { lebensmittelKatalog } from '../daten'
 import { BELIEBT } from '../ampel'
@@ -165,5 +166,32 @@ describe('vorschlaegeAusName', () => {
   it('führt jeden Eintrag höchstens einmal', () => {
     const ids = vorschlaegeAusName('Käse Käserinde Hartkäse', lebensmittelKatalog).map((e) => e.id)
     expect(new Set(ids).size).toBe(ids.length)
+  })
+})
+
+
+describe('eindeutigerVorschlag', () => {
+  const eindeutig = (name: string) => eindeutigerVorschlag(name, lebensmittelKatalog)?.id ?? null
+
+  it('entscheidet bei einem einzigen Treffer', () => {
+    expect(eindeutig('Le Rustique Camembert')).toBe('camembert')
+    expect(eindeutig('Volg Bündnerfleisch')).toBe('salami')
+  })
+
+  it('entscheidet, wenn der erste deutlich schwerer wiegt', () => {
+    expect(eindeutig('Coca-Cola Zero')).toBe('cola')
+    expect(eindeutig('Alnatura Bio Haferdrink')).toBe('pflanzendrink')
+  })
+
+  it('entscheidet nicht bei Gleichstand', () => {
+    // «Paprika» trifft Tomaten und Gewürze so stark wie «Chips» die Chips.
+    // Ein automatisches Urteil wäre hier falsch.
+    expect(eindeutig('Zweifel Paprika Chips')).toBeNull()
+    expect(eindeutig('M-Classic Thunfisch in Wasser')).toBeNull()
+  })
+
+  it('entscheidet nicht ohne Treffer', () => {
+    expect(eindeutig('Kinder Country')).toBeNull()
+    expect(eindeutig('')).toBeNull()
   })
 })

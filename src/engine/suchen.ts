@@ -94,11 +94,17 @@ export function findeNachId(id: string, katalog: LebensmittelKatalog): Lebensmit
  *
  * Es bleibt ein Vorschlag: welcher Eintrag gemeint ist, bestätigt sie selbst.
  */
-export function vorschlaegeAusName(
+export interface Vorschlag {
+  eintrag: Lebensmittel
+  /** Summe der Längen der Wörter, die auf diesen Eintrag passten. */
+  gewicht: number
+}
+
+export function bewerteteVorschlaege(
   produktname: string,
   katalog: LebensmittelKatalog,
   hoechstens = 8,
-): Lebensmittel[] {
+): Vorschlag[] {
   // Auch am Bindestrich trennen, sonst findet «Coca-Cola» das Wort «Cola» nie.
   const woerter = [...new Set(normalisiere(produktname).split(/[ -]/))].filter(
     (wort) => wort.length >= 3,
@@ -121,5 +127,31 @@ export function vorschlaegeAusName(
   return [...gewichtet.values()]
     .sort((a, b) => b.gewicht - a.gewicht || a.platz - b.platz)
     .slice(0, hoechstens)
-    .map((k) => k.eintrag)
+    .map(({ eintrag, gewicht }) => ({ eintrag, gewicht }))
+}
+
+export function vorschlaegeAusName(
+  produktname: string,
+  katalog: LebensmittelKatalog,
+  hoechstens = 8,
+): Lebensmittel[] {
+  return bewerteteVorschlaege(produktname, katalog, hoechstens).map((v) => v.eintrag)
+}
+
+/**
+ * Der eine Eintrag, für den ein Produktname eindeutig genug spricht — sonst null.
+ *
+ * Eindeutig heisst: entweder der einzige Treffer, oder mindestens doppelt so
+ * schwer wie der nächste. Die Schwelle ist an echten Produktnamen geeicht.
+ * «Zweifel Paprika Chips» etwa trifft Tomaten, Gewürze und Chips gleich stark —
+ * dort wäre ein automatisches Urteil schlicht falsch, und es kommt keines.
+ */
+export function eindeutigerVorschlag(
+  produktname: string,
+  katalog: LebensmittelKatalog,
+): Lebensmittel | null {
+  const [erster, zweiter] = bewerteteVorschlaege(produktname, katalog, 2)
+  if (!erster) return null
+  if (!zweiter) return erster.eintrag
+  return erster.gewicht >= zweiter.gewicht * 2 ? erster.eintrag : null
 }

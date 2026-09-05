@@ -50,7 +50,7 @@ export async function holeProdukt(ean: string, signal?: AbortSignal): Promise<Pr
 
     return { name, marke: alsText(produkt['brands']) }
   } catch {
-    // Kein Netz, Zeitüberschreitung, kaputte Antwort: die Zuordnung von Hand
+    // Kein Netz, Zeitüberschreitung, kaputte Antwort: die Auswahl von Hand
     // funktioniert weiterhin.
     return null
   } finally {

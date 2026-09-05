@@ -1,19 +1,18 @@
 import { useMemo, useState } from 'react'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
-import { leseZuordnungen, merkeZuordnung, vergissZuordnung } from './engine/barcodes'
 import { findeNachId, MINDESTLAENGE, suche } from './engine/suchen'
-import { leseGeburtstermin, leseOnlineAbfrage, setzeOnlineAbfrage } from './konfig'
+import { leseGeburtstermin } from './konfig'
 import { berechneStand } from './schwangerschaft'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
+import { Scanergebnis } from './Scanergebnis'
 import { Scanner } from './Scanner'
 import { Suchansicht } from './Suchansicht'
 import { Uebersicht } from './Uebersicht'
-import { Zuordnen } from './Zuordnen'
 import { Fusszeile } from './Fusszeile'
 
-type Ansicht = 'suche' | 'uebersicht' | 'scanner' | 'zuordnen'
+type Ansicht = 'suche' | 'uebersicht' | 'scanner' | 'scanergebnis'
 
 export function App() {
   const [ansicht, setAnsicht] = useState<Ansicht>('suche')
@@ -21,18 +20,10 @@ export function App() {
   const [offeneId, setOffeneId] = useState<string | null>(null)
   /** Wohin der Rücksprung aus der Ergebniskarte führt. */
   const [herkunft, setHerkunft] = useState<Ansicht>('suche')
-  /** Code, der die offene Karte gebracht hat — für «Zuordnung aufheben». */
-  const [erkannterCode, setErkannterCode] = useState<string | null>(null)
-  /** Noch nicht zugeordneter Code. */
-  const [neuerCode, setNeuerCode] = useState<string | null>(null)
+  /** Zuletzt gelesener Strichcode. */
+  const [code, setCode] = useState<string | null>(null)
   const [termin, setTermin] = useState(() => leseGeburtstermin())
   const [terminBearbeiten, setTerminBearbeiten] = useState(false)
-  const [onlineAbfrage, setOnlineAbfrage] = useState(() => leseOnlineAbfrage())
-
-  const onlineUmschalten = (an: boolean) => {
-    setzeOnlineAbfrage(an)
-    setOnlineAbfrage(an)
-  }
 
   // Ohne Termin bleibt die Wochenanzeige leer, statt eine falsche zu zeigen.
   const stand = useMemo(() => (termin ? berechneStand(termin, new Date()) : null), [termin])
@@ -44,8 +35,7 @@ export function App() {
   const zumAnfang = () => {
     setBegriff('')
     setOffeneId(null)
-    setErkannterCode(null)
-    setNeuerCode(null)
+    setCode(null)
     setHerkunft('suche')
     setAnsicht('suche')
   }
@@ -56,41 +46,17 @@ export function App() {
     window.scrollTo({ top: 0 })
   }
 
-  /** Ein gelesener Code führt direkt zum Urteil — oder zur einmaligen Zuordnung. */
+  /** Ein gelesener Code wird sofort nachgeschlagen und bewertet. */
   const codeErkannt = (ean: string) => {
-    const id = leseZuordnungen()[ean]
-    const eintrag = id ? findeNachId(id, lebensmittelKatalog) : undefined
-    if (eintrag) {
-      setErkannterCode(ean)
-      oeffnen(eintrag.id, 'scanner')
-      setAnsicht('suche')
-    } else {
-      setNeuerCode(ean)
-      setAnsicht('zuordnen')
-    }
-  }
-
-  const zuordnen = (id: string) => {
-    if (neuerCode) merkeZuordnung(neuerCode, id)
-    setErkannterCode(neuerCode)
-    setNeuerCode(null)
-    oeffnen(id, 'scanner')
-    setAnsicht('suche')
+    setCode(ean)
+    setAnsicht('scanergebnis')
   }
 
   const zurueck = () => {
     setOffeneId(null)
-    setErkannterCode(null)
-    if (herkunft === 'uebersicht' || herkunft === 'scanner') setAnsicht(herkunft)
+    if (herkunft === 'uebersicht') setAnsicht('uebersicht')
     else zumAnfang()
   }
-
-  const rueckspruch =
-    herkunft === 'uebersicht'
-      ? 'Zurück zur Übersicht'
-      : herkunft === 'scanner'
-        ? 'Nochmal scannen'
-        : 'Neue Suche'
 
   return (
     <div className="app">
@@ -128,38 +94,21 @@ export function App() {
         {urteil ? (
           <>
             <Ergebniskarte urteil={urteil} />
-            {erkannterCode && (
-              <p className="scan-herkunft">
-                Über Strichcode {erkannterCode} erkannt.{' '}
-                <button
-                  type="button"
-                  onClick={() => {
-                    vergissZuordnung(erkannterCode)
-                    setErkannterCode(null)
-                  }}
-                >
-                  Zuordnung aufheben
-                </button>
-              </p>
-            )}
             <button className="zurueck zurueck--flaeche" type="button" onClick={zurueck}>
-              {rueckspruch}
+              {herkunft === 'uebersicht' ? 'Zurück zur Übersicht' : 'Neue Suche'}
             </button>
           </>
         ) : ansicht === 'scanner' ? (
-          <Scanner
-            onErkannt={codeErkannt}
-            onAbbruch={zumAnfang}
-            onlineAbfrage={onlineAbfrage}
-            onOnlineAendern={onlineUmschalten}
-          />
-        ) : ansicht === 'zuordnen' && neuerCode ? (
-          <Zuordnen
-            ean={neuerCode}
-            onlineAbfrage={onlineAbfrage}
-            onOnlineAendern={onlineUmschalten}
-            onZuordnen={zuordnen}
-            onAbbruch={zumAnfang}
+          <Scanner onErkannt={codeErkannt} onAbbruch={zumAnfang} />
+        ) : ansicht === 'scanergebnis' && code ? (
+          <Scanergebnis
+            ean={code}
+            {...(stand ? { trimester: stand.trimester } : {})}
+            onNeuScannen={() => {
+              setCode(null)
+              setAnsicht('scanner')
+            }}
+            onZurSuche={zumAnfang}
           />
         ) : ansicht === 'uebersicht' ? (
           <>

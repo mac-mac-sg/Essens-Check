@@ -134,32 +134,23 @@ einordnen.
 
 ## Strichcode
 
-Die App liest EAN-8 und EAN-13 über die Kamera. Ein einmal zugeordneter Code
-wird danach sofort erkannt, ohne Netz — die Zuordnungen liegen im
-`localStorage`.
+Die App liest EAN-8 und EAN-13 über die Kamera und schlägt **jeden** Code bei
+Open Food Facts nach. Das ist die einzige Stelle, an der Daten das Gerät
+verlassen: der Dienst erfährt, welches Produkt gerade gescannt wird.
 
-Bei einem **unbekannten** Code kann sie Open Food Facts abfragen und anhand des
-Produktnamens Katalogeinträge vorschlagen. Das ist die einzige Stelle, an der
-Daten das Gerät verlassen: der Dienst erfährt, welches Produkt gerade gescannt
-wird. Bestätigt wird von Hand — ein fremder Produktname löst nie ein Urteil aus.
-
-Diese Abfrage hängt an einem Schalter im Scanner und ist **standardmässig aus**.
-Ausgeschaltet arbeitet die App vollständig offline: Scannen und bereits
-zugeordnete Codes funktionieren unverändert, es geht kein einziger Aufruf
-hinaus. Die Einstellung bleibt im `localStorage`.
-
-Der lokale Bestand wächst dadurch genau um das, was tatsächlich eingekauft
-wird. Nach ein paar Einkäufen läuft der Alltag wieder ohne Netz.
-
-Ohne Verbindung oder ohne Fund funktioniert die Zuordnung von Hand unverändert.
+Zeigt der Produktname eindeutig auf einen Katalogeintrag, erscheint direkt das
+Urteil. Eindeutig heisst: alleiniger Treffer oder mindestens doppelt so schwer
+wie der nächste — eine Schwelle, die an echten Produktnamen geeicht ist. Bei
+Gleichstand kommt die Auswahl statt eines geratenen Urteils: «Zweifel Paprika
+Chips» trifft Tomaten, Gewürze und Chips gleich stark, und ein automatisches
+Urteil wäre dort falsch.
 
 Gelesen wird über die native `BarcodeDetector`-Schnittstelle des Browsers,
 nicht über eine Bibliothek — das hält das Bundle klein. Sie fehlt auf iOS und
 auf Linux-Desktops; dort sagt die App es offen und die Suche bleibt der Weg.
 
-Die Prüfziffer jedes Codes wird geprüft. Ein Lesefehler soll nicht als
-Zuordnung im Speicher landen und später auf ein falsches Lebensmittel
-auflösen.
+Die Prüfziffer jedes Codes wird geprüft, damit ein Lesefehler der Kamera gar
+nicht erst nachgeschlagen wird.
 
 ## Was noch nicht hinterlegt ist
 

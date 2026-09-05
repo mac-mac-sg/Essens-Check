@@ -45,27 +45,3 @@ export function istPlausibel(datum: string, heute: Date): boolean {
   return tage > -60 && tage < 300
 }
 
-/**
- * Ob unbekannte Strichcodes online nachgeschlagen werden dürfen.
- *
- * Standardmässig aus: die Abfrage verrät einem fremden Dienst, welches
- * Produkt gerade in der Hand gehalten wird. Das soll eine bewusste
- * Entscheidung sein, keine stillschweigende Voreinstellung.
- */
-const ONLINE_SCHLUESSEL = 'essens-check.online-abfrage'
-
-export function leseOnlineAbfrage(): boolean {
-  try {
-    return localStorage.getItem(ONLINE_SCHLUESSEL) === 'ja'
-  } catch {
-    return false
-  }
-}
-
-export function setzeOnlineAbfrage(an: boolean): void {
-  try {
-    localStorage.setItem(ONLINE_SCHLUESSEL, an ? 'ja' : 'nein')
-  } catch {
-    // Nicht speicherbar: die Einstellung gilt dann nur für diese Sitzung.
-  }
-}
