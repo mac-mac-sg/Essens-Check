@@ -53,7 +53,12 @@ function rang(status: Status, rangfolge: Status[]): number {
   return index === -1 ? rangfolge.length : index
 }
 
+/**
+ * Ohne jede Aussage gibt es kein Urteil: eine leere Liste ergibt «unklar»,
+ * nicht «ok». Sonst wäre ein Datenfehler eine stillschweigende Freigabe.
+ */
 function schlechtester(status: Status[], rangfolge: Status[]): Status {
+  if (status.length === 0) return 'unklar'
   return status.reduce<Status>(
     (bisher, kandidat) =>
       rang(kandidat, rangfolge) > rang(bisher, rangfolge) ? kandidat : bisher,
@@ -75,12 +80,26 @@ function ohneDoppelte(begruendungen: Begruendung[]): Begruendung[] {
  * Wendet eine einzelne Regel auf einen Zustand an. Ein Zustand, der in
  * `nicht_entschaerfbar_durch` steht, stuft nicht herab — Quecksilber
  * verschwindet nicht durch Kochen.
+ *
+ * Treffen mehrere Entschärfungen auf denselben Zustand zu, greift die
+ * strengste. Mehrdeutigkeit darf nie zur milderen Auskunft führen.
  */
-function wendeRegelAn(regel: Regel, zustand: string | undefined): Begruendung & { status: Status } {
+function wendeRegelAn(
+  regel: Regel,
+  zustand: string | undefined,
+  rangfolge: Status[],
+): Begruendung & { status: Status } {
   if (zustand !== undefined && !(regel.nicht_entschaerfbar_durch ?? []).includes(zustand)) {
-    const entschaerfung = regel.entschaerfung.find((eintrag) => eintrag.durch === zustand)
-    if (entschaerfung) {
-      return { regel: regel.id, status: entschaerfung.auf, text: entschaerfung.text }
+    const passende = regel.entschaerfung.filter((eintrag) => eintrag.durch === zustand)
+    const strengste = passende.reduce<(typeof passende)[number] | undefined>(
+      (bisher, kandidat) =>
+        bisher === undefined || rang(kandidat.auf, rangfolge) > rang(bisher.auf, rangfolge)
+          ? kandidat
+          : bisher,
+      undefined,
+    )
+    if (strengste) {
+      return { regel: regel.id, status: strengste.auf, text: strengste.text }
     }
   }
   return { regel: regel.id, status: regel.status, text: regel.begruendung }
@@ -91,6 +110,8 @@ export function bewerteKomponente(
   katalog: RegelKatalog,
   trimester?: number,
 ): KomponentenUrteil {
+  // Regeln haben Vorrang vor unbedenkliche_tags: steht ein Tag in beiden,
+  // gilt die Regel. Der strengere Eintrag gewinnt, nicht der mildere.
   const treffer = katalog.regeln.filter((regel) => regel.trifft_auf.includes(komponente.tag))
 
   if (treffer.length === 0) {
@@ -115,7 +136,7 @@ export function bewerteKomponente(
   const status: Status[] = []
 
   for (const regel of treffer) {
-    const ergebnis = wendeRegelAn(regel, komponente.zustand)
+    const ergebnis = wendeRegelAn(regel, komponente.zustand, katalog.status_rangfolge)
     status.push(ergebnis.status)
     begruendungen.push({ regel: ergebnis.regel, text: ergebnis.text })
 
@@ -147,13 +168,20 @@ export function bewerteVariante(
     bewerteKomponente(komponente, katalog, trimester),
   )
 
+  // Eine Variante ohne Komponenten trifft keine Aussage — und darf deshalb
+  // auch keine sein. Sie erscheint als unklar mit dem Verweis auf die Hebamme.
+  const begruendungen =
+    komponenten.length === 0
+      ? [{ regel: 'unklar', text: UNKLAR_TEXT }]
+      : ohneDoppelte(komponenten.flatMap((urteil) => urteil.begruendungen))
+
   return {
     label: variante.label,
     status: schlechtester(
       komponenten.map((urteil) => urteil.status),
       katalog.status_rangfolge,
     ),
-    begruendungen: ohneDoppelte(komponenten.flatMap((urteil) => urteil.begruendungen)),
+    begruendungen,
     trimesterHinweise: ohneDoppelte(komponenten.flatMap((urteil) => urteil.trimesterHinweise)),
     komponenten,
   }

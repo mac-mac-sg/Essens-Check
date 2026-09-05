@@ -26,6 +26,29 @@ describe('Kataloge', () => {
     }
   })
 
+  it('führt kein Tag zugleich als Regel und als unbedenklich', () => {
+    // Ein solches Tag wäre mehrdeutig. Die Maschine würde die Regel gewinnen
+    // lassen, aber die Absicht bliebe unklar — deshalb hier ausgeschlossen.
+    const regelTags = new Set(regelKatalog.regeln.flatMap((regel) => regel.trifft_auf))
+    const doppelt = regelKatalog.unbedenkliche_tags
+      .map((eintrag) => eintrag.tag)
+      .filter((tag) => regelTags.has(tag))
+    expect(doppelt).toEqual([])
+  })
+
+  it('bewertet jedes verwendete Tag entweder über eine Regel oder ausdrücklich als unbedenklich', () => {
+    const bekannt = new Set([
+      ...regelKatalog.regeln.flatMap((regel) => regel.trifft_auf),
+      ...regelKatalog.unbedenkliche_tags.map((eintrag) => eintrag.tag),
+    ])
+    const unbekannt = lebensmittelKatalog.lebensmittel
+      .flatMap((eintrag) => eintrag.varianten)
+      .flatMap((variante) => variante.komponenten)
+      .map((komponente) => komponente.tag)
+      .filter((tag) => !bekannt.has(tag))
+    expect([...new Set(unbekannt)]).toEqual([])
+  })
+
   it('kennt nur Status aus der Rangfolge', () => {
     const erlaubt = new Set(regelKatalog.status_rangfolge)
     for (const regel of regelKatalog.regeln) {

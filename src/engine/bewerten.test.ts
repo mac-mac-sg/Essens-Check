@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { bewerteKomponente, bewerteLebensmittel, UNKLAR_TEXT } from './bewerten'
+import { bewerteKomponente, bewerteLebensmittel, bewerteVariante, UNKLAR_TEXT } from './bewerten'
 import { lebensmittelKatalog, regelKatalog } from '../daten'
 import { findeNachId } from './suchen'
 import type { Status } from '../typen'
@@ -146,6 +146,63 @@ describe('Begründungen', () => {
         expect(variante.begruendungen.length, `${eintrag.id}/${variante.label}`).toBeGreaterThan(0)
       }
     }
+  })
+})
+
+describe('Im Zweifel das strengere Argument', () => {
+  it('lässt bei zwei Regeln auf einem Tag die strengere gewinnen', () => {
+    // rohmilch-weichkaese trifft listerien-weichkaese (pasteurisiert -> bedingt)
+    // und listerien-nicht-erhitzt (keine Entschärfung für pasteurisiert -> meiden).
+    // Camembert aus pasteurisierter Milch bleibt deshalb meiden.
+    const pasteurisiert = ersteVariante('camembert')
+    expect(pasteurisiert.label).toBe('Aus pasteurisierter Milch')
+    expect(pasteurisiert.status).toBe('meiden')
+  })
+
+  it('nennt trotzdem beide Begründungen', () => {
+    const texte = ersteVariante('camembert').begruendungen.map((b) => b.regel)
+    expect(texte).toContain('listerien-nicht-erhitzt')
+    expect(texte).toContain('listerien-weichkaese')
+  })
+
+  it('lässt eine Regel eine Freigabe aus unbedenkliche_tags überstimmen', () => {
+    const katalog = {
+      ...regelKatalog,
+      unbedenkliche_tags: [
+        ...regelKatalog.unbedenkliche_tags,
+        { tag: 'ei-roh', text: 'Frei erfundene Freigabe.' },
+      ],
+    }
+    expect(bewerteKomponente({ tag: 'ei-roh' }, katalog).status).toBe('meiden')
+  })
+
+  it('greift bei mehreren Entschärfungen für denselben Zustand die strengste', () => {
+    const katalog = {
+      ...regelKatalog,
+      regeln: [
+        {
+          id: 'test-mehrdeutig',
+          titel: 'Mehrdeutig',
+          trifft_auf: ['test-tag'],
+          status: 'meiden' as const,
+          begruendung: 'Grundregel.',
+          entschaerfung: [
+            { durch: 'gekocht', auf: 'ok' as const, text: 'Milde Lesart.' },
+            { durch: 'gekocht', auf: 'bedingt' as const, text: 'Strenge Lesart.' },
+          ],
+          trimester_gewichtung: null,
+        },
+      ],
+    }
+    const urteil = bewerteKomponente({ tag: 'test-tag', zustand: 'gekocht' }, katalog)
+    expect(urteil.status).toBe('bedingt')
+    expect(urteil.begruendungen[0]?.text).toBe('Strenge Lesart.')
+  })
+
+  it('wertet eine Variante ohne Komponenten als unklar, nicht als ok', () => {
+    const urteil = bewerteVariante({ label: null, komponenten: [] }, regelKatalog)
+    expect(urteil.status).toBe('unklar')
+    expect(urteil.begruendungen[0]?.text).toBe(UNKLAR_TEXT)
   })
 })
 

@@ -33,6 +33,9 @@ Dieses Projekt gibt Auskunft, auf die im Laden eine Entscheidung folgt.
 
 - Keine Bewertung erfinden. Was nicht aus dem Regelkatalog folgt, ist `unklar`.
 - Nie eine Freigabe raten. Ein falsches «Ja» ist der einzige echte Schadensfall.
+- Bei widersprüchlichen oder mehrdeutigen Regeln greift das strengere Argument.
+  Sicherheit geht vor. Das gilt für die Maschine wie für die Datenpflege: eine
+  Einschränkung wird nie gelockert, um eine gefälligere Auskunft zu erzeugen.
 - Keine Diagnosen, keine Mengenempfehlungen über die im Regelkatalog hinterlegten.
 - Der Hinweis auf Hebamme und Ärztin bleibt auf jedem Screen sichtbar und wird
   nicht wegoptimiert.

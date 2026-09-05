@@ -83,7 +83,11 @@ Pro Variante:
 1. Für jede Komponente alle Regeln sammeln, deren `trifft_auf` das Tag enthält.
 2. Zustand der Komponente gegen `entschaerfung` prüfen, Status entsprechend herabstufen.
    `nicht_entschaerfbar_durch` blockiert das (Quecksilber verschwindet nicht durch Kochen).
-3. Schlechtester Status aller Komponenten gewinnt.
+3. Schlechtester Status aller Komponenten gewinnt. Dasselbe gilt, wo mehrere
+   Regeln dasselbe Tag treffen oder mehrere Entschärfungen auf denselben Zustand
+   passen: bei Widerspruch oder Mehrdeutigkeit greift stets das strengere
+   Argument. Trifft eine Regel, schlägt sie eine Freigabe aus `unbedenkliche_tags`.
+   Eine Komponentenliste ohne Einträge ergibt `unklar`, nie `ok`.
 4. Begründungen der auslösenden Regeln zusammenführen, Duplikate entfernen.
 5. Regeln mit `trimester_gewichtung` erzeugen nur im passenden Trimester einen
    zusätzlichen Hinweis.

@@ -54,19 +54,27 @@ Umlaute, Akzente und Grossschreibung sind egal, Wortähnlichkeit wird nicht
 ausgewertet: ein Tippfehler liefert lieber einen Nulltreffer als ein falsches
 Urteil.
 
-## Offener Punkt im Regelkatalog
+## Im Zweifel das strengere Argument
 
-Auf das Tag `rohmilch-weichkaese` greifen zwei Regeln. `listerien-weichkaese`
-stuft den Zustand `pasteurisiert` auf `bedingt` herab, `listerien-nicht-erhitzt`
-kennt für diesen Zustand keine Entschärfung und bleibt bei `meiden`. Da der
-schlechteste Status gewinnt, ist Camembert aus pasteurisierter Milch heute
-`meiden`. Das widerspricht dem Entschärfungstext der zweiten Regel und gehört
-in die Durchsicht durch die Hebamme.
+Widersprechen sich zwei Regeln oder ist eine Angabe mehrdeutig, greift die
+strengere Lesart. Konkret heisst das:
+
+- Treffen mehrere Regeln dasselbe Tag, gewinnt die schlechteste Bewertung.
+- Passen mehrere Entschärfungen auf denselben Zustand, greift die strengste.
+- Trifft eine Regel, schlägt sie eine Freigabe aus `unbedenkliche_tags`.
+- Eine Variante ohne Komponenten ergibt `unklar`, nie `ok`.
+
+Sichtbarster Fall: auf `rohmilch-weichkaese` greifen zwei Regeln.
+`listerien-weichkaese` stuft `pasteurisiert` auf `bedingt` herab,
+`listerien-nicht-erhitzt` kennt für diesen Zustand keine Entschärfung und bleibt
+bei `meiden`. Camembert aus pasteurisierter Milch ist deshalb `meiden` — beide
+Begründungen werden angezeigt, damit die strengere Einstufung nachvollziehbar
+bleibt. Das ist so gewollt und durch Tests festgehalten.
 
 ## Stand
 
 Aufgaben 1 und 2 aus `SPEC.md` sind umgesetzt: Projektgerüst, Datenmodell,
-Regelmaschine und Suche mit 50 Tests. Der erweiterte Katalog (Aufgabe 3), die
+Regelmaschine und Suche mit 57 Tests. Der erweiterte Katalog (Aufgabe 3), die
 PWA-Hülle (Aufgabe 4) und das Deployment (Aufgabe 5) stehen aus. Die Oberfläche
 zeigt bisher nur Kopf- und Fusszeile.
 
