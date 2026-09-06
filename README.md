@@ -271,15 +271,28 @@ Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 64 Unit-Tests und
 
 ## Fachliche Durchsicht
 
-`npm run hebammenliste` erzeugt aus den Katalogdateien ein Dokument zum
-Gegenlesen: Teil 1 die offenen inhaltlichen Entscheidungen aus
-`daten/pruefliste.json`, Teil 2 die Regeln, Teil 3 alle Einträge mit ihrem
-Urteil. Nichts darin ist abgetippt — ändern sich die Daten, stimmt die Liste
-wieder. Mit `-- --artefakt` kommt die Seite ohne eigenes HTML-Gerüst, zum
-Veröffentlichen.
+Welche inhaltlichen Entscheidungen noch gegengelesen werden müssen, steht in
+`daten/offene-punkte.json`. Die Datei führt fünfzehn Punkte, jeden mit dem,
+was die App sagt, warum, und was an der Hebamme oder Gynäkologin hängt. Dazu
+kommt je Punkt eine Quellenprüfung gegen die Schweizer Referenzempfehlungen
+mit einem von drei Ständen: `bestaetigt` heisst durch Quellen gedeckt,
+`korrigiert` heisst der Quelle widersprechend und zu ändern, `offen` heisst
+Ermessen und bleibt für die Durchsicht. Die Prüfung ersetzt die Durchsicht
+nicht — sie räumt weg, was sich an Quellen entscheiden liess. Der
+Lebensmittelkatalog selbst ist darin ausdrücklich nicht geprüft.
 
-Wer eine Entscheidung korrigiert, führt `daten/pruefliste.json` nach: die
-Liste soll zeigen, was noch offen ist, nicht was einmal offen war.
+Wer eine Entscheidung korrigiert, führt die Datei nach: sie soll zeigen, was
+noch offen ist, nicht was einmal offen war.
+
+`npm run hebammenliste` erzeugt aus den Katalogdateien ein Dokument zum
+Gegenlesen: Teil 1 die offenen Entscheidungen, Teil 2 die Regeln, Teil 3 alle
+Einträge mit ihrem Urteil. Nichts darin ist abgetippt — ändern sich die Daten,
+stimmt die Liste wieder. Mit `-- --artefakt` kommt die Seite ohne eigenes
+HTML-Gerüst, zum Veröffentlichen.
+
+> Das Skript liest zurzeit noch die ältere `daten/pruefliste.json` mit zwölf
+> Punkten. Bis es auf `offene-punkte.json` umgestellt ist, zeigt das erzeugte
+> Dokument den überholten Stand.
 
 ## Vorbehalt
 

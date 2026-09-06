@@ -1,0 +1,240 @@
+{
+  "version": "2",
+  "hinweis": "Offene inhaltliche Entscheidungen für die Durchsicht durch Hebamme oder Gynäkologin. Version 2 enthält eine Quellenprüfung gegen die Schweizer Referenzempfehlungen. Die Prüfung ersetzt die fachliche Durchsicht nicht — sie räumt nur weg, was sich an Quellen entscheiden liess, und macht sichtbar, was Ermessen bleibt. Bei Änderungen hier nachführen.",
+  "pruefung": {
+    "datum": "2026-09-06",
+    "umfang": "Nur diese Datei. Der Lebensmittelkatalog (284 Einträge) und Teil 3 lagen nicht vor und sind ungeprüft.",
+    "quellen": [
+      "BLV, Listeria monocytogenes und der Konsum von Milch und Milchprodukten während der Schwangerschaft",
+      "BLV, Empfehlungen Jod / Ernährung für Schwangere und Stillende",
+      "swissmom (Partnerorganisation SGGG), Listeriose: Bedenkliche Lebensmittel, Stand 12.01.2026",
+      "BfR / EFSA zu Methylquecksilber in Fisch",
+      "DGE / BZfE zu Vitamin A und Innereien"
+    ],
+    "kernbefund": "Die Annahme, die Schweizer Linie sei die mildere und die britische die strengere, ist umgekehrt. Das BLV ist bei Käse strenger als NHS und DGE: es rät von Weichkäse UND Halbhartkäse ab, unabhängig von roher, thermisierter oder pasteurisierter Milch. Mehrere Punkte dieser Datei stehen auf dieser falschen Prämisse.",
+    "status_legende": {
+      "bestaetigt": "Entscheid durch Quellen gedeckt, keine Änderung nötig",
+      "korrigiert": "Entscheid oder Begründung widerspricht der Quelle, Änderung vorgeschlagen",
+      "offen": "Keine Quellenfrage, sondern Ermessen oder Produktentscheid — bleibt für die fachliche Durchsicht"
+    }
+  },
+  "punkte": [
+    {
+      "id": "P01",
+      "titel": "Weichkäse aus pasteurisierter Milch bleibt «Besser nicht»",
+      "betrifft": ["Camembert und Brie", "Blauschimmelkäse", "Ziegenkäse", "Vacherin Mont-d'Or", "Rotschmierkäse"],
+      "app_sagt": "Nein — auch aus pasteurisierter Milch. Nur überbacken oder mitgekocht ein Ja.",
+      "warum": "Das BLV rät von Weichkäse ab, unabhängig davon, ob er aus roher, thermisierter oder pasteurisierter Milch stammt. Grund ist der hohe Wassergehalt und die wenig saure Reifung: Listerien können sich nach der Pasteurisierung wieder ansiedeln und vermehren. Erhitzt auf über 70 Grad während mindestens zwei Minuten sind sie abgetötet — deshalb ist überbackener oder mitgekochter Weichkäse ein Ja.",
+      "frage": "Bleibt es bei der BLV-Linie, oder soll die App dem milderen internationalen Standard folgen, der pasteurisierten Weichkäse zulässt?",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "Urteil richtig, Begründung falsch. Die alte Begründung stellte die Schweizer Linie als die mildere dar und leitete das Nein aus der britischen Vorsicht ab. Tatsächlich ist genau umgekehrt: die Schweizer Empfehlung IST die strenge, das Nein ist die hiesige Standardempfehlung und kein Vorsichtszuschlag. Die Projektregel «bei Widerspruch gilt das strengere Argument» musste hier gar nicht greifen.",
+        "quelle": "BLV / swissmom: Weichkäse aus roher, thermisierter oder pasteurisierter Milch nicht zum Verzehr geeignet.",
+        "katalog_aenderung": "Begründungstexte dieser fünf Einträge auf die BLV-Referenz umstellen. Der Verweis auf abweichende internationale Empfehlungen kann raus — er verunsichert, ohne etwas zu entscheiden."
+      }
+    },
+    {
+      "id": "P02",
+      "titel": "Feta und Mozzarella sind NICHT gleich zu behandeln",
+      "betrifft": ["Feta und Salzlakenkäse", "Mozzarella", "Burrata und Büffelmozzarella"],
+      "app_sagt": "Mozzarella und Burrata aus Kuh- oder Büffelmilch: Ja. Feta und Salzlakenkäse: Nein, ausser durcherhitzt.",
+      "warum": "Mozzarella wird bei der Herstellung erhitzt und meist in geschlossenen Systemen industriell produziert; das Risiko gilt als minim bis inexistent, sofern die Packung frisch geöffnet und gekühlt gelagert wird. Feta erhält diese Erhitzung nicht und wird vom BLV ausdrücklich unter den ungeeigneten Milchprodukten geführt.",
+      "frage": "Keine offene Frage mehr — die Quelle ist eindeutig. Nur noch: soll Feta durcherhitzt (im Gratin, in der Ofenpfanne) als Variante ein Ja bekommen?",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "Die bisherige Gruppierung war falsch. «Pasteurisierter Frischkäse gleich Ja» trägt für Mozzarella und Burrata, aber nicht für Feta. Das BLV listet Feta namentlich unter den Milchprodukten, die Listerien enthalten könnten. Das ist die inhaltlich folgenreichste Korrektur dieser Prüfung: der Katalog gab bisher für Feta aus pasteurisierter Milch ein Ja.",
+        "quelle": "BLV / swissmom: Feta und Frischkäse in stückiger Form unter «nicht zum Verzehr geeignet»; Mozzarella und Burrata ausdrücklich unter «dürfen Sie essen».",
+        "katalog_aenderung": "Feta und Salzlakenkäse vom Tag für pasteurisierten Frischkäse lösen und auf «Nein» setzen, mit Variante «durcherhitzt: Ja». Mozzarella und Burrata behalten das Ja, aber mit eigener Begründung (Erhitzung bei der Herstellung, nicht Pasteurisierung der Milch). Siehe auch P14."
+      }
+    },
+    {
+      "id": "P03",
+      "titel": "Sechzehn Tags geben pauschal frei — drei davon zu weit",
+      "betrifft": ["fleisch-durchgegart (42 Einträge)", "fisch-gegart (24)", "obst-gewaschen (16)", "gemuese-gekocht (14)", "hartkaese (12)", "und elf weitere"],
+      "app_sagt": "Wo eines dieser Tags steht, ist das Urteil ein Ja — ohne Rückfrage.",
+      "warum": "120 von 284 Einträgen hängen an diesen Tags. Ein zu weit gefasstes Tag verteilt seinen Fehler über Dutzende Einträge auf einmal.",
+      "frage": "Sind die verbleibenden dreizehn Freigaben so weit haltbar, wie sie formuliert sind?",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "Drei Tags halten der Prüfung nicht stand:\n\n(a) «fisch-gegart» — Garen tötet Listerien und Parasiten, verändert den Quecksilbergehalt aber nicht. Hai, Schwertfisch, Heilbutt, Thunfisch und Makrele bleiben auch durchgegart eingeschränkt, ebenso Muscheln, Krabben, Tintenfisch und die Süsswasser-Raubfische Hecht, Zander und Aal. Die Zubereitung ist hier nicht die entscheidende Achse. Siehe P15.\n\n(b) «hartkaese» — die BLV-Freigabe für Hart- und Extrahartkäse gilt ausdrücklich nur, wenn die Rinde entfernt wurde. Das ist eine Bedingung, kein bedingungsloses Ja.\n\n(c) «fleisch-durchgegart» — Leber ist durchgegart und trotzdem ein Nein. Das Tag braucht eine Ausnahmeliste, sonst kollidiert es mit der Vitamin-A-Regel. Siehe P04.",
+        "quelle": "BfR / EFSA zu Methylquecksilber; BLV zu Hart- und Extrahartkäse.",
+        "katalog_aenderung": "«fisch-gegart» darf nicht mehr allein ein Urteil erzeugen — es braucht die Fischart als zweite Achse. «hartkaese» erhält die Bedingung «Rinde entfernt» und wird damit von Ja auf Bedingt. «fleisch-durchgegart» erhält eine Ausnahmeliste (Leber, Innereien). Zusätzlich prüfen, ob ein Eintrag mehrere pauschal freigebende Tags tragen kann und welches dann gewinnt."
+      }
+    },
+    {
+      "id": "P04",
+      "titel": "Innereien: das pauschale Ja ist zu weit",
+      "betrifft": ["Innereien (Niere, Kutteln, Herz, Bries, Milken)", "Leber und Leberprodukte"],
+      "app_sagt": "Innereien durchgegart: Bedingt — selten, kleine Mengen, vollständig durchgegart. Leber und Leberprodukte: Nein.",
+      "warum": "Innereien reichern nicht nur Retinol an, sondern auch Schwermetalle und andere Schadstoffe. Niere liegt beim Vitamin A unter Leber, aber über Muskelfleisch. Die gängige Empfehlung ist Zurückhaltung bei allen Innereien, nicht nur bei Leber.",
+      "frage": "Reicht «bedingt» für Niere, Kutteln und Herz, oder soll die App wie mehrere Fachstellen generell abraten?",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "Das bisherige Ja mit blossem Leber-Hinweis ist permissiver als die Quellenlage. Mehrere Fachstellen raten von Innereien insgesamt ab, ob durchgegart oder nicht, wegen Schwermetallen und Schadstoffen zusätzlich zum Retinol. Ein Nein wäre vertretbar; «bedingt» mit konkreter Auflage ist der Kompromiss, weil es die App nicht strenger macht als die strengste auffindbare Empfehlung, aber das Signal setzt.",
+        "quelle": "DGE / BZfE und Landesstellen: Innereien in der Schwangerschaft meiden; Leber und Leberwurst besonders im ersten Trimester.",
+        "katalog_aenderung": "Innereien von Ja auf Bedingt. Leberwurst und Leberpastete prüfen, ob sie eigene Einträge haben — sie tragen zwei Risiken gleichzeitig (Retinol und Listerien bei streichfähiger Ware) und dürfen nicht unter «Wurst» mitlaufen."
+      }
+    },
+    {
+      "id": "P05",
+      "titel": "Lauwarm Aufgewärmtes ist «bedingt», nicht «Nein»",
+      "betrifft": ["Resten vom Vortag", "Fertiggericht", "Essen aus der Mikrowelle", "Hot Dog"],
+      "app_sagt": "Dampfend heiss: Ja. Kalt oder nur lauwarm: Bedingt, mit der Auflage nochmals vollständig durchzuerhitzen.",
+      "warum": "Listerien vermehren sich auch im Kühlschrank und sterben erst über 65 bis 70 Grad ab; als Richtwert gelten zwei Minuten bei 70 Grad im Kern. Lauwarm ist damit kein Zwischenzustand, sondern schlicht nicht durcherhitzt — die Handlung ist aber verfügbar und einfach.",
+      "frage": "Keine — sofern der Bedingungstext die Handlung nennt und nicht nur eine Einschränkung ausspricht.",
+      "pruefung": {
+        "status": "bestaetigt",
+        "befund": "«Bedingt» ist richtig, aber nur, wenn die Bedingung eine Anweisung ist. «Lauwarm ist eingeschränkt» wäre nutzlos; «nochmals aufkochen, bis es dampft» ist die Aussage, die im Supermarkt oder in der Küche trägt. Bitte den hinterlegten Text daraufhin ansehen.",
+        "quelle": "swissmom / BLV: zwei Minuten bei 70 Grad oder bis der Käse Blasen wirft.",
+        "katalog_aenderung": "Bedingungstexte dieser vier Einträge auf Handlungsform prüfen."
+      }
+    },
+    {
+      "id": "P06",
+      "titel": "Die Jod-Obergrenze bei Algen — richtige Stufen, falsche Zuordnung",
+      "betrifft": ["Algen und Nori", "Jod", "Spirulina und Chlorella", "Kombu und Wakame"],
+      "app_sagt": "Nori als Würze oder Sushi-Blatt: Ja. Kombu, Wakame, Hijiki oder Algensalat: Bedingt. Algen- und Seetangpräparate: Nein. Spirulina und Chlorella: Nein — eigene Begründung.",
+      "warum": "Nori ist im Vergleich jodarm. Die hohen und stark schwankenden Jodgehalte finden sich in den Braunalgen Kombu, Wakame und Hijiki. Spirulina und Chlorella sind ein anderer Fall: dort geht es nicht um Jod, sondern um mögliche Schwermetall- und Mikrotoxinbelastung bei schwankender Produktqualität.",
+      "frage": "Ist die Dreiteilung nach Algenart brauchbar, oder überfordert sie im Laden? Und: soll die App aktiv darauf hinweisen, dass in der Schweiz die Unterversorgung mit Jod das häufigere Problem ist als der Überschuss?",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "Die Abstufung war richtig gedacht, aber an der falschen Achse aufgehängt. Nori als Risikoträger zu führen und Kombu nicht zu nennen, kehrt die tatsächliche Belastung um. Und Spirulina unter eine Jod-Regel zu stellen, ist ein Kategorienfehler: das Urteil stimmt zufällig, die Begründung führt in die Irre — und damit auch jede spätere Ableitung aus dieser Regel.\n\nZusatzbefund für den Schweizer Kontext: Das BLV hält fest, dass Frauen im gebärfähigen Alter und Schwangere in der Schweiz zu wenig Jod aufnehmen, nicht zu viel. Eine App, die Jod primär als Risiko darstellt, setzt für dieses Land den falschen Akzent.",
+        "quelle": "BLV Jodempfehlungen und Studie zum Jodstatus; DGE zur Verzehrmenge von Algen.",
+        "katalog_aenderung": "Spirulina und Chlorella aus der Jod-Regel lösen und einer eigenen Regel «Nahrungsergänzung mit schwankender Produktqualität» zuordnen. Nori und Braunalgen als getrennte Einträge führen. Prüfen, ob der Jod-Eintrag den Schweizer Kontext erwähnt."
+      }
+    },
+    {
+      "id": "P07",
+      "titel": "Multivitamin ist nicht gleich Vitamin-A-Präparat",
+      "betrifft": ["Multivitamin und Schwangerschaftspräparat", "Vitamin-A-Präparat"],
+      "app_sagt": "Für die Schwangerschaft ausgewiesen: Ja. Allgemeines Multivitamin ohne Angabe: Nein.",
+      "warum": "Das Risiko liegt beim vorgebildeten Retinol, nicht beim Beta-Carotin. Allgemeine Multivitaminpräparate überschreiten den Richtwert für Schwangere nicht selten; Schwangerschaftspräparate sind darauf ausgelegt, darunter zu bleiben. Ein falsches Nein könnte dazu führen, dass ein verordnetes Präparat abgesetzt wird — das ist das schwerere Risiko.",
+      "frage": "Keine offene Frage.",
+      "pruefung": {
+        "status": "bestaetigt",
+        "befund": "Die Trennung ist richtig gezogen und deckt sich mit der Empfehlungslage. Die Begründung wurde um den entscheidenden Punkt ergänzt: es geht um Retinol, nicht um Vitamin A als Sammelbegriff. Beta-Carotin trägt das Überdosierungsrisiko nicht.",
+        "quelle": "DGE: kein zusätzliches Vitamin-A-Präparat im ersten Trimester; Richtwert 800 µg RAE pro Tag.",
+        "katalog_aenderung": "Keine. Optional Begründungstext um die Retinol-Unterscheidung ergänzen."
+      }
+    },
+    {
+      "id": "P08",
+      "titel": "Nährstoffpräparate ohne jede Mengenangabe",
+      "betrifft": ["Folsäure", "Eisen", "Vitamin D", "Kalzium", "Magnesium", "Jod", "Omega-3", "Probiotika"],
+      "app_sagt": "Ja, mit dem Verweis: über die Dosis entscheidet die Ärztin.",
+      "warum": "Die App nennt bewusst keine Milligramm- oder Mikrogramm-Angaben. Ein Test stellt sicher, dass keine Zahl mit Einheit im Text steht.",
+      "frage": "Ist das richtig so, oder sollen die üblichen Schweizer Richtwerte genannt werden?",
+      "pruefung": {
+        "status": "offen",
+        "befund": "Das ist ein Produktentscheid, keine Quellenfrage — die Zahlen existieren und sind öffentlich (BLV und BAG nennen etwa 150 bis 200 µg Jod täglich als pränatales Supplement bei geringer Jodzufuhr). Der Verzicht ist verteidigbar: er hält die App aus der Dosierungsberatung heraus.\n\nAufgefallen ist dabei ein Widerspruch im Katalog: Jod steht hier als Präparat auf «Ja», während die Algenregel eine Obergrenze gegen Jod setzt. Eine Nutzerin, die «Jod» eingibt, sollte nicht zwei gegenläufige Signale bekommen, je nachdem über welchen Eintrag sie hereinkommt.",
+        "quelle": "BLV / BAG: pränatales Jodsupplement 150 bis 200 µg pro Tag bei geringer alimentärer Zufuhr.",
+        "katalog_aenderung": "Widerspruch zwischen dem Jod-Präparateintrag und der Jod-Obergrenzenregel auflösen. Beide sollten aufeinander verweisen statt nebeneinander zu stehen."
+      }
+    },
+    {
+      "id": "P09",
+      "titel": "Der Sauser und der Süssmost",
+      "betrifft": ["Sauser und Federweisser"],
+      "app_sagt": "Süssmost, nicht vergoren: Ja. Sauser oder saurer Most in Gärung: Nein.",
+      "warum": "«Most» heisst in der Schweiz beides. Sauser schmeckt süss, sieht aus wie Traubensaft und enthält Alkohol, dessen Gehalt mit jedem Tag steigt und selten deklariert ist.",
+      "frage": "Ist die Unterscheidung so formuliert, dass sie im Laden trägt?",
+      "pruefung": {
+        "status": "bestaetigt",
+        "befund": "Inhaltlich unstrittig — es ist die Alkoholregel, und die kennt keine Untergrenze. Eine Formulierungsanmerkung: der Text sollte nicht am Geschmack ansetzen, denn Sauser schmeckt gerade nicht nach Alkohol. Brauchbare Merkmale sind Trübung, Prickeln, saisonale Verfügbarkeit im Herbst und der offene Verschluss beziehungsweise die Warnung auf der Flasche.",
+        "quelle": "Alkoholregel des Katalogs, keine externe Quelle nötig.",
+        "katalog_aenderung": "Erkennungsmerkmale statt Geschmacksbeschreibung im Bedingungstext."
+      }
+    },
+    {
+      "id": "P10",
+      "titel": "Heilkräuter: die Lücke gehört auf «unklar», nicht auf «bedingt»",
+      "betrifft": ["Johanniskraut und Heilkräuter (Mönchspfeffer, Baldrian, Echinacea)"],
+      "app_sagt": "Unklar, mit dem Text: hier nicht bewertet, das ist keine Freigabe, sondern eine Lücke. Bitte mit Ärztin oder Hebamme klären.",
+      "warum": "Heilkräuter in Arzneidosis liegen ausserhalb dessen, was der Regelkatalog abbildet. Statt zu schweigen sagt der Eintrag das.",
+      "frage": "Keine offene Frage mehr — die Kategorie existiert bereits.",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "«Bedingt» war ein Kategorienfehler. Die vier Urteilsstufen unterscheiden ausdrücklich zwischen «unter einer Bedingung erlaubt» und «nicht bewertbar». Die vierte Kategorie wurde genau für diesen Fall eingeführt — sie zu umgehen, wo sie gebraucht wird, entwertet sie im ganzen Katalog. «Bedingt» ohne nennbare Bedingung ist ausserdem für die Nutzerin nicht handlungsleitend.",
+        "quelle": "Kategoriendefinition der App selbst.",
+        "katalog_aenderung": "Von «bedingt» auf «unklar». Danach prüfen, ob weitere Einträge «bedingt» ohne konkret nennbare Bedingung tragen — das wären dieselbe Verwechslung."
+      }
+    },
+    {
+      "id": "P11",
+      "titel": "Kombucha bleibt, Antipasti wird aufgeteilt",
+      "betrifft": ["Kombucha", "Antipasti"],
+      "app_sagt": "Kombucha: Nein. Antipasti aus Glas oder Konserve: Ja. Antipasti von der offenen Theke: Nein.",
+      "warum": "Bei Kombucha treffen Restalkohol mit schwankendem Gehalt, fehlende Pasteurisierung bei Rohware und Koffein aus dem Teeaufguss zusammen; die gängige Empfehlung ist Verzicht. Bei Antipasti liegt das Risiko nicht im Lebensmittel, sondern in der Darreichung — eingelegtes Gemüse aus dem verschlossenen Glas ist unproblematisch, offene Theke und lange Standzeit sind es nicht.",
+      "frage": "Trägt die Aufteilung bei Antipasti, oder ist die Theke im Alltag zu selten trennscharf erkennbar?",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "Kombucha bestätigt — das Nein deckt sich mit der Empfehlungslage, das ist kein Vorsichtszuschlag der App. Antipasti war tatsächlich zu streng, und der Verdacht in der ursprünglichen Frage war richtig. Wichtiger als das Urteil ist hier aber die Struktur: der Eintrag hatte gar keine Variante. Ein pauschales Nein dort, wo die Zubereitung oder Darreichung entscheidet, ist genau das Muster, das die App vermeiden sollte.",
+        "quelle": "BZfE zu Kombucha in Schwangerschaft und Stillzeit; BLV zu offen verkaufter, nicht mehr erhitzter Ware.",
+        "katalog_aenderung": "Antipasti mit zwei Varianten versehen. Anschliessend den Katalog nach weiteren variantenlosen Nein-Einträgen durchsuchen, bei denen die Darreichung und nicht das Lebensmittel das Risiko trägt — Oliven, eingelegtes Gemüse, Salatbuffet, Sandwich."
+      }
+    },
+    {
+      "id": "P12",
+      "titel": "Achtundzwanzig neue Einträge ohne Gegenlesen",
+      "betrifft": ["Sauser", "Frozen Yogurt", "Sülze und Aspik", "Rochen", "Cremeschnitte", "Weinbergschnecken", "Rhabarber", "und 21 weitere"],
+      "app_sagt": "Siehe Teil 3.",
+      "warum": "Diese Einträge sind zuletzt dazugekommen. Jeder ist eine inhaltliche Entscheidung ohne Gegenlesen.",
+      "frage": "Bitte in Teil 3 quer lesen — besonders die mit «Nein» und «Bedingt».",
+      "pruefung": {
+        "status": "offen",
+        "befund": "Nicht prüfbar, Teil 3 lag nicht vor. Zwei Hinweise aus den anderen Punkten treffen hier voraussichtlich zu: Rochen fällt unter die Quecksilberachse aus P15 und darf nicht über «fisch-gegart» freigegeben werden. Cremeschnitte und Frozen Yogurt sind auf die Roheifrage beziehungsweise auf Softeis-Maschinen und deren Hygiene zu prüfen — beides Fälle, in denen die Zubereitung und nicht das Lebensmittel entscheidet.",
+        "quelle": null,
+        "katalog_aenderung": "Teil 3 nachreichen und dieselbe Prüfung darauf anwenden."
+      }
+    },
+    {
+      "id": "P13",
+      "titel": "NEU: Halbhartkäse fehlt im Katalog",
+      "betrifft": ["Tilsiter", "Tête de Moine", "Appenzeller", "Raclettekäse ungeschmolzen", "Leerdamer", "Fol Epi", "Halbhartkäse allgemein"],
+      "app_sagt": "Noch kein Eintrag vorhanden.",
+      "warum": "Das BLV hat seine Empfehlung ausgeweitet, nachdem Listerien auch in Halbhartkäse aus pasteurisierter Milch nachgewiesen wurden. Halbhartkäse gehört seither in dieselbe Kategorie wie Weichkäse: abraten, unabhängig von der Milchbehandlung. Geschmolzen — Raclette, Fondue, überbacken — ist er unbedenklich.",
+      "frage": "Ist die BLV-Ausweitung auf Halbhartkäse fachlich weiterhin aktuell, und wie geht die Hebamme praktisch damit um? Das betrifft in der Schweiz das Znünibrot und jede Käseplatte.",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "Das ist die grösste Lücke, die diese Prüfung gefunden hat, und sie ist eine direkte Folge der falschen Prämisse aus P01. Wer die Schweizer Linie für die mildere hält, kommt gar nicht auf die Idee, nach Halbhartkäse zu suchen — die deutschen und britischen Empfehlungen kennen diese Ausweitung nicht. Im Schweizer Alltag ist Halbhartkäse häufiger als Weichkäse. Ein Katalog, der Camembert kennt und Tilsiter nicht, hat die falsche Hälfte abgedeckt.",
+        "quelle": "BLV / swissmom: Halbhartkäse aus roher, thermisierter oder pasteurisierter Milch (Tête-de-Moine, Tilsiter, Leerdamer, Fol Epi) unter «nicht zum Verzehr geeignet»; Hart- und Extrahartkäse dagegen unbedenklich, Rinde entfernt.",
+        "katalog_aenderung": "Eigene Regel für Halbhartkäse anlegen, parallel zur Weichkäseregel, mit den Varianten «kalt: Nein» und «geschmolzen oder überbacken: Ja». Einträge für die gängigen Sorten ergänzen. Anschliessend die Grenze zu Hartkäse im Katalog schärfen — Appenzeller und Raclettekäse sind Halbhartkäse, Gruyère, Emmentaler, Sbrinz und Parmesan sind Hart- oder Extrahartkäse."
+      }
+    },
+    {
+      "id": "P14",
+      "titel": "NEU: Frischkäse in stückiger Form",
+      "betrifft": ["Formaggini", "Ziegenfrischkäsli", "Schaffrischkäsli", "Apérokäsli"],
+      "app_sagt": "Noch kein Eintrag vorhanden oder über die Frischkäseregel freigegeben.",
+      "warum": "Das BLV unterscheidet innerhalb der Frischkäse: streichfähige und körnige Produkte aus pasteurisierter Milch wie Quark, Hüttenkäse und Streichfrischkäse sind unbedenklich, kleine stückige Frischkäse mit hohem Wassergehalt dagegen nicht.",
+      "frage": "Ist die Grenze innerhalb der Frischkäse für die Nutzerin nachvollziehbar formulierbar?",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "Direkte Folge der Korrektur in P02. Wenn «pasteurisierter Frischkäse gleich Ja» als Regel bestehen bleibt, gibt sie auch für Formaggini und Ziegenfrischkäsli ein Ja — das widerspricht dem BLV. Die Regel muss die Form berücksichtigen, nicht nur die Milchbehandlung.",
+        "quelle": "BLV / swissmom: Frischkäse in stückiger Form (Formaggini, Schaf- oder Ziegenfrischkäslein) unter «nicht zum Verzehr geeignet»; Quark, Hüttenkäse, Streichfrischkäse unter «dürfen Sie essen».",
+        "katalog_aenderung": "Frischkäseregel aufteilen in streichfähig oder körnig gegenüber stückig. Einträge für Formaggini und die Frischkäsli ergänzen."
+      }
+    },
+    {
+      "id": "P15",
+      "titel": "NEU: Quecksilber braucht eine eigene Achse neben der Zubereitung",
+      "betrifft": ["Thunfisch", "Schwertfisch", "Hai", "Heilbutt", "Makrele", "Rochen", "Hecht", "Zander", "Aal", "Muscheln", "Krabben", "Tintenfisch"],
+      "app_sagt": "Uneinheitlich — teilweise über «fisch-gegart» pauschal freigegeben.",
+      "warum": "Fisch trägt in der Schwangerschaft zwei voneinander unabhängige Risiken: Keime und Parasiten, die durch Garen verschwinden, und Methylquecksilber, das dadurch unverändert bleibt. Es reichert sich in grossen, alten Raubfischen an. Weniger belastet sind Kabeljau, Seelachs, Seehecht, Forelle und Hering. Fisch ganz zu meiden wäre falsch — er liefert Omega-3 und Jod; die gängige Empfehlung sind zwei Portionen pro Woche mit Blick auf die Art.",
+      "frage": "Soll die App eine Wochenmenge nennen (zwei Portionen) oder bei der reinen Artenunterscheidung bleiben? Eine Mengenangabe wäre die erste im ganzen Katalog und würde die Regel aus P08 durchbrechen.",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "Strukturelle Lücke, nicht nur ein falscher Einzeleintrag. Die App bildet Zubereitung als Achse ab, kennt aber keine zweite Achse für ein zubereitungsunabhängiges Risiko. Solange «gegart» allein ein Ja erzeugt, gibt der Katalog für gegarten Thunfisch und gegarten Rochen ein Ja — und Rochen steht auf der Liste der zuletzt ergänzten Einträge.",
+        "quelle": "BfR und EFSA zu Methylquecksilber; swissmom zur Schweizer Praxis mit zwei Portionen pro Woche.",
+        "katalog_aenderung": "Regel «quecksilber-belastete Fischart» einführen, die unabhängig von der Zubereitung greift und das Urteil aus «fisch-gegart» überstimmt. Die betroffenen Arten den Einträgen zuordnen. Danach prüfen, welche Regel gewinnt, wenn zwei zutreffen — dieser Fall zeigt, dass der Katalog eine Vorrangordnung braucht."
+      }
+    }
+  ],
+  "zusammenfassung_fuer_die_durchsicht": {
+    "erledigt_durch_quellenpruefung": ["P02", "P07", "P09", "P10"],
+    "korrigiert_und_umzusetzen": ["P01", "P03", "P04", "P06", "P11", "P13", "P14", "P15"],
+    "bleibt_fachliches_ermessen": ["P05", "P08", "P12"],
+    "wichtigste_frage_an_die_hebamme": "P13 — trägt die BLV-Ausweitung auf Halbhartkäse im Alltag, und wie berät sie dazu? Davon hängt ab, wie streng die App im Schweizer Alltag insgesamt wirkt.",
+    "strukturelle_lehre": "Drei der Befunde (P03, P11, P15) sind keine falschen Einzelurteile, sondern dieselbe Schwäche: der Katalog erzeugt Urteile aus einer einzigen Achse. Wo zwei unabhängige Risiken auf ein Lebensmittel treffen, braucht es eine Vorrangordnung zwischen den Regeln. Das ist eine Änderung an der Engine, nicht an den Daten."
+  }
+}
