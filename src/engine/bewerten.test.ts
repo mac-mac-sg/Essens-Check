@@ -177,13 +177,23 @@ describe('Jod: zu wenig und zu viel liegen nah beieinander', () => {
     expect(urteile('jod')).toEqual(['ok', 'meiden'])
   })
 
-  it('staffelt Algen nach Menge statt sie pauschal freizugeben', () => {
-    expect(urteile('algen')).toEqual(['ok', 'bedingt', 'meiden'])
+  it('trennt Nori von den Braunalgen, statt beide gleich zu behandeln', () => {
+    // Nori trägt deutlich weniger Jod als Kombu oder Wakame. Beide unter einem
+    // Eintrag zu führen kehrte die tatsächliche Belastung um.
+    expect(urteile('algen')).toEqual(['ok', 'bedingt'])
+    expect(urteile('braunalgen')).toEqual(['bedingt', 'meiden'])
   })
 
-  it('begründet Nori mit der Menge, nicht mit gekochtem Gemüse', () => {
-    const erste = ersteVariante('algen')
-    expect(erste.begruendungen[0]?.titel).toBe('Zu viel Jod')
+  it('begründet beide mit der Menge, nicht mit gekochtem Gemüse', () => {
+    expect(ersteVariante('algen').begruendungen[0]?.titel).toBe('Zu viel Jod')
+    expect(ersteVariante('braunalgen').begruendungen[0]?.titel).toBe('Zu viel Jod')
+  })
+
+  it('nimmt Spirulina aus der Jod-Regel heraus', () => {
+    // Spirulina enthält wenig Jod. Das Urteil stimmte, die Begründung führte
+    // in die Irre — und mit ihr jede Ableitung aus dieser Regel.
+    expect(urteile('spirulina')).toEqual(['meiden'])
+    expect(ersteVariante('spirulina').komponenten[0]?.tag).toBe('ergaenzung-schwankend')
   })
 })
 
@@ -440,6 +450,20 @@ describe('Katalogabdeckung', () => {
       // Gereifter Cheddar bleibt Hartkäse; Gouda und Edamer sind ausgezogen.
       cheddar: ['ok'],
       'kaese-allgemein': ['ok', 'meiden', 'meiden', 'meiden', 'ok'],
+      // Die Rinde ist die Aussenseite — der Teig bleibt ein Ja.
+      kaeserinde: ['ok', 'bedingt', 'ok', 'meiden'],
+      // Wo die Darreichung das Risiko trägt, gibt es eine sichere Form.
+      antipasti: ['ok', 'meiden'],
+      'glühwein': ['ok', 'meiden'],
+      kaviar: ['ok', 'meiden'],
+      // Nori trägt weniger Jod als die Braunalgen; Spirulina gar keins.
+      algen: ['ok', 'bedingt'],
+      braunalgen: ['bedingt', 'meiden'],
+      spirulina: ['meiden'],
+      // Zwei Risiken auf einem Eintrag: Retinol und Listerien
+      leberwurst: ['meiden'],
+      // Seeteufel und Wels sind Raubfische
+      weissfisch: ['bedingt', 'meiden'],
       // Fisch: Garung, Räucherung, Quecksilber
       lachs: ['ok', 'meiden', 'meiden'],
       // Quecksilber überlebt das Garen — gegart deshalb bedingt, nicht ok.

@@ -425,7 +425,8 @@
           "label": "Gegart",
           "komponenten": [
             {
-              "tag": "fisch-gegart"
+              "tag": "raubfisch-mittel",
+              "zustand": "mengenbegrenzung"
             }
           ]
         },
@@ -441,7 +442,8 @@
       "alternativen": [
         "Gebratenes Filet"
       ],
-      "frage": "Wie zubereitet?"
+      "frage": "Wie zubereitet?",
+      "eigener_text": "Seeteufel und Wels sind Raubfische, Steinbutt ein grosser Plattfisch — alle drei können erhöhte Quecksilberwerte tragen. Garen ändert daran nichts, die Mengenempfehlung gilt auch für das gegarte Filet."
     },
     {
       "id": "stockfisch",
@@ -2606,7 +2608,15 @@
       ],
       "varianten": [
         {
-          "label": null,
+          "label": "Pasteurisiert aus dem Glas",
+          "komponenten": [
+            {
+              "tag": "fisch-gegart"
+            }
+          ]
+        },
+        {
+          "label": "Frisch oder unpasteurisiert",
           "komponenten": [
             {
               "tag": "fisch-roh"
@@ -2615,9 +2625,11 @@
         }
       ],
       "alternativen": [
-        "Erhitzte Fischgerichte"
+        "Pasteurisierter Rogen aus dem Glas",
+        "Durchgegarter Fisch"
       ],
-      "eigener_text": "Roher Rogen wird nicht erhitzt und ist ein Listerienrisiko. Pasteurisierte Ware ist die Ausnahme — nur mit ausdrücklichem Hinweis auf der Packung."
+      "eigener_text": "Rogen aus dem Glas ist in der Regel pasteurisiert — steht es auf der Packung, ist er unbedenklich. Frischer Kaviar und offen verkaufter Rogen sind es nicht.",
+      "frage": "Pasteurisiert?"
     },
     {
       "id": "steak",
@@ -3058,9 +3070,7 @@
       "synonyme": [
         "pastete",
         "terrine",
-        "rillettes",
-        "sülze",
-        "aspik"
+        "rillettes"
       ],
       "varianten": [
         {
@@ -3084,11 +3094,10 @@
       "gruppe": "Fleisch und Wurst",
       "synonyme": [
         "leber",
-        "leberwurst",
-        "leberpastete",
         "foie gras",
         "kalbsleber",
-        "leberli"
+        "leberli",
+        "geschnetzelte leber"
       ],
       "varianten": [
         {
@@ -3104,6 +3113,38 @@
         "Fleischkäse oder gekochter Schinken aufs Brot",
         "Karotten decken Vitamin A als Beta-Carotin ab — das ist unproblematisch"
       ]
+    },
+    {
+      "id": "leberwurst",
+      "name": "Leberwurst und Leberpastete",
+      "gruppe": "Fleisch und Wurst",
+      "synonyme": [
+        "leberwurst",
+        "leberpastete",
+        "leberparfait",
+        "streichleberwurst",
+        "kalbsleberwurst",
+        "leberterrine"
+      ],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [
+            {
+              "tag": "leber"
+            },
+            {
+              "tag": "vorgeschnitten"
+            }
+          ]
+        }
+      ],
+      "alternativen": [
+        "Gekochter Schinken",
+        "Fleischkäse",
+        "Hummus"
+      ],
+      "eigener_text": "Zwei Gründe treffen hier zusammen: das Vitamin A aus der Leber und die Listeriengefahr streichfähiger Ware, die gekühlt in der Auslage steht. Erhitzen hilft gegen das zweite, nicht gegen das erste."
     },
     {
       "id": "innereien",
@@ -4327,7 +4368,16 @@
       ],
       "varianten": [
         {
-          "label": null,
+          "label": "Ausgewiesen alkoholfrei, etwa Kinderpunsch",
+          "komponenten": [
+            {
+              "tag": "alkohol",
+              "zustand": "null-komma-null"
+            }
+          ]
+        },
+        {
+          "label": "Mit Wein oder Schuss",
           "komponenten": [
             {
               "tag": "alkohol"
@@ -4336,10 +4386,12 @@
         }
       ],
       "alternativen": [
-        "Alkoholfreier Punsch",
-        "Heisser Apfelsaft mit Zimtstange"
+        "Kinderpunsch",
+        "Heisser Apfelsaft mit Gewürzen",
+        "Früchtetee mit Zimt"
       ],
-      "eigener_text": "Beim Erwärmen verdampft nur ein Teil des Alkohols. Der Rest bleibt und geht auf das Kind über."
+      "eigener_text": "Beim Erwärmen verdampft nur ein Teil des Alkohols. Der Rest bleibt und geht auf das Kind über.",
+      "frage": "Mit oder ohne Alkohol?"
     },
     {
       "id": "kombucha",
@@ -6130,10 +6182,27 @@
       ],
       "varianten": [
         {
-          "label": "Von Hartkäse",
+          "label": "Vom Hartkäse, weggeschnitten",
           "komponenten": [
             {
               "tag": "hartkaese"
+            }
+          ]
+        },
+        {
+          "label": "Vom Hartkäse, mitgegessen",
+          "komponenten": [
+            {
+              "tag": "kaeserinde-hart"
+            }
+          ]
+        },
+        {
+          "label": "Vom Hartkäse, mitgekocht oder überbacken",
+          "komponenten": [
+            {
+              "tag": "kaeserinde-hart",
+              "zustand": "durcherhitzt"
             }
           ]
         },
@@ -6148,10 +6217,10 @@
         }
       ],
       "alternativen": [
-        "Rinde wegschneiden",
-        "Hartkäse"
+        "Den Teig ohne Rinde",
+        "Rinde in der Suppe mitkochen"
       ],
-      "frage": "Von welchem Käse?"
+      "frage": "Von welchem Käse, und wie?"
     },
     {
       "id": "mikrowelle",
@@ -6465,7 +6534,15 @@
       ],
       "varianten": [
         {
-          "label": null,
+          "label": "Aus dem Glas oder der Konserve",
+          "komponenten": [
+            {
+              "tag": "gemuese-gekocht"
+            }
+          ]
+        },
+        {
+          "label": "Offen von der Theke oder vom Buffet",
           "komponenten": [
             {
               "tag": "offene-ware"
@@ -6474,10 +6551,11 @@
         }
       ],
       "alternativen": [
-        "Antipasti aus dem geschlossenen Glas",
-        "Selbst eingelegtes Gemüse"
+        "Eingelegte Artischocken aus dem Glas",
+        "Oliven aus dem Glas",
+        "Warme Vorspeisen"
       ],
-      "eigener_text": "Offen angebotene Antipasti stehen lange und werden viel angefasst. Abgepackte Ware aus dem verschlossenen Glas ist die sichere Wahl."
+      "frage": "Woher stammen sie?"
     },
     {
       "id": "bruschetta",
@@ -6811,7 +6889,8 @@
         "Milchprodukte",
         "Durchgegarter Seefisch"
       ],
-      "frage": "Woraus?"
+      "frage": "Woraus?",
+      "eigener_text": "In der Schweiz ist Jodmangel das häufigere Problem, nicht der Überschuss: Frauen im gebärfähigen Alter nehmen im Mittel zu wenig auf, und der Bedarf steigt in der Schwangerschaft. Die Warnung unten gilt der Überdosierung durch Algenpräparate, nicht dem verordneten Jod."
     },
     {
       "id": "speisesalz",
@@ -7016,22 +7095,17 @@
     },
     {
       "id": "algen",
-      "name": "Algen und Nori",
+      "name": "Nori",
       "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": [
-        "algen",
         "nori",
-        "wakame",
-        "seetang",
-        "kombu",
-        "algensalat",
-        "spirulina",
-        "chlorella",
-        "afa-algen"
+        "noriblatt",
+        "sushi-blatt",
+        "algenblatt"
       ],
       "varianten": [
         {
-          "label": "Nori im Sushi oder als Würze",
+          "label": "Als Sushi-Blatt oder Würze",
           "komponenten": [
             {
               "tag": "jod-hochdosiert",
@@ -7040,7 +7114,39 @@
           ]
         },
         {
-          "label": "Als Salat oder in grösseren Mengen",
+          "label": "Als Snack in grösseren Mengen",
+          "komponenten": [
+            {
+              "tag": "jod-hochdosiert",
+              "zustand": "mengenbegrenzung"
+            }
+          ]
+        }
+      ],
+      "alternativen": [
+        "Gurken-Maki ohne Alge aussen",
+        "Reisbowl statt Rolle"
+      ],
+      "frage": "In welcher Menge?"
+    },
+    {
+      "id": "braunalgen",
+      "name": "Kombu, Wakame und Braunalgen",
+      "gruppe": "Fisch und Meeresfrüchte",
+      "synonyme": [
+        "kombu",
+        "wakame",
+        "hijiki",
+        "arame",
+        "seetang",
+        "braunalgen",
+        "algensalat",
+        "meeresalgen",
+        "kelp"
+      ],
+      "varianten": [
+        {
+          "label": "Gelegentlich als Beilage, etwa Wakame im Salat",
           "komponenten": [
             {
               "tag": "jod-hochdosiert",
@@ -7049,7 +7155,7 @@
           ]
         },
         {
-          "label": "Als Algen- oder Seetangpräparat",
+          "label": "Täglich, als Kelp-Pulver oder Präparat",
           "komponenten": [
             {
               "tag": "jod-hochdosiert"
@@ -7058,10 +7164,39 @@
         }
       ],
       "alternativen": [
+        "Nori",
         "Jodiertes Speisesalz",
         "Durchgegarter Seefisch"
       ],
-      "frage": "In welcher Menge?"
+      "frage": "Wie oft?"
+    },
+    {
+      "id": "spirulina",
+      "name": "Spirulina und Chlorella",
+      "gruppe": "Kräuter, Gewürze, Präparate",
+      "synonyme": [
+        "spirulina",
+        "chlorella",
+        "afa-algen",
+        "blaualgen",
+        "mikroalgen",
+        "algenpulver"
+      ],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [
+            {
+              "tag": "ergaenzung-schwankend"
+            }
+          ]
+        }
+      ],
+      "alternativen": [
+        "Ärztlich verordnete Nährstoffpräparate",
+        "Nori"
+      ],
+      "eigener_text": "Nicht wegen des Jods — Spirulina enthält davon wenig. Das Problem ist die Produktqualität: Blaualgenpräparate sind nicht wie Arzneimittel geprüft, und Gehalt wie Reinheit schwanken von Charge zu Charge."
     },
     {
       "id": "chia",

@@ -13,9 +13,16 @@
 import { bewerteLebensmittel } from '../src/engine/bewerten'
 import { bewerteteVorschlaege, eindeutigerVorschlag, suche } from '../src/engine/suchen'
 import { lebensmittelKatalog, regelKatalog } from '../src/daten'
-import type { Lebensmittel } from '../src/typen'
+import type { Lebensmittel, Status } from '../src/typen'
 
-const KURZ: Record<string, string> = { ok: 'JA', bedingt: 'BEDINGT', meiden: 'NEIN', unklar: 'UNKLAR' }
+// Record<Status, …> statt Record<string, …>: käme je ein Status dazu, meldet
+// das die Typprüfung, statt ihn hier stillschweigend als undefined auszugeben.
+const KURZ: Record<Status, string> = {
+  ok: 'JA',
+  bedingt: 'BEDINGT',
+  meiden: 'NEIN',
+  unklar: 'UNKLAR',
+}
 
 function urteilsZeile(eintrag: Lebensmittel): string {
   const urteil = bewerteLebensmittel(eintrag, regelKatalog)

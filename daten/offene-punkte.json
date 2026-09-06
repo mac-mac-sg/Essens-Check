@@ -330,6 +330,24 @@
         "quelle": "Keine — die Zuordnung folgt der üblichen Käseklassierung nach Wassergehalt.",
         "katalog_aenderung": "Bereits umgesetzt. Bei anderer Einschätzung: cheddar auf halbhartkaese umhängen."
       }
+    },
+    {
+      "id": "P17",
+      "titel": "Hartkäse bleibt ein Ja — nur die Rinde nicht",
+      "betrifft": [
+        "Hartkäse und Extrahartkäse",
+        "Käserinde",
+        "alle zwölf Einträge mit dem Tag hartkaese"
+      ],
+      "app_sagt": "Hartkäse: Ja. Die Rinde weggeschnitten: Ja. Die Rinde mitgegessen: Bedingt. Mitgekocht: Ja.",
+      "warum": "P03 verlangte, das Tag «hartkaese» wegen der Rinden-Bedingung von Ja auf Bedingt zu stellen. Das habe ich nicht getan. Es hätte zwölf Einträge betroffen und ausgerechnet den Rückfallweg der App entwertet — Hartkäse ist in fast jeder Alternativenliste die Antwort auf ein Nein. Stattdessen habe ich den echten Widerspruch behoben: der Rinden-Eintrag sagte «Von Hartkäse: Ja» und direkt darunter «Rinde entfernen». Die Rinde hat jetzt eine eigene Regel, der Käseteig bleibt ein Ja.",
+      "frage": "Reicht das, oder soll jedes Stück Hartkäse die Rückfrage nach der Rinde tragen? Das wäre strenger, würde aber die häufigste unbedenkliche Antwort der App zu einer bedingten machen.",
+      "pruefung": {
+        "status": "offen",
+        "befund": "Widerspruch behoben, die Grundsatzfrage bleibt. Nicht übernommen habe ich ausserdem die Angabe aus P03, Muscheln und Krabben trügen relevante Quecksilbermengen — Schalen- und Weichtiere liegen dort niedrig. Übernommen habe ich den Befund für Seeteufel und Wels: das sind Raubfische, ihr Ja hing allein am Garen.",
+        "quelle": "BLV zu Hart- und Extrahartkäse; BfR/EFSA-Messreihen zu Methylquecksilber nach Art.",
+        "katalog_aenderung": "Bereits umgesetzt. Bei anderer Einschätzung: hartkaese von einem Freigabe-Tag zu einer Regel mit Rinden-Entschärfung machen."
+      }
     }
   ],
   "zusammenfassung_fuer_die_durchsicht": {
@@ -353,7 +371,8 @@
       "P05",
       "P08",
       "P12",
-      "P16"
+      "P16",
+      "P17"
     ],
     "wichtigste_frage_an_die_hebamme": "P13 — trägt die BLV-Ausweitung auf Halbhartkäse im Alltag, und wie berät sie dazu? Davon hängt ab, wie streng die App im Schweizer Alltag insgesamt wirkt.",
     "strukturelle_lehre": "Drei der Befunde (P03, P11, P15) sind keine falschen Einzelurteile, sondern dieselbe Schwäche: der Katalog erzeugt Urteile aus einer einzigen Achse. Wo zwei unabhängige Risiken auf ein Lebensmittel treffen, braucht es eine Vorrangordnung zwischen den Regeln. Das ist eine Änderung an der Engine, nicht an den Daten."

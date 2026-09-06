@@ -50,6 +50,23 @@
       ]
     },
     {
+      "id": "listerien-kaeserinde",
+      "titel": "Rinde von Hartkäse",
+      "trifft_auf": [
+        "kaeserinde-hart"
+      ],
+      "status": "bedingt",
+      "begruendung": "Der Teig von Hart- und Extrahartkäse ist unbedenklich, die Rinde ist die Aussenseite: sie wird gebürstet, gewaschen oder geschmiert und hat Kontakt mit Regal, Tuch und Hand. Das BLV rät, sie wegzuschneiden.",
+      "entschaerfung": [
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Mitgekocht oder überbacken — etwa die Rinde in der Suppe — unbedenklich."
+        }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
       "id": "listerien-aufgewaermt",
       "titel": "Vorgekochtes und Aufgewärmtes",
       "trifft_auf": [
@@ -255,6 +272,17 @@
           "text": "Gelegentlich als Beilage ist unproblematisch — täglich Algensalat oder ein Präparat ist es nicht."
         }
       ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "ergaenzung-qualitaet",
+      "titel": "Nahrungsergänzung mit schwankender Produktqualität",
+      "trifft_auf": [
+        "ergaenzung-schwankend"
+      ],
+      "status": "meiden",
+      "begruendung": "Blaualgen- und Mikroalgenpräparate werden nicht wie Arzneimittel geprüft. Gehalt und Reinheit schwanken von Charge zu Charge; nachgewiesen wurden Schwermetalle und Cyanotoxine. In der Schwangerschaft ist das kein Restrisiko, das sich lohnt.",
+      "entschaerfung": [],
       "trimester_gewichtung": null
     },
     {

@@ -133,7 +133,7 @@ Formulierungen. Drei bewusste Abweichungen:
 
 ## Katalog
 
-284 Einträge mit 410 Varianten und rund 1400 Synonymen, entlang realer Suchbegriffe: Käsesorten,
+289 Einträge mit 430 Varianten und rund 1400 Synonymen, entlang realer Suchbegriffe: Käsesorten,
 Fischarten, Wurstwaren, Fertiggerichte, Restaurantklassiker, Getränke,
 Süsswaren, Kräuter und Gewürze, verbreitete Mythen.
 
@@ -141,9 +141,12 @@ Kein Eintrag bringt eine eigene Bewertung mit. Jeder verweist über
 Komponenten-Tags auf den Regelkatalog — die Urteile entstehen erst dort. Neue
 Lebensmittel sind damit reine Datenpflege.
 
-Zwei Prüfungen laufen bei jedem Testlauf mit: jedes verwendete Tag muss von
-einer Regel oder von `unbedenkliche_tags` abgedeckt sein, und kein Eintrag darf
-`unklar` ergeben. Ein Tippfehler in einem Tag fällt so sofort auf.
+Drei Prüfungen laufen bei jedem Testlauf mit: jedes verwendete Tag muss von
+einer Regel oder von `unbedenkliche_tags` abgedeckt sein, jeder verwendete
+Zustand muss von einer Regel behandelt werden, und kein Eintrag darf
+*versehentlich* `unklar` ergeben — also weil ein Tag keine Regel trifft. Eine
+erklärte Lücke über die Regel `nicht-bewertet` ist erlaubt und wird an der
+Begründung unterschieden. Ein Tippfehler in einem Tag fällt so sofort auf.
 
 ## Zwei Wege zur Antwort
 
