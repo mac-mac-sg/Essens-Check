@@ -152,6 +152,9 @@ Die Kopfzeile bleibt tannengrün, damit die App wiedererkennbar bleibt.
 
 Voreingestellt folgt das Schema `prefers-color-scheme`. Ein Schieberegler in der
 Fusszeile überschreibt das; die Wahl liegt im `localStorage` und gilt ab dann.
+Die Stellung steht zusätzlich als Wort daneben — nie Farbe allein. Rot kommt
+dafür nicht in Frage: es ist in dieser App die Farbe für «Besser nicht», und
+Rot gegen Grün fällt bei Rot-Grün-Schwäche zusammen.
 «Dem Gerät folgen» stellt die Automatik wieder her — ohne diesen Weg gäbe es
 kein Zurück. Solange dem Gerät gefolgt wird, zieht ein Wechsel dort sofort nach.
 
@@ -228,7 +231,9 @@ bleibt ein Nulltreffer.
 **Umgekehrte Frage.** Vom Startbildschirm aus erreichbar: «Was kann ich essen?»
 listet nach Warengruppe, was ein klares Ja hat, mit der Zubereitung, unter der
 es gilt. Die Gruppen sind zugeklappt — zwölf Titel auf einen Blick statt
-222 Einträge am Stück. `bedingt` bleibt draussen — eine Liste, die zum Zugreifen einlädt, darf
+222 Einträge am Stück. Geöffnet wird die Gruppe eine zusammenhängende Fläche
+mit Haarlinien zwischen den Zeilen — als blosse Textzeilen auf dem Seitengrund
+waren dreissig Einträge nicht auseinanderzuhalten. `bedingt` bleibt draussen — eine Liste, die zum Zugreifen einlädt, darf
 nichts enthalten, das noch eine Einschränkung mitbringt.
 
 Barrierefrei bis Kontrast AA, Tastaturfokus sichtbar, `prefers-reduced-motion`

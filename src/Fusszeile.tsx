@@ -37,6 +37,9 @@ export function Fusszeile({
         onClick={() => onWunsch(umgelegt(schema))}
       >
         <span>Dunkelmodus</span>
+        <span className="schema__stand" aria-hidden="true">
+          {dunkel ? 'An' : 'Aus'}
+        </span>
         <span className="schalter" aria-hidden="true">
           <span className="schalter__knopf" />
         </span>

@@ -227,9 +227,10 @@ Kontraste sind in beiden Schemata gemessen, alle Textpaare liegen über AA.
 
 Der Schalterknopf bewegt sich über `left`, nicht über `transform`: unter
 `prefers-reduced-motion` setzt das Stylesheet jede Transformation zurück, und
-der Knopf bliebe sonst am falschen Ende stehen. Ausgeschaltet ist die Fläche
-mit 1.15 gegen den Grund zu blass, um den Schalter zu zeigen — dort trägt eine
-gemessene Kante die Form.
+der Knopf bliebe sonst am falschen Ende stehen. Ausgeschaltet lag die Fläche
+bei 1.15 gegen den Grund und 1.26 gegen den Knopf — der Schalter war kaum zu
+sehen. Beide Stellungen tragen jetzt als volle Fläche (3.36 und 3.68 gegen den
+Grund), und die Stellung steht als Wort daneben.
 
 Die Skills unter `.agents/skills/` sind eingecheckt, damit spätere Arbeit an
 der Oberfläche auf derselben Grundlage aufsetzt.
