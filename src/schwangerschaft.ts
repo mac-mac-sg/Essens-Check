@@ -37,3 +37,24 @@ export function berechneStand(geburtstermin: string, heute: Date): Schwangerscha
 
   return { woche, tag, trimester, tageBis: verbleibend, anzeige: `${woche}+${tag}` }
 }
+
+/**
+ * Kurztext für die verbleibende Zeit. Steht als eigene Funktion hier, weil die
+ * Einzahl und der überschrittene Termin sonst leicht durchrutschen.
+ */
+export function restAnzeige(tageBis: number): string {
+  if (tageBis > 1) return `noch ${tageBis} Tage`
+  if (tageBis === 1) return 'noch 1 Tag'
+  if (tageBis === 0) return 'Heute'
+  if (tageBis === -1) return '1 Tag drüber'
+  return `${-tageBis} Tage drüber`
+}
+
+/**
+ * Anteil der zurückgelegten Schwangerschaft, 0 bis 1. Vor dem Termin
+ * abgeschnitten, damit die Anzeige nicht über den Rand hinausläuft.
+ */
+export function fortschritt(tageBis: number): number {
+  const vergangen = (SCHWANGERSCHAFT_IN_TAGEN - tageBis) / SCHWANGERSCHAFT_IN_TAGEN
+  return Math.min(1, Math.max(0, vergangen))
+}

@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type CSSProperties } from 'react'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
 import { findeNachId, MINDESTLAENGE, suche } from './engine/suchen'
 import { leseGeburtstermin } from './konfig'
-import { berechneStand } from './schwangerschaft'
+import { berechneStand, fortschritt, restAnzeige } from './schwangerschaft'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
 import { Scanergebnis } from './Scanergebnis'
@@ -60,17 +60,28 @@ export function App() {
 
   return (
     <div className="app">
-      <header className="kopfzeile">
+      <header
+        className="kopfzeile"
+        // Speist den Fortschrittsbalken an der Unterkante.
+        style={stand ? ({ '--anteil': `${fortschritt(stand.tageBis) * 100}%` } as CSSProperties) : undefined}
+      >
         <h1 className="kopfzeile__titel">Darf ich das essen?</h1>
         {stand ? (
-          <p className="kopfzeile__stand">
-            <span className="kopfzeile__woche">Woche {stand.anzeige}</span>
-            <span className="kopfzeile__trimester">{stand.trimester}. Trimester</span>
-            {stand.tageBis > 0 && <span className="kopfzeile__tage">noch {stand.tageBis} Tage</span>}
-          </p>
+          <button
+            className="stand"
+            type="button"
+            onClick={() => setTerminBearbeiten(true)}
+            aria-label={`Woche ${stand.anzeige}, ${stand.trimester}. Trimester, ${restAnzeige(
+              stand.tageBis,
+            )}. Geburtstermin ändern`}
+          >
+            <span className="stand__woche">{stand.anzeige}</span>
+            <span className="stand__trenner" aria-hidden="true" />
+            <span className="stand__rest">{restAnzeige(stand.tageBis)}</span>
+          </button>
         ) : (
           <button
-            className="kopfzeile__eintragen"
+            className="stand stand--leer"
             type="button"
             onClick={() => setTerminBearbeiten(true)}
           >

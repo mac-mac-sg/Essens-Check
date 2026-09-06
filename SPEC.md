@@ -161,9 +161,16 @@ gesetzt als der Fliesstext. Keine Versalien-Labels.
 
 **Aufbau**
 
-1. Kopfzeile in Tannengrün: Titel links, Schwangerschaftswoche und Trimester rechts.
-   Ist kein Termin eingetragen, steht dort stattdessen die Einladung, einen zu
-   erfassen — nie eine geratene Woche.
+1. Kopfzeile in Tannengrün: Titel links, der Stand als Fläche rechts — Woche und
+   verbleibende Zeit auf einer Pille, die zugleich zum Geburtstermin führt. Der
+   Stand ist damit anfassbar statt nur lesbar; vorher liess sich der Termin nur
+   über die Fusszeile ändern. Ist kein Termin eingetragen, steht dort die
+   Einladung, einen zu erfassen — nie eine geratene Woche.
+
+   An der Unterkante der Leiste zeigt ein zwei Pixel hoher Balken, wie weit die
+   Schwangerschaft ist. Er sass zuerst als Füllung in der Pille; dort drückte er
+   den gemessenen Kontrast der leisen Zeile auf 4.03 und damit unter AA. An der
+   Kante liegt kein Text darauf.
 2. Suchfeld direkt darunter, beim Start fokussiert. Häufige Begriffe als Chips.
 3. Trefferliste ab zwei Zeichen.
 4. Ergebniskarte: Name, dann bei Zubereitungsabhängigkeit **alle Varianten

@@ -54,7 +54,9 @@ veröffentlichte Seite aufruft, sieht keine Woche.
 
 Ohne Termin funktioniert die Suche unverändert; es fehlen die Wochenanzeige und
 die Hinweise zum Trimester. Eine falsche Woche wird nie angezeigt: unplausible
-Eingaben werden abgewiesen, und ohne Termin bleibt die Anzeige leer.
+Eingaben werden abgewiesen, ohne Termin bleibt die Anzeige leer, und ein
+beschädigter Wert im Speicher gilt als kein Termin. Ein solcher Wert ergab
+zuvor eine Wochenanzeige aus «NaN» — sichtbar im Kopf jeder Ansicht.
 
 Für die lokale Entwicklung lässt sich ein Termin über `VITE_GEBURTSTERMIN`
 vorgeben; gesetzt ist die Variable nicht.

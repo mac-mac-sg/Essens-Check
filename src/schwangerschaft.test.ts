@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { berechneStand } from './schwangerschaft'
+import { berechneStand, fortschritt, restAnzeige } from './schwangerschaft'
 
 const TERMIN = '2030-01-01'
 
@@ -31,5 +31,31 @@ describe('berechneStand', () => {
     const stand = berechneStand(TERMIN, new Date('2029-10-09T09:00:00'))
     expect(stand.woche).toBe(28)
     expect(stand.trimester).toBe(3)
+  })
+})
+
+describe('restAnzeige', () => {
+  it('setzt Einzahl und Mehrzahl richtig', () => {
+    expect(restAnzeige(195)).toBe('noch 195 Tage')
+    expect(restAnzeige(2)).toBe('noch 2 Tage')
+    expect(restAnzeige(1)).toBe('noch 1 Tag')
+  })
+
+  it('benennt den Termintag und die Zeit danach', () => {
+    expect(restAnzeige(0)).toBe('Heute')
+    expect(restAnzeige(-1)).toBe('1 Tag drüber')
+    expect(restAnzeige(-6)).toBe('6 Tage drüber')
+  })
+})
+
+describe('fortschritt', () => {
+  it('läuft von null bis eins', () => {
+    expect(fortschritt(280)).toBe(0)
+    expect(fortschritt(140)).toBe(0.5)
+    expect(fortschritt(0)).toBe(1)
+  })
+
+  it('bleibt bei überschrittenem Termin bei eins', () => {
+    expect(fortschritt(-14)).toBe(1)
   })
 })

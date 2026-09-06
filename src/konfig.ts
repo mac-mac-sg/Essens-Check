@@ -10,15 +10,28 @@
  */
 const SCHLUESSEL = 'essens-check.geburtstermin'
 
-/** ISO-Datum oder null, wenn noch keiner eingetragen wurde. */
+/** Nur ein wirklich lesbares Datum. Alles andere gilt als nicht vorhanden. */
+function alsDatum(wert: string | null | undefined): string | null {
+  if (!wert) return null
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(wert)) return null
+  return Number.isNaN(new Date(`${wert}T00:00:00Z`).getTime()) ? null : wert
+}
+
+/**
+ * ISO-Datum oder null, wenn noch keiner eingetragen wurde.
+ *
+ * Was im Speicher steht, wird geprüft. Ein beschädigter Wert ergab sonst eine
+ * Wochenanzeige aus «NaN» — und die stand ungefragt im Kopf jeder Ansicht.
+ * Ohne brauchbares Datum fragt die App lieber neu.
+ */
 export function leseGeburtstermin(): string | null {
   try {
-    const gespeichert = localStorage.getItem(SCHLUESSEL)
+    const gespeichert = alsDatum(localStorage.getItem(SCHLUESSEL))
     if (gespeichert) return gespeichert
   } catch {
     // Privater Modus oder gesperrter Speicher — dann eben ohne.
   }
-  return import.meta.env.VITE_GEBURTSTERMIN ?? null
+  return alsDatum(import.meta.env.VITE_GEBURTSTERMIN)
 }
 
 export function speichereGeburtstermin(datum: string): void {

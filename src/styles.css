@@ -29,7 +29,10 @@
   --schatten: 0 1px 2px rgba(22, 33, 28, 0.04), 0 8px 24px rgba(22, 33, 28, 0.06);
   --kopfzeile: rgba(20, 67, 47, 0.92);
   --kopfzeile-still: rgba(255, 255, 255, 0.14);
-  --kopfzeile-gedrueckt: rgba(255, 255, 255, 0.22);
+  --kopfzeile-gedrueckt: rgba(255, 255, 255, 0.19);
+  --kopfzeile-balken: rgba(255, 255, 255, 0.72);
+  --kopfzeile-spur: rgba(255, 255, 255, 0.10);
+  --kopfzeile-leise: #e9f2ed;
 
   --radius: 20px;
   --radius-klein: 12px;
@@ -139,13 +142,31 @@ body {
   z-index: 10;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--spur);
-  padding: calc(0.875rem + env(safe-area-inset-top)) var(--spur) 0.875rem;
+  flex-wrap: wrap;
+  gap: 0.5rem var(--spur);
+  padding: calc(0.75rem + env(safe-area-inset-top)) var(--spur) 0.75rem;
   background: var(--kopfzeile);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   color: #ffffff;
+}
+
+/*
+ * Der zurückgelegte Teil der Schwangerschaft, an der Unterkante der Leiste.
+ * Er sass zuerst als Füllung in der Pille — dort drückte er den gemessenen
+ * Kontrast der leisen Zeile auf 4.03 und damit unter AA. Hier liegt kein Text
+ * darauf, und die Angabe ist auf einen Blick da, statt gelesen zu werden.
+ */
+.kopfzeile::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    var(--kopfzeile-balken) 0 var(--anteil, 0%),
+    var(--kopfzeile-spur) var(--anteil, 0%)
+  );
 }
 
 .kopfzeile__titel {
@@ -158,46 +179,85 @@ body {
   letter-spacing: -0.021em;
 }
 
-.kopfzeile__stand {
-  margin: 0;
-  text-align: right;
-  font-size: 0.8125rem;
-  line-height: 1.35;
-  font-variant-numeric: tabular-nums;
-}
-
-.kopfzeile__woche {
-  display: block;
-  font-weight: 600;
-  white-space: nowrap;
-  /* Kleine Schrift braucht etwas mehr Luft zwischen den Zeichen. */
-  letter-spacing: 0.005em;
-}
-
-.kopfzeile__trimester,
-.kopfzeile__tage {
-  display: block;
-  white-space: nowrap;
-  color: #b9cfc2;
-}
-
-.kopfzeile__eintragen {
-  padding: 0.45rem 0.85rem;
-  font-family: inherit;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: #ffffff;
+/*
+ * Der Stand ist eine Fläche, kein Textblock: er sagt, wie weit es ist, und ist
+ * zugleich der Weg zum Termin. Vorher stand die Angabe als drei lose Zeilen da
+ * und war nirgends anfassbar — der Termin liess sich nur über die Fusszeile
+ * ändern.
+ *
+ * Der gefüllte Anteil links zeigt den Fortschritt der Schwangerschaft. Er ist
+ * eine Tönung, keine zweite durchscheinende Ebene: Milchglas auf Milchglas
+ * frisst die Lesbarkeit.
+ */
+.stand {
+  flex: 0 0 auto;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Fingerbreit hoch, nicht textbreit. */
+  min-height: 2.625rem;
+  padding: 0 0.875rem;
   background: var(--kopfzeile-still);
   border: none;
   border-radius: 999px;
+  /* Helle Oberkante: das Licht, das sich auf der Fläche fängt. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-family: inherit;
   cursor: pointer;
   white-space: nowrap;
   transition: transform 140ms var(--ease-out), background-color 140ms ease;
 }
 
-.kopfzeile__eintragen:active {
-  transform: scale(0.96);
+/*
+ * Auch unter prefers-reduced-motion bleibt eine Rückmeldung: dort setzt das
+ * Stylesheet jede Transformation zurück, die Flächenfarbe aber nicht.
+ */
+.stand:active {
+  transform: scale(0.97);
   background: var(--kopfzeile-gedrueckt);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stand:hover {
+    background: var(--kopfzeile-gedrueckt);
+  }
+}
+
+.stand__woche {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  /* Zahlen gleich breit, damit die Fläche beim Tageswechsel nicht springt. */
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.stand__trenner {
+  width: 1px;
+  height: 0.9375rem;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.stand__rest {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  /* Auf durchscheinendem Grund trägt blasses Grau nicht — lieber heller. */
+  letter-spacing: 0.005em;
+  color: var(--kopfzeile-leise);
+}
+
+.stand--leer {
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+/*
+ * Der allgemeine Fokusring ist tannengrün — auf der tannengrünen Leiste wäre
+ * er unsichtbar. Auf dunklem Grund ringt Weiss.
+ */
+.kopfzeile :focus-visible {
+  outline-color: #ffffff;
 }
 
 .inhalt {
@@ -906,6 +966,11 @@ body {
 
 /* Wer mehr Kontrast will, bekommt definierte Ränder zurück. */
 @media (prefers-contrast: more) {
+  /* Auf der dunklen Leiste wäre der dunkle Rand unsichtbar. */
+  .stand {
+    border: 1px solid rgba(255, 255, 255, 0.85);
+  }
+
   .karte,
   .suchfeld,
   .chip,
