@@ -5,124 +5,217 @@
     {
       "id": "listerien-nicht-erhitzt",
       "titel": "Listerien in nicht erhitzten Lebensmitteln",
-      "trifft_auf": ["rohmilch-weichkaese", "rohmilch-trinken", "kalt-geraeuchert", "offene-ware", "softeis-maschine", "vorgeschnitten"],
+      "trifft_auf": [
+        "rohmilch-weichkaese",
+        "rohmilch-trinken",
+        "kalt-geraeuchert",
+        "offene-ware",
+        "softeis-maschine",
+        "vorgeschnitten"
+      ],
       "status": "meiden",
       "begruendung": "Listerien vermehren sich auch im Kühlschrank. Eine Infektion verläuft bei der Mutter oft harmlos, kann aber auf das Kind übergehen.",
       "entschaerfung": [
-        { "durch": "durcherhitzt", "auf": "ok", "text": "Über 70 °C Kerntemperatur werden Listerien abgetötet." }
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Über 70 °C Kerntemperatur werden Listerien abgetötet."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "listerien-weichkaese",
       "titel": "Weichkäse",
-      "trifft_auf": ["rohmilch-weichkaese"],
+      "trifft_auf": [
+        "rohmilch-weichkaese"
+      ],
       "status": "meiden",
       "begruendung": "Hoher Wassergehalt und kurze Reifung lassen Listerien wachsen. Hartkäse ist davon nicht betroffen.",
       "entschaerfung": [
-        { "durch": "durcherhitzt", "auf": "ok", "text": "Überbacken oder in der Sauce mitgekocht unbedenklich." },
-        { "durch": "pasteurisiert", "auf": "meiden", "text": "Pasteurisierte Milch nimmt nur einen Teil des Risikos. Weichkäse reift feucht und wenig sauer; Listerien können nach dem Erhitzen der Milch wieder hineingelangen und wachsen bis zum Verfalldatum weiter. Erhitzt ist er unbedenklich." }
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Überbacken oder in der Sauce mitgekocht unbedenklich."
+        },
+        {
+          "durch": "pasteurisiert",
+          "auf": "meiden",
+          "text": "Pasteurisierte Milch nimmt nur einen Teil des Risikos. Weichkäse reift feucht und wenig sauer; Listerien können nach dem Erhitzen der Milch wieder hineingelangen und wachsen bis zum Verfalldatum weiter. Erhitzt ist er unbedenklich."
+        }
       ],
       "trimester_gewichtung": null,
-      "nicht_entschaerfbar_durch": ["rohmilch"]
+      "nicht_entschaerfbar_durch": [
+        "rohmilch"
+      ]
     },
     {
       "id": "listerien-aufgewaermt",
       "titel": "Vorgekochtes und Aufgewärmtes",
-      "trifft_auf": ["aufgewaermt"],
+      "trifft_auf": [
+        "aufgewaermt"
+      ],
       "status": "bedingt",
       "begruendung": "Gekochtes, das gekühlt gestanden hat, kann sich mit Listerien belasten — sie wachsen auch im Kühlschrank. Entscheidend ist nicht, dass es gekocht war, sondern dass es vor dem Essen wieder richtig heiss wird.",
       "entschaerfung": [
-        { "durch": "durcherhitzt", "auf": "ok", "text": "Durchgehend heiss, nicht nur am Rand — dampfend serviert." }
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Durchgehend heiss, nicht nur am Rand — dampfend serviert."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "toxoplasmose-rohes-fleisch",
       "titel": "Toxoplasmose durch rohes oder luftgetrocknetes Fleisch",
-      "trifft_auf": ["fleisch-roh", "fleisch-rosa", "rohwurst", "trockenfleisch"],
+      "trifft_auf": [
+        "fleisch-roh",
+        "fleisch-rosa",
+        "rohwurst",
+        "trockenfleisch"
+      ],
       "status": "meiden",
       "begruendung": "Rohes Fleisch ist die häufigste Infektionsquelle. Relevant für alle ohne durchgemachte Toxoplasmose — das ist die Mehrheit.",
       "entschaerfung": [
-        { "durch": "durcherhitzt", "auf": "ok", "text": "Kerntemperatur über 70 °C, kein rosa Fleischsaft mehr." },
-        { "durch": "tiefgefroren-3-tage", "auf": "bedingt", "text": "Mehrere Tage bei −18 °C inaktivieren Toxoplasmen, nicht aber Listerien." }
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Kerntemperatur über 70 °C, kein rosa Fleischsaft mehr."
+        },
+        {
+          "durch": "tiefgefroren-3-tage",
+          "auf": "bedingt",
+          "text": "Mehrere Tage bei −18 °C inaktivieren Toxoplasmen, nicht aber Listerien."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "toxoplasmose-erdkontakt",
       "titel": "Erdreste an Gemüse und Früchten",
-      "trifft_auf": ["erdgemuese-ungewaschen", "beeren-bodennah"],
+      "trifft_auf": [
+        "erdgemuese-ungewaschen",
+        "beeren-bodennah"
+      ],
       "status": "bedingt",
       "begruendung": "Toxoplasmose-Oozysten überdauern im Erdreich.",
       "entschaerfung": [
-        { "durch": "gewaschen", "auf": "ok", "text": "Gründlich waschen oder schälen genügt." },
-        { "durch": "gekocht", "auf": "ok", "text": "Gegartes Gemüse ist unbedenklich." }
+        {
+          "durch": "gewaschen",
+          "auf": "ok",
+          "text": "Gründlich waschen oder schälen genügt."
+        },
+        {
+          "durch": "gekocht",
+          "auf": "ok",
+          "text": "Gegartes Gemüse ist unbedenklich."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "salmonellen-rohei",
       "titel": "Rohes Ei",
-      "trifft_auf": ["ei-roh", "ei-weich"],
+      "trifft_auf": [
+        "ei-roh",
+        "ei-weich"
+      ],
       "status": "meiden",
       "begruendung": "Salmonellen überleben in nicht durchgegartem Ei. Betrifft auch Speisen, in denen rohes Ei nur Zutat ist.",
       "entschaerfung": [
-        { "durch": "pasteurisiert", "auf": "ok", "text": "Industriell verarbeitetes Ei ist pasteurisiert." },
-        { "durch": "durchgegart", "auf": "ok", "text": "Eigelb und Eiweiss fest." }
+        {
+          "durch": "pasteurisiert",
+          "auf": "ok",
+          "text": "Industriell verarbeitetes Ei ist pasteurisiert."
+        },
+        {
+          "durch": "durchgegart",
+          "auf": "ok",
+          "text": "Eigelb und Eiweiss fest."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "salmonellen-gefluegel",
       "titel": "Geflügel",
-      "trifft_auf": ["gefluegel"],
+      "trifft_auf": [
+        "gefluegel"
+      ],
       "status": "bedingt",
       "begruendung": "Salmonellenrisiko bei ungenügender Garung und über Küchen-Kreuzkontamination.",
       "entschaerfung": [
-        { "durch": "durcherhitzt", "auf": "ok", "text": "Vollständig durchgaren, Schneidebretter trennen." }
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Vollständig durchgaren, Schneidebretter trennen."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "viren-rohe-schalentiere",
       "titel": "Rohe Schalen- und Weichtiere",
-      "trifft_auf": ["schalentier-roh"],
+      "trifft_auf": [
+        "schalentier-roh"
+      ],
       "status": "meiden",
       "begruendung": "Austern und rohe Muscheln filtern Wasser und reichern Noroviren und Vibrionen an.",
       "entschaerfung": [
-        { "durch": "durcherhitzt", "auf": "ok", "text": "Gekocht unbedenklich; nicht geöffnete Muscheln wegwerfen." }
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Gekocht unbedenklich; nicht geöffnete Muscheln wegwerfen."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "parasiten-roher-fisch",
       "titel": "Roher Fisch",
-      "trifft_auf": ["fisch-roh"],
+      "trifft_auf": [
+        "fisch-roh"
+      ],
       "status": "meiden",
       "begruendung": "Listerien und Parasiten. Betrifft Sushi, Sashimi, Ceviche und gebeizten Fisch.",
       "entschaerfung": [
-        { "durch": "durcherhitzt", "auf": "ok", "text": "Durchgegarter Fisch ist empfehlenswert — ein bis zwei Portionen fetter Fisch pro Woche." }
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Durchgegarter Fisch ist empfehlenswert — ein bis zwei Portionen fetter Fisch pro Woche."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "quecksilber-raubfisch",
       "titel": "Quecksilber in grossen Raubfischen",
-      "trifft_auf": ["raubfisch-hoch", "raubfisch-mittel"],
+      "trifft_auf": [
+        "raubfisch-hoch",
+        "raubfisch-mittel"
+      ],
       "status": "meiden",
       "begruendung": "Methylquecksilber reichert sich entlang der Nahrungskette an und wirkt auf das kindliche Nervensystem.",
       "grenze": "Thunfisch höchstens einmal pro Woche — die Menge zählt über die Woche, nicht pro Mahlzeit.",
       "entschaerfung": [
-        { "durch": "mengenbegrenzung", "auf": "bedingt", "text": "Thunfisch höchstens einmal pro Woche; Schwertfisch, Hai und Marlin ganz weglassen." }
+        {
+          "durch": "mengenbegrenzung",
+          "auf": "bedingt",
+          "text": "Thunfisch höchstens einmal pro Woche; Schwertfisch, Hai und Marlin ganz weglassen."
+        }
       ],
       "trimester_gewichtung": null,
-      "nicht_entschaerfbar_durch": ["durcherhitzt"]
+      "nicht_entschaerfbar_durch": [
+        "durcherhitzt"
+      ]
     },
     {
       "id": "dioxin-fettfisch",
       "titel": "Dioxine und PCB in fettem Fisch",
-      "trifft_auf": ["dioxin-fisch"],
+      "trifft_auf": [
+        "dioxin-fisch"
+      ],
       "status": "meiden",
       "begruendung": "Aal und fetter Fisch aus belasteten Gewässern reichern Dioxine und PCB im Fettgewebe an. Anders als Keime verschwinden sie beim Garen nicht.",
       "entschaerfung": [],
@@ -131,7 +224,10 @@
     {
       "id": "retinol-vitamin-a",
       "titel": "Vitamin A als Retinol",
-      "trifft_auf": ["leber", "retinol-supplement"],
+      "trifft_auf": [
+        "leber",
+        "retinol-supplement"
+      ],
       "status": "meiden",
       "begruendung": "Hohe Retinoldosen wirken fruchtschädigend. Beta-Carotin aus Gemüse ist davon nicht betroffen.",
       "entschaerfung": [],
@@ -141,55 +237,87 @@
     {
       "id": "jod-ueberschuss",
       "titel": "Zu viel Jod",
-      "trifft_auf": ["jod-hochdosiert"],
+      "trifft_auf": [
+        "jod-hochdosiert"
+      ],
       "status": "meiden",
       "begruendung": "Der Jodbedarf steigt in der Schwangerschaft, die Spanne zwischen zu wenig und zu viel ist aber schmal. Zu viel belastet die kindliche Schilddrüse. Kritisch sind Algen- und Seetangpräparate: ihr Jodgehalt schwankt stark und liegt oft weit über dem Bedarf.",
       "grenze": "Nori als Würze fällt nicht ins Gewicht; Algen als tägliche Beilage schon.",
       "entschaerfung": [
-        { "durch": "speisemenge", "auf": "ok", "text": "Ein Blatt Nori im Sushi oder eine Prise als Würze fällt nicht ins Gewicht." },
-        { "durch": "mengenbegrenzung", "auf": "bedingt", "text": "Gelegentlich als Beilage ist unproblematisch — täglich Algensalat oder ein Präparat ist es nicht." }
+        {
+          "durch": "speisemenge",
+          "auf": "ok",
+          "text": "Ein Blatt Nori im Sushi oder eine Prise als Würze fällt nicht ins Gewicht."
+        },
+        {
+          "durch": "mengenbegrenzung",
+          "auf": "bedingt",
+          "text": "Gelegentlich als Beilage ist unproblematisch — täglich Algensalat oder ein Präparat ist es nicht."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "koffein-limit",
       "titel": "Koffein",
-      "trifft_auf": ["koffein"],
+      "trifft_auf": [
+        "koffein"
+      ],
       "status": "bedingt",
       "begruendung": "Bis rund 200 mg pro Tag gelten als unbedenklich — etwa zwei Tassen Filterkaffee.",
       "grenze": "Zählt aufs Tagesbudget: Schwarztee, Grüntee, Cola, Energydrink und Schokolade kommen dazu.",
       "entschaerfung": [
-        { "durch": "koffeinfrei", "auf": "ok", "text": "Entkoffeinierte Varianten sind unbegrenzt möglich." }
+        {
+          "durch": "koffeinfrei",
+          "auf": "ok",
+          "text": "Entkoffeinierte Varianten sind unbegrenzt möglich."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "alkohol",
       "titel": "Alkohol",
-      "trifft_auf": ["alkohol"],
+      "trifft_auf": [
+        "alkohol"
+      ],
       "status": "meiden",
       "begruendung": "Es gibt keine bekannte unbedenkliche Menge. Alkohol geht direkt auf das Kind über.",
       "entschaerfung": [
-        { "durch": "null-komma-null", "auf": "ok", "text": "Nur Produkte mit ausgewiesenen 0,0 Prozent; als alkoholfrei gilt in der Schweiz bis 0,5 Volumenprozent." }
+        {
+          "durch": "null-komma-null",
+          "auf": "ok",
+          "text": "Nur Produkte mit ausgewiesenen 0,0 Prozent; als alkoholfrei gilt in der Schweiz bis 0,5 Volumenprozent."
+        }
       ],
       "trimester_gewichtung": null,
-      "nicht_entschaerfbar_durch": ["durcherhitzt"]
+      "nicht_entschaerfbar_durch": [
+        "durcherhitzt"
+      ]
     },
     {
       "id": "keimlinge",
       "titel": "Rohe Sprossen und Keimlinge",
-      "trifft_auf": ["keimling-roh"],
+      "trifft_auf": [
+        "keimling-roh"
+      ],
       "status": "meiden",
       "begruendung": "Die feucht-warme Keimung begünstigt Salmonellen und E. coli. Waschen hilft nicht.",
       "entschaerfung": [
-        { "durch": "durcherhitzt", "auf": "ok", "text": "Kurz mitgebraten oder blanchiert unbedenklich." }
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Kurz mitgebraten oder blanchiert unbedenklich."
+        }
       ],
       "trimester_gewichtung": null
     },
     {
       "id": "botulismus-saeugling",
       "titel": "Honig für Säuglinge",
-      "trifft_auf": ["honig-saeugling"],
+      "trifft_auf": [
+        "honig-saeugling"
+      ],
       "status": "meiden",
       "begruendung": "Honig kann Sporen von Clostridium botulinum enthalten. Der Darm eines Säuglings kann sie nicht abwehren. Im ersten Lebensjahr deshalb kein Honig — auch nicht im Tee, im Brei oder am Nuggi.",
       "entschaerfung": [],
@@ -198,7 +326,9 @@
     {
       "id": "glycyrrhizin",
       "titel": "Lakritze",
-      "trifft_auf": ["lakritz"],
+      "trifft_auf": [
+        "lakritz"
+      ],
       "status": "bedingt",
       "begruendung": "Grössere Mengen Glycyrrhizin können den Blutdruck erhöhen.",
       "grenze": "Gelegentlich unproblematisch, täglich nicht.",
@@ -208,37 +338,167 @@
     {
       "id": "wehenfoerdernde-kraeuter",
       "titel": "Wehenfördernde Kräuter",
-      "trifft_auf": ["kraut-wehenfoerdernd"],
+      "trifft_auf": [
+        "kraut-wehenfoerdernd"
+      ],
       "status": "bedingt",
       "begruendung": "Salbei, Himbeerblätter und Zimtrinde in Teemengen erst gegen Ende der Schwangerschaft und nach Rücksprache mit der Hebamme.",
       "entschaerfung": [],
       "trimester_gewichtung": 3,
       "trimester_text": "Gegen Ende der Schwangerschaft teilweise erwünscht — das entscheidet die Hebamme, nicht diese App."
+    },
+    {
+      "id": "listerien-halbhartkaese",
+      "titel": "Halbhartkäse",
+      "trifft_auf": [
+        "halbhartkaese"
+      ],
+      "status": "meiden",
+      "begruendung": "Das BLV hat seine Empfehlung ausgeweitet, nachdem Listerien auch in Halbhartkäse aus pasteurisierter Milch nachgewiesen wurden. Halbhartkäse reift kürzer und feuchter als Hartkäse; die Herstellungsschritte, die Hartkäse sicher machen, greifen hier nicht. Betrifft roh, thermisiert und pasteurisiert gleichermassen.",
+      "entschaerfung": [
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Geschmolzen oder überbacken — Raclette, Fondue, Gratin — unbedenklich, wenn durchgehend heiss."
+        }
+      ],
+      "trimester_gewichtung": null,
+      "nicht_entschaerfbar_durch": [
+        "pasteurisiert",
+        "rohmilch"
+      ]
+    },
+    {
+      "id": "listerien-frischkaese-stueckig",
+      "titel": "Stückiger Frischkäse",
+      "trifft_auf": [
+        "frischkaese-stueckig"
+      ],
+      "status": "meiden",
+      "begruendung": "Kleine stückige Frischkäse mit hohem Wassergehalt — Formaggini, Schaf- und Ziegenfrischkäsli, Apérokäsli — führt das BLV getrennt von streichfähigem Frischkäse und rät davon ab.",
+      "entschaerfung": [
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Überbacken oder mitgekocht unbedenklich."
+        }
+      ],
+      "trimester_gewichtung": null,
+      "nicht_entschaerfbar_durch": [
+        "pasteurisiert"
+      ]
+    },
+    {
+      "id": "nicht-bewertet",
+      "titel": "Nicht bewertet",
+      "trifft_auf": [
+        "nicht-bewertet"
+      ],
+      "status": "unklar",
+      "begruendung": "Dieser Bereich liegt ausserhalb dessen, was der Regelkatalog abbildet. Das ist eine erklärte Lücke und keine Freigabe.",
+      "entschaerfung": [],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "innereien-schadstoffe",
+      "titel": "Innereien",
+      "trifft_auf": [
+        "innereien-schadstoffe"
+      ],
+      "status": "bedingt",
+      "begruendung": "Innereien reichern neben Retinol auch Schwermetalle und andere Schadstoffe an. Mehrere Fachstellen raten in der Schwangerschaft generell davon ab, nicht nur von Leber.",
+      "entschaerfung": [],
+      "trimester_gewichtung": null
     }
   ],
   "zustaende": [
-    "roh", "durcherhitzt", "durchgegart", "gekocht", "fleisch-rosa",
-    "pasteurisiert", "rohmilch", "kalt-geraeuchert", "tiefgefroren-3-tage",
-    "gewaschen", "koffeinfrei", "null-komma-null", "mengenbegrenzung",
-    "speisemenge", "offene-ware", "abgepackt"
+    "roh",
+    "durcherhitzt",
+    "durchgegart",
+    "gekocht",
+    "fleisch-rosa",
+    "pasteurisiert",
+    "rohmilch",
+    "kalt-geraeuchert",
+    "tiefgefroren-3-tage",
+    "gewaschen",
+    "koffeinfrei",
+    "null-komma-null",
+    "mengenbegrenzung",
+    "speisemenge",
+    "offene-ware",
+    "abgepackt"
   ],
-  "status_rangfolge": ["ok", "bedingt", "meiden", "unklar"],
+  "status_rangfolge": [
+    "ok",
+    "bedingt",
+    "meiden",
+    "unklar"
+  ],
   "unbedenkliche_tags": [
-    { "tag": "hartkaese", "text": "Niedriger Wassergehalt und lange Reifung lassen Listerien nicht wachsen." },
-    { "tag": "fisch-gegart", "text": "Durchgegarter Fisch ist unbedenklich und ausdrücklich empfohlen." },
-    { "tag": "fleisch-durchgegart", "text": "Vollständig durchgegartes Fleisch ist unbedenklich." },
-    { "tag": "obst-gewaschen", "text": "Gewaschenes Obst ist unbedenklich." },
-    { "tag": "gemuese-gekocht", "text": "Gekochtes Gemüse ist unbedenklich." },
-    { "tag": "huelsenfrucht-gekocht", "text": "Gekochte Hülsenfrüchte sind unbedenklich." },
-    { "tag": "getreide", "text": "Brot, Teigwaren, Reis und Flocken sind unbedenklich." },
-    { "tag": "milch-pasteurisiert", "text": "Pasteurisierte Milch und Milchprodukte sind unbedenklich." },
-    { "tag": "frischkaese-pasteurisiert", "text": "Frisch- und Salzlakenkäse aus pasteurisierter Milch sind unbedenklich; nach dem Öffnen gekühlt lagern und rasch aufbrauchen." },
-    { "tag": "nuesse", "text": "Nüsse und Samen sind unbedenklich." },
-    { "tag": "oel-fett", "text": "Speiseöl und Butter aus pasteurisiertem Rahm sind unbedenklich." },
-    { "tag": "gewuerz", "text": "Küchengewürze und koffeinfreie Aufgüsse ohne wehenfördernde Wirkung sind in Speisemengen unbedenklich." },
-    { "tag": "zucker-suessware", "text": "Zucker und Süsswaren ohne weitere Risikozutat sind unbedenklich." },
-    { "tag": "honig", "text": "Honig ist für die Schwangere unbedenklich." },
-    { "tag": "wasser", "text": "Leitungswasser ist in der Schweiz unbedenklich." },
-    { "tag": "naehrstoff-praeparat", "text": "Nährstoffpräparate in der verordneten Dosis sind unbedenklich. Über die Menge entscheidet die Ärztin, nicht diese App." }
+    {
+      "tag": "hartkaese",
+      "text": "Hart- und Extrahartkäse sind auch aus Rohmilch unbedenklich: hohe Brenntemperatur, niedriger Wassergehalt und lange Reifung lassen Listerien nicht wachsen. Rinde entfernen. Halbhartkäse fällt NICHT darunter — dafür gilt die eigene Regel."
+    },
+    {
+      "tag": "fisch-gegart",
+      "text": "Durchgegarter Fisch ist unbedenklich und ausdrücklich empfohlen. Garen beseitigt Keime und Parasiten, nicht aber Quecksilber — bei belasteten Arten gilt zusätzlich die Quecksilberregel."
+    },
+    {
+      "tag": "fleisch-durchgegart",
+      "text": "Vollständig durchgegartes Fleisch ist unbedenklich."
+    },
+    {
+      "tag": "obst-gewaschen",
+      "text": "Gewaschenes Obst ist unbedenklich."
+    },
+    {
+      "tag": "gemuese-gekocht",
+      "text": "Gekochtes Gemüse ist unbedenklich."
+    },
+    {
+      "tag": "huelsenfrucht-gekocht",
+      "text": "Gekochte Hülsenfrüchte sind unbedenklich."
+    },
+    {
+      "tag": "getreide",
+      "text": "Brot, Teigwaren, Reis und Flocken sind unbedenklich."
+    },
+    {
+      "tag": "milch-pasteurisiert",
+      "text": "Pasteurisierte Milch und Milchprodukte sind unbedenklich."
+    },
+    {
+      "tag": "frischkaese-pasteurisiert",
+      "text": "Streichfähiger und körniger Frischkäse aus pasteurisierter Milch ist unbedenklich (Quark, Hüttenkäse, Streichfrischkäse, Ricotta, Mascarpone, Schmelzkäse), ebenso Mozzarella und Burrata, die bei der Herstellung erhitzt werden. Nach dem Öffnen gekühlt lagern und rasch aufbrauchen. Salzlakenkäse und stückiger Frischkäse fallen NICHT darunter."
+    },
+    {
+      "tag": "nuesse",
+      "text": "Nüsse und Samen sind unbedenklich."
+    },
+    {
+      "tag": "oel-fett",
+      "text": "Speiseöl und Butter aus pasteurisiertem Rahm sind unbedenklich."
+    },
+    {
+      "tag": "gewuerz",
+      "text": "Küchengewürze und koffeinfreie Aufgüsse ohne wehenfördernde Wirkung sind in Speisemengen unbedenklich."
+    },
+    {
+      "tag": "zucker-suessware",
+      "text": "Zucker und Süsswaren ohne weitere Risikozutat sind unbedenklich."
+    },
+    {
+      "tag": "honig",
+      "text": "Honig ist für die Schwangere unbedenklich."
+    },
+    {
+      "tag": "wasser",
+      "text": "Leitungswasser ist in der Schweiz unbedenklich."
+    },
+    {
+      "tag": "naehrstoff-praeparat",
+      "text": "Nährstoffpräparate in der verordneten Dosis sind unbedenklich. Über die Menge entscheidet die Ärztin, nicht diese App."
+    }
   ]
 }

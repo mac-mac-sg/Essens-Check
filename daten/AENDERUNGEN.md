@@ -1,0 +1,30 @@
+# Korrekturen v0.2 -> v0.3
+
+- regeln: Text zu 'hartkaese' korrigiert, Halbhartkäse ausgenommen (BLV)
+- regeln: 'fisch-gegart' als nicht abschliessend gekennzeichnet (Quecksilber)
+- regeln: 'Salzlakenkäse' aus dem Freigabetext entfernt — das war die Feta-Freigabe (BLV)
+- regeln: NEUE Regel 'listerien-halbhartkaese' (meiden, entschärfbar durch durcherhitzt)
+- regeln: NEUE Regel 'listerien-frischkaese-stueckig'
+- regeln: NEUE Regel 'nicht-bewertet' (Status unklar) — die vierte Kategorie war bisher unbenutzt
+- hartkaese: Halbhartkäse-Synonyme entfernt, Rinde-Bedingung präzisiert
+- NEU: Eintrag 'halbhartkaese' (kalt meiden / geschmolzen ok)
+- tete-de-moine: von 'hartkaese' auf 'halbhartkaese' (BLV nennt ihn namentlich); Freitext korrigiert
+- raclette: Variante 'kalt' ergänzt — vorher Ja unabhängig vom Schmelzen
+- fondue: Urteil bleibt ok, wird aber über 'durcherhitzt' statt über 'hartkaese' abgeleitet
+- halloumi: Variante 'roh' ergänzt
+- feta: pasteurisierte Variante von ok auf meiden (BLV nennt Feta namentlich); Ofen-Variante ergänzt
+- mozzarella/burrata: Urteil bestätigt (BLV), Begründung auf die Herstellungserhitzung umgestellt
+- NEU: Eintrag 'formaggini' (stückiger Frischkäse)
+- heilbutt: Quecksilber-Tag ergänzt — gegart ergab bisher ein bedingungsloses Ja
+- rotbarsch: Quecksilber-Tag ergänzt — gegart ergab bisher ein bedingungsloses Ja
+- makrele: Quecksilber-Tag ergänzt — gegart ergab bisher ein bedingungsloses Ja
+- zander: Quecksilber-Tag ergänzt — gegart ergab bisher ein bedingungsloses Ja
+- tintenfisch: Quecksilber-Tag zur durchgegarten Variante ergänzt
+- innereien: von ok auf bedingt; neue Regel 'innereien-schadstoffe'
+- johanniskraut: von bedingt auf unklar — die Tag-Bezeichnung behauptete eine Wirkung, die der Text verneint
+- truthahn: Garzustandsfrage ergänzt (fehlte als einzigem Fleisch-Eintrag seiner Art)
+- sauser: dritte Variante für frisch gepressten Most; Erkennungsmerkmale statt Geschmack
+- robiola: fehlende Variante 'durcherhitzt' ergänzt
+- camembert: Synonym 'tomme' entfernt (gehört zum Halbhartkäse)
+- fleischkonserve: 'ravioli/chili aus der dose' entfernt — die fallen unter die Aufwärmregel
+- 17 doppelt vergebene Synonyme entfernt, darunter alle 8 mit abweichendem Urteil
