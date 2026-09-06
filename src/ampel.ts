@@ -18,8 +18,18 @@ export const AMPEL: Record<import('./typen').Status, Ampelstufe> = {
   ok: { wort: 'Ja', kurz: 'Ja' },
   bedingt: { wort: 'Mit Bedingung', kurz: 'Bedingt' },
   meiden: { wort: 'Besser nicht', kurz: 'Nein' },
-  unklar: { wort: 'Nicht hinterlegt', kurz: 'Unklar' },
+  unklar: { wort: 'Nicht bewertet', kurz: 'Unklar' },
 }
+
+/**
+ * Wortlaut für die Suche ohne Treffer.
+ *
+ * Bewusst nicht `AMPEL.unklar.wort`: die beiden Fälle sehen gleich aus, meinen
+ * aber Verschiedenes. «Nicht bewertet» heisst, der Eintrag steht im Katalog und
+ * die App sagt bewusst nichts dazu. Hier steht er gar nicht drin. Wer beides
+ * gleich beschriftet, nimmt der erklärten Lücke ihre Aussage.
+ */
+export const NICHTS_GEFUNDEN = 'Nichts gefunden'
 
 /** Häufige Begriffe als Einstieg. Alle im Katalog hinterlegt. */
 export const BELIEBT = ['Camembert', 'Lachs', 'Kaffee', 'Salami', 'Tiramisu', 'Thunfisch']

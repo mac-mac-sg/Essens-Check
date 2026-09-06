@@ -1112,7 +1112,10 @@
         "tete de moine",
         "mönchskopf",
         "edamer",
-        "gouda"
+        "gouda",
+        "maasdam",
+        "gouda jung",
+        "schnittkäse"
       ],
       "varianten": [
         {
@@ -7870,13 +7873,10 @@
     },
     {
       "id": "cheddar",
-      "name": "Cheddar und Gouda",
+      "name": "Cheddar",
       "gruppe": "Käse",
       "synonyme": [
-        "cheddar",
-        "gouda",
-        "edamer",
-        "maasdam"
+        "cheddar"
       ],
       "varianten": [
         {
@@ -7888,8 +7888,12 @@
           ]
         }
       ],
-      "alternativen": [],
-      "eigener_text": "Gereifter Schnitt- und Hartkäse ist unbedenklich."
+      "alternativen": [
+        "Gruyère",
+        "Sbrinz",
+        "Emmentaler"
+      ],
+      "eigener_text": "Gereifter Cheddar ist ein Hartkäse und unbedenklich. Gouda, Edamer und Maasdam gehören dagegen zum Halbhartkäse und werden dort behandelt."
     },
     {
       "id": "sushi-ingwer",
@@ -8261,10 +8265,18 @@
       ],
       "varianten": [
         {
-          "label": "Hartkäse und Halbhartkäse",
+          "label": "Hartkäse und Extrahartkäse",
           "komponenten": [
             {
               "tag": "hartkaese"
+            }
+          ]
+        },
+        {
+          "label": "Halbhartkäse, kalt gegessen",
+          "komponenten": [
+            {
+              "tag": "halbhartkaese"
             }
           ]
         },
@@ -8297,7 +8309,8 @@
         }
       ],
       "alternativen": [
-        "Hartkäse wie Gruyère oder Sbrinz",
+        "Hartkäse wie Gruyère, Emmentaler oder Sbrinz",
+        "Derselbe Käse geschmolzen",
         "Frischkäse aus pasteurisierter Milch"
       ],
       "frage": "Welche Sorte?"

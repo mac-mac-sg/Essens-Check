@@ -1,6 +1,6 @@
 {
-  "version": "0.1",
-  "hinweis": "Regelkatalog. Jede Regel beschreibt EIN Risikoprinzip. Lebensmittel verweisen über Komponenten-Tags auf diese Regeln. Vor produktivem Einsatz durch Hebamme oder Gynäkologin gegenlesen lassen.",
+  "version": "0.3",
+  "hinweis": "Regelkatalog. Jede Regel beschreibt EIN Risikoprinzip. Lebensmittel verweisen über Komponenten-Tags auf diese Regeln. Vor produktivem Einsatz durch Hebamme oder Gynäkologin gegenlesen lassen. Version 0.3: gegen die BLV-Empfehlungen zu Milchprodukten geprüft, um Regeln für Halbhartkäse, stückigen Frischkäse, Aufgewärmtes, Dioxine und erklärte Lücken erweitert; weiterhin nicht fachlich verifiziert.",
   "regeln": [
     {
       "id": "listerien-nicht-erhitzt",

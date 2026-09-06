@@ -101,7 +101,7 @@ Pro Variante:
    reine Schweregrad-Skala. `unklar` schlägt `ok` und `bedingt`, weil Unwissen
    nie zur Freigabe oder zur blossen Einschränkung werden darf. `meiden`
    schlägt `unklar`, weil ein unbewerteter Bestandteil sonst ein bekanntes Nein
-   verdeckte — die Karte sagte «Nicht hinterlegt», obwohl die App das
+   verdeckte — die Karte sagte «Nicht bewertet», obwohl die App das
    Entscheidende weiss.
 4. Begründungen der auslösenden Regeln zusammenführen, Duplikate entfernen.
 5. Regeln mit `trimester_gewichtung` erzeugen nur im passenden Trimester einen

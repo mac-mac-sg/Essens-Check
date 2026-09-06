@@ -1,4 +1,4 @@
-import { AMPEL, BELIEBT } from './ampel'
+import { BELIEBT, NICHTS_GEFUNDEN } from './ampel'
 import { MAX_TREFFER } from './engine/suchen'
 import type { Lebensmittel } from './typen'
 
@@ -131,7 +131,7 @@ export function Suchansicht({
       {gesucht && treffer.length === 0 && (
         <div className="karte karte--ergebnis" role="status">
           <span className="urteil" data-status="unklar">
-            {AMPEL.unklar.wort}
+            {NICHTS_GEFUNDEN}
           </span>
           <p className="text">
             Zu «{begriff.trim()}» ist hier nichts geprüft hinterlegt. Statt zu raten: im

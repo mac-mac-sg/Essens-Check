@@ -2,7 +2,7 @@
  * Erzeugt die Prüfliste für die Hebamme aus den echten Daten.
  *
  * Nichts hier ist abgetippt: Regeln, Einträge und Urteile kommen aus den
- * Katalogen und der Regelmaschine, die offenen Fragen aus pruefliste.json.
+ * Katalogen und der Regelmaschine, die offenen Fragen aus offene-punkte.json.
  * Damit veraltet die Liste nicht, sobald sich die Daten ändern.
  *
  * Aufruf: npm run hebammenliste > hebammenliste.html
@@ -11,7 +11,7 @@
  */
 import { bewerteLebensmittel } from '../src/engine/bewerten'
 import { lebensmittelKatalog, regelKatalog } from '../src/daten'
-import pruefliste from '@daten/pruefliste.json'
+import offenePunkte from '@daten/offene-punkte.json'
 import type { Lebensmittel, Status } from '../src/typen'
 
 const WORT: Record<Status, string> = {
@@ -24,6 +24,14 @@ const WORT: Record<Status, string> = {
 const e = (text: string) =>
   text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
+/**
+ * Eine Zeile im Definitionsblock, aber nur wenn es etwas zu sagen gibt.
+ * `quelle` ist bei Ermessenspunkten null — dort gibt es schlicht keine Quelle,
+ * und eine leere Zeile «Quelle:» behauptete das Gegenteil.
+ */
+const zeile = (titel: string, wert: string | null | undefined) =>
+  wert ? `<dt>${e(titel)}</dt><dd>${e(wert)}</dd>` : ''
+
 const datum = new Date().toLocaleDateString('de-CH', {
   day: '2-digit',
   month: 'long',
@@ -34,6 +42,15 @@ function chip(status: Status, label?: string | null): string {
   return `<span class="chip" data-status="${status}">${WORT[status]}${
     label ? `<span class="chip__label">${e(label)}</span>` : ''
   }</span>`
+}
+
+/**
+ * Der Prüfstand borgt sich die Farbskala der Urteile, aber nicht deren Wörter.
+ * «Bedingt» neben «Widerspricht der Quelle» läse sich, als sei das Lebensmittel
+ * gemeint — es geht aber um die Quellenlage.
+ */
+function standChip(status: Status, wort: string): string {
+  return `<span class="chip" data-status="${status}">${e(wort)}</span>`
 }
 
 function eintragZeile(eintrag: Lebensmittel): string {
@@ -48,10 +65,20 @@ function eintragZeile(eintrag: Lebensmittel): string {
 }
 
 // --- Teil 1: offene Entscheidungen -----------------------------------------
-const punkte = pruefliste.punkte
-  .map(
-    (p, i) => `<article class="punkt">
-  <div class="punkt__zahl" aria-hidden="true">${i + 1}</div>
+
+/** Der Quellenprüfstand je Punkt, auf dieselbe Farbskala wie die Urteile. */
+const PRUEFSTAND: Record<string, { wort: string; status: Status }> = {
+  bestaetigt: { wort: 'Durch Quellen gedeckt', status: 'ok' },
+  korrigiert: { wort: 'Widerspricht der Quelle', status: 'bedingt' },
+  offen: { wort: 'Bleibt Ermessen', status: 'unklar' },
+}
+
+const punkte = offenePunkte.punkte
+  .map((p) => {
+    const pruefung = p.pruefung
+    const stand = pruefung ? PRUEFSTAND[pruefung.status] : undefined
+    return `<article class="punkt">
+  <div class="punkt__zahl" aria-hidden="true">${e(p.id)}</div>
   <div class="punkt__inhalt">
     <h3>${e(p.titel)}</h3>
     <p class="punkt__betrifft">${p.betrifft.map((b) => `<span>${e(b)}</span>`).join('')}</p>
@@ -60,10 +87,37 @@ const punkte = pruefliste.punkte
       <dt>Warum</dt><dd>${e(p.warum)}</dd>
       <dt>Meine Frage</dt><dd class="punkt__frage">${e(p.frage)}</dd>
     </dl>
+    ${
+      pruefung && stand
+        ? `<div class="pruefung">
+      <p class="pruefung__kopf">${standChip(stand.status, stand.wort)}<span>Quellenprüfung</span></p>
+      <dl>
+        ${zeile('Befund', pruefung.befund)}
+        ${zeile('Quelle', pruefung.quelle)}
+        ${zeile('Folge', pruefung.katalog_aenderung)}
+      </dl>
+    </div>`
+        : ''
+    }
   </div>
-</article>`,
-  )
+</article>`
+  })
   .join('\n')
+
+const meta = offenePunkte.pruefung
+const summe = offenePunkte.zusammenfassung_fuer_die_durchsicht
+const quellenblock = `<div class="quellen">
+  <h3>Woran geprüft wurde</h3>
+  <ul>${meta.quellen.map((q) => `<li>${e(q)}</li>`).join('')}</ul>
+  <p class="quellen__umfang"><strong>Umfang:</strong> ${e(meta.umfang)}</p>
+  <p class="quellen__kern"><strong>Kernbefund:</strong> ${e(meta.kernbefund)}</p>
+  <p class="quellen__summe">
+    <span>${summe.erledigt_durch_quellenpruefung.length} durch Quellen erledigt</span>
+    <span>${summe.korrigiert_und_umzusetzen.length} zu ändern</span>
+    <span>${summe.bleibt_fachliches_ermessen.length} bleiben Ihre Einschätzung: ${summe.bleibt_fachliches_ermessen.map(e).join(', ')}</span>
+  </p>
+  <p class="quellen__frage"><strong>Wichtigste Frage:</strong> ${e(summe.wichtigste_frage_an_die_hebamme)}</p>
+</div>`
 
 // --- Teil 2: Regelkatalog ---------------------------------------------------
 const regeln = regelKatalog.regeln
@@ -235,8 +289,8 @@ code { font-family: var(--mono); font-size: 0.8125em; }
   padding: 1.5rem 1.5rem 1.25rem;
 }
 .punkt__zahl {
-  flex: 0 0 1.75rem; font-size: 1.375rem; font-weight: 700; line-height: 1.1;
-  color: var(--tanne); font-variant-numeric: tabular-nums;
+  flex: 0 0 2.4rem; font-size: 0.9375rem; font-weight: 700; line-height: 1.5;
+  color: var(--tanne); font-family: var(--mono); letter-spacing: 0.02em;
 }
 .punkt__inhalt { min-width: 0; flex: 1; }
 .punkt__betrifft {
@@ -255,6 +309,20 @@ code { font-family: var(--mono); font-size: 0.8125em; }
 }
 .punkt dd { margin: 0; font-size: 0.9375rem; line-height: 1.55; }
 .punkt__frage { font-weight: 600; color: var(--tanne); }
+
+/* Was die Quellenprüfung ergab — abgesetzt, weil es eine andere Stimme ist. */
+.pruefung { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid var(--linie); }
+.pruefung__kopf { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.6rem; font-family: var(--grotesk); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--leise); }
+.pruefung dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; }
+.pruefung dd { font-size: 0.875rem; line-height: 1.5; color: var(--zweit); }
+
+.quellen { background: var(--blatt); border-radius: 4px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.quellen h3 { margin-bottom: 0.6rem; }
+.quellen ul { margin: 0 0 1rem; padding-left: 1.1rem; font-size: 0.875rem; line-height: 1.5; color: var(--zweit); }
+.quellen p { font-size: 0.9375rem; line-height: 1.55; }
+.quellen__kern { padding-left: 0.8rem; border-left: 3px solid var(--bed-schrift); }
+.quellen__summe { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-family: var(--mono); font-size: 0.8125rem; color: var(--leise); }
+.quellen__frage { margin-bottom: 0; color: var(--tanne); }
 
 /* Regeln */
 .regeln { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr)); }
@@ -322,6 +390,7 @@ ${kopfZu}
   <p>Teil 1 sind die zwölf Stellen, an denen meine Zeit am wenigsten wert war und Ihre am meisten. Teil 2 zeigt die Regeln, aus denen alle Urteile entstehen — steht dort etwas schief, betrifft es viele Einträge auf einmal. Teil 3 ist der vollständige Katalog zum Querlesen.</p>
   <p class="kopf__zahlen">
     <span>Stand ${datum}</span>
+    <span>${offenePunkte.punkte.length} offene Punkte</span>
     <span>${regelKatalog.regeln.length} Regeln</span>
     <span>${regelKatalog.unbedenkliche_tags.length} Freigaben</span>
     <span>${lebensmittelKatalog.lebensmittel.length} Einträge</span>
@@ -331,7 +400,8 @@ ${kopfZu}
 
 <div class="bahn">
   <div class="teil"><span class="teil__zahl">Teil 1</span><h2>Offene Entscheidungen</h2></div>
-  <p class="teil__text">Jede dieser zwölf habe ich getroffen, ohne sie fachlich absichern zu können. Sie können sich auf die Nummer beziehen.</p>
+  <p class="teil__text">Jede davon habe ich getroffen, ohne sie fachlich absichern zu können. Eine Quellenprüfung hat weggeräumt, was sich an Referenzempfehlungen entscheiden liess — was bleibt, ist Ihre Einschätzung. Sie können sich auf die Nummer beziehen.</p>
+  ${quellenblock}
   <div class="punkte">
 ${punkte}
   </div>

@@ -354,7 +354,7 @@ describe('Vorrang von «unklar»', () => {
   })
 
   it('unterliegt einem bekannten Nein, statt es zu verdecken', () => {
-    // Der eigentliche Grund für die Rangfolge: «Nicht hinterlegt» neben einem
+    // Der eigentliche Grund für die Rangfolge: «Nicht bewertet» neben einem
     // bekannten Risiko liest sich, als wisse die App nichts — dabei weiss sie
     // das Entscheidende. Ein bekanntes Nein ist ebenso schützend und weit
     // brauchbarer.
@@ -388,12 +388,33 @@ describe('Katalogabdeckung', () => {
     expect(fehlend).toEqual([])
   })
 
-  it('lässt keinen Katalogeintrag unklar werden', () => {
+  it('lässt keinen Katalogeintrag versehentlich unklar werden', () => {
+    // «unklar» darf vorkommen, aber nur als erklärte Lücke über eine Regel —
+    // nie, weil ein Tag weder eine Regel noch eine Freigabe trifft. Genau das
+    // wäre ein Tippfehler im Katalog, und genau den soll dieser Test finden.
+    //
+    // Unterscheidbar sind die beiden an der Begründung: der Notfall trägt die
+    // Marke 'unklar', die erklärte Lücke die ID ihrer Regel. Geprüft wird auf
+    // Komponentenebene, weil `eigener_text` die Begründung der Variante
+    // ersetzt und den Unterschied sonst verdecken würde.
     for (const eintrag of lebensmittelKatalog.lebensmittel) {
       for (const variante of bewerteLebensmittel(eintrag, regelKatalog).varianten) {
-        expect(variante.status, `${eintrag.id}/${variante.label}`).not.toBe('unklar')
+        expect(variante.komponenten.length, `${eintrag.id}/${variante.label}: leere Variante`)
+          .toBeGreaterThan(0)
+        for (const komponente of variante.komponenten) {
+          expect(
+            komponente.begruendungen.some((b) => b.regel === 'unklar'),
+            `${eintrag.id}: Tag «${komponente.tag}» trifft keine Regel und keine Freigabe`,
+          ).toBe(false)
+        }
       }
     }
+  })
+
+  it('lässt die erklärte Lücke aber zu und nennt ihre Regel', () => {
+    const variante = urteilVon('johanniskraut').varianten[0]
+    expect(variante?.status).toBe('unklar')
+    expect(variante?.komponenten[0]?.begruendungen[0]?.regel).toBe('nicht-bewertet')
   })
 
   /**
@@ -406,9 +427,25 @@ describe('Katalogabdeckung', () => {
       // Weichkäse: die strengere der beiden Listerien-Regeln gewinnt
       camembert: ['meiden', 'meiden', 'ok'],
       hartkaese: ['ok'],
-      feta: ['ok', 'meiden'],
+      // BLV: auch pasteurisierter Feta gilt als ungeeignet, überbacken nicht.
+      feta: ['meiden', 'meiden', 'ok'],
+      // Halbhartkäse ist die BLV-Ausweitung — kalt nein, geschmolzen ja.
+      halbhartkaese: ['meiden', 'ok'],
+      formaggini: ['meiden', 'ok'],
+      raclette: ['ok', 'meiden'],
+      'tete-de-moine': ['meiden', 'ok'],
+      fondue: ['ok'],
+      halloumi: ['ok', 'meiden'],
+      mozzarella: ['ok', 'meiden'],
+      // Gereifter Cheddar bleibt Hartkäse; Gouda und Edamer sind ausgezogen.
+      cheddar: ['ok'],
+      'kaese-allgemein': ['ok', 'meiden', 'meiden', 'meiden', 'ok'],
       // Fisch: Garung, Räucherung, Quecksilber
       lachs: ['ok', 'meiden', 'meiden'],
+      // Quecksilber überlebt das Garen — gegart deshalb bedingt, nicht ok.
+      heilbutt: ['bedingt', 'meiden'],
+      makrele: ['bedingt', 'meiden'],
+      tintenfisch: ['bedingt', 'meiden'],
       thunfisch: ['bedingt', 'meiden'],
       schwertfisch: ['meiden'],
       // Fleisch: Toxoplasmose und ihre Entschärfungen
@@ -430,6 +467,12 @@ describe('Katalogabdeckung', () => {
       kraeutertee: ['bedingt'],
       // Der Adressat entscheidet, nicht der Fliesstext
       saeuglingshonig: ['ok', 'meiden'],
+      // Innereien tragen Schadstoffe über das Retinol hinaus
+      innereien: ['bedingt'],
+      // Erklärte Lücke, kein Versehen
+      johanniskraut: ['unklar'],
+      truthahn: ['ok', 'bedingt'],
+      sauser: ['ok', 'bedingt', 'meiden'],
       // Bodennah gesammelt, deshalb wie frische Kräuter behandelt
       baerlauch: ['ok', 'ok', 'bedingt'],
       // Waschen, Keime, offene Ware

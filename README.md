@@ -88,6 +88,14 @@ strengere Lesart. Konkret heisst das:
 - Ein Status, den die Rangfolge nicht kennt, gilt als der stärkste. Ein
   Tippfehler in den Daten macht die Auskunft strenger, nie milder.
 
+### Zwei Beschriftungen, die gleich aussahen
+
+`unklar` erscheint in zwei Lagen, die verschieden sind. Ein Eintrag mit der
+Regel `nicht-bewertet` steht im Katalog, und die App sagt bewusst nichts dazu
+— seine Karte sagt **«Nicht bewertet»**. Eine Suche ohne Treffer bedeutet, dass
+der Begriff gar nicht im Katalog steht — sie sagt **«Nichts gefunden»**. Beides
+trug vorher dasselbe Wort, was der erklärten Lücke ihre Aussage nahm.
+
 ### Wo «unklar» steht
 
 `status_rangfolge` ist `["ok", "bedingt", "unklar", "meiden"]` — wer weiter
@@ -96,7 +104,7 @@ hinten steht, gewinnt. Das ist bewusst keine reine Schweregrad-Skala:
 `unklar` schlägt `ok` und `bedingt`, denn Unwissen darf nie zur Freigabe oder
 zur blossen Einschränkung werden. Aber `meiden` schlägt `unklar`. Stünde es
 umgekehrt, verdeckte ein unbewerteter Bestandteil ein bekanntes Nein: die Karte
-sagte «Nicht hinterlegt», also «wir wissen nichts», obwohl die App das
+sagte «Nicht bewertet», also «dazu sagen wir nichts», obwohl die App das
 Entscheidende weiss. Ein bekanntes Nein ist ebenso schützend und weit
 brauchbarer.
 
@@ -299,14 +307,11 @@ Wer eine Entscheidung korrigiert, führt die Datei nach: sie soll zeigen, was
 noch offen ist, nicht was einmal offen war.
 
 `npm run hebammenliste` erzeugt aus den Katalogdateien ein Dokument zum
-Gegenlesen: Teil 1 die offenen Entscheidungen, Teil 2 die Regeln, Teil 3 alle
-Einträge mit ihrem Urteil. Nichts darin ist abgetippt — ändern sich die Daten,
+Gegenlesen: Teil 1 die offenen Entscheidungen samt ihrer Quellenprüfung, Teil 2
+die Regeln, Teil 3 alle Einträge mit ihrem Urteil. Nichts darin ist abgetippt — ändern sich die Daten,
 stimmt die Liste wieder. Mit `-- --artefakt` kommt die Seite ohne eigenes
 HTML-Gerüst, zum Veröffentlichen.
 
-> Das Skript liest zurzeit noch die ältere `daten/pruefliste.json` mit zwölf
-> Punkten. Bis es auf `offene-punkte.json` umgestellt ist, zeigt das erzeugte
-> Dokument den überholten Stand.
 
 ## Vorbehalt
 
