@@ -269,6 +269,18 @@ Repo je umbenannt, muss er an beiden Stellen mitgeändert werden.
 Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 64 Unit-Tests und
 5 Offline-Prüfungen.
 
+## Fachliche Durchsicht
+
+`npm run hebammenliste` erzeugt aus den Katalogdateien ein Dokument zum
+Gegenlesen: Teil 1 die offenen inhaltlichen Entscheidungen aus
+`daten/pruefliste.json`, Teil 2 die Regeln, Teil 3 alle Einträge mit ihrem
+Urteil. Nichts darin ist abgetippt — ändern sich die Daten, stimmt die Liste
+wieder. Mit `-- --artefakt` kommt die Seite ohne eigenes HTML-Gerüst, zum
+Veröffentlichen.
+
+Wer eine Entscheidung korrigiert, führt `daten/pruefliste.json` nach: die
+Liste soll zeigen, was noch offen ist, nicht was einmal offen war.
+
 ## Vorbehalt
 
 Die Inhalte orientieren sich an den gängigen Schweizer Empfehlungen, sind aber
