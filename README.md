@@ -85,6 +85,20 @@ strengere Lesart. Konkret heisst das:
 - Passen mehrere Entschärfungen auf denselben Zustand, greift die strengste.
 - Trifft eine Regel, schlägt sie eine Freigabe aus `unbedenkliche_tags`.
 - Eine Variante ohne Komponenten ergibt `unklar`, nie `ok`.
+- Ein Status, den die Rangfolge nicht kennt, gilt als der stärkste. Ein
+  Tippfehler in den Daten macht die Auskunft strenger, nie milder.
+
+### Wo «unklar» steht
+
+`status_rangfolge` ist `["ok", "bedingt", "unklar", "meiden"]` — wer weiter
+hinten steht, gewinnt. Das ist bewusst keine reine Schweregrad-Skala:
+
+`unklar` schlägt `ok` und `bedingt`, denn Unwissen darf nie zur Freigabe oder
+zur blossen Einschränkung werden. Aber `meiden` schlägt `unklar`. Stünde es
+umgekehrt, verdeckte ein unbewerteter Bestandteil ein bekanntes Nein: die Karte
+sagte «Nicht hinterlegt», also «wir wissen nichts», obwohl die App das
+Entscheidende weiss. Ein bekanntes Nein ist ebenso schützend und weit
+brauchbarer.
 
 Sichtbarster Fall: auf `rohmilch-weichkaese` greifen zwei Regeln.
 `listerien-weichkaese` stuft `pasteurisiert` auf `bedingt` herab,

@@ -44,7 +44,14 @@ export interface RegelKatalog {
   hinweis: string
   regeln: Regel[]
   zustaende: string[]
-  /** Von unbedenklich nach bedenklich. Der Index ist der Schweregrad. */
+  /**
+   * Vorrang bei mehreren Urteilen: Wer weiter hinten steht, gewinnt.
+   *
+   * Das ist keine reine Schweregrad-Skala. `unklar` schlägt `ok` und
+   * `bedingt`, weil Unwissen nie zur Freigabe oder zur blossen Bedingung
+   * werden darf. Aber `meiden` schlägt `unklar`: ein bekanntes Nein ist
+   * ebenso schützend und deutlich brauchbarer als «wissen wir nicht».
+   */
   status_rangfolge: Status[]
   unbedenkliche_tags: UnbedenklicherTag[]
 }

@@ -55,13 +55,19 @@ export interface Urteil {
 export const UNKLAR_TEXT =
   'Zu dieser Zutat ist keine Bewertung hinterlegt. Im Zweifel die Hebamme fragen.'
 
-/** Schweregrad eines Status. Unbekanntes gilt als am schwersten. */
+/**
+ * Vorrang eines Status. Ein Status, den die Rangfolge nicht kennt, gilt als
+ * der stärkste — ein Tippfehler in den Daten macht die Auskunft strenger,
+ * nicht milder.
+ */
 function rang(status: Status, rangfolge: Status[]): number {
   const index = rangfolge.indexOf(status)
   return index === -1 ? rangfolge.length : index
 }
 
 /**
+ * Das Urteil mit dem höchsten Vorrang gewinnt.
+ *
  * Ohne jede Aussage gibt es kein Urteil: eine leere Liste ergibt «unklar»,
  * nicht «ok». Sonst wäre ein Datenfehler eine stillschweigende Freigabe.
  */

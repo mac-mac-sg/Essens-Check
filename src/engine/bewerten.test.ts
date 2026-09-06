@@ -338,6 +338,42 @@ describe('Im Zweifel das strengere Argument', () => {
   })
 })
 
+describe('Vorrang von «unklar»', () => {
+  const gemischt = (...tags: string[]) =>
+    bewerteVariante({ label: null, komponenten: tags.map((tag) => ({ tag })) }, regelKatalog)
+      .status
+
+  it('schlägt eine Freigabe — Unwissen wird nie zum Ja', () => {
+    expect(gemischt('getreide')).toBe('ok')
+    expect(gemischt('getreide', 'nicht-bewertet')).toBe('unklar')
+  })
+
+  it('schlägt eine Bedingung — Unwissen wird nie zur blossen Einschränkung', () => {
+    expect(gemischt('gefluegel')).toBe('bedingt')
+    expect(gemischt('gefluegel', 'nicht-bewertet')).toBe('unklar')
+  })
+
+  it('unterliegt einem bekannten Nein, statt es zu verdecken', () => {
+    // Der eigentliche Grund für die Rangfolge: «Nicht hinterlegt» neben einem
+    // bekannten Risiko liest sich, als wisse die App nichts — dabei weiss sie
+    // das Entscheidende. Ein bekanntes Nein ist ebenso schützend und weit
+    // brauchbarer.
+    expect(gemischt('fisch-roh')).toBe('meiden')
+    expect(gemischt('fisch-roh', 'nicht-bewertet')).toBe('meiden')
+  })
+
+  it('gilt genauso für ein Tag, das gar keine Regel kennt', () => {
+    expect(gemischt('gibt-es-nicht')).toBe('unklar')
+    expect(gemischt('gibt-es-nicht', 'fisch-roh')).toBe('meiden')
+    expect(gemischt('gibt-es-nicht', 'getreide')).toBe('unklar')
+  })
+
+  it('hält die Reihenfolge selbst fest', () => {
+    // Wer sie umstellt, dreht damit stillschweigend Urteile.
+    expect(regelKatalog.status_rangfolge).toEqual(['ok', 'bedingt', 'unklar', 'meiden'])
+  })
+})
+
 describe('Katalogabdeckung', () => {
   it('löst jede Regel mit mindestens einem Lebensmittel aus', () => {
     const ausgeloest = new Set<string>()

@@ -90,11 +90,19 @@ Pro Variante:
 1. Für jede Komponente alle Regeln sammeln, deren `trifft_auf` das Tag enthält.
 2. Zustand der Komponente gegen `entschaerfung` prüfen, Status entsprechend herabstufen.
    `nicht_entschaerfbar_durch` blockiert das (Quecksilber verschwindet nicht durch Kochen).
-3. Schlechtester Status aller Komponenten gewinnt. Dasselbe gilt, wo mehrere
-   Regeln dasselbe Tag treffen oder mehrere Entschärfungen auf denselben Zustand
+3. Der Status mit dem höchsten Vorrang gewinnt — die Reihenfolge steht in
+   `status_rangfolge`, hinten schlägt vorn. Dasselbe gilt, wo mehrere Regeln
+   dasselbe Tag treffen oder mehrere Entschärfungen auf denselben Zustand
    passen: bei Widerspruch oder Mehrdeutigkeit greift stets das strengere
    Argument. Trifft eine Regel, schlägt sie eine Freigabe aus `unbedenkliche_tags`.
    Eine Komponentenliste ohne Einträge ergibt `unklar`, nie `ok`.
+
+   Die Reihenfolge lautet `ok`, `bedingt`, `unklar`, `meiden` und ist keine
+   reine Schweregrad-Skala. `unklar` schlägt `ok` und `bedingt`, weil Unwissen
+   nie zur Freigabe oder zur blossen Einschränkung werden darf. `meiden`
+   schlägt `unklar`, weil ein unbewerteter Bestandteil sonst ein bekanntes Nein
+   verdeckte — die Karte sagte «Nicht hinterlegt», obwohl die App das
+   Entscheidende weiss.
 4. Begründungen der auslösenden Regeln zusammenführen, Duplikate entfernen.
 5. Regeln mit `trimester_gewichtung` erzeugen nur im passenden Trimester einen
    zusätzlichen Hinweis.

@@ -432,8 +432,8 @@
   "status_rangfolge": [
     "ok",
     "bedingt",
-    "meiden",
-    "unklar"
+    "unklar",
+    "meiden"
   ],
   "unbedenkliche_tags": [
     {
