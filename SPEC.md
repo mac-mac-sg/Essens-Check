@@ -148,9 +148,17 @@ kehrt sich deshalb um: aufgehellte Farbe auf dunkler Tönung derselben Buntheit.
 | Unklar | `#AAB4AC` auf `#262C28` |
 | Linien | `#2C3430` |
 
-Die Kopfzeile bleibt tannengrün, damit die App wiedererkennbar bleibt. Gesteuert
-wird allein über `prefers-color-scheme` — kein Schalter, kein gespeicherter
-Zustand, nichts zusätzlich zu bedienen.
+Die Kopfzeile bleibt tannengrün, damit die App wiedererkennbar bleibt.
+
+Voreingestellt folgt das Schema `prefers-color-scheme`. Ein Schieberegler in der
+Fusszeile überschreibt das; die Wahl liegt im `localStorage` und gilt ab dann.
+«Dem Gerät folgen» stellt die Automatik wieder her — ohne diesen Weg gäbe es
+kein Zurück. Solange dem Gerät gefolgt wird, zieht ein Wechsel dort sofort nach.
+
+Technisch entscheidet ein Attribut am Wurzelelement, nicht die Medienabfrage:
+ein Skript in `index.html` setzt es vor dem ersten Malen, sonst erschiene die
+App kurz hell, bevor React das dunkle Schema setzt. Die Palette steht damit
+einmal da, statt für Systemvorgabe und Schalterwahl doppelt gepflegt zu werden.
 
 Kontrast AA gilt in beiden Schemata und ist in beiden zu messen, nicht zu
 schätzen: das dunkle Tannengrün als Schriftfarbe käme auf dunklem Grund auf

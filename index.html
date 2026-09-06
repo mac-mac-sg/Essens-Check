@@ -3,8 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#14432F" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F2E20" />
+    <!-- Wird vom Skript unten und von farbschema.ts auf das geltende Schema gesetzt. -->
+    <meta name="theme-color" content="#14432F" />
+    <!--
+      Läuft vor dem ersten Malen: sonst erschiene die App kurz hell, bevor
+      React das dunkle Schema setzt. Der Schlüssel steht in src/farbschema.ts.
+    -->
+    <script>
+      (function () {
+        var wunsch = null
+        try {
+          wunsch = localStorage.getItem('essens-check.farbschema')
+        } catch (e) {
+          /* gesperrter Speicher */
+        }
+        var dunkel =
+          wunsch === 'dunkel' ||
+          (wunsch !== 'hell' &&
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.schema = dunkel ? 'dunkel' : 'hell'
+        var leiste = document.querySelector('meta[name="theme-color"]')
+        if (leiste) leiste.setAttribute('content', dunkel ? '#0F2E20' : '#14432F')
+      })()
+    </script>
     <meta name="description" content="Nachschlagewerk für die Schwangerschaft: Lebensmittel eingeben, eindeutige Antwort bekommen." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

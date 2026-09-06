@@ -1,8 +1,15 @@
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
 import { findeNachId, MINDESTLAENGE, suche } from './engine/suchen'
 import { leseGeburtstermin } from './konfig'
+import {
+  ermittleSchema,
+  leseWunsch,
+  speichereWunsch,
+  wendeAn,
+  type Wunsch,
+} from './farbschema'
 import { berechneStand, fortschritt, restAnzeige } from './schwangerschaft'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
@@ -24,6 +31,30 @@ export function App() {
   const [code, setCode] = useState<string | null>(null)
   const [termin, setTermin] = useState(() => leseGeburtstermin())
   const [terminBearbeiten, setTerminBearbeiten] = useState(false)
+  const [wunsch, setWunsch] = useState<Wunsch>(() => leseWunsch())
+  const [systemDunkel, setSystemDunkel] = useState(
+    () => window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false,
+  )
+
+  const schema = ermittleSchema(wunsch, systemDunkel)
+
+  // Solange dem Gerät gefolgt wird, zieht ein Wechsel dort sofort nach.
+  useEffect(() => {
+    const abfrage = window.matchMedia?.('(prefers-color-scheme: dark)')
+    if (!abfrage) return
+    const beiWechsel = (ereignis: MediaQueryListEvent) => setSystemDunkel(ereignis.matches)
+    abfrage.addEventListener('change', beiWechsel)
+    return () => abfrage.removeEventListener('change', beiWechsel)
+  }, [])
+
+  useEffect(() => {
+    wendeAn(schema)
+  }, [schema])
+
+  const waehleSchema = (neu: Wunsch) => {
+    setWunsch(neu)
+    speichereWunsch(neu)
+  }
 
   // Ohne Termin bleibt die Wochenanzeige leer, statt eine falsche zu zeigen.
   const stand = useMemo(() => (termin ? berechneStand(termin, new Date()) : null), [termin])
@@ -141,7 +172,12 @@ export function App() {
         )}
       </main>
 
-      <Fusszeile onTerminAendern={stand ? () => setTerminBearbeiten(true) : undefined} />
+      <Fusszeile
+        onTerminAendern={stand ? () => setTerminBearbeiten(true) : undefined}
+        schema={schema}
+        wunsch={wunsch}
+        onWunsch={waehleSchema}
+      />
     </div>
   )
 }

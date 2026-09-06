@@ -218,11 +218,18 @@ Unter `prefers-reduced-motion` bleiben Farb- und Deckkraftwechsel erhalten,
 Verschiebungen fallen weg — reduzierte Bewegung heisst sanfter, nicht gar
 keine Rückmeldung.
 
-Das dunkle Schema folgt `prefers-color-scheme` und hat keinen Schalter. Die
-Urteilsfarben stehen deshalb in `styles.css` und nicht mehr im TypeScript: ein
-Inline-Style kennt das Farbschema nicht. Die Komponenten setzen `data-status`,
-das Stylesheet entscheidet über die Farbe. Kontraste sind in beiden Schemata
-gemessen, alle 26 Textpaare liegen über AA.
+Das dunkle Schema folgt voreingestellt `prefers-color-scheme`; ein
+Schieberegler in der Fusszeile überschreibt das, «Dem Gerät folgen» stellt die
+Automatik wieder her. Die Urteilsfarben stehen deshalb in `styles.css` und
+nicht mehr im TypeScript: ein Inline-Style kennt das Farbschema nicht. Die
+Komponenten setzen `data-status`, das Stylesheet entscheidet über die Farbe.
+Kontraste sind in beiden Schemata gemessen, alle Textpaare liegen über AA.
+
+Der Schalterknopf bewegt sich über `left`, nicht über `transform`: unter
+`prefers-reduced-motion` setzt das Stylesheet jede Transformation zurück, und
+der Knopf bliebe sonst am falschen Ende stehen. Ausgeschaltet ist die Fläche
+mit 1.15 gegen den Grund zu blass, um den Schalter zu zeigen — dort trägt eine
+gemessene Kante die Form.
 
 Die Skills unter `.agents/skills/` sind eingecheckt, damit spätere Arbeit an
 der Oberfläche auf derselben Grundlage aufsetzt.
