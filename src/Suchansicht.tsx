@@ -6,6 +6,7 @@ export function Suchansicht({
   begriff,
   setBegriff,
   treffer,
+  teilwort,
   gesucht,
   onOeffnen,
   onUebersicht,
@@ -14,6 +15,7 @@ export function Suchansicht({
   begriff: string
   setBegriff: (wert: string) => void
   treffer: Lebensmittel[]
+  teilwort: Lebensmittel[]
   gesucht: boolean
   onOeffnen: (id: string) => void
   onUebersicht: () => void
@@ -136,6 +138,41 @@ export function Suchansicht({
             Zweifel kurz die Hebamme fragen.
           </p>
         </div>
+      )}
+
+      {/*
+        Steckt ein Katalogbegriff im Suchwort, wird gefragt statt geraten:
+        «Leberkäse» enthält «Leber» und ist doch eine Brühwurst.
+      */}
+      {gesucht && treffer.length === 0 && teilwort.length > 0 && (
+        <>
+          <p className="teilwort__frage">Meintest du eines davon?</p>
+          <ul className="liste">
+            {teilwort.map((eintrag) => (
+              <li key={eintrag.id}>
+                <button type="button" onClick={() => onOeffnen(eintrag.id)}>
+                  <span>{eintrag.name}</span>
+                  <svg
+                    className="liste__pfeil"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 3.5 L10.5 8 L6 12.5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
     </>
   )

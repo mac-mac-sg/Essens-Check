@@ -24,6 +24,8 @@ export interface Begruendung {
    */
   titel?: string
   text: string
+  /** Grenze über die Mahlzeit hinaus, sofern die Regel eine kennt. */
+  grenze?: string
 }
 
 export interface KomponentenUrteil {
@@ -105,10 +107,25 @@ function wendeRegelAn(
       undefined,
     )
     if (strengste) {
-      return { regel: regel.id, titel: regel.titel, status: strengste.auf, text: strengste.text }
+      return {
+        regel: regel.id,
+        titel: regel.titel,
+        status: strengste.auf,
+        text: strengste.text,
+        // Eine entschärfte Regel trägt ihre Grenze nicht mehr: «unbegrenzt
+        // möglich» und «zählt aufs Tagesbudget» im selben Atemzug ist der
+        // Widerspruch, den der pasteurisierte Camembert schon einmal hatte.
+        ...(regel.grenze !== undefined && strengste.auf !== 'ok' && { grenze: regel.grenze }),
+      }
     }
   }
-  return { regel: regel.id, titel: regel.titel, status: regel.status, text: regel.begruendung }
+  return {
+    regel: regel.id,
+    titel: regel.titel,
+    status: regel.status,
+    text: regel.begruendung,
+    ...(regel.grenze !== undefined && { grenze: regel.grenze }),
+  }
 }
 
 export function bewerteKomponente(
@@ -148,6 +165,7 @@ export function bewerteKomponente(
       regel: ergebnis.regel,
       ...(ergebnis.titel !== undefined && { titel: ergebnis.titel }),
       text: ergebnis.text,
+      ...(ergebnis.grenze !== undefined && { grenze: ergebnis.grenze }),
     })
 
     if (

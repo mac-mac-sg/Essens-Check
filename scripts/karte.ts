@@ -10,6 +10,9 @@ for (const id of process.argv.slice(2)) {
   console.log(`\n=== ${urteil.name}${urteil.frage ? ` — ${urteil.frage}` : ''}`)
   for (const v of urteil.varianten) {
     console.log(`  [${AMPEL[v.status].wort}] ${v.label ?? ''}`)
-    for (const b of v.begruendungen) console.log(`     · ${b.titel ? b.titel + ': ' : ''}${b.text}`)
+    for (const b of v.begruendungen) {
+      console.log(`     · ${b.titel ? b.titel + ': ' : ''}${b.text}`)
+      if (b.grenze) console.log(`       ⤷ Grenze: ${b.grenze}`)
+    }
   }
 }

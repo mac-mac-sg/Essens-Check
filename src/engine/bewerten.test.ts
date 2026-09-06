@@ -425,3 +425,76 @@ describe('Katalogabdeckung', () => {
     expect(lebensmittelKatalog.lebensmittel.length).toBeGreaterThanOrEqual(240)
   })
 })
+
+describe('Grenzen über die Mahlzeit hinaus', () => {
+  it('reicht die Grenze der Regel bis in die Begründung durch', () => {
+    const koffein = ersteVariante('kaffee').begruendungen[0]
+    expect(koffein?.grenze).toContain('Tagesbudget')
+  })
+
+  it('zeigt sie auch bei entschärften Regeln', () => {
+    // Thunfisch aus der Dose ist entschärft — die Wochengrenze gilt trotzdem.
+    const thunfisch = ersteVariante('thunfisch').begruendungen[0]
+    expect(thunfisch?.grenze).toContain('einmal pro Woche')
+  })
+
+  it('lässt sie weg, wo die Regel keine kennt', () => {
+    expect(ersteVariante('lachs').begruendungen[0]?.grenze).toBeUndefined()
+  })
+})
+
+describe('Aufgewärmtes trägt seine Bedingung im Urteil', () => {
+  it('gibt nur die durchgehend heisse Variante frei', () => {
+    for (const id of ['resten', 'fertiggericht', 'mikrowelle', 'hotdog']) {
+      expect(urteile(id), id).toEqual(['ok', 'bedingt'])
+    }
+  })
+})
+
+describe('Zustände greifen wirklich', () => {
+  it('wird jeder verwendete Zustand von einer Regel behandelt', () => {
+    // Ein vertippter Zustand entschärft nichts. Das Urteil wird dadurch
+    // strenger, also sicher — aber das Variantenlabel verspricht etwas, das
+    // die Regeln nicht halten. Dieselbe Fehlerklasse wie beim Camembert.
+    for (const eintrag of lebensmittelKatalog.lebensmittel) {
+      for (const variante of eintrag.varianten) {
+        for (const komponente of variante.komponenten) {
+          if (komponente.zustand === undefined) continue
+          const regeln = regelKatalog.regeln.filter((r) => r.trifft_auf.includes(komponente.tag))
+          const behandelt = regeln.some(
+            (r) =>
+              r.entschaerfung.some((e) => e.durch === komponente.zustand) ||
+              (r.nicht_entschaerfbar_durch ?? []).includes(komponente.zustand!),
+          )
+          expect(
+            behandelt,
+            `${eintrag.id}: «${komponente.zustand}» auf ${komponente.tag} greift nirgends`,
+          ).toBe(true)
+        }
+      }
+    }
+  })
+
+  it('führt der Regelkatalog jeden verwendeten Zustand auch in der Liste', () => {
+    const benutzt = new Set<string>()
+    for (const e of lebensmittelKatalog.lebensmittel)
+      for (const v of e.varianten)
+        for (const k of v.komponenten) if (k.zustand) benutzt.add(k.zustand)
+    for (const zustand of benutzt) {
+      expect(regelKatalog.zustaende, zustand).toContain(zustand)
+    }
+  })
+})
+
+describe('Grenze widerspricht der Freigabe nicht', () => {
+  it('verschwindet, wo die Regel entschärft ist', () => {
+    // «Unbegrenzt möglich» und «zählt aufs Tagesbudget» zugleich wäre Unsinn.
+    const entkoffeiniert = urteilVon('kaffee').varianten[1]
+    expect(entkoffeiniert?.status).toBe('ok')
+    expect(entkoffeiniert?.begruendungen[0]?.grenze).toBeUndefined()
+  })
+
+  it('bleibt, wo die Regel noch greift', () => {
+    expect(ersteVariante('kaffee').begruendungen[0]?.grenze).toContain('Tagesbudget')
+  })
+})

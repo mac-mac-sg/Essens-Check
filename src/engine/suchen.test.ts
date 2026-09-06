@@ -8,6 +8,7 @@ import {
   suche,
   vorschlaegeAusName,
   eindeutigerVorschlag,
+  kompositumVorschlaege,
 } from './suchen'
 import { lebensmittelKatalog } from '../daten'
 import { BELIEBT } from '../ampel'
@@ -193,8 +194,14 @@ describe('vorschlaegeAusName', () => {
   })
 
   it('lässt dadurch den richtigen Eintrag sich durchsetzen', () => {
-    // Vorher blockierte ein Zufallstreffer auf «Vanille» das eindeutige Urteil.
-    expect(erster('Cristallina Vanille Joghurt')).toBe('joghurt')
+    // Vorher blockierte ein Zufallstreffer mitten im Wort das eindeutige Urteil.
+    expect(erster('Rana Tortelloni Ricotta e Spinaci')).toBe('ricotta')
+  })
+
+  it('fragt, wenn zwei Wörter gleich stark auf verschiedene Einträge zeigen', () => {
+    // «Vanille» trifft die Cremespeisen, «Joghurt» das Joghurt — gleich schwer.
+    // Dann kommt die Auswahl, kein Urteil.
+    expect(eindeutigerVorschlag('Cristallina Vanille Joghurt', lebensmittelKatalog)).toBeNull()
   })
 
   it('trennt auch am Bindestrich', () => {
@@ -247,5 +254,29 @@ describe('eindeutigerVorschlag', () => {
   it('entscheidet nicht ohne Treffer', () => {
     expect(eindeutig('Kinder Country')).toBeNull()
     expect(eindeutig('')).toBeNull()
+  })
+})
+
+describe('kompositumVorschlaege', () => {
+  const namen = (anfrage: string) =>
+    kompositumVorschlaege(anfrage, lebensmittelKatalog).map((e) => e.id)
+
+  it('findet den Katalogbegriff im Kompositum', () => {
+    expect(namen('Kalbsbratwurst')).toContain('cervelat')
+    expect(namen('Zwiebelkuchen')).toContain('kuchen')
+  })
+
+  it('stellt den längsten Teiltreffer voran', () => {
+    // «Rohmilch» sagt mehr als «Milch».
+    expect(namen('Rohmilchprodukte')[0]).toBe('rohmilch')
+  })
+
+  it('greift nicht bei kurzen Eingaben', () => {
+    expect(namen('Ei')).toEqual([])
+    expect(namen('Reis')).toEqual([])
+  })
+
+  it('erfindet nichts', () => {
+    expect(namen('Zimmerpflanze')).toEqual([])
   })
 })

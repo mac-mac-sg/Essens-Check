@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
-import { findeNachId, MINDESTLAENGE, suche } from './engine/suchen'
+import { findeNachId, kompositumVorschlaege, MINDESTLAENGE, suche } from './engine/suchen'
 import { leseGeburtstermin } from './konfig'
 import {
   ermittleSchema,
@@ -59,6 +59,11 @@ export function App() {
   // Ohne Termin bleibt die Wochenanzeige leer, statt eine falsche zu zeigen.
   const stand = useMemo(() => (termin ? berechneStand(termin, new Date()) : null), [termin])
   const treffer = useMemo(() => suche(begriff, lebensmittelKatalog), [begriff])
+  // Nur wenn die Suche leer ausgeht: Katalogbegriffe, die im Suchwort stecken.
+  const teilwort = useMemo(
+    () => (treffer.length === 0 ? kompositumVorschlaege(begriff, lebensmittelKatalog) : []),
+    [begriff, treffer.length],
+  )
 
   const offen = offeneId ? findeNachId(offeneId, lebensmittelKatalog) : undefined
   const urteil = offen ? bewerteLebensmittel(offen, regelKatalog, stand?.trimester) : undefined
@@ -164,6 +169,7 @@ export function App() {
             begriff={begriff}
             setBegriff={setBegriff}
             treffer={treffer}
+            teilwort={teilwort}
             gesucht={begriff.trim().length >= MINDESTLAENGE}
             onOeffnen={(id) => oeffnen(id, 'suche')}
             onUebersicht={() => setAnsicht('uebersicht')}

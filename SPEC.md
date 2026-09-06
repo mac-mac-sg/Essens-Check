@@ -42,7 +42,7 @@ Stack: Vite + React + TypeScript. Service Worker via `vite-plugin-pwa`.
 
 Zwei Ebenen, die zusammen die Abdeckung erzeugen:
 
-**Ebene 1 — Regelkatalog** (`regeln.json`, liegt bei). Rund 15 Risikoprinzipien.
+**Ebene 1 — Regelkatalog** (`regeln.json`, liegt bei). 19 Risikoprinzipien.
 Jede Regel kennt ihre Auslöser-Tags, einen Status und die Zustände, die sie
 entschärfen. Diese Ebene ändert sich fast nie.
 
@@ -222,6 +222,22 @@ Zuordnung ausdrücklich, und «Anderes Lebensmittel» führt zurück zur Auswahl
 Die Prüfziffer wird geprüft, damit ein Lesefehler nicht nachgeschlagen wird. Wo
 der Browser keine Strichcodes lesen kann, sagt die App das offen.
 
+**Grenzen über die Mahlzeit hinaus.** Manche Regeln meinen ein Budget, keine
+einzelne Portion: Koffein pro Tag, Thunfisch pro Woche, Lakritze nicht täglich.
+Eine Auskunft pro Lebensmittel verschweigt das — zwei Tassen Kaffee sind je
+einzeln unbedenklich und zusammen schon die Tagesgrenze. Regeln tragen dafür
+ein Feld `grenze`, das die Karte abgesetzt zeigt. Ist die Regel entschärft,
+verschwindet die Grenze mit ihr: «unbegrenzt möglich» und «zählt aufs
+Tagesbudget» im selben Atemzug wäre ein Widerspruch.
+
+**Rückfrage bei Komposita.** Findet die Suche nichts, wird geprüft, ob ein
+Katalogbegriff *im* Suchwort steckt — «Kalbsbratwurst» enthält «Bratwurst».
+Das ist ausdrücklich eine Rückfrage und nie ein Urteil: die Zerlegung deutscher
+Komposita ist mit Zeichenketten nicht verlässlich zu haben. «Leberkäse» enthält
+«Leber» und ist doch eine Brühwurst, «Austernpilze» enthalten «Austern» und
+sind ein Pilz, «Onigiri» enthält «Nigiri» und ist ein Reisball. Sie wählt aus,
+oder sie wählt nichts.
+
 **Mehrwortsuche.** Eine Eingabe wird zuerst als Ganzes gesucht. Bleibt sie ohne
 Treffer und besteht aus mehreren Wörtern, entscheiden die einzelnen Wörter.
 «Tatar vom Lachs» stand sonst im Nichts, obwohl beide Wörter im Katalog liegen —
@@ -231,7 +247,7 @@ bleibt ein Nulltreffer.
 **Umgekehrte Frage.** Vom Startbildschirm aus erreichbar: «Was kann ich essen?»
 listet nach Warengruppe, was ein klares Ja hat, mit der Zubereitung, unter der
 es gilt. Die Gruppen sind zugeklappt — zwölf Titel auf einen Blick statt
-222 Einträge am Stück. Geöffnet wird die Gruppe eine zusammenhängende Fläche
+246 Einträge am Stück. Geöffnet wird die Gruppe eine zusammenhängende Fläche
 mit Haarlinien zwischen den Zeilen — als blosse Textzeilen auf dem Seitengrund
 waren dreissig Einträge nicht auseinanderzuhalten. `bedingt` bleibt draussen — eine Liste, die zum Zugreifen einlädt, darf
 nichts enthalten, das noch eine Einschränkung mitbringt.

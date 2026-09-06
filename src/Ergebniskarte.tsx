@@ -13,6 +13,7 @@ function Begruendungen({ urteil }: { urteil: VariantenUrteil }) {
         <div className="grund" key={begruendung.regel + begruendung.text}>
           {begruendung.titel && <p className="grund__prinzip">{begruendung.titel}</p>}
           <p className="ztext">{begruendung.text}</p>
+          {begruendung.grenze && <p className="grund__grenze">{begruendung.grenze}</p>}
         </div>
       ))}
     </>

@@ -111,6 +111,49 @@ export function suche(anfrage: string, katalog: LebensmittelKatalog): Lebensmitt
   )
 }
 
+/** Kürzester Katalogbegriff, der in einem Kompositum noch zählt. */
+export const MINDESTLAENGE_TEILWORT = 5
+
+/**
+ * Katalogeinträge, deren Begriff *im* Suchwort steckt — «Rohmilchkäse» enthält
+ * «Rohmilch», «Kalbsbratwurst» enthält «Bratwurst».
+ *
+ * Das ist bewusst keine Suche, sondern eine Rückfrage. Die Zerlegung eines
+ * deutschen Kompositums ist mit Zeichenketten nicht zuverlässig zu haben:
+ * «Leberkäse» enthält «Leber» und ist doch eine Brühwurst, «Austernpilze»
+ * enthalten «Austern» und sind ein Pilz, «Onigiri» enthält «Nigiri» und ist
+ * ein Reisball. Solche Treffer dürfen nie ein Urteil auslösen — sie werden
+ * gefragt, und sie bestätigt oder verwirft.
+ *
+ * Der längste Teiltreffer steht zuerst: «Rohmilch» sagt mehr als «Milch».
+ */
+export function kompositumVorschlaege(
+  anfrage: string,
+  katalog: LebensmittelKatalog,
+  hoechstens = 5,
+): Lebensmittel[] {
+  const gesucht = normalisiere(anfrage)
+  if (gesucht.length < MINDESTLAENGE_TEILWORT) return []
+
+  const gefunden: { eintrag: Lebensmittel; laenge: number }[] = []
+  for (const eintrag of katalog.lebensmittel) {
+    let beste = 0
+    for (const begriff of suchbegriffe(eintrag)) {
+      // Nur einzelne Wörter: eine Wendung steckt nicht in einem Kompositum.
+      if (begriff.includes(' ') || begriff.length < MINDESTLAENGE_TEILWORT) continue
+      if (begriff !== gesucht && gesucht.includes(begriff)) {
+        beste = Math.max(beste, begriff.length)
+      }
+    }
+    if (beste > 0) gefunden.push({ eintrag, laenge: beste })
+  }
+
+  return gefunden
+    .sort((a, b) => b.laenge - a.laenge || a.eintrag.name.localeCompare(b.eintrag.name, 'de-CH'))
+    .slice(0, hoechstens)
+    .map(({ eintrag }) => eintrag)
+}
+
 export function findeNachId(id: string, katalog: LebensmittelKatalog): Lebensmittel | undefined {
   return katalog.lebensmittel.find((eintrag) => eintrag.id === id)
 }

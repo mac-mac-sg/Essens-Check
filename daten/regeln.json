@@ -23,6 +23,18 @@
         { "durch": "durcherhitzt", "auf": "ok", "text": "Überbacken oder in der Sauce mitgekocht unbedenklich." },
         { "durch": "pasteurisiert", "auf": "meiden", "text": "Pasteurisierte Milch nimmt nur einen Teil des Risikos. Weichkäse reift feucht und wenig sauer; Listerien können nach dem Erhitzen der Milch wieder hineingelangen und wachsen bis zum Verfalldatum weiter. Erhitzt ist er unbedenklich." }
       ],
+      "trimester_gewichtung": null,
+      "nicht_entschaerfbar_durch": ["rohmilch"]
+    },
+    {
+      "id": "listerien-aufgewaermt",
+      "titel": "Vorgekochtes und Aufgewärmtes",
+      "trifft_auf": ["aufgewaermt"],
+      "status": "bedingt",
+      "begruendung": "Gekochtes, das gekühlt gestanden hat, kann sich mit Listerien belasten — sie wachsen auch im Kühlschrank. Entscheidend ist nicht, dass es gekocht war, sondern dass es vor dem Essen wieder richtig heiss wird.",
+      "entschaerfung": [
+        { "durch": "durcherhitzt", "auf": "ok", "text": "Durchgehend heiss, nicht nur am Rand — dampfend serviert." }
+      ],
       "trimester_gewichtung": null
     },
     {
@@ -100,11 +112,21 @@
       "trifft_auf": ["raubfisch-hoch", "raubfisch-mittel"],
       "status": "meiden",
       "begruendung": "Methylquecksilber reichert sich entlang der Nahrungskette an und wirkt auf das kindliche Nervensystem.",
+      "grenze": "Thunfisch höchstens einmal pro Woche — die Menge zählt über die Woche, nicht pro Mahlzeit.",
       "entschaerfung": [
         { "durch": "mengenbegrenzung", "auf": "bedingt", "text": "Thunfisch höchstens einmal pro Woche; Schwertfisch, Hai und Marlin ganz weglassen." }
       ],
       "trimester_gewichtung": null,
       "nicht_entschaerfbar_durch": ["durcherhitzt"]
+    },
+    {
+      "id": "dioxin-fettfisch",
+      "titel": "Dioxine und PCB in fettem Fisch",
+      "trifft_auf": ["dioxin-fisch"],
+      "status": "meiden",
+      "begruendung": "Aal und fetter Fisch aus belasteten Gewässern reichern Dioxine und PCB im Fettgewebe an. Anders als Keime verschwinden sie beim Garen nicht.",
+      "entschaerfung": [],
+      "trimester_gewichtung": null
     },
     {
       "id": "retinol-vitamin-a",
@@ -122,6 +144,7 @@
       "trifft_auf": ["jod-hochdosiert"],
       "status": "meiden",
       "begruendung": "Der Jodbedarf steigt in der Schwangerschaft, die Spanne zwischen zu wenig und zu viel ist aber schmal. Zu viel belastet die kindliche Schilddrüse. Kritisch sind Algen- und Seetangpräparate: ihr Jodgehalt schwankt stark und liegt oft weit über dem Bedarf.",
+      "grenze": "Nori als Würze fällt nicht ins Gewicht; Algen als tägliche Beilage schon.",
       "entschaerfung": [
         { "durch": "speisemenge", "auf": "ok", "text": "Ein Blatt Nori im Sushi oder eine Prise als Würze fällt nicht ins Gewicht." },
         { "durch": "mengenbegrenzung", "auf": "bedingt", "text": "Gelegentlich als Beilage ist unproblematisch — täglich Algensalat oder ein Präparat ist es nicht." }
@@ -133,7 +156,8 @@
       "titel": "Koffein",
       "trifft_auf": ["koffein"],
       "status": "bedingt",
-      "begruendung": "Bis rund 200 mg pro Tag gelten als unbedenklich — etwa zwei Tassen Filterkaffee. Schwarztee, Grüntee, Cola und Schokolade zählen mit.",
+      "begruendung": "Bis rund 200 mg pro Tag gelten als unbedenklich — etwa zwei Tassen Filterkaffee.",
+      "grenze": "Zählt aufs Tagesbudget: Schwarztee, Grüntee, Cola, Energydrink und Schokolade kommen dazu.",
       "entschaerfung": [
         { "durch": "koffeinfrei", "auf": "ok", "text": "Entkoffeinierte Varianten sind unbegrenzt möglich." }
       ],
@@ -176,7 +200,8 @@
       "titel": "Lakritze",
       "trifft_auf": ["lakritz"],
       "status": "bedingt",
-      "begruendung": "Grössere Mengen Glycyrrhizin können den Blutdruck erhöhen. Gelegentlich unproblematisch, täglich nicht.",
+      "begruendung": "Grössere Mengen Glycyrrhizin können den Blutdruck erhöhen.",
+      "grenze": "Gelegentlich unproblematisch, täglich nicht.",
       "entschaerfung": [],
       "trimester_gewichtung": null
     },

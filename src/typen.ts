@@ -19,6 +19,12 @@ export interface Regel {
   entschaerfung: Entschaerfung[]
   trimester_gewichtung: number | null
   trimester_text?: string
+  /**
+   * Grenze, die über die einzelne Mahlzeit hinausgeht — Koffein pro Tag,
+   * Thunfisch pro Woche. Sie steht auf der Karte, weil eine Auskunft pro
+   * Lebensmittel sie sonst verschweigt.
+   */
+  grenze?: string
   /** Zustände, die diese Regel gerade NICHT entschärfen (Quecksilber überlebt das Kochen). */
   nicht_entschaerfbar_durch?: string[]
 }

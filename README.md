@@ -111,7 +111,7 @@ Formulierungen. Drei bewusste Abweichungen:
 
 ## Katalog
 
-256 Einträge mit 369 Varianten, entlang realer Suchbegriffe: Käsesorten,
+284 Einträge mit 410 Varianten und rund 1400 Synonymen, entlang realer Suchbegriffe: Käsesorten,
 Fischarten, Wurstwaren, Fertiggerichte, Restaurantklassiker, Getränke,
 Süsswaren, Kräuter und Gewürze, verbreitete Mythen.
 
@@ -168,6 +168,8 @@ nichts erfunden werden soll:
 - Heilkräuter in Arzneidosis, im Unterschied zu Speise- und Teemengen
 - Nährstoffpräparate über die hinterlegten hinaus — Folsäure, Eisen, Omega-3,
   Magnesium, Kalzium, Jod, Vitamin D und Vitamin A sind erfasst, weiteres nicht
+- Heilkräuter in Arzneidosis. Der Eintrag dazu sagt das ausdrücklich, statt zu
+  schweigen: eine Lücke ist keine Freigabe
 - Marken- und Produktnamen; der Katalog kennt Lebensmittel, keine Hersteller
 - Alles, was kein Lebensmittel ist: Medikamente, Rauchen, Sauna
 

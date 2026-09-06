@@ -993,6 +993,28 @@ body {
   transform: scale(0.96);
 }
 
+/*
+ * Grenzen über die Mahlzeit hinaus. Sie stehen abgesetzt, weil eine Auskunft
+ * pro Lebensmittel sie sonst verschweigt: zwei Tassen Kaffee sind je einzeln
+ * unbedenklich und zusammen schon die Tagesgrenze.
+ */
+.grund__grenze {
+  margin: 0.4rem 0 0;
+  padding-left: 0.7rem;
+  border-left: 2px solid var(--farbe-bedingt);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--text-zweitrangig);
+}
+
+/* Rückfrage statt Urteil, wenn ein Katalogbegriff im Suchwort steckt. */
+.teilwort__frage {
+  margin: 1.25rem 0 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-zweitrangig);
+}
+
 /* ---------------------------- Farbschema-Schalter ---------------------------- */
 
 /*
