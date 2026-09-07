@@ -1,5 +1,5 @@
 {
-  "version": "5",
+  "version": "6",
   "hinweis": "Offene inhaltliche Entscheidungen für die Durchsicht durch Hebamme oder Gynäkologin. Version 2 enthielt eine Quellenprüfung gegen die Schweizer Referenzempfehlungen, Version 3 die Rückmeldung dazu. Weder die eine noch die andere ersetzt die fachliche Durchsicht — sie räumen weg, was sich an Quellen oder durch einen Produktentscheid klären liess, und machen sichtbar, was Ermessen bleibt. Bei Änderungen hier nachführen.",
   "pruefung": {
     "datum": "2026-09-06",
@@ -44,7 +44,8 @@
         "quelle": "BLV / swissmom: Weichkäse aus roher, thermisierter oder pasteurisierter Milch nicht zum Verzehr geeignet.",
         "katalog_aenderung": "Begründungstexte dieser fünf Einträge auf die BLV-Referenz umstellen. Der Verweis auf abweichende internationale Empfehlungen kann raus — er verunsichert, ohne etwas zu entscheiden."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P02",
@@ -63,7 +64,8 @@
         "quelle": "BLV / swissmom: Feta und Frischkäse in stückiger Form unter «nicht zum Verzehr geeignet»; Mozzarella und Burrata ausdrücklich unter «dürfen Sie essen».",
         "katalog_aenderung": "Feta und Salzlakenkäse vom Tag für pasteurisierten Frischkäse lösen und auf «Nein» setzen, mit Variante «durcherhitzt: Ja». Mozzarella und Burrata behalten das Ja, aber mit eigener Begründung (Erhitzung bei der Herstellung, nicht Pasteurisierung der Milch). Siehe auch P14."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P03",
@@ -85,7 +87,8 @@
         "quelle": "BfR / EFSA zu Methylquecksilber; BLV zu Hart- und Extrahartkäse.",
         "katalog_aenderung": "«fisch-gegart» darf nicht mehr allein ein Urteil erzeugen — es braucht die Fischart als zweite Achse. «hartkaese» erhält die Bedingung «Rinde entfernt» und wird damit von Ja auf Bedingt. «fleisch-durchgegart» erhält eine Ausnahmeliste (Leber, Innereien). Zusätzlich prüfen, ob ein Eintrag mehrere pauschal freigebende Tags tragen kann und welches dann gewinnt."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P04",
@@ -103,7 +106,8 @@
         "quelle": "DGE / BZfE und Landesstellen: Innereien in der Schwangerschaft meiden; Leber und Leberwurst besonders im ersten Trimester.",
         "katalog_aenderung": "Innereien von Ja auf Bedingt. Leberwurst und Leberpastete prüfen, ob sie eigene Einträge haben — sie tragen zwei Risiken gleichzeitig (Retinol und Listerien bei streichfähiger Ware) und dürfen nicht unter «Wurst» mitlaufen."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P05",
@@ -123,7 +127,14 @@
         "quelle": "swissmom / BLV: zwei Minuten bei 70 Grad oder bis der Käse Blasen wirft.",
         "katalog_aenderung": "Bedingungstexte dieser vier Einträge auf Handlungsform prüfen."
       },
-      "rueckmeldung": null
+      "rueckmeldung": {
+        "datum": "2026-09-07",
+        "herkunft": "Selbst nachgesehen — der Punkt verlangte nur eine Prüfung, keine Entscheidung.",
+        "entscheid": "Der Bedingungstext nannte die Handlung nicht: «Entscheidend ist, dass es vor dem Essen wieder richtig heiss wird» beschreibt, statt anzuweisen.",
+        "umgesetzt": "Umformuliert zur Anweisung, mit der Angabe des BLV: «Vor dem Essen nochmals vollständig durcherhitzen, bis es dampft: mindestens 70 °C im Kern während zwei Minuten. Umrühren, damit auch die Mitte heiss wird — nicht nur der Rand.» Betrifft Resten vom Vortag, Fertiggericht, Essen aus der Mikrowelle und Hot Dog.",
+        "bleibt_offen": null
+      },
+      "gespraech": null
     },
     {
       "id": "P06",
@@ -143,7 +154,8 @@
         "quelle": "BLV Jodempfehlungen und Studie zum Jodstatus; DGE zur Verzehrmenge von Algen.",
         "katalog_aenderung": "Spirulina und Chlorella aus der Jod-Regel lösen und einer eigenen Regel «Nahrungsergänzung mit schwankender Produktqualität» zuordnen. Nori und Braunalgen als getrennte Einträge führen. Prüfen, ob der Jod-Eintrag den Schweizer Kontext erwähnt."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P07",
@@ -161,7 +173,8 @@
         "quelle": "DGE: kein zusätzliches Vitamin-A-Präparat im ersten Trimester; Richtwert 800 µg RAE pro Tag.",
         "katalog_aenderung": "Keine. Optional Begründungstext um die Retinol-Unterscheidung ergänzen."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P08",
@@ -191,6 +204,13 @@
         "entscheid": "Beim Verzicht auf Zahlen bleiben. Eine App, die Milligramm- und Mikrogrammangaben macht, rutscht faktisch in die Dosierungsberatung ab; die ist Ärztin und Hebamme vorbehalten. Zu beheben ist allein der Widerspruch zwischen Jod-Präparat und Algen-Obergrenze.",
         "umgesetzt": "Beide Einträge verweisen jetzt aufeinander. Dafür war ein neues Feld nötig: zusatz_text ergänzt die Regelbegründung, statt sie zu ersetzen. Der bisherige eigener_text hatte auf die Jod-Regel verwiesen und sie auf derselben Karte verdeckt. Siebzehn Einträge, deren Varianten unterschiedlich urteilen, sind auf das neue Feld umgestellt; ein Test hält offen, dass eine ersetzende Begründung nie über verschiedene Urteile hinweg gilt.",
         "bleibt_offen": null
+      },
+      "gespraech": {
+        "art": "bestaetigen",
+        "frage": "Nährstoffpräparate ohne Mengenangabe, dafür Querverweis zwischen Jod-Präparat und Algen-Obergrenze.",
+        "nachfrage": null,
+        "material": null,
+        "folgen": null
       }
     },
     {
@@ -208,7 +228,8 @@
         "quelle": "Alkoholregel des Katalogs, keine externe Quelle nötig.",
         "katalog_aenderung": "Erkennungsmerkmale statt Geschmacksbeschreibung im Bedingungstext."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P10",
@@ -225,7 +246,8 @@
         "quelle": "Kategoriendefinition der App selbst.",
         "katalog_aenderung": "Von «bedingt» auf «unklar». Danach prüfen, ob weitere Einträge «bedingt» ohne konkret nennbare Bedingung tragen — das wären dieselbe Verwechslung."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P11",
@@ -243,7 +265,8 @@
         "quelle": "BZfE zu Kombucha in Schwangerschaft und Stillzeit; BLV zu offen verkaufter, nicht mehr erhitzter Ware.",
         "katalog_aenderung": "Antipasti mit zwei Varianten versehen. Anschliessend den Katalog nach weiteren variantenlosen Nein-Einträgen durchsuchen, bei denen die Darreichung und nicht das Lebensmittel das Risiko trägt — Oliven, eingelegtes Gemüse, Salatbuffet, Sandwich."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P12",
@@ -358,7 +381,14 @@
           "sicher": true,
           "anmerkung": null
         }
-      ]
+      ],
+      "gespraech": {
+        "art": "frage",
+        "frage": "Zuletzt sind 28 Einträge dazugekommen. Fünfzehn davon sind ein glattes Ja und unstrittig. Dreizehn tragen ein Urteil — und sechs davon habe ich angenommen, ohne dass das BLV sie namentlich nennt. Kannst du die sechs kurz durchgehen?",
+        "nachfrage": "Alle sechs sind Einschränkungen, keine Freigaben. Eine Antwort kann also nur lockern, nie ein falsches Ja erzeugen.",
+        "material": null,
+        "folgen": null
+      }
     },
     {
       "id": "P13",
@@ -387,7 +417,8 @@
         "entscheid": "Bestätigt. Für die Schweiz gilt das BLV: Halbhartkäse kalt nicht konsumieren, unabhängig von roher, thermisierter oder pasteurisierter Milch — namentlich genannt Tilsiter, Tête de Moine, Leerdamer und ungeschmolzener Raclettekäse. Ein abgepackter, pasteurisierter Tilsiter ist kalt auf dem Znünibrot nicht empfohlen. Grund: Pasteurisieren beseitigt die Listerien, die zu diesem Zeitpunkt in der Milch sind; der Käse wird danach weiterverarbeitet und über Wochen bis Monate gereift und kann dabei erneut belastet werden. Nachgewiesen bei Halbhartkäse aus roher wie aus pasteurisierter Milch. Hart- und Extrahartkäse bleiben zugelassen, auch aus Rohmilch, Rinde entfernen — nicht weil Listerien dort sicher absterben, sondern weil Wasseraktivität, Säuregrad, Salzgehalt und Reifung ein deutlich ungünstigeres Milieu ergeben. Erhitzt: mindestens 70 °C Kerntemperatur während zwei Minuten, dann sind Fondue, Raclette und Überbackenes in Ordnung.",
         "umgesetzt": "Die Urteile bleiben unverändert — die strenge Linie stand bereits. Nachgetragen wurde, was fehlte: die 70-Grad-Angabe in allen Käseregeln und als Grundsatz «Erhitzen, das zählt»; die Rekontamination nach der Pasteurisierung als Begründung der Halbhartkäseregel; und der Hartkäse-Text, der behauptete, Listerien könnten dort «nicht wachsen» — richtig ist ein deutlich niedrigeres Risiko, nicht null.",
         "bleibt_offen": null
-      }
+      },
+      "gespraech": null
     },
     {
       "id": "P14",
@@ -407,7 +438,8 @@
         "quelle": "BLV / swissmom: Frischkäse in stückiger Form (Formaggini, Schaf- oder Ziegenfrischkäslein) unter «nicht zum Verzehr geeignet»; Quark, Hüttenkäse, Streichfrischkäse unter «dürfen Sie essen».",
         "katalog_aenderung": "Frischkäseregel aufteilen in streichfähig oder körnig gegenüber stückig. Einträge für Formaggini und die Frischkäsli ergänzen."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P15",
@@ -435,7 +467,8 @@
         "quelle": "BfR und EFSA zu Methylquecksilber; swissmom zur Schweizer Praxis mit zwei Portionen pro Woche.",
         "katalog_aenderung": "Regel «quecksilber-belastete Fischart» einführen, die unabhängig von der Zubereitung greift und das Urteil aus «fisch-gegart» überstimmt. Die betroffenen Arten den Einträgen zuordnen. Danach prüfen, welche Regel gewinnt, wenn zwei zutreffen — dieser Fall zeigt, dass der Katalog eine Vorrangordnung braucht."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": null
     },
     {
       "id": "P16",
@@ -460,6 +493,13 @@
         "entscheid": "Das BLV nennt Cheddar nicht namentlich. Nach üblicher Käseklassierung — niedriger Wassergehalt, lange Reifung — gehört gereifter Cheddar zum Hartkäse; die Trennung von Gouda, Edamer und Maasdam ist vertretbar. Einordnung beibehalten, im Text «gereift» vermerken, weil junger und milder Cheddar wasserreicher ausfällt.",
         "umgesetzt": "Die Einordnung des gereiften Cheddars bleibt. Der Vermerk steht aber nicht nur im Text: der Eintrag fragt jetzt nach der Reifung — gereift Ja, jung oder mild wie Halbhartkäse Nein, geschmolzen Ja. Eine Bedingung im Fliesstext unter einem grünen Urteil ist genau das Muster, das P01 und P03 zutage gefördert haben; deshalb hier eine Variante statt eines Satzes. Das geht über die Rückmeldung hinaus und gehört gegengelesen.",
         "bleibt_offen": null
+      },
+      "gespraech": {
+        "art": "bestaetigen",
+        "frage": "Cheddar nach Reifung getrennt: gereift Ja, jung oder mild wie Halbhartkäse Nein, geschmolzen Ja.",
+        "nachfrage": null,
+        "material": null,
+        "folgen": null
       }
     },
     {
@@ -485,6 +525,13 @@
         "entscheid": "Nicht jeden Hartkäse-Eintrag mit der Rinden-Rückfrage belasten — das verwässerte die häufigste unbedenkliche Antwort der App. Die Rinden-Regel stattdessen einmal zentral sichtbar machen.",
         "umgesetzt": "Neuer Abschnitt «Gilt immer» auf dem Startbildschirm, gespeist aus regeln.json → grundsaetze. Erster und vorerst einziger Grundsatz ist die Käserinde. Betroffen sind acht Einträge, nicht zwölf — die Zahl in diesem Punkt war zu hoch.",
         "bleibt_offen": null
+      },
+      "gespraech": {
+        "art": "bestaetigen",
+        "frage": "Die Rindenregel steht zentral unter «Gilt immer», nicht an jedem Hartkäse-Eintrag.",
+        "nachfrage": null,
+        "material": null,
+        "folgen": null
       }
     },
     {
@@ -513,7 +560,48 @@
         "quelle": "Fachliche Rückmeldung vom 07.09.2026; Übertragungswege über Schneidemaschinen und Oberflächen sind dokumentiert, die pauschale Rangfolge industriell gegen Theke nicht.",
         "katalog_aenderung": "Nicht selbst entschieden. Ein Urteil zu ändern hiesse hier entweder Einträge strenger zu stellen, ohne Quelle dafür, oder zu lockern — und Lockern ist in dieser App der Schadensfall. Vorschlag zur Prüfung: das Tag in drei aufteilen — offene Ware und Buffet, kalte verzehrfertige Kühlware, und roher Salat als Bestandteil — und jedes getrennt bewerten. Beim Kebab trägt heute «vorgeschnitten» die Last für den rohen Salat, was mit Verpackung gar nichts zu tun hat. Bis dahin gilt: was heute gemieden wird, bleibt gemieden."
       },
-      "rueckmeldung": null
+      "rueckmeldung": null,
+      "gespraech": {
+        "art": "frage",
+        "frage": "Die App hat eine Kategorie «vorgeschnitten», und die führt zu einem Widerspruch: abgepackter Geflügelaufschnitt aus dem Kühlregal ist ein Ja, ein abgepacktes Sandwich aus derselben Kühltheke ein Nein. Beides ist kalt, verzehrfertig und industriell verpackt. Machst du diesen Unterschied in der Beratung? Oder gilt für kalte, verzehrfertige Kühlware dasselbe wie für offene Ware von der Theke — und wenn ja, in welche Richtung?",
+        "nachfrage": "Falls unklar: Hängt es an der Haltbarkeit — «rasch aufgebraucht» gegen «lange im Regal»? Dann wäre das die richtige Frage statt der Verpackung.",
+        "material": [
+          {
+            "name": "Geflügelaufschnitt",
+            "urteil": "frisch abgepackt: Ja"
+          },
+          {
+            "name": "Sandwich",
+            "urteil": "vorgefertigt aus der Kühltheke: Nein"
+          },
+          {
+            "name": "Wurstsalat",
+            "urteil": "fertig aus der Kühltheke: Nein"
+          },
+          {
+            "name": "Melone",
+            "urteil": "vorgeschnitten gekauft: Nein"
+          },
+          {
+            "name": "Käse von der offenen Theke",
+            "urteil": "vorgeschnitten oder offen abgepackt: Nein"
+          }
+        ],
+        "folgen": [
+          {
+            "antwort": "Kalte Kühlware ist auch riskant",
+            "folge": "Geflügelaufschnitt «frisch abgepackt» wird ein Nein — der Widerspruch löst sich nach streng auf."
+          },
+          {
+            "antwort": "Abgepackt ist unproblematisch",
+            "folge": "Sandwich, Wurstsalat und Melone bekommen für die abgepackte Variante ein Ja."
+          },
+          {
+            "antwort": "Kommt auf die Haltbarkeit an",
+            "folge": "Neue Variantenfrage: «rasch gegessen» gegen «lange haltbar»."
+          }
+        ]
+      }
     }
   ],
   "zusammenfassung_fuer_die_durchsicht": {
@@ -534,7 +622,6 @@
       "P15"
     ],
     "bleibt_fachliches_ermessen": [
-      "P05",
       "P12",
       "P18"
     ],

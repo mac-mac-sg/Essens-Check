@@ -377,6 +377,12 @@ die Regeln, Teil 3 alle Einträge mit ihrem Urteil. Nichts darin ist abgetippt �
 stimmt die Liste wieder. Mit `-- --artefakt` kommt die Seite ohne eigenes
 HTML-Gerüst, zum Veröffentlichen.
 
+`npm run hebammenfragen` erzeugt daraus die Kurzform für einen Termin: nur die
+Punkte, die ein `gespraech` tragen — die offenen Fragen mit dem Material dazu
+und einer Tabelle, was jede mögliche Antwort im Katalog ändert, dazu die
+Entscheide, die nur ein Nicken brauchen. Drei Seiten statt fünfzig. Die volle
+Liste bleibt für die Vorbereitung.
+
 
 ## Vorbehalt
 

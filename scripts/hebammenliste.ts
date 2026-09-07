@@ -204,11 +204,81 @@ const varianten = lebensmittelKatalog.lebensmittel.reduce(
   0,
 )
 
+// --- Gesprächsbogen: nur, was im Sprechzimmer beantwortet wird --------------
+
+/**
+ * Die Kurzform für einen Termin. Die vollständige Prüfliste ist zum Vorbereiten
+ * gedacht; hier steht nur, was gefragt wird — und was die Antwort ändert.
+ */
+const gespraechsPunkte = offenePunkte.punkte.filter((p) => p.gespraech)
+const fragen = gespraechsPunkte.filter((p) => p.gespraech?.art === 'frage')
+const bestaetigungen = gespraechsPunkte.filter((p) => p.gespraech?.art === 'bestaetigen')
+
+function gespraechsBlock(p: (typeof gespraechsPunkte)[number], nummer: number): string {
+  const g = p.gespraech
+  if (!g) return ''
+  const material = g.material
+    ? `<ul class="gespraech__material">${g.material
+        .map((m) => `<li><span>${e(m.name)}</span><span>${e(m.urteil)}</span></li>`)
+        .join('')}</ul>`
+    : ''
+  const tabelle =
+    'urteile_zum_gegenlesen' in p && p.urteile_zum_gegenlesen
+      ? `<table class="urteile">
+    <thead><tr><th>Eintrag</th><th>Die App sagt</th><th>Woran ich zweifle</th></tr></thead>
+    <tbody>${p.urteile_zum_gegenlesen
+      .map(
+        (u) =>
+          `<tr${u.sicher ? '' : ' class="urteile__strittig"'}><td>${e(u.name)}</td><td>${e(
+            u.urteil,
+          )}</td><td>${u.anmerkung ? e(u.anmerkung) : '—'}</td></tr>`,
+      )
+      .join('')}</tbody>
+  </table>`
+      : ''
+  const folgen = g.folgen
+    ? `<table class="folgen">
+    <thead><tr><th>Wenn Sie sagen</th><th>ändert sich</th></tr></thead>
+    <tbody>${g.folgen
+      .map((f) => `<tr><td>«${e(f.antwort)}»</td><td>${e(f.folge)}</td></tr>`)
+      .join('')}</tbody>
+  </table>`
+    : ''
+  return `<article class="gespraech">
+  <div class="gespraech__zahl" aria-hidden="true">${nummer}</div>
+  <div class="gespraech__inhalt">
+    <h3>${e(p.titel)}</h3>
+    <p class="gespraech__frage">${e(g.frage)}</p>
+    ${g.nachfrage ? `<p class="gespraech__nach">${e(g.nachfrage)}</p>` : ''}
+    ${material}
+    ${tabelle}
+    ${folgen}
+    <p class="gespraech__punkt">Ausführlich in der Prüfliste unter ${e(p.id)}.</p>
+  </div>
+</article>`
+}
+
+const gespraechsTeil = `<div class="bahn">
+  <div class="teil"><span class="teil__zahl">${fragen.length === 1 ? 'Eine Frage' : `${fragen.length} Fragen`}</span><h2>Worum ich Sie bitte</h2></div>
+  <p class="teil__text">Alles andere im Katalog habe ich entweder an Quellen entscheiden können oder Sie haben es bereits beantwortet. Das hier bleibt übrig.</p>
+  <div class="punkte">
+${fragen.map((p, i) => gespraechsBlock(p, i + 1)).join('\n')}
+  </div>
+
+  <div class="teil teil--klein"><h2>Und drei Entscheide zum Nicken</h2></div>
+  <p class="teil__text">Die habe ich selbst getroffen, nach bestem Wissen. Wenn Sie widersprechen, ändere ich sie — wenn nicht, bleiben sie.</p>
+  <ul class="nicken">${bestaetigungen
+    .map((p) => `<li><strong>${e(p.id)}</strong><span>${e(p.gespraech?.frage ?? '')}</span></li>`)
+    .join('')}</ul>
+</div>`
+
 /**
  * Als Artefakt liefert der Dienst Gerüst und Kopf selbst; dort darf die Seite
  * kein eigenes html/head mitbringen. Als Datei zum Öffnen und Drucken schon.
  */
 const alsArtefakt = process.argv.includes('--artefakt')
+/** Nur der Gesprächsbogen, ohne Regelwerk und Katalog. */
+const nurFragen = process.argv.includes('--fragen')
 const kopfAuf = alsArtefakt
   ? ''
   : `<!doctype html>
@@ -220,23 +290,23 @@ const kopfAuf = alsArtefakt
 const kopfZu = alsArtefakt ? '' : '</head>\n<body>'
 const fussZu = alsArtefakt ? '' : '\n</body>\n</html>'
 
-console.log(`${kopfAuf}<title>Prüfliste Schwangerschaftskatalog</title>
+console.log(`${kopfAuf}<title>${nurFragen ? 'Zwei Fragen zum Schwangerschaftskatalog' : 'Prüfliste Schwangerschaftskatalog'}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <style>
 :root {
-  --grund: #f4f5f2;
+  --grund: #faf7f7;
   --blatt: #ffffff;
-  --text: #16211c;
-  --leise: #5f6b62;
-  --zweit: #3b453e;
-  --linie: #d8dad2;
-  --tanne: #14432f;
-  --ok-schrift: #14432f;   --ok-flaeche: #dbe7de;
-  --bed-schrift: #7a5311;  --bed-flaeche: #efe6d5;
-  --nein-schrift: #7a1e28; --nein-flaeche: #f0dcde;
-  --unk-schrift: #55605a;  --unk-flaeche: #e4e6e1;
+  --text: #1e1418;
+  --leise: #6b5c63;
+  --zweit: #4a3b40;
+  --linie: #e8dde1;
+  --tanne: #4e0f2f;
+  --ok-schrift: #17603c;   --ok-flaeche: #dcefe2;
+  --bed-schrift: #7a5311;  --bed-flaeche: #f6ecd8;
+  --nein-schrift: #c4161b; --nein-flaeche: #fcdcdb;
+  --unk-schrift: #5a5257;  --unk-flaeche: #eae5e6;
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --grotesk: Archivo, "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -244,22 +314,22 @@ console.log(`${kopfAuf}<title>Prüfliste Schwangerschaftskatalog</title>
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --grund: #0f1512; --blatt: #191f1b; --text: #e9eee9; --leise: #9ca79f;
-    --zweit: #c3ccc4; --linie: #2c3430; --tanne: #86cca4;
-    --ok-schrift: #7cc79b;   --ok-flaeche: #17301f;
-    --bed-schrift: #e3b662;  --bed-flaeche: #332614;
-    --nein-schrift: #f0a3ab; --nein-flaeche: #34191d;
-    --unk-schrift: #aab4ac;  --unk-flaeche: #262c28;
+    --grund: #141013; --blatt: #1f191c; --text: #f0e9eb; --leise: #a3959b;
+    --zweit: #cbbfc4; --linie: #332a2e; --tanne: #f0a5c0;
+    --ok-schrift: #79c99a;   --ok-flaeche: #16321f;
+    --bed-schrift: #e6ba66;  --bed-flaeche: #352815;
+    --nein-schrift: #ff9187; --nein-flaeche: #5a221c;
+    --unk-schrift: #aca3a7;  --unk-flaeche: #302a2d;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --grund: #0f1512; --blatt: #191f1b; --text: #e9eee9; --leise: #9ca79f;
-  --zweit: #c3ccc4; --linie: #2c3430; --tanne: #86cca4;
-  --ok-schrift: #7cc79b;   --ok-flaeche: #17301f;
-  --bed-schrift: #e3b662;  --bed-flaeche: #332614;
-  --nein-schrift: #f0a3ab; --nein-flaeche: #34191d;
-  --unk-schrift: #aab4ac;  --unk-flaeche: #262c28;
+  --grund: #141013; --blatt: #1f191c; --text: #f0e9eb; --leise: #a3959b;
+  --zweit: #cbbfc4; --linie: #332a2e; --tanne: #f0a5c0;
+  --ok-schrift: #79c99a;   --ok-flaeche: #16321f;
+  --bed-schrift: #e6ba66;  --bed-flaeche: #352815;
+  --nein-schrift: #ff9187; --nein-flaeche: #5a221c;
+  --unk-schrift: #aca3a7;  --unk-flaeche: #302a2d;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -414,6 +484,41 @@ code { font-family: var(--mono); font-size: 0.8125em; }
 }
 .posten--knapp .posten__urteil { margin-top: 0; }
 
+/* Gesprächsbogen */
+.teil--klein { margin-top: 3.5rem; }
+.gespraech {
+  display: flex; gap: 1.25rem;
+  background: var(--blatt); border-radius: 4px;
+  border-left: 3px solid var(--tanne);
+  padding: 1.75rem 1.5rem 1.5rem;
+}
+.gespraech__zahl {
+  flex: 0 0 2.2rem; font-family: var(--grotesk); font-size: 1.5rem; font-weight: 700;
+  line-height: 1.1; color: var(--tanne);
+}
+.gespraech__inhalt { min-width: 0; flex: 1; }
+.gespraech__inhalt h3 { margin-bottom: 0.75rem; }
+.gespraech__frage {
+  font-size: 1.0625rem; line-height: 1.55; padding-left: 0.9rem;
+  border-left: 3px solid var(--linie);
+}
+.gespraech__nach { font-size: 0.9375rem; color: var(--leise); }
+.gespraech__material { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: 0.35rem; }
+.gespraech__material li {
+  display: grid; grid-template-columns: 14rem 1fr; gap: 0 1rem;
+  font-size: 0.875rem; line-height: 1.45;
+  padding-bottom: 0.35rem; border-bottom: 1px solid var(--linie);
+}
+.gespraech__material li span:first-child { font-weight: 600; }
+.gespraech__punkt { margin: 1rem 0 0; font-size: 0.8125rem; color: var(--leise); font-style: italic; }
+.folgen { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.8125rem; }
+.folgen th { text-align: left; font-family: var(--grotesk); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--leise); padding: 0 0.6rem 0.35rem 0; border-bottom: 1px solid var(--linie); }
+.folgen td { padding: 0.45rem 0.6rem 0.45rem 0; vertical-align: top; line-height: 1.45; border-bottom: 1px solid var(--linie); }
+.folgen td:first-child { width: 14rem; font-weight: 600; }
+.nicken { list-style: none; margin: 0; padding: 1.25rem 1.5rem; background: var(--blatt); border-radius: 4px; display: grid; gap: 0.75rem; }
+.nicken li { display: grid; grid-template-columns: 3rem 1fr; gap: 0 0.75rem; font-size: 0.9375rem; line-height: 1.5; }
+.nicken strong { font-family: var(--mono); font-size: 0.8125rem; color: var(--tanne); }
+
 /* Fuss */
 .fuss { margin-top: 4rem; padding-top: 1.5rem; border-top: 2px solid var(--tanne); color: var(--leise); font-size: 0.9375rem; }
 
@@ -421,7 +526,7 @@ code { font-family: var(--mono); font-size: 0.8125em; }
   body { background: #fff; color: #000; font-size: 10.5pt; padding: 0; }
   .teil { break-before: page; }
   .kopf + .teil { break-before: auto; }
-  .punkt, .regel, .gruppe { break-inside: avoid; border: 1px solid #ccc; }
+  .punkt, .regel, .gruppe, .gespraech { break-inside: avoid; border: 1px solid #ccc; }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
@@ -429,20 +534,32 @@ ${kopfZu}
 
 <header class="kopf bahn">
   <p class="kopf__marke">Darf ich das essen? · Fachliche Durchsicht</p>
-  <h1>Prüfliste zum Schwangerschaftskatalog</h1>
-  <p class="kopf__lead">Diese App gibt Auskunft, auf die im Laden eine Entscheidung folgt. Der Katalog ist von mir zusammengestellt und nirgends fachlich gegengelesen. Diese Liste sagt, wo ich entschieden habe und woran ich zweifle.</p>
-  <p>Teil 1 sind die zwölf Stellen, an denen meine Zeit am wenigsten wert war und Ihre am meisten. Teil 2 zeigt die Regeln, aus denen alle Urteile entstehen — steht dort etwas schief, betrifft es viele Einträge auf einmal. Teil 3 ist der vollständige Katalog zum Querlesen.</p>
+  <h1>${nurFragen ? 'Zwei Fragen zum Schwangerschaftskatalog' : 'Prüfliste zum Schwangerschaftskatalog'}</h1>
+  <p class="kopf__lead">Diese App gibt Auskunft, auf die im Laden eine Entscheidung folgt. Der Katalog ist von mir zusammengestellt und nirgends fachlich gegengelesen. ${
+    nurFragen
+      ? 'Das meiste liess sich an den Empfehlungen von BLV und BAG entscheiden, und einiges haben Sie bereits beantwortet. Übrig bleiben zwei Fragen — dieser Bogen enthält nur die.'
+      : 'Diese Liste sagt, wo ich entschieden habe und woran ich zweifle.'
+  }</p>
+  ${
+    nurFragen
+      ? '<p>Beide betreffen Einschränkungen, keine Freigaben: Ihre Antwort kann nur lockern, nie ein falsches Ja erzeugen. Bleibt sie aus, ändert sich nichts — dann gilt weiter die strengere Lesart.</p>'
+      : '<p>Teil 1 sind die Stellen, an denen meine Zeit am wenigsten wert war und Ihre am meisten. Teil 2 zeigt die Regeln, aus denen alle Urteile entstehen — steht dort etwas schief, betrifft es viele Einträge auf einmal. Teil 3 ist der vollständige Katalog zum Querlesen.</p>'
+  }
   <p class="kopf__zahlen">
     <span>Stand ${datum}</span>
-    <span>${offenePunkte.punkte.length} offene Punkte</span>
-    <span>${regelKatalog.regeln.length} Regeln</span>
-    <span>${regelKatalog.unbedenkliche_tags.length} Freigaben</span>
+    ${
+      nurFragen
+        ? `<span>${fragen.length} Fragen</span><span>${bestaetigungen.length} Entscheide zum Nicken</span>`
+        : `<span>${offenePunkte.punkte.length} Punkte</span><span>${regelKatalog.regeln.length} Regeln</span><span>${regelKatalog.unbedenkliche_tags.length} Freigaben</span>`
+    }
     <span>${lebensmittelKatalog.lebensmittel.length} Einträge</span>
     <span>${varianten} Varianten</span>
   </p>
 </header>
 
-<div class="bahn">
+${nurFragen ? gespraechsTeil : ''}
+
+${nurFragen ? '' : `<div class="bahn">
   <div class="teil"><span class="teil__zahl">Teil 1</span><h2>Offene Entscheidungen</h2></div>
   <p class="teil__text">Jede davon habe ich getroffen, ohne sie fachlich absichern zu können. Eine Quellenprüfung hat weggeräumt, was sich an Referenzempfehlungen entscheiden liess — was bleibt, ist Ihre Einschätzung. Sie können sich auf die Nummer beziehen.</p>
   ${quellenblock}
@@ -469,9 +586,14 @@ ${regeln}
   <div class="gruppen">
 ${gruppen}
   </div>
-</div>
+</div>`}
 
 <footer class="fuss bahn">
-  <p><strong>Was ich brauche:</strong> zu Teil 1 eine Einschätzung je Nummer, in Teil 3 alles, was Ihnen beim Querlesen aufstösst. Auch ein «zu streng» ist eine Antwort — die App soll nicht mehr verbieten, als nötig ist.</p>
-  <p>Erzeugt aus den Katalogdateien am ${datum}. Ändern sich die Daten, wird diese Liste neu erzeugt und stimmt wieder.</p>
+  <p><strong>Was ich brauche:</strong> ${
+    nurFragen
+      ? 'zu den beiden Fragen eine Einschätzung, und bei den drei Entscheiden ein Ja oder ein Widerspruch. Auch ein «zu streng» ist eine Antwort — die App soll nicht mehr verbieten, als nötig ist.'
+      : 'zu Teil 1 eine Einschätzung je Nummer, in Teil 3 alles, was Ihnen beim Querlesen aufstösst. Auch ein «zu streng» ist eine Antwort — die App soll nicht mehr verbieten, als nötig ist.'
+  }</p>
+  <p>Diese App ersetzt keine Beratung. Sie soll das Nachschlagen abkürzen, nicht das Gespräch mit Ihnen.</p>
+  <p>Erzeugt aus den Katalogdateien am ${datum}. Ändern sich die Daten, wird das Dokument neu erzeugt und stimmt wieder.</p>
 </footer>${fussZu}`)

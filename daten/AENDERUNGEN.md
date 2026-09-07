@@ -88,3 +88,12 @@ ist bestätigt — kein Urteil ändert sich. Nachgetragen wurde, was fehlte.
   weil sie keiner namentlichen BLV-Nennung folgen. Kein Urteil geändert.
 - hebammenliste.ts druckt diese Tabelle mit, strittige Zeilen mit Marke am Rand
 - P12 wartet damit nicht mehr auf eine Zulieferung, sondern auf eine Antwort
+
+# Ergänzung zu v0.5, zweiter Teil
+
+- P05 geschlossen: der Bedingungstext für Aufgewärmtes beschrieb, statt
+  anzuweisen. Jetzt eine Handlung, mit der 70-Grad-Angabe
+- Punkte können ein Feld `gespraech` tragen: die Frage in der Form, in der sie
+  im Sprechzimmer gestellt wird, mit Material und den Folgen jeder Antwort
+- NEU: `npm run hebammenfragen` — Kurzform für einen Termin, drei Seiten
+- Die Prüfliste übernimmt die Burgunder-Palette der App
