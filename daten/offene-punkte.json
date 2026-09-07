@@ -1,5 +1,5 @@
 {
-  "version": "4",
+  "version": "5",
   "hinweis": "Offene inhaltliche Entscheidungen für die Durchsicht durch Hebamme oder Gynäkologin. Version 2 enthielt eine Quellenprüfung gegen die Schweizer Referenzempfehlungen, Version 3 die Rückmeldung dazu. Weder die eine noch die andere ersetzt die fachliche Durchsicht — sie räumen weg, was sich an Quellen oder durch einen Produktentscheid klären liess, und machen sichtbar, was Ermessen bleibt. Bei Änderungen hier nachführen.",
   "pruefung": {
     "datum": "2026-09-06",
@@ -247,25 +247,30 @@
     },
     {
       "id": "P12",
-      "titel": "Achtundzwanzig neue Einträge ohne Gegenlesen",
+      "titel": "Achtundzwanzig neue Einträge ohne Gegenlesen — dreizehn davon mit Urteil",
       "betrifft": [
-        "Sauser",
-        "Frozen Yogurt",
         "Sülze und Aspik",
         "Rochen",
+        "Steinbutt, Seeteufel und Wels",
+        "Frozen Yogurt",
         "Cremeschnitte",
-        "Weinbergschnecken",
-        "Rhabarber",
-        "und 21 weitere"
+        "Alkoholfreier Cocktail",
+        "Gemüsesaft",
+        "Sauser",
+        "Johanniskraut",
+        "Kaninchen und Perlhuhn",
+        "Pferdefleisch",
+        "Truthahn und Gans",
+        "Flammkuchen"
       ],
-      "app_sagt": "Siehe Teil 3.",
-      "warum": "Diese Einträge sind zuletzt dazugekommen. Jeder ist eine inhaltliche Entscheidung ohne Gegenlesen.",
-      "frage": "Bitte in Teil 3 quer lesen — besonders die mit «Nein» und «Bedingt».",
+      "app_sagt": "Fünfzehn der achtundzwanzig sind ein glattes Ja und unstrittig — Rösti, Spätzli, Ketchup, Molke und dergleichen. Dreizehn tragen ein Urteil; sie stehen unten.",
+      "warum": "Diese Einträge sind zuletzt dazugekommen. Jeder ist eine inhaltliche Entscheidung ohne Gegenlesen. Bei der Quellenprüfung lag der Katalog nicht vor, deshalb hiess es hier zunächst nur «siehe Teil 3». Die Urteile sind jetzt ausgeschrieben, damit die Frage beantwortbar ist, ohne 289 Einträge zu lesen.",
+      "frage": "Stimmen diese dreizehn Urteile? Sechs davon sind Annahmen ohne Quelle und wären die ersten, die ich prüfen liesse: Sülze pauschal Nein ohne sichere Form; Rochen auf der Quecksilberliste; Steinbutt gegart nur Bedingt; Frozen Yogurt aus der Maschine und offene Cremeschnitte als Hygieneannahme; alkoholfreier Cocktail mit Spirituosen-Ersatz Nein; frisch gepresster Gemüsesaft Bedingt.",
       "pruefung": {
         "status": "offen",
-        "befund": "Nicht prüfbar, Teil 3 lag nicht vor. Zwei Hinweise aus den anderen Punkten treffen hier voraussichtlich zu: Rochen fällt unter die Quecksilberachse aus P15 und darf nicht über «fisch-gegart» freigegeben werden. Cremeschnitte und Frozen Yogurt sind auf die Roheifrage beziehungsweise auf Softeis-Maschinen und deren Hygiene zu prüfen — beides Fälle, in denen die Zubereitung und nicht das Lebensmittel entscheidet.",
-        "quelle": null,
-        "katalog_aenderung": "Teil 3 nachreichen und dieselbe Prüfung darauf anwenden."
+        "befund": "Ursprünglich nicht prüfbar, weil Teil 3 nicht vorlag. Das ist erledigt: die dreizehn Einträge mit Urteil sind ausgeschrieben. Die zwei damals vermuteten Risiken sind bestätigt und bereits gedeckt — Rochen hängt an raubfisch-hoch und wird nicht über fisch-gegart freigegeben, Cremeschnitte und Frozen Yogurt trennen die kritische Zubereitung ab.\n\nWas bleibt, ist die Frage nach der Richtigkeit. Sieben der dreizehn folgen bekannten Prinzipien und sind vermutlich unstrittig: Kaninchen, Perlhuhn und Pferdefleisch rosa gemieden, Truthahn rosa am Knochen bedingt, Flammkuchen mit nachträglich aufgelegtem Rohschinken gemieden, Sauser in Gärung gemieden, Johanniskraut als erklärte Lücke. Die übrigen sechs sind Annahmen ohne Quelle.",
+        "quelle": "Keine — die sechs strittigen Urteile folgen keiner namentlichen Nennung durch das BLV.",
+        "katalog_aenderung": "Abhängig von der Antwort. Bis dahin bleibt jedes Urteil stehen: die sechs strittigen sind allesamt Einschränkungen, und eine Einschränkung wird nicht gelockert, weil sie ungeprüft ist."
       },
       "rueckmeldung": {
         "datum": "2026-09-07",
@@ -273,7 +278,87 @@
         "entscheid": "Ohne Teil 3 nicht beantwortbar. Teil 3 nachreichen, dann dieselbe Quellenprüfung anwenden.",
         "umgesetzt": "Die zwei absehbaren Risiken sind im Katalog nachgesehen und bereits gedeckt: Rochen hängt an raubfisch-hoch und wird nicht über fisch-gegart freigegeben. Cremeschnitte trennt abgepackte Ware mit pasteurisiertem Ei von offener Konditoreiware, Frozen Yogurt trennt abgepackt von der Softeismaschine.",
         "bleibt_offen": "Die übrigen Einträge aus Teil 3 bleiben ungeprüft, solange die Liste nicht vorliegt."
-      }
+      },
+      "urteile_zum_gegenlesen": [
+        {
+          "name": "Sülze und Aspik",
+          "urteil": "Nein, ohne Variante",
+          "sicher": false,
+          "anmerkung": "Gibt es eine sichere Form — industriell abgepackt oder durcherhitzt?"
+        },
+        {
+          "name": "Rochen",
+          "urteil": "Nein, ohne Variante",
+          "sicher": false,
+          "anmerkung": "Über die Quecksilberregel. Das BLV nennt Rochen nicht namentlich."
+        },
+        {
+          "name": "Steinbutt, Seeteufel und Wels",
+          "urteil": "gegart Bedingt, roh Nein",
+          "sicher": false,
+          "anmerkung": "Seeteufel und Wels sind Raubfische. Steinbutt ist ein Plattfisch — gehört er in dieselbe Zeile?"
+        },
+        {
+          "name": "Frozen Yogurt",
+          "urteil": "abgepackt Ja, aus der Maschine Nein",
+          "sicher": false,
+          "anmerkung": "Annahme über Softeismaschinen und deren Hygiene, keine BLV-Nennung."
+        },
+        {
+          "name": "Cremeschnitte und Cremetorte",
+          "urteil": "abgepackt Ja, offen aus der Konditorei Nein",
+          "sicher": false,
+          "anmerkung": "Annahme über offene Ware. Siehe auch P18."
+        },
+        {
+          "name": "Alkoholfreier Cocktail",
+          "urteil": "ausgewiesen ohne Alkohol Ja, mit Bitter oder Spirituosen-Ersatz Nein",
+          "sicher": false,
+          "anmerkung": "Angostura und Ähnliches enthält Alkohol, aber in Tropfenmengen. Zu streng?"
+        },
+        {
+          "name": "Gemüsesaft",
+          "urteil": "pasteurisiert Ja, frisch gepresst an der Bar Bedingt",
+          "sicher": true,
+          "anmerkung": null
+        },
+        {
+          "name": "Sauser und Federweisser",
+          "urteil": "Süssmost pasteurisiert Ja, frisch ab Hof Bedingt, in Gärung Nein",
+          "sicher": true,
+          "anmerkung": null
+        },
+        {
+          "name": "Johanniskraut und Heilkräuter",
+          "urteil": "Unklar — erklärte Lücke",
+          "sicher": true,
+          "anmerkung": "Bewusst keine Bewertung, mit Verweis auf Hebamme und Ärztin."
+        },
+        {
+          "name": "Kaninchen, Wachtel und Perlhuhn",
+          "urteil": "durchgebraten Ja, rosa Nein",
+          "sicher": true,
+          "anmerkung": null
+        },
+        {
+          "name": "Pferdefleisch",
+          "urteil": "durchgebraten Ja, rosa Nein",
+          "sicher": true,
+          "anmerkung": null
+        },
+        {
+          "name": "Truthahn und Gans",
+          "urteil": "durchgegart Ja, rosa am Knochen Bedingt",
+          "sicher": true,
+          "anmerkung": null
+        },
+        {
+          "name": "Flammkuchen",
+          "urteil": "frisch gebacken Ja, mit nachträglich aufgelegtem Rohschinken Nein",
+          "sicher": true,
+          "anmerkung": null
+        }
+      ]
     },
     {
       "id": "P13",
@@ -450,6 +535,7 @@
     ],
     "bleibt_fachliches_ermessen": [
       "P05",
+      "P12",
       "P18"
     ],
     "wichtigste_frage_an_die_hebamme": "P18 — ist industriell abgepackte, verzehrfertige Kühlware anders zu beurteilen als dieselbe Ware von der offenen Theke? Der Katalog behauptet heute beides zugleich. P13, bisher die wichtigste Frage, ist am 07.09.2026 fachlich bestätigt worden.",
@@ -459,8 +545,6 @@
       "P16",
       "P17"
     ],
-    "wartet_auf_zulieferung": [
-      "P12"
-    ]
+    "wartet_auf_zulieferung": []
   }
 }

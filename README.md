@@ -361,9 +361,12 @@ offen bleibt. Wo der Entscheid nur ein Vorschlag ist, sagt die `herkunft` das.
 
 P13, die BLV-Ausweitung auf Halbhartkäse, ist fachlich bestätigt: kalt nicht
 konsumieren, unabhängig von der Milchbehandlung; erhitzt ab 70 °C
-Kerntemperatur während zwei Minuten in Ordnung. Dabei neu aufgetaucht ist P18 —
-das Tag `vorgeschnitten` meint an zwölf Einträgen Verschiedenes, und der Katalog
-urteilt darüber in beide Richtungen zugleich. P12 wartet auf eine Zulieferung.
+Kerntemperatur während zwei Minuten in Ordnung. Offen sind noch P18 — das Tag
+`vorgeschnitten` meint an zwölf Einträgen Verschiedenes, und der Katalog
+urteilt darüber in beide Richtungen zugleich — und P12, die dreizehn Urteile
+aus dem letzten Katalogzuwachs. Deren Urteile stehen jetzt als
+`urteile_zum_gegenlesen` im Punkt selbst und werden in der Hebammenliste als
+Tabelle gedruckt; sechs davon sind als strittig markiert.
 
 Wer eine Entscheidung korrigiert, führt die Datei nach: sie soll zeigen, was
 noch offen ist, nicht was einmal offen war.

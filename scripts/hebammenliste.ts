@@ -100,6 +100,21 @@ const punkte = offenePunkte.punkte
         : ''
     }
     ${
+      'urteile_zum_gegenlesen' in p && p.urteile_zum_gegenlesen
+        ? `<table class="urteile">
+      <thead><tr><th>Eintrag</th><th>Die App sagt</th><th></th></tr></thead>
+      <tbody>${p.urteile_zum_gegenlesen
+        .map(
+          (u) =>
+            `<tr${u.sicher ? '' : ' class="urteile__strittig"'}><td>${e(u.name)}</td><td>${e(
+              u.urteil,
+            )}</td><td>${u.anmerkung ? e(u.anmerkung) : ''}</td></tr>`,
+        )
+        .join('')}</tbody>
+    </table>`
+        : ''
+    }
+    ${
       p.rueckmeldung
         ? `<div class="pruefung pruefung--rueck">
       <p class="pruefung__kopf">${standChip(
@@ -336,6 +351,13 @@ code { font-family: var(--mono); font-size: 0.8125em; }
 
 /* Die Rückmeldung ist wieder eine andere Stimme — und ausdrücklich ein Vorschlag. */
 .pruefung--rueck { border-top-style: dashed; }
+
+/* Die Urteile zum Abhaken. Strittige Zeilen tragen eine Marke am Rand. */
+.urteile { width: 100%; border-collapse: collapse; margin-top: 0.9rem; font-size: 0.8125rem; }
+.urteile th { text-align: left; font-family: var(--grotesk); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--leise); padding: 0 0.6rem 0.35rem 0; border-bottom: 1px solid var(--linie); }
+.urteile td { padding: 0.45rem 0.6rem 0.45rem 0; vertical-align: top; line-height: 1.45; border-bottom: 1px solid var(--linie); }
+.urteile td:first-child { font-weight: 600; }
+.urteile__strittig td:first-child { box-shadow: inset 3px 0 0 var(--nein-schrift); padding-left: 0.55rem; }
 .pruefung__herkunft { margin: 0.7rem 0 0; font-size: 0.8125rem; font-style: italic; color: var(--leise); }
 
 .quellen { background: var(--blatt); border-radius: 4px; padding: 1.5rem; margin-bottom: 1.5rem; }

@@ -79,3 +79,12 @@ ist bestätigt — kein Urteil ändert sich. Nachgetragen wurde, was fehlte.
   beim Kebab den rohen Salat darin. Geflügelaufschnitt frisch abgepackt ist ein Ja, Sandwich aus
   derselben Kühltheke ein Nein. Kein Urteil geändert: strenger stellen ginge
   ohne Quelle, lockern ist der Schadensfall.
+
+# Ergänzung zu v0.5
+
+- P12 ausgeschrieben: der Blocker war «Teil 3 lag nicht vor». Die dreizehn der
+  achtundzwanzig neuen Einträge, die überhaupt ein Urteil tragen, stehen jetzt
+  als `urteile_zum_gegenlesen` im Punkt — sechs davon als strittig markiert,
+  weil sie keiner namentlichen BLV-Nennung folgen. Kein Urteil geändert.
+- hebammenliste.ts druckt diese Tabelle mit, strittige Zeilen mit Marke am Rand
+- P12 wartet damit nicht mehr auf eine Zulieferung, sondern auf eine Antwort
