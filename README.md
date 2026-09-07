@@ -67,9 +67,15 @@ VITE_GEBURTSTERMIN=2030-01-01 npm run dev
 
 ## Oberfläche
 
-Burgunder als Markenfarbe, warme Rosé-Neutrale als Grund, Milchglas für Hero
-und Suchleiste. Das Detail kommt als Blatt von unten über die Ansicht, aus der
-es geöffnet wurde — die Trefferliste bleibt dahinter stehen.
+Burgunder als Markenfarbe, warme Rosé-Neutrale als Grund, Milchglas für Hero,
+Suchleiste und Navigationsleiste. Das Detail kommt als Blatt von unten über die
+Ansicht, aus der es geöffnet wurde — die Trefferliste bleibt dahinter stehen.
+
+Die drei Ziele — Suchen, Liste, Scannen — stehen in einer schwebenden Leiste in
+der Daumenzone. Vorher waren Liste und Scanner nur vom Startbildschirm aus
+erreichbar: wer gesucht hatte, musste erst zurück. In einem Laden, einhändig,
+ist das der falsche Weg. Über der Leiste bleibt Platz für die Fusszeile, damit
+der Hinweis auf Hebamme und Ärztin nicht darunter endet.
 
 Die Markenfarbe ist rot, und Rot ist in dieser App die Farbe für «Besser
 nicht». Beide sind deshalb bewusst auseinandergehalten: die Marke ist pflaumig
@@ -334,7 +340,7 @@ Repo je umbenannt, muss er an beiden Stellen mitgeändert werden.
 
 ## Stand
 
-Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 190 Unit-Tests und
+Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 192 Unit-Tests und
 5 Offline-Prüfungen.
 
 ## Fachliche Durchsicht

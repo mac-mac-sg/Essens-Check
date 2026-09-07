@@ -193,6 +193,27 @@ export function Sheet({
           <span className="sheet__balken" aria-hidden="true" />
         </div>
 
+        {/*
+          Sichtbarer Weg hinaus. Ziehen, Escape und der Schleier tun dasselbe,
+          aber keines davon ist zu sehen — und wer das Blatt zum ersten Mal
+          vor sich hat, sucht einen Knopf.
+        */}
+        <button
+          className="sheet__zu"
+          type="button"
+          aria-label="Schliessen"
+          onClick={schliessen}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M4 4 L12 12 M12 4 L4 12"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+
         <div className="sheet__inhalt">
           {children}
           {fussKnopf && (

@@ -19,6 +19,7 @@ import { Sheet } from './Sheet'
 import { Suchansicht } from './Suchansicht'
 import { Uebersicht } from './Uebersicht'
 import { Fusszeile } from './Fusszeile'
+import { Navigation, type Ziel } from './Navigation'
 
 type Ansicht = 'suche' | 'uebersicht' | 'scanner' | 'scanergebnis'
 
@@ -100,6 +101,22 @@ export function App() {
     setAnsicht('suche')
   }
 
+  /**
+   * Ein Ziel aus der Leiste. Der Scanner bekommt jedes Mal einen frischen
+   * Anlauf — sonst stünde nach der Rückkehr noch das Ergebnis des letzten
+   * Codes da, obwohl gerade neu gescannt werden soll.
+   */
+  const zumZiel = (ziel: Ziel) => {
+    setOffeneId(null)
+    if (ziel === 'scanner') setCode(null)
+    if (ziel === 'suche') setBegriff('')
+    setHerkunft(ziel === 'uebersicht' ? 'uebersicht' : 'suche')
+    setAnsicht(ziel)
+  }
+
+  /** Das Scanergebnis gehört zum Scanner, nicht zu einem vierten Ziel. */
+  const aktivesZiel: Ziel = ansicht === 'scanergebnis' ? 'scanner' : ansicht
+
   // Kein Scrollen nach oben mehr: die Karte kommt als Blatt darüber, die
   // Trefferliste bleibt dahinter stehen. Zumachen führt dorthin zurück, wo
   // gerade gesucht wurde — nicht an den Anfang.
@@ -166,12 +183,7 @@ export function App() {
             onZurSuche={zumAnfang}
           />
         ) : ansicht === 'uebersicht' ? (
-          <>
-            <Uebersicht onOeffnen={(id) => oeffnen(id, 'uebersicht')} />
-            <button className="zurueck zurueck--flaeche" type="button" onClick={zumAnfang}>
-              Zurück zur Suche
-            </button>
-          </>
+          <Uebersicht onOeffnen={(id) => oeffnen(id, 'uebersicht')} />
         ) : (
           <Suchansicht
             begriff={begriff}
@@ -180,8 +192,6 @@ export function App() {
             teilwort={teilwort}
             gesucht={begriff.trim().length >= MINDESTLAENGE}
             onOeffnen={(id) => oeffnen(id, 'suche')}
-            onUebersicht={() => setAnsicht('uebersicht')}
-            onScannen={() => setAnsicht('scanner')}
           />
         )}
       </main>
@@ -221,6 +231,8 @@ export function App() {
         wunsch={wunsch}
         onWunsch={waehleSchema}
       />
+
+      <Navigation aktiv={aktivesZiel} onWechsel={zumZiel} />
     </div>
   )
 }

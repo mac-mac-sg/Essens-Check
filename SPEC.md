@@ -219,9 +219,26 @@ einmal da, statt für Systemvorgabe und Schalterwahl doppelt gepflegt zu werden.
   Frage, die entscheidet.
 - **Blatt von unten** für Detail und Terminformular: kommt von unten, geht nach
   unten, lässt sich am Griff eins zu eins ziehen, federt über der Oberkante und
-  geht bei genug Weg oder genug Tempo zu. Die Ansicht dahinter bleibt stehen.
-  Bei reduzierter Bewegung entfällt das Ziehen — das Stylesheet setzt dort jede
-  Transformation zurück, das Blatt liesse sich sonst anfassen und bliebe stehen.
+  geht bei genug Weg oder genug Tempo zu. Dazu ein sichtbarer Schliessen-Knopf —
+  Ziehen, Escape und der Schleier tun dasselbe, aber keines davon ist zu sehen.
+  Die Ansicht dahinter bleibt stehen. Bei reduzierter Bewegung entfällt das
+  Ziehen — das Stylesheet setzt dort jede Transformation zurück, das Blatt
+  liesse sich sonst anfassen und bliebe stehen.
+- **Navigationsleiste** mit den drei Zielen Suchen, Liste und Scannen,
+  schwebend in der Daumenzone. Vorher waren Liste und Scanner nur vom
+  Startbildschirm aus erreichbar: wer gesucht hatte, musste erst zurück. Sie
+  liegt unter dem Blatt, damit der Schleier sie mitverdunkelt, und über ihr
+  bleibt Platz für die Fusszeile — der Hinweis auf Hebamme und Ärztin darf
+  nicht darunter enden. Das aktive Ziel trägt Farbe, Fettung und
+  `aria-current`.
+- **Filterreihe** über der Übersicht: waagrecht scrollbare Chips für «Alle»
+  und die zwölf Warengruppen. Ohne Filter bleiben die Gruppen zugeklappt; ist
+  eine gewählt, steht ihre Liste direkt da — ein Behälter um genau einen Inhalt
+  wäre nur ein Griff mehr.
+- **Leerer Zustand** ohne Urteilsmarke: gestrichelte Kante, keine Ampelfarbe.
+  Ein Suchbegriff, den der Katalog nicht kennt, ist keine Bewertung, sah aber
+  wie eine aus, solange «Nichts gefunden» dieselbe Marke trug wie «Nicht
+  bewertet».
 
 Kontrast AA gilt in beiden Schemata und ist in beiden zu messen, nicht zu
 schätzen: das dunkle Burgunder als Schriftfarbe käme auf dunklem Grund auf

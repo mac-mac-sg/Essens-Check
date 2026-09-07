@@ -23,8 +23,6 @@ export function Suchansicht({
   teilwort,
   gesucht,
   onOeffnen,
-  onUebersicht,
-  onScannen,
 }: {
   begriff: string
   setBegriff: (wert: string) => void
@@ -32,8 +30,6 @@ export function Suchansicht({
   teilwort: Lebensmittel[]
   gesucht: boolean
   onOeffnen: (id: string) => void
-  onUebersicht: () => void
-  onScannen: () => void
 }) {
   // Lange Listen sind auf dem Handy unbrauchbar. Es wird nichts weggelassen,
   // nur später gezeigt — der Hinweis darunter sagt, wie viele noch folgen.
@@ -99,37 +95,6 @@ export function Suchansicht({
 
       {!gesucht && (
         <>
-          <div className="wege">
-            <button className="weg" type="button" onClick={onScannen}>
-              <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path
-                  d="M3 6.5V4a1 1 0 0 1 1-1h2.5M13.5 3H16a1 1 0 0 1 1 1v2.5M17 13.5V16a1 1 0 0 1-1 1h-2.5M6.5 17H4a1 1 0 0 1-1-1v-2.5"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M6 7v6M8.5 7v6M11.5 7v6M14 7v6"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                />
-              </svg>
-              Strichcode scannen
-            </button>
-
-            <button className="weg" type="button" onClick={onUebersicht}>
-              <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path
-                  d="M3.5 5.5h13M3.5 10h13M3.5 14.5h8"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                />
-              </svg>
-              Was kann ich essen?
-            </button>
-          </div>
 
           <h2 className="abschnitt__titel abschnitt__titel--klein">Häufig gesucht</h2>
           <Trefferliste eintraege={BELIEBTE} onOeffnen={onOeffnen} />
@@ -147,15 +112,21 @@ export function Suchansicht({
         </>
       )}
 
-      {/* Nulltreffer: nicht raten, sondern sagen, dass nichts hinterlegt ist. */}
+      {/*
+        Nulltreffer: nicht raten, sondern sagen, dass nichts hinterlegt ist.
+
+        Bewusst ohne Urteilsmarke. Ein Suchbegriff, den der Katalog nicht kennt,
+        ist keine Bewertung — er sah aber wie eine aus, solange «Nichts
+        gefunden» in derselben Marke stand wie «Nicht bewertet». Ruhige Fläche,
+        gestrichelte Kante, keine Ampelfarbe.
+      */}
       {gesucht && treffer.length === 0 && (
-        <div className="karte karte--ergebnis" role="status">
-          <span className="urteil" data-status="unklar">
-            {NICHTS_GEFUNDEN}
-          </span>
-          <p className="text">
-            Zu «{begriff.trim()}» ist hier nichts geprüft hinterlegt. Statt zu raten: im
-            Zweifel kurz die Hebamme fragen.
+        <div className="leer" role="status">
+          <p className="leer__titel">{NICHTS_GEFUNDEN}</p>
+          <p className="leer__text">
+            Zu «{begriff.trim()}» ist hier nichts geprüft hinterlegt. Das heisst weder ja
+            noch nein — nur, dass der Katalog es nicht kennt. Statt zu raten: im Zweifel
+            kurz die Hebamme fragen.
           </p>
         </div>
       )}

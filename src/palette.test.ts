@@ -109,6 +109,13 @@ describe.each(SCHEMATA)('Palette (%s)', (_name, P) => {
     expect(kontrast(p('--marke'), p('--flaeche-meiden'))).toBeGreaterThanOrEqual(1.5)
   })
 
+  it('trägt die Marke auch als Fläche mit weisser Schrift', () => {
+    // Der gewählte Filterchip. Im Dunkeln träfe das dunkle Burgunder den
+    // Grund — dort steht deshalb eine aufgehellte Fassung.
+    expect(kontrast('#ffffff', p('--marke-flaeche'))).toBeGreaterThanOrEqual(4.5)
+    expect(kontrast(p('--marke-flaeche'), p('--grundflaeche'))).toBeGreaterThanOrEqual(3)
+  })
+
   it('liest weisse Schrift auf der Marke', () => {
     // Die Kopfzeile ist die Markenfläche, ihre Schrift ist weiss.
     expect(kontrast('#ffffff', p('--marke'))).toBeGreaterThanOrEqual(4.5)
