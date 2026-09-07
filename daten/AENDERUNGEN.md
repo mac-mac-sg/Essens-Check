@@ -54,3 +54,28 @@ Durchsicht, nicht deren Ersatz — die Punkte bleiben in der Datei stehen.
   Zahl «zwölf» in offene-punkte.json war zu hoch und ist korrigiert
 - P12: Rochen, Cremeschnitte und Frozen Yogurt nachgesehen — bereits gedeckt;
   der Rest von Teil 3 bleibt ungeprüft
+
+# Korrekturen v0.4 -> v0.5
+
+Fachliche Antwort auf P13 (Halbhartkäse), eingearbeitet. Die strenge BLV-Linie
+ist bestätigt — kein Urteil ändert sich. Nachgetragen wurde, was fehlte.
+
+- NEU: Grundsatz «Erhitzen, das zählt» — mindestens 70 °C Kerntemperatur
+  während zwei Minuten, die Angabe des BLV
+- 70-Grad-Angabe in allen fünf Listerien-Entschärfungen durch `durcherhitzt`
+- listerien-halbhartkaese: neue Begründung — Pasteurisieren beseitigt die
+  Listerien der Milch, aber der Käse reift danach Wochen bis Monate weiter und
+  kann dabei erneut belastet werden
+- listerien-nicht-erhitzt: Begründung präzisiert — gefährdet ist kalte,
+  verzehrfertige, lange gekühlte Ware; jedes Schneiden und Umfüllen ist eine
+  weitere Gelegenheit
+- hartkaese (Tag UND Eintrag): «lassen Listerien nicht wachsen» war zu viel
+  behauptet. Richtig ist ein deutlich ungünstigeres Milieu und ein klar
+  niedrigeres Risiko — nicht null
+- halbhartkaese: Zusatztext von der Wiederholung der Regel auf die Sortenliste
+  umgestellt
+- NEU in offene-punkte.json: P18 — das Tag «vorgeschnitten» meint an
+  dreizehn Einträgen zweierlei, offene Theke und industriell abgepackte
+  Kühlware. Geflügelaufschnitt frisch abgepackt ist ein Ja, Sandwich aus
+  derselben Kühltheke ein Nein. Kein Urteil geändert: strenger stellen ginge
+  ohne Quelle, lockern ist der Schadensfall.

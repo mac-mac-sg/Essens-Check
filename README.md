@@ -346,7 +346,7 @@ Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 192 Unit-Tests und
 ## Fachliche Durchsicht
 
 Welche inhaltlichen Entscheidungen noch gegengelesen werden müssen, steht in
-`daten/offene-punkte.json`. Die Datei führt siebzehn Punkte, jeden mit dem,
+`daten/offene-punkte.json`. Die Datei führt achtzehn Punkte, jeden mit dem,
 was die App sagt, warum, und was an der Hebamme oder Gynäkologin hängt. Dazu
 kommt je Punkt eine Quellenprüfung gegen die Schweizer Referenzempfehlungen
 mit einem von drei Ständen: `bestaetigt` heisst durch Quellen gedeckt,
@@ -357,10 +357,13 @@ Lebensmittelkatalog selbst ist darin ausdrücklich nicht geprüft.
 
 Wo zu einem Ermessenspunkt inzwischen ein Entscheid vorliegt, steht er als
 `rueckmeldung` daneben — mit dem, was daraus umgesetzt wurde, und dem, was
-offen bleibt. Auch das ist ein Vorschlag für die Durchsicht, nicht deren
-Ersatz. Nach der letzten Runde bleibt genau eine Frage wirklich offen: P13,
-die BLV-Ausweitung auf Halbhartkäse — sie schränkt den Alltag am stärksten
-ein. P12 wartet auf eine Zulieferung.
+offen bleibt. Wo der Entscheid nur ein Vorschlag ist, sagt die `herkunft` das.
+
+P13, die BLV-Ausweitung auf Halbhartkäse, ist fachlich bestätigt: kalt nicht
+konsumieren, unabhängig von der Milchbehandlung; erhitzt ab 70 °C
+Kerntemperatur während zwei Minuten in Ordnung. Dabei neu aufgetaucht ist P18 —
+das Tag `vorgeschnitten` meint an dreizehn Einträgen zweierlei, und der Katalog
+urteilt darüber in beide Richtungen zugleich. P12 wartet auf eine Zulieferung.
 
 Wer eine Entscheidung korrigiert, führt die Datei nach: sie soll zeigen, was
 noch offen ist, nicht was einmal offen war.

@@ -1,5 +1,5 @@
 {
-  "version": "3",
+  "version": "4",
   "hinweis": "Offene inhaltliche Entscheidungen für die Durchsicht durch Hebamme oder Gynäkologin. Version 2 enthielt eine Quellenprüfung gegen die Schweizer Referenzempfehlungen, Version 3 die Rückmeldung dazu. Weder die eine noch die andere ersetzt die fachliche Durchsicht — sie räumen weg, was sich an Quellen oder durch einen Produktentscheid klären liess, und machen sichtbar, was Ermessen bleibt. Bei Änderungen hier nachführen.",
   "pruefung": {
     "datum": "2026-09-06",
@@ -22,7 +22,7 @@
     "datum": "2026-09-07",
     "herkunft": "Vorschlag zur fachlichen Durchsicht, nicht deren Ersatz.",
     "umfang": "P08, P12, P13, P16 und P17.",
-    "ergebnis": "P08, P16 und P17 sind umgesetzt. P12 wartet auf Teil 3. P13 bleibt die Frage an die Hebamme."
+    "ergebnis": "P08, P16 und P17 sind umgesetzt. P12 wartet auf Teil 3. P13 ist fachlich bestätigt — die strenge BLV-Linie gilt. Dabei neu aufgetaucht: P18."
   },
   "punkte": [
     {
@@ -291,17 +291,17 @@
       "warum": "Das BLV hat seine Empfehlung ausgeweitet, nachdem Listerien auch in Halbhartkäse aus pasteurisierter Milch nachgewiesen wurden. Halbhartkäse gehört seither in dieselbe Kategorie wie Weichkäse: abraten, unabhängig von der Milchbehandlung. Geschmolzen — Raclette, Fondue, überbacken — ist er unbedenklich.",
       "frage": "Ist die BLV-Ausweitung auf Halbhartkäse fachlich weiterhin aktuell, und wie geht die Hebamme praktisch damit um? Das betrifft in der Schweiz das Znünibrot und jede Käseplatte.",
       "pruefung": {
-        "status": "korrigiert",
-        "befund": "Das ist die grösste Lücke, die diese Prüfung gefunden hat, und sie ist eine direkte Folge der falschen Prämisse aus P01. Wer die Schweizer Linie für die mildere hält, kommt gar nicht auf die Idee, nach Halbhartkäse zu suchen — die deutschen und britischen Empfehlungen kennen diese Ausweitung nicht. Im Schweizer Alltag ist Halbhartkäse häufiger als Weichkäse. Ein Katalog, der Camembert kennt und Tilsiter nicht, hat die falsche Hälfte abgedeckt.",
+        "status": "bestaetigt",
+        "befund": "Das ist die grösste Lücke, die diese Prüfung gefunden hat, und sie ist eine direkte Folge der falschen Prämisse aus P01. Wer die Schweizer Linie für die mildere hält, kommt gar nicht auf die Idee, nach Halbhartkäse zu suchen — die deutschen und britischen Empfehlungen kennen diese Ausweitung nicht. Im Schweizer Alltag ist Halbhartkäse häufiger als Weichkäse. Ein Katalog, der Camembert kennt und Tilsiter nicht, hat die falsche Hälfte abgedeckt.\n\nFachlich beantwortet am 07.09.2026: bestätigt. Eingeordnet wurde dabei auch, dass die BLV-Regel eine bewusst vorsichtige Schweizer Risikomanagement-Empfehlung ist und nicht die einzige medizinisch vertretbare Position — der britische NHS lässt pasteurisierten Halbhartkäse wie Edamer zu. Für eine auf die Schweiz ausgerichtete App ist das BLV die Referenz.",
         "quelle": "BLV / swissmom: Halbhartkäse aus roher, thermisierter oder pasteurisierter Milch (Tête-de-Moine, Tilsiter, Leerdamer, Fol Epi) unter «nicht zum Verzehr geeignet»; Hart- und Extrahartkäse dagegen unbedenklich, Rinde entfernt.",
         "katalog_aenderung": "Eigene Regel für Halbhartkäse anlegen, parallel zur Weichkäseregel, mit den Varianten «kalt: Nein» und «geschmolzen oder überbacken: Ja». Einträge für die gängigen Sorten ergänzen. Anschliessend die Grenze zu Hartkäse im Katalog schärfen — Appenzeller und Raclettekäse sind Halbhartkäse, Gruyère, Emmentaler, Sbrinz und Parmesan sind Hart- oder Extrahartkäse."
       },
       "rueckmeldung": {
         "datum": "2026-09-07",
-        "herkunft": "Vorschlag zur fachlichen Durchsicht, nicht deren Ersatz.",
-        "entscheid": "Fachlich sauber referenziert; die Ausweitung ist eine reale und noch junge Verschärfung. Für eine App zur strengeren Linie raten: kalt Nein, geschmolzen oder überbacken Ja — konsistent mit der Weichkäseregel.",
-        "umgesetzt": "Die strengere Linie steht im Katalog.",
-        "bleibt_offen": "Ob die Beratungspraxis sie so vertritt, ist die eine Frage, die wirklich an Hebamme oder Gynäkologin muss. Sie schränkt den Alltag spürbar ein — Znüni und Käseplatte."
+        "herkunft": "Fachliche Antwort auf die Rückfrage. Damit ist dieser Punkt entschieden.",
+        "entscheid": "Bestätigt. Für die Schweiz gilt das BLV: Halbhartkäse kalt nicht konsumieren, unabhängig von roher, thermisierter oder pasteurisierter Milch — namentlich genannt Tilsiter, Tête de Moine, Leerdamer und ungeschmolzener Raclettekäse. Ein abgepackter, pasteurisierter Tilsiter ist kalt auf dem Znünibrot nicht empfohlen. Grund: Pasteurisieren beseitigt die Listerien, die zu diesem Zeitpunkt in der Milch sind; der Käse wird danach weiterverarbeitet und über Wochen bis Monate gereift und kann dabei erneut belastet werden. Nachgewiesen bei Halbhartkäse aus roher wie aus pasteurisierter Milch. Hart- und Extrahartkäse bleiben zugelassen, auch aus Rohmilch, Rinde entfernen — nicht weil Listerien dort sicher absterben, sondern weil Wasseraktivität, Säuregrad, Salzgehalt und Reifung ein deutlich ungünstigeres Milieu ergeben. Erhitzt: mindestens 70 °C Kerntemperatur während zwei Minuten, dann sind Fondue, Raclette und Überbackenes in Ordnung.",
+        "umgesetzt": "Die Urteile bleiben unverändert — die strenge Linie stand bereits. Nachgetragen wurde, was fehlte: die 70-Grad-Angabe in allen Käseregeln und als Grundsatz «Erhitzen, das zählt»; die Rekontamination nach der Pasteurisierung als Begründung der Halbhartkäseregel; und der Hartkäse-Text, der behauptete, Listerien könnten dort «nicht wachsen» — richtig ist ein deutlich niedrigeres Risiko, nicht null.",
+        "bleibt_offen": null
       }
     },
     {
@@ -401,6 +401,30 @@
         "umgesetzt": "Neuer Abschnitt «Gilt immer» auf dem Startbildschirm, gespeist aus regeln.json → grundsaetze. Erster und vorerst einziger Grundsatz ist die Käserinde. Betroffen sind acht Einträge, nicht zwölf — die Zahl in diesem Punkt war zu hoch.",
         "bleibt_offen": null
       }
+    },
+    {
+      "id": "P18",
+      "titel": "Das Tag «vorgeschnitten» wirft zwei Dinge zusammen",
+      "betrifft": [
+        "Geflügelaufschnitt",
+        "Sandwich",
+        "Wurstsalat",
+        "Melone",
+        "Avocado",
+        "Käse von der offenen Theke",
+        "Fertigsalat",
+        "und 6 weitere"
+      ],
+      "app_sagt": "Geflügelaufschnitt frisch abgepackt: Ja. Sandwich vorgefertigt aus derselben Kühltheke: Nein.",
+      "warum": "Dreizehn Einträge hängen am Tag «vorgeschnitten». Es meint an manchen Stellen offene Ware von der Theke oder vom Buffet, an anderen industriell abgepackte Fertigware. Bei Geflügelaufschnitt ist «frisch abgepackt» die sichere Variante und «offen von der Theke» die gemiedene; bei Sandwich, Wurstsalat und Melone ist umgekehrt gerade das Abgepackte das Gemiedene. Beides sind kalte, verzehrfertige, gekühlt gelagerte Industrieprodukte — das Urteil kann nicht für dasselbe einmal Ja und einmal Nein sein.",
+      "frage": "Ist industriell abgepackte, verzehrfertige Kühlware in der Schwangerschaft anders zu beurteilen als dieselbe Ware von der offenen Theke? Und wenn nein: gilt für beide das Nein oder für beide das Ja?",
+      "pruefung": {
+        "status": "offen",
+        "befund": "Aufgefallen bei der fachlichen Antwort zu P13. Dort wurde ausdrücklich davor gewarnt, industriell abgepackte Ware pauschal als riskanter einzustufen als Ware von der Frischetheke: Schneiden, Portionieren und Verpacken schaffen zusätzliche Gelegenheiten zur Rekontamination, aber eine hygienisch kontrollierte industrielle Verpackung kann sehr sicher sein. Der Katalog behauptet diesen Vergleich an mehreren Stellen implizit — und zwar in beide Richtungen zugleich.",
+        "quelle": "Fachliche Rückmeldung vom 07.09.2026; Übertragungswege über Schneidemaschinen und Oberflächen sind dokumentiert, die pauschale Rangfolge industriell gegen Theke nicht.",
+        "katalog_aenderung": "Nicht selbst entschieden. Ein Urteil zu ändern hiesse hier entweder fünf Einträge strenger zu stellen, ohne Quelle dafür, oder fünf zu lockern — und Lockern ist in dieser App der Schadensfall. Vorschlag zur Prüfung: das Tag in zwei aufteilen — eines für offene Ware und Buffet, eines für kalte verzehrfertige Kühlware — und beide getrennt bewerten. Bis dahin gilt: was heute gemieden wird, bleibt gemieden."
+      },
+      "rueckmeldung": null
     }
   ],
   "zusammenfassung_fuer_die_durchsicht": {
@@ -422,9 +446,9 @@
     ],
     "bleibt_fachliches_ermessen": [
       "P05",
-      "P13"
+      "P18"
     ],
-    "wichtigste_frage_an_die_hebamme": "P13 — trägt die BLV-Ausweitung auf Halbhartkäse im Alltag, und wie berät sie dazu? Davon hängt ab, wie streng die App im Schweizer Alltag insgesamt wirkt. Die übrigen Punkte sind entschieden oder warten auf Zulieferung; dieser nicht.",
+    "wichtigste_frage_an_die_hebamme": "P18 — ist industriell abgepackte, verzehrfertige Kühlware anders zu beurteilen als dieselbe Ware von der offenen Theke? Der Katalog behauptet heute beides zugleich. P13, bisher die wichtigste Frage, ist am 07.09.2026 fachlich bestätigt worden.",
     "strukturelle_lehre": "Drei der Befunde (P03, P11, P15) sind keine falschen Einzelurteile, sondern dieselbe Schwäche: der Katalog erzeugt Urteile aus einer einzigen Achse. Wo zwei unabhängige Risiken auf ein Lebensmittel treffen, braucht es eine Vorrangordnung zwischen den Regeln. Das ist eine Änderung an der Engine, nicht an den Daten.",
     "nach_rueckmeldung_umgesetzt": [
       "P08",

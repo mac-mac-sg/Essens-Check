@@ -1,10 +1,14 @@
 {
-  "version": "0.4",
-  "hinweis": "Regelkatalog. Jede Regel beschreibt EIN Risikoprinzip. Lebensmittel verweisen über Komponenten-Tags auf diese Regeln. Vor produktivem Einsatz durch Hebamme oder Gynäkologin gegenlesen lassen. Version 0.4: um grundsaetze erweitert — was unabhängig vom einzelnen Lebensmittel gilt und deshalb einmal zentral steht. Weiterhin nicht fachlich verifiziert.",
+  "version": "0.5",
+  "hinweis": "Regelkatalog. Jede Regel beschreibt EIN Risikoprinzip. Lebensmittel verweisen über Komponenten-Tags auf diese Regeln. Version 0.5: die Käseregeln nach der fachlichen Rückmeldung zu P13 nachgeschärft — 70 °C während zwei Minuten als Bedingung fürs Erhitzen, die Rekontamination nach der Pasteurisierung als Begründung, und der Hartkäse-Text auf das zurückgeführt, was sich sagen lässt.",
   "grundsaetze": [
     {
       "titel": "Käserinde immer wegschneiden",
       "text": "Hart- und Extrahartkäse ist unbedenklich — die Rinde nicht. Sie bleibt feucht, wird beim Reifen berührt und kann Listerien tragen. Grosszügig wegschneiden. Mitgekocht in der Suppe oder überbacken ist sie unbedenklich."
+    },
+    {
+      "titel": "Erhitzen, das zählt",
+      "text": "Wo diese App etwas erst «durcherhitzt» freigibt, meint sie die Angabe des BLV: mindestens 70 °C Kerntemperatur während zwei Minuten. Durchgehend heiss, nicht nur aussen — bei Fondue, Raclette, Gratin und Aufgewärmtem gleichermassen."
     }
   ],
   "regeln": [
@@ -20,12 +24,12 @@
         "vorgeschnitten"
       ],
       "status": "meiden",
-      "begruendung": "Listerien vermehren sich auch im Kühlschrank. Eine Infektion verläuft bei der Mutter oft harmlos, kann aber auf das Kind übergehen.",
+      "begruendung": "Listerien vermehren sich auch im Kühlschrank. Eine Infektion verläuft bei der Mutter oft harmlos, kann aber auf das Kind übergehen. Gefährdet ist, was kalt und verzehrfertig lange gekühlt steht: jedes Schneiden, Portionieren und Umfüllen ist eine weitere Gelegenheit, dass Keime hineingelangen.",
       "entschaerfung": [
         {
           "durch": "durcherhitzt",
           "auf": "ok",
-          "text": "Über 70 °C Kerntemperatur werden Listerien abgetötet."
+          "text": "Mindestens 70 °C Kerntemperatur während zwei Minuten tötet Listerien ab."
         }
       ],
       "trimester_gewichtung": null
@@ -42,7 +46,7 @@
         {
           "durch": "durcherhitzt",
           "auf": "ok",
-          "text": "Überbacken oder in der Sauce mitgekocht unbedenklich."
+          "text": "Überbacken oder in der Sauce mitgekocht unbedenklich — mindestens 70 °C Kerntemperatur während zwei Minuten."
         },
         {
           "durch": "pasteurisiert",
@@ -67,7 +71,7 @@
         {
           "durch": "durcherhitzt",
           "auf": "ok",
-          "text": "Mitgekocht oder überbacken — etwa die Rinde in der Suppe — unbedenklich."
+          "text": "Mitgekocht oder überbacken — etwa die Rinde in der Suppe — unbedenklich, bei mindestens 70 °C Kerntemperatur während zwei Minuten."
         }
       ],
       "trimester_gewichtung": null
@@ -388,12 +392,12 @@
         "halbhartkaese"
       ],
       "status": "meiden",
-      "begruendung": "Das BLV hat seine Empfehlung ausgeweitet, nachdem Listerien auch in Halbhartkäse aus pasteurisierter Milch nachgewiesen wurden. Halbhartkäse reift kürzer und feuchter als Hartkäse; die Herstellungsschritte, die Hartkäse sicher machen, greifen hier nicht. Betrifft roh, thermisiert und pasteurisiert gleichermassen.",
+      "begruendung": "Das BLV rät von Halbhartkäse ab, unabhängig von der Milchbehandlung — roh, thermisiert und pasteurisiert gleichermassen. Pasteurisieren beseitigt die Listerien, die zu diesem Zeitpunkt in der Milch sind; der Käse wird danach weiterverarbeitet und über Wochen bis Monate gereift, und dabei kann er erneut belastet werden. Nachgewiesen wurde das bei Halbhartkäse aus roher wie aus pasteurisierter Milch.",
       "entschaerfung": [
         {
           "durch": "durcherhitzt",
           "auf": "ok",
-          "text": "Geschmolzen oder überbacken — Raclette, Fondue, Gratin — unbedenklich, wenn durchgehend heiss."
+          "text": "Geschmolzen oder überbacken — Fondue, Raclette, Gratin — unbedenklich. Das BLV nennt dafür mindestens 70 °C Kerntemperatur während zwei Minuten: durchgehend heiss, nicht nur oben angebräunt."
         }
       ],
       "trimester_gewichtung": null,
@@ -414,7 +418,7 @@
         {
           "durch": "durcherhitzt",
           "auf": "ok",
-          "text": "Überbacken oder mitgekocht unbedenklich."
+          "text": "Überbacken oder mitgekocht unbedenklich — mindestens 70 °C Kerntemperatur während zwei Minuten."
         }
       ],
       "trimester_gewichtung": null,
@@ -472,7 +476,7 @@
   "unbedenkliche_tags": [
     {
       "tag": "hartkaese",
-      "text": "Hart- und Extrahartkäse sind auch aus Rohmilch unbedenklich: hohe Brenntemperatur, niedriger Wassergehalt und lange Reifung lassen Listerien nicht wachsen. Rinde entfernen. Halbhartkäse fällt NICHT darunter — dafür gilt die eigene Regel."
+      "text": "Hart- und Extrahartkäse sind auch aus Rohmilch unbedenklich: hohe Brenntemperatur, niedriger Wassergehalt, viel Salz und lange Reifung ergeben ein Milieu, in dem Listerien kaum überleben. Das Risiko ist deutlich niedriger als bei Weich- und Halbhartkäse — nicht null, aber niedrig genug, dass das BLV diese Käse ausdrücklich zulässt. Rinde entfernen. Halbhartkäse fällt NICHT darunter, dafür gilt die eigene Regel."
     },
     {
       "tag": "fisch-gegart",

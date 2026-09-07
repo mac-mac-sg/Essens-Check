@@ -1,6 +1,6 @@
 {
-  "version": "0.4",
-  "hinweis": "Lebensmittelkatalog. Einträge tragen keine eigene Bewertung, sondern verweisen über Komponenten-Tags auf den Regelkatalog. Inhaltlich nicht fachlich verifiziert — vor produktivem Einsatz durch Hebamme oder Gynäkologin gegenlesen lassen. Version 0.4: Rückmeldung zu den offenen Punkten eingearbeitet — Querverweis zwischen Jod-Präparat und Algen-Obergrenze, Cheddar nach Reifung getrennt, ersetzende Begründungen dort auf zusatz_text umgestellt, wo die Varianten unterschiedlich urteilen.",
+  "version": "0.5",
+  "hinweis": "Lebensmittelkatalog. Einträge tragen keine eigene Bewertung, sondern verweisen über Komponenten-Tags auf den Regelkatalog. Inhaltlich nicht vollständig fachlich verifiziert — offene Punkte stehen in offene-punkte.json. Version 0.5: Käsetexte nach der fachlichen Rückmeldung zu P13 nachgeschärft.",
   "lebensmittel": [
     {
       "id": "sauser",
@@ -1094,7 +1094,7 @@
         }
       ],
       "alternativen": [],
-      "eigener_text": "Hart- und Extrahartkäse sind auch aus Rohmilch unbedenklich — die lange Reifung und der niedrige Wassergehalt lassen Listerien nicht wachsen. Die Rinde grosszügig wegschneiden. Halbhartkäse wie Tilsiter oder Appenzeller gehört nicht in diese Gruppe."
+      "eigener_text": "Hart- und Extrahartkäse sind auch aus Rohmilch unbedenklich: hohe Brenntemperatur, wenig Wasser, viel Salz und lange Reifung ergeben ein Milieu, in dem Listerien kaum überleben. Das Risiko ist deutlich niedriger als bei Weich- und Halbhartkäse — nicht null, aber niedrig genug, dass das BLV diese Käse ausdrücklich zulässt. Die Rinde grosszügig wegschneiden. Halbhartkäse wie Tilsiter oder Appenzeller gehört nicht in diese Gruppe."
     },
     {
       "id": "halbhartkaese",
@@ -1143,7 +1143,7 @@
         "Derselbe Käse geschmolzen"
       ],
       "frage": "Kalt oder geschmolzen?",
-      "zusatz_text": "Das BLV rät von Halbhartkäse ab — unabhängig davon, ob roh, thermisiert oder pasteurisiert. Grund ist der höhere Wassergehalt und die kürzere Reifung. Geschmolzen ist er unbedenklich."
+      "zusatz_text": "Betroffen sind unter anderem Tilsiter, Tête de Moine, Appenzeller, Leerdamer, Fol Epi und Raclettekäse vom Block. Gruyère, Emmentaler, Sbrinz und Parmesan gehören zum Hartkäse und sind davon nicht betroffen."
     },
     {
       "id": "tete-de-moine",
