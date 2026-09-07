@@ -65,6 +65,12 @@ export function Ergebniskarte({ urteil }: { urteil: Urteil }) {
         </>
       )}
 
+      {/*
+        Die Einordnung gilt dem Eintrag, nicht der einzelnen Zubereitung —
+        deshalb einmal unter allen Varianten statt unter jeder einzelnen.
+      */}
+      {urteil.zusatz && <p className="zusatz">{urteil.zusatz}</p>}
+
       {urteil.alternativen.length > 0 && (
         <div className="alt">
           <p>Stattdessen</p>

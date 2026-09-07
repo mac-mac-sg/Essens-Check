@@ -49,6 +49,12 @@ export interface Urteil {
   name: string
   frage?: string
   varianten: VariantenUrteil[]
+  /**
+   * Einordnung zum ganzen Eintrag, nicht zu einer Variante — steht deshalb
+   * einmal unter der Karte statt unter jeder Zeile. Bei drei Varianten stand
+   * derselbe Absatz sonst dreimal auf einem Bildschirm.
+   */
+  zusatz?: string
   alternativen: string[]
 }
 
@@ -239,6 +245,8 @@ export function bewerteLebensmittel(
     name: eintrag.name,
     ...(eintrag.frage !== undefined && { frage: eintrag.frage }),
     varianten,
+    // zusatz_text verdrängt die Regel nicht, er schliesst die Karte ab.
+    ...(eintrag.zusatz_text ? { zusatz: eintrag.zusatz_text } : {}),
     alternativen: eintrag.alternativen,
   }
 }

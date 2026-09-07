@@ -71,6 +71,28 @@ Ein Tag, das keine Regel auslöst, wird nur dann `ok`, wenn es in
 `unbedenkliche_tags` steht. Alles andere ohne Regeltreffer ergibt `unklar` —
 «kein Treffer» wird nie stillschweigend zu einem Ja.
 
+### Begründung ersetzen oder ergänzen
+
+Ein Eintrag kann die generierte Begründung mit `eigener_text` überschreiben.
+Der Ersatz gilt für **alle** Varianten — und damit nur dort, wo alle dasselbe
+Urteil tragen. Sonst steht derselbe Satz einmal unter einem Ja und einmal unter
+einem Nein: «Halloumi wird gebraten und ist damit unbedenklich» stand so über
+dem roten Urteil für den rohen Würfel, und der Jod-Eintrag verwies auf eine
+Warnung, die er selbst verdeckte. Ein Test lässt das nicht mehr zu.
+
+`zusatz_text` verdrängt die Regel nicht, sondern steht einmal unter allen
+Varianten — für Einordnung, Erkennungsmerkmal oder den Verweis auf einen
+zweiten Eintrag mit gegenläufigem Urteil.
+
+### Was immer gilt
+
+Was unabhängig vom einzelnen Lebensmittel gilt, steht als `grundsaetze` in
+`regeln.json` und auf dem Startbildschirm unter «Gilt immer» — einmal zentral
+statt an jedem betroffenen Eintrag. Die Käserinde betrifft acht
+Hartkäse-Einträge; als Rückfrage an jedem einzelnen hätte sie aus acht klaren
+Ja acht bedingte gemacht, und Hartkäse ist der Rückfallweg, auf dem fast jede
+Alternativenliste endet.
+
 Die Suche vergleicht ausschliesslich Teilzeichenketten von Name und Synonymen.
 Umlaute, Akzente und Grossschreibung sind egal, Wortähnlichkeit wird nicht
 ausgewertet: ein Tippfehler liefert lieber einen Nulltreffer als ein falsches
@@ -291,13 +313,13 @@ Repo je umbenannt, muss er an beiden Stellen mitgeändert werden.
 
 ## Stand
 
-Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 64 Unit-Tests und
+Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 166 Unit-Tests und
 5 Offline-Prüfungen.
 
 ## Fachliche Durchsicht
 
 Welche inhaltlichen Entscheidungen noch gegengelesen werden müssen, steht in
-`daten/offene-punkte.json`. Die Datei führt fünfzehn Punkte, jeden mit dem,
+`daten/offene-punkte.json`. Die Datei führt siebzehn Punkte, jeden mit dem,
 was die App sagt, warum, und was an der Hebamme oder Gynäkologin hängt. Dazu
 kommt je Punkt eine Quellenprüfung gegen die Schweizer Referenzempfehlungen
 mit einem von drei Ständen: `bestaetigt` heisst durch Quellen gedeckt,
@@ -305,6 +327,13 @@ mit einem von drei Ständen: `bestaetigt` heisst durch Quellen gedeckt,
 Ermessen und bleibt für die Durchsicht. Die Prüfung ersetzt die Durchsicht
 nicht — sie räumt weg, was sich an Quellen entscheiden liess. Der
 Lebensmittelkatalog selbst ist darin ausdrücklich nicht geprüft.
+
+Wo zu einem Ermessenspunkt inzwischen ein Entscheid vorliegt, steht er als
+`rueckmeldung` daneben — mit dem, was daraus umgesetzt wurde, und dem, was
+offen bleibt. Auch das ist ein Vorschlag für die Durchsicht, nicht deren
+Ersatz. Nach der letzten Runde bleibt genau eine Frage wirklich offen: P13,
+die BLV-Ausweitung auf Halbhartkäse — sie schränkt den Alltag am stärksten
+ein. P12 wartet auf eine Zulieferung.
 
 Wer eine Entscheidung korrigiert, führt die Datei nach: sie soll zeigen, was
 noch offen ist, nicht was einmal offen war.

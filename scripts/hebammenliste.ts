@@ -99,6 +99,22 @@ const punkte = offenePunkte.punkte
     </div>`
         : ''
     }
+    ${
+      p.rueckmeldung
+        ? `<div class="pruefung pruefung--rueck">
+      <p class="pruefung__kopf">${standChip(
+        p.rueckmeldung.bleibt_offen ? 'bedingt' : 'ok',
+        p.rueckmeldung.bleibt_offen ? 'Teilweise entschieden' : 'Entschieden',
+      )}<span>Rückmeldung vom ${e(p.rueckmeldung.datum)}</span></p>
+      <dl>
+        ${zeile('Entscheid', p.rueckmeldung.entscheid)}
+        ${zeile('Umgesetzt', p.rueckmeldung.umgesetzt)}
+        ${zeile('Bleibt offen', p.rueckmeldung.bleibt_offen)}
+      </dl>
+      <p class="pruefung__herkunft">${e(p.rueckmeldung.herkunft)}</p>
+    </div>`
+        : ''
+    }
   </div>
 </article>`
   })
@@ -113,7 +129,9 @@ const quellenblock = `<div class="quellen">
   <p class="quellen__kern"><strong>Kernbefund:</strong> ${e(meta.kernbefund)}</p>
   <p class="quellen__summe">
     <span>${summe.erledigt_durch_quellenpruefung.length} durch Quellen erledigt</span>
-    <span>${summe.korrigiert_und_umzusetzen.length} zu ändern</span>
+    <span>${summe.korrigiert_und_umzusetzen.length} geändert</span>
+    <span>${summe.nach_rueckmeldung_umgesetzt.length} nach Rückmeldung umgesetzt: ${summe.nach_rueckmeldung_umgesetzt.map(e).join(', ')}</span>
+    <span>${summe.wartet_auf_zulieferung.length} wartet auf Zulieferung: ${summe.wartet_auf_zulieferung.map(e).join(', ')}</span>
     <span>${summe.bleibt_fachliches_ermessen.length} bleiben Ihre Einschätzung: ${summe.bleibt_fachliches_ermessen.map(e).join(', ')}</span>
   </p>
   <p class="quellen__frage"><strong>Wichtigste Frage:</strong> ${e(summe.wichtigste_frage_an_die_hebamme)}</p>
@@ -315,6 +333,10 @@ code { font-family: var(--mono); font-size: 0.8125em; }
 .pruefung__kopf { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.6rem; font-family: var(--grotesk); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--leise); }
 .pruefung dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; }
 .pruefung dd { font-size: 0.875rem; line-height: 1.5; color: var(--zweit); }
+
+/* Die Rückmeldung ist wieder eine andere Stimme — und ausdrücklich ein Vorschlag. */
+.pruefung--rueck { border-top-style: dashed; }
+.pruefung__herkunft { margin: 0.7rem 0 0; font-size: 0.8125rem; font-style: italic; color: var(--leise); }
 
 .quellen { background: var(--blatt); border-radius: 4px; padding: 1.5rem; margin-bottom: 1.5rem; }
 .quellen h3 { margin-bottom: 0.6rem; }

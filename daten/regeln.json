@@ -1,6 +1,12 @@
 {
-  "version": "0.3",
-  "hinweis": "Regelkatalog. Jede Regel beschreibt EIN Risikoprinzip. Lebensmittel verweisen über Komponenten-Tags auf diese Regeln. Vor produktivem Einsatz durch Hebamme oder Gynäkologin gegenlesen lassen. Version 0.3: gegen die BLV-Empfehlungen zu Milchprodukten geprüft, um Regeln für Halbhartkäse, stückigen Frischkäse, Aufgewärmtes, Dioxine und erklärte Lücken erweitert; weiterhin nicht fachlich verifiziert.",
+  "version": "0.4",
+  "hinweis": "Regelkatalog. Jede Regel beschreibt EIN Risikoprinzip. Lebensmittel verweisen über Komponenten-Tags auf diese Regeln. Vor produktivem Einsatz durch Hebamme oder Gynäkologin gegenlesen lassen. Version 0.4: um grundsaetze erweitert — was unabhängig vom einzelnen Lebensmittel gilt und deshalb einmal zentral steht. Weiterhin nicht fachlich verifiziert.",
+  "grundsaetze": [
+    {
+      "titel": "Käserinde immer wegschneiden",
+      "text": "Hart- und Extrahartkäse ist unbedenklich — die Rinde nicht. Sie bleibt feucht, wird beim Reifen berührt und kann Listerien tragen. Grosszügig wegschneiden. Mitgekocht in der Suppe oder überbacken ist sie unbedenklich."
+    }
+  ],
   "regeln": [
     {
       "id": "listerien-nicht-erhitzt",

@@ -1,6 +1,6 @@
 {
-  "version": "0.3",
-  "hinweis": "Lebensmittelkatalog. Einträge tragen keine eigene Bewertung, sondern verweisen über Komponenten-Tags auf den Regelkatalog. Inhaltlich nicht fachlich verifiziert — vor produktivem Einsatz durch Hebamme oder Gynäkologin gegenlesen lassen. Version 0.3: gegen die BLV-Empfehlungen zu Milchprodukten und die Quecksilber-Empfehlungen geprüft und korrigiert; weiterhin nicht fachlich verifiziert.",
+  "version": "0.4",
+  "hinweis": "Lebensmittelkatalog. Einträge tragen keine eigene Bewertung, sondern verweisen über Komponenten-Tags auf den Regelkatalog. Inhaltlich nicht fachlich verifiziert — vor produktivem Einsatz durch Hebamme oder Gynäkologin gegenlesen lassen. Version 0.4: Rückmeldung zu den offenen Punkten eingearbeitet — Querverweis zwischen Jod-Präparat und Algen-Obergrenze, Cheddar nach Reifung getrennt, ersetzende Begründungen dort auf zusatz_text umgestellt, wo die Varianten unterschiedlich urteilen.",
   "lebensmittel": [
     {
       "id": "sauser",
@@ -49,7 +49,7 @@
         "Traubensaft"
       ],
       "frage": "Vergoren, frisch gepresst oder aus der Packung?",
-      "eigener_text": "Sauser schmeckt süss und sieht aus wie Traubensaft. Erkennbar ist er an der Trübung, am Prickeln und daran, dass er nur im Herbst und mit offenem Verschluss verkauft wird."
+      "zusatz_text": "Sauser schmeckt süss und sieht aus wie Traubensaft. Erkennbar ist er an der Trübung, am Prickeln und daran, dass er nur im Herbst und mit offenem Verschluss verkauft wird."
     },
     {
       "id": "frozenyogurt",
@@ -443,7 +443,7 @@
         "Gebratenes Filet"
       ],
       "frage": "Wie zubereitet?",
-      "eigener_text": "Seeteufel und Wels sind Raubfische, Steinbutt ein grosser Plattfisch — alle drei können erhöhte Quecksilberwerte tragen. Garen ändert daran nichts, die Mengenempfehlung gilt auch für das gegarte Filet."
+      "zusatz_text": "Seeteufel und Wels sind Raubfische, Steinbutt ein grosser Plattfisch — alle drei können erhöhte Quecksilberwerte tragen. Garen ändert daran nichts, die Mengenempfehlung gilt auch für das gegarte Filet."
     },
     {
       "id": "stockfisch",
@@ -1143,7 +1143,7 @@
         "Derselbe Käse geschmolzen"
       ],
       "frage": "Kalt oder geschmolzen?",
-      "eigener_text": "Das BLV rät von Halbhartkäse ab — unabhängig davon, ob roh, thermisiert oder pasteurisiert. Grund ist der höhere Wassergehalt und die kürzere Reifung. Geschmolzen ist er unbedenklich."
+      "zusatz_text": "Das BLV rät von Halbhartkäse ab — unabhängig davon, ob roh, thermisiert oder pasteurisiert. Grund ist der höhere Wassergehalt und die kürzere Reifung. Geschmolzen ist er unbedenklich."
     },
     {
       "id": "tete-de-moine",
@@ -1177,8 +1177,8 @@
         "Gruyère",
         "Sbrinz"
       ],
-      "eigener_text": "Tête de Moine ist Halbhartkäse und wird vom BLV namentlich unter den ungeeigneten Käsen geführt. Der Risikoträger ist der Teig, nicht die Rinde — das Hobeln hilft nicht.",
-      "frage": "Kalt oder geschmolzen?"
+      "frage": "Kalt oder geschmolzen?",
+      "zusatz_text": "Tête de Moine ist Halbhartkäse und wird vom BLV namentlich unter den ungeeigneten Käsen geführt. Der Risikoträger ist der Teig, nicht die Rinde — das Hobeln hilft nicht."
     },
     {
       "id": "raclette",
@@ -1208,8 +1208,8 @@
         }
       ],
       "alternativen": [],
-      "eigener_text": "Raclettekäse ist Halbhartkäse. Geschmolzen unbedenklich — durchgehend heiss, nicht nur oben angebräunt. Kalt vom Block gehört er zum Halbhartkäse und wird gemieden.",
-      "frage": "Geschmolzen oder kalt?"
+      "frage": "Geschmolzen oder kalt?",
+      "zusatz_text": "Raclettekäse ist Halbhartkäse. Geschmolzen unbedenklich — durchgehend heiss, nicht nur oben angebräunt. Kalt vom Block gehört er zum Halbhartkäse und wird gemieden."
     },
     {
       "id": "fondue",
@@ -1266,8 +1266,8 @@
         }
       ],
       "alternativen": [],
-      "eigener_text": "Halloumi wird gebraten oder gegrillt und damit durcherhitzt — unbedenklich.",
-      "frage": "Gebraten oder roh?"
+      "frage": "Gebraten oder roh?",
+      "zusatz_text": "Halloumi ist ein Salzlakenkäse. Sicher macht ihn erst das Braten oder Grillen — roh, etwa gewürfelt im Salat, gehört er zu den ungeeigneten Käsen."
     },
     {
       "id": "frischkaese",
@@ -1394,7 +1394,7 @@
         "Quark"
       ],
       "frage": "Kalt oder überbacken?",
-      "eigener_text": "Stückiger Frischkäse hat einen hohen Wassergehalt und wird vom BLV getrennt von streichfähigem Frischkäse geführt."
+      "zusatz_text": "Stückiger Frischkäse hat einen hohen Wassergehalt und wird vom BLV getrennt von streichfähigem Frischkäse geführt."
     },
     {
       "id": "feta",
@@ -1443,7 +1443,7 @@
         "Hartkäse"
       ],
       "frage": "Wie verwendet?",
-      "eigener_text": "Das BLV führt Feta namentlich unter den Milchprodukten, die Listerien enthalten könnten — auch aus pasteurisierter Milch. In der Ofenpfanne oder im Gratin durcherhitzt ist er unbedenklich."
+      "zusatz_text": "Das BLV führt Feta namentlich unter den Milchprodukten, die Listerien enthalten könnten — auch aus pasteurisierter Milch. In der Ofenpfanne oder im Gratin durcherhitzt ist er unbedenklich."
     },
     {
       "id": "mozzarella",
@@ -1477,7 +1477,7 @@
         "Ricotta aus pasteurisierter Milch"
       ],
       "frage": "Aus welcher Milch?",
-      "eigener_text": "Mozzarella und Burrata werden bei der Herstellung erhitzt — deshalb unbedenklich, nicht wegen der Pasteurisierung der Milch. Gekühlt lagern und nach dem Öffnen rasch aufbrauchen."
+      "zusatz_text": "Die Freigabe kommt vom Erhitzen bei der Herstellung, nicht von der Milch allein. Gekühlt lagern und nach dem Öffnen rasch aufbrauchen."
     },
     {
       "id": "burrata",
@@ -1511,7 +1511,7 @@
         "Abgepackter Kuhmilch-Mozzarella"
       ],
       "frage": "Aus welcher Milch?",
-      "eigener_text": "Mozzarella und Burrata werden bei der Herstellung erhitzt — deshalb unbedenklich, nicht wegen der Pasteurisierung der Milch. Gekühlt lagern und nach dem Öffnen rasch aufbrauchen."
+      "zusatz_text": "Die Freigabe kommt vom Erhitzen bei der Herstellung, nicht von der Milch allein. Gekühlt lagern und nach dem Öffnen rasch aufbrauchen."
     },
     {
       "id": "schmelzkaese",
@@ -1998,7 +1998,7 @@
         "Fisch aus der Dose"
       ],
       "frage": "Wie zubereitet?",
-      "eigener_text": "Zander ist ein Süsswasser-Raubfisch und kann wie Hecht und Aal erhöhte Werte aufweisen. Gegart ist er frei von Keimen, die Mengenempfehlung gilt trotzdem."
+      "zusatz_text": "Zander ist ein Süsswasser-Raubfisch und kann wie Hecht und Aal erhöhte Werte aufweisen. Gegart ist er frei von Keimen, die Mengenempfehlung gilt trotzdem."
     },
     {
       "id": "dorade",
@@ -2065,7 +2065,7 @@
         "Fisch aus der Dose"
       ],
       "frage": "Wie zubereitet?",
-      "eigener_text": "Rotbarsch zeigt in Messreihen vergleichsweise hohe Quecksilberwerte. Gegart ist er frei von Keimen, die Mengenempfehlung gilt trotzdem."
+      "zusatz_text": "Rotbarsch zeigt in Messreihen vergleichsweise hohe Quecksilberwerte. Gegart ist er frei von Keimen, die Mengenempfehlung gilt trotzdem."
     },
     {
       "id": "sardine",
@@ -2131,7 +2131,7 @@
         "Fisch aus der Dose"
       ],
       "frage": "Wie zubereitet?",
-      "eigener_text": "Makrele zählt zu den Arten mit erhöhtem Quecksilbergehalt. Gegart ist er frei von Keimen, die Mengenempfehlung gilt trotzdem."
+      "zusatz_text": "Makrele zählt zu den Arten mit erhöhtem Quecksilbergehalt. Gegart ist er frei von Keimen, die Mengenempfehlung gilt trotzdem."
     },
     {
       "id": "hering",
@@ -2628,8 +2628,8 @@
         "Pasteurisierter Rogen aus dem Glas",
         "Durchgegarter Fisch"
       ],
-      "eigener_text": "Rogen aus dem Glas ist in der Regel pasteurisiert — steht es auf der Packung, ist er unbedenklich. Frischer Kaviar und offen verkaufter Rogen sind es nicht.",
-      "frage": "Pasteurisiert?"
+      "frage": "Pasteurisiert?",
+      "zusatz_text": "Rogen aus dem Glas ist in der Regel pasteurisiert — steht es auf der Packung, ist er unbedenklich. Frischer Kaviar und offen verkaufter Rogen sind es nicht."
     },
     {
       "id": "steak",
@@ -4390,8 +4390,8 @@
         "Heisser Apfelsaft mit Gewürzen",
         "Früchtetee mit Zimt"
       ],
-      "eigener_text": "Beim Erwärmen verdampft nur ein Teil des Alkohols. Der Rest bleibt und geht auf das Kind über.",
-      "frage": "Mit oder ohne Alkohol?"
+      "frage": "Mit oder ohne Alkohol?",
+      "zusatz_text": "Warm heisst nicht alkoholfrei: beim Erwärmen verdampft nur ein Teil des Alkohols, der Rest geht auf das Kind über. Ausgewiesen alkoholfreier Punsch ist davon nicht betroffen."
     },
     {
       "id": "kombucha",
@@ -6890,7 +6890,7 @@
         "Durchgegarter Seefisch"
       ],
       "frage": "Woraus?",
-      "eigener_text": "In der Schweiz ist Jodmangel das häufigere Problem, nicht der Überschuss: Frauen im gebärfähigen Alter nehmen im Mittel zu wenig auf, und der Bedarf steigt in der Schwangerschaft. Die Warnung unten gilt der Überdosierung durch Algenpräparate, nicht dem verordneten Jod."
+      "zusatz_text": "In der Schweiz ist der Mangel das häufigere Problem als der Überschuss; über die Dosis des verordneten Präparats entscheidet die Ärztin. Die Obergrenze betrifft Jod aus Algen — siehe Nori sowie Kombu und Wakame."
     },
     {
       "id": "speisesalz",
@@ -7127,7 +7127,8 @@
         "Gurken-Maki ohne Alge aussen",
         "Reisbowl statt Rolle"
       ],
-      "frage": "In welcher Menge?"
+      "frage": "In welcher Menge?",
+      "zusatz_text": "Diese Obergrenze gilt dem Jod aus Algen. Ein ärztlich verordnetes Jodpräparat ist damit nicht gemeint — siehe Jod."
     },
     {
       "id": "braunalgen",
@@ -7168,7 +7169,8 @@
         "Jodiertes Speisesalz",
         "Durchgegarter Seefisch"
       ],
-      "frage": "Wie oft?"
+      "frage": "Wie oft?",
+      "zusatz_text": "Diese Obergrenze gilt dem Jod aus Algen. Ein ärztlich verordnetes Jodpräparat ist damit nicht gemeint — siehe Jod."
     },
     {
       "id": "spirulina",
@@ -8015,10 +8017,27 @@
       ],
       "varianten": [
         {
-          "label": null,
+          "label": "Gereift, mindestens einige Monate",
           "komponenten": [
             {
               "tag": "hartkaese"
+            }
+          ]
+        },
+        {
+          "label": "Jung oder mild",
+          "komponenten": [
+            {
+              "tag": "halbhartkaese"
+            }
+          ]
+        },
+        {
+          "label": "Geschmolzen oder überbacken",
+          "komponenten": [
+            {
+              "tag": "halbhartkaese",
+              "zustand": "durcherhitzt"
             }
           ]
         }
@@ -8028,7 +8047,8 @@
         "Sbrinz",
         "Emmentaler"
       ],
-      "eigener_text": "Gereifter Cheddar ist ein Hartkäse und unbedenklich. Gouda, Edamer und Maasdam gehören dagegen zum Halbhartkäse und werden dort behandelt."
+      "frage": "Gereift oder jung?",
+      "zusatz_text": "Gereifter Cheddar ist wasserarm und lange gereift — damit ein Hartkäse. Junger, milder Cheddar ist wasserreicher und wird wie Halbhartkäse behandelt. Sagt die Packung nichts zur Reifung, gilt die strengere Auskunft. Gouda, Edamer und Maasdam sind Halbhartkäse und stehen dort."
     },
     {
       "id": "sushi-ingwer",
@@ -8147,7 +8167,7 @@
         "Fisch aus der Dose"
       ],
       "frage": "Wie zubereitet?",
-      "eigener_text": "Heilbutt gehört zu den Arten mit erhöhtem Quecksilbergehalt — Garen ändert daran nichts. Gegart ist er frei von Keimen, die Mengenempfehlung gilt trotzdem."
+      "zusatz_text": "Heilbutt gehört zu den Arten mit erhöhtem Quecksilbergehalt — Garen ändert daran nichts. Gegart ist er frei von Keimen, die Mengenempfehlung gilt trotzdem."
     },
     {
       "id": "fischsuppe",

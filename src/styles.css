@@ -633,6 +633,43 @@ body {
   color: var(--text-gedaempft);
 }
 
+/*
+ * «Gilt immer» auf dem Startbildschirm: was unabhängig vom Lebensmittel gilt.
+ * Zugeklappt und ruhiger als die Schaltflächen darüber — es soll auffindbar
+ * sein, nicht den Weg ins Suchfeld verstellen.
+ */
+.gruppe--grundsatz {
+  margin-top: 1.75rem;
+}
+
+.gruppe--grundsatz .gruppe__titel {
+  font-size: 0.9375rem;
+  min-height: 48px;
+  color: var(--text-zweitrangig);
+}
+
+.grundsatz {
+  padding: 0.25rem 1rem 1rem;
+}
+
+.grundsatz + .grundsatz {
+  border-top: 1px solid var(--trennlinie);
+  padding-top: 1rem;
+}
+
+.grundsatz__titel {
+  margin: 0 0 0.35rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.grundsatz__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-zweitrangig);
+}
+
 /* ---------------------------- Scannen ---------------------------- */
 
 .scanstand {
@@ -864,6 +901,19 @@ body {
   background: var(--flaeche-bedingt);
   border-left: 3px solid var(--farbe-bedingt);
   border-radius: 0 var(--radius-klein) var(--radius-klein) 0;
+}
+
+/*
+ * Die Einordnung zum ganzen Eintrag: unter allen Varianten, ruhiger als sie.
+ * Sie erklärt, sie urteilt nicht — deshalb ohne Ampelfarbe und ohne Fläche.
+ */
+.zusatz {
+  margin: 1.125rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--linie);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-zweitrangig);
 }
 
 .alt {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { lebensmittelKatalog, regelKatalog } from './daten'
+import { bewerteVariante } from './engine/bewerten'
 
 describe('Kataloge', () => {
   it('lädt beide Kataloge über den @daten-Alias', () => {
@@ -47,6 +48,23 @@ describe('Kataloge', () => {
       .map((komponente) => komponente.tag)
       .filter((tag) => !bekannt.has(tag))
     expect([...new Set(unbekannt)]).toEqual([])
+  })
+
+  it('ersetzt die Begründung nie über unterschiedliche Urteile hinweg', () => {
+    // eigener_text gilt für ALLE Varianten. Urteilen sie unterschiedlich,
+    // steht derselbe Satz einmal unter Ja und einmal unter Nein — so entstand
+    // «Halloumi … unbedenklich» unter dem roten Urteil für den rohen Würfel.
+    // Solche Einträge gehören auf zusatz_text, der die Regel ergänzt.
+    const verletzt = lebensmittelKatalog.lebensmittel
+      .filter((eintrag) => eintrag.eigener_text)
+      .filter((eintrag) => {
+        const urteile = eintrag.varianten.map(
+          (variante) => bewerteVariante(variante, regelKatalog).status,
+        )
+        return new Set(urteile).size > 1
+      })
+      .map((eintrag) => eintrag.id)
+    expect(verletzt).toEqual([])
   })
 
   it('kennt nur Status aus der Rangfolge', () => {

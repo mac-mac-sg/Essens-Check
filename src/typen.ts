@@ -39,9 +39,20 @@ export interface UnbedenklicherTag {
   text: string
 }
 
+/**
+ * Etwas, das unabhängig vom einzelnen Lebensmittel gilt. Steht zentral, weil
+ * es sonst an jedem betroffenen Eintrag wiederholt werden müsste — und die
+ * Rindenfrage aus acht klaren Ja acht bedingte machen würde.
+ */
+export interface Grundsatz {
+  titel: string
+  text: string
+}
+
 export interface RegelKatalog {
   version: string
   hinweis: string
+  grundsaetze: Grundsatz[]
   regeln: Regel[]
   zustaende: string[]
   /**
@@ -76,8 +87,21 @@ export interface Lebensmittel {
   frage?: string
   varianten: Variante[]
   alternativen: string[]
-  /** Überschreibt die generierte Begründung. Sparsam einsetzen. */
+  /**
+   * Überschreibt die generierte Begründung — für ALLE Varianten.
+   *
+   * Nur zulässig, wenn alle Varianten dasselbe Urteil tragen. Sonst steht ein
+   * beruhigender Satz unter einem roten Urteil (Halloumi roh) oder eine
+   * Warnung unter einem grünen (Kinderpunsch). Ein Test hält das offen.
+   */
   eigener_text?: string | null
+  /**
+   * Ergänzt die generierte Begründung, statt sie zu ersetzen. Das ist der
+   * richtige Ort für alles, was zum Eintrag gehört, aber die Regel nicht
+   * ersetzt — Einordnung, Erkennungsmerkmal, Verweis auf einen zweiten
+   * Eintrag mit gegenläufigem Urteil.
+   */
+  zusatz_text?: string | null
 }
 
 export interface LebensmittelKatalog {

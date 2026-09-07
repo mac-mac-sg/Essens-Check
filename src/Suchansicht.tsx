@@ -1,4 +1,5 @@
 import { BELIEBT, NICHTS_GEFUNDEN } from './ampel'
+import { Grundsaetze } from './Grundsaetze'
 import { MAX_TREFFER } from './engine/suchen'
 import type { Lebensmittel } from './typen'
 
@@ -91,6 +92,8 @@ export function Suchansicht({
           <button className="umkehr" type="button" onClick={onUebersicht}>
             Was kann ich essen?
           </button>
+
+          <Grundsaetze />
         </>
       )}
 

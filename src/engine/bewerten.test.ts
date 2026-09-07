@@ -275,6 +275,104 @@ describe('eigener_text', () => {
   })
 })
 
+describe('zusatz_text', () => {
+  it('ergänzt die Regelbegründung, statt sie zu ersetzen', () => {
+    // Halloumi roh: die Halbhartkäse-Regel muss sichtbar bleiben. Vorher stand
+    // dort nur «wird gebraten und ist damit unbedenklich» — unter einem Nein.
+    const urteil = urteilVon('halloumi')
+    const roh = urteil.varianten[1]
+    expect(roh?.status).toBe('meiden')
+    expect(roh?.begruendungen.map((b) => b.regel)).toEqual(['listerien-halbhartkaese'])
+    expect(urteil.zusatz).toContain('Salzlakenkäse')
+  })
+
+  it('steht einmal am Eintrag, nicht an jeder Variante', () => {
+    // Bei drei Varianten stand derselbe Absatz sonst dreimal auf der Karte.
+    for (const eintrag of lebensmittelKatalog.lebensmittel) {
+      const urteil = bewerteLebensmittel(eintrag, regelKatalog)
+      expect(urteil.zusatz, eintrag.id).toBe(eintrag.zusatz_text ?? undefined)
+      for (const variante of urteil.varianten) {
+        const texte = variante.begruendungen.map((b) => b.text)
+        expect(texte, `${eintrag.id}/${variante.label}`).not.toContain(eintrag.zusatz_text)
+      }
+    }
+  })
+
+  it('ändert das Urteil nicht', () => {
+    // Dieselben Referenzurteile wie zuvor — der Zusatztext erklärt, er wertet nicht.
+    expect(urteile('halloumi')).toEqual(['ok', 'meiden'])
+    expect(urteile('mozzarella')).toEqual(['ok', 'meiden'])
+    expect(urteile('glühwein')).toEqual(['ok', 'meiden'])
+  })
+})
+
+describe('Jod: Präparat und Algen widersprechen sich nicht mehr', () => {
+  // P08: «Jod» führte über den Präparateintrag zu einem Ja und über die
+  // Algenregel zu einer Obergrenze — ohne dass ein Eintrag den anderen kannte.
+  it('verweist vom Präparat auf die Algen-Obergrenze', () => {
+    const text = urteilVon('jod').zusatz ?? ''
+    expect(text).toContain('Algen')
+    expect(text).toContain('Nori')
+  })
+
+  it('verweist von den Algen zurück auf das verordnete Präparat', () => {
+    for (const id of ['algen', 'braunalgen']) {
+      expect(urteilVon(id).zusatz ?? '', id).toContain('verordnetes Jodpräparat')
+    }
+  })
+
+  it('zeigt die Jod-Regel jetzt wirklich an, statt nur auf sie zu verweisen', () => {
+    const algenpraeparat = urteilVon('jod').varianten[1]
+    expect(algenpraeparat?.status).toBe('meiden')
+    expect(algenpraeparat?.begruendungen.map((b) => b.regel)).toContain('jod-ueberschuss')
+  })
+
+  it('nennt weiterhin keine Dosis in Milligramm oder Mikrogramm', () => {
+    for (const id of ['jod', 'algen', 'braunalgen', 'folsaeure', 'eisen', 'vitamin-d']) {
+      const urteil = urteilVon(id)
+      const texte = [
+        ...urteil.varianten.flatMap((v) => v.begruendungen.map((b) => b.text)),
+        urteil.zusatz ?? '',
+      ]
+      for (const text of texte) {
+        expect(text, `${id}: ${text}`).not.toMatch(/\d+\s*(mg|µg|mcg|g)\b/i)
+      }
+    }
+  })
+})
+
+describe('Cheddar: gereift und jung sind nicht dasselbe', () => {
+  // P16: Die Einordnung von gereiftem Cheddar als Hartkäse bleibt. Junger,
+  // wasserreicherer Cheddar fällt nicht mehr stillschweigend darunter.
+  it('gibt nur den gereiften Cheddar frei', () => {
+    expect(urteile('cheddar')).toEqual(['ok', 'meiden', 'ok'])
+  })
+
+  it('fragt nach der Reifung, statt sie anzunehmen', () => {
+    expect(urteilVon('cheddar').frage).toBe('Gereift oder jung?')
+  })
+})
+
+describe('Grundsätze gelten unabhängig vom Lebensmittel', () => {
+  // P17: Die Rindenfrage betrifft alle acht Hartkäse-Einträge. An jedem
+  // einzelnen wiederholt hätte sie acht klare Ja zu bedingten gemacht.
+  it('führt die Käserinde zentral', () => {
+    const titel = regelKatalog.grundsaetze.map((g) => g.titel)
+    expect(titel).toContain('Käserinde immer wegschneiden')
+  })
+
+  it('lässt den Hartkäse selbst dabei ein klares Ja bleiben', () => {
+    const mitHartkaese = lebensmittelKatalog.lebensmittel.filter((eintrag) =>
+      eintrag.varianten.some((v) => v.komponenten.some((k) => k.tag === 'hartkaese')),
+    )
+    expect(mitHartkaese.length).toBeGreaterThanOrEqual(8)
+    for (const eintrag of mitHartkaese) {
+      const status = bewerteLebensmittel(eintrag, regelKatalog).varianten.map((v) => v.status)
+      expect(status, eintrag.id).toContain('ok')
+    }
+  })
+})
+
 describe('Begründungen', () => {
   it('entfernt doppelte Formulierungen', () => {
     const variante = ersteVariante('camembert')
@@ -447,8 +545,9 @@ describe('Katalogabdeckung', () => {
       fondue: ['ok'],
       halloumi: ['ok', 'meiden'],
       mozzarella: ['ok', 'meiden'],
-      // Gereifter Cheddar bleibt Hartkäse; Gouda und Edamer sind ausgezogen.
-      cheddar: ['ok'],
+      // Gereifter Cheddar bleibt Hartkäse; junger ist wasserreicher und wird
+      // wie Halbhartkäse behandelt. Gouda und Edamer sind ausgezogen.
+      cheddar: ['ok', 'meiden', 'ok'],
       'kaese-allgemein': ['ok', 'meiden', 'meiden', 'meiden', 'ok'],
       // Die Rinde ist die Aussenseite — der Teig bleibt ein Ja.
       kaeserinde: ['ok', 'bedingt', 'ok', 'meiden'],

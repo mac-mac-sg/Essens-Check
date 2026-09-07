@@ -46,6 +46,13 @@ Zwei Ebenen, die zusammen die Abdeckung erzeugen:
 Jede Regel kennt ihre Auslöser-Tags, einen Status und die Zustände, die sie
 entschärfen. Diese Ebene ändert sich fast nie.
 
+Neben den Regeln führt `regeln.json` eine Liste `grundsaetze`: was unabhängig
+vom einzelnen Lebensmittel gilt und deshalb einmal zentral steht statt an jedem
+betroffenen Eintrag. Die App zeigt sie auf dem Startbildschirm unter «Gilt
+immer». Erster Eintrag ist die Käserinde — als Rückfrage an jedem der acht
+Hartkäse-Einträge hätte sie aus acht klaren Ja acht bedingte gemacht, und
+Hartkäse ist der Rückfallweg, auf dem fast jede Alternativenliste endet.
+
 **Ebene 2 — Lebensmittelkatalog** (`lebensmittel.json`). Jeder Eintrag verweist über
 Komponenten auf Regeln, statt eine eigene Bewertung mitzubringen:
 
@@ -72,7 +79,8 @@ Komponenten auf Regeln, statt eine eigene Bewertung mitzubringen:
     }
   ],
   "alternativen": ["..."],
-  "eigener_text": null
+  "eigener_text": null,
+  "zusatz_text": null
 }
 ```
 
@@ -82,7 +90,19 @@ hat sie keinen Einfluss.
 
 `eigener_text` überschreibt die generierte Begründung, wenn ein Eintrag eine
 Formulierung braucht, die die Regel nicht hergibt. Sparsam einsetzen — sonst
-zerfällt der Katalog wieder in eine Liste.
+zerfällt der Katalog wieder in eine Liste. Der Ersatz gilt für **alle**
+Varianten und ist deshalb nur zulässig, wo alle dasselbe Urteil tragen. Sonst
+steht derselbe Satz einmal unter einem Ja und einmal unter einem Nein: «Halloumi
+wird gebraten und ist damit unbedenklich» stand so über dem roten Urteil für den
+rohen Würfel. Ein Test hält das offen.
+
+`zusatz_text` ergänzt die Begründung, statt sie zu ersetzen. Er gilt dem
+Eintrag, nicht der einzelnen Zubereitung, und steht deshalb einmal unter allen
+Varianten — bei drei Varianten stünde derselbe Absatz sonst dreimal auf einem
+Bildschirm. Das ist der Ort für alles, was zum Eintrag gehört, aber die Regel
+nicht ersetzt: Einordnung, Erkennungsmerkmal, Verweis auf einen zweiten Eintrag
+mit gegenläufigem Urteil — etwa vom verordneten Jodpräparat auf die
+Jod-Obergrenze bei Algen und zurück.
 
 ## Auswertungslogik
 
@@ -104,6 +124,8 @@ Pro Variante:
    verdeckte — die Karte sagte «Nicht bewertet», obwohl die App das
    Entscheidende weiss.
 4. Begründungen der auslösenden Regeln zusammenführen, Duplikate entfernen.
+   `eigener_text` tritt an ihre Stelle; `zusatz_text` steht einmal unter der
+   ganzen Karte.
 5. Regeln mit `trimester_gewichtung` erzeugen nur im passenden Trimester einen
    zusätzlichen Hinweis.
 
