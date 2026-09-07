@@ -65,6 +65,27 @@ vorgeben; gesetzt ist die Variable nicht.
 VITE_GEBURTSTERMIN=2030-01-01 npm run dev
 ```
 
+## Oberfläche
+
+Burgunder als Markenfarbe, warme Rosé-Neutrale als Grund, Milchglas für Hero
+und Suchleiste. Das Detail kommt als Blatt von unten über die Ansicht, aus der
+es geöffnet wurde — die Trefferliste bleibt dahinter stehen.
+
+Die Markenfarbe ist rot, und Rot ist in dieser App die Farbe für «Besser
+nicht». Beide sind deshalb bewusst auseinandergehalten: die Marke ist pflaumig
+(Farbton 330 Grad) und sehr dunkel und erscheint nur als Fläche, das Urteil ist
+scharlachrot (358 Grad), deutlich heller und erscheint nur als Schrift auf
+heller Tönung. `src/palette.test.ts` liest beide Paletten aus `styles.css` und
+misst nach — Farbton, Helligkeit, und jeden Text gegen seinen Grund. Wer die
+Marke aufhellt oder das Ampelrot abdunkelt, bis beide dasselbe Rot sind, bekommt
+einen roten Testlauf.
+
+In der Trefferliste steht neben jedem Namen, was die App verantworten kann.
+Wo die Varianten verschieden urteilen — bei fast der Hälfte des Katalogs —
+steht keine Ampelfarbe, sondern «Kommt drauf an» und die Frage, die
+entscheidet. Ein grüner Punkt neben «Lachs» wäre für zwei von drei
+Zubereitungen falsch.
+
 ## Bewertung
 
 Ein Tag, das keine Regel auslöst, wird nur dann `ok`, wenn es in
@@ -313,7 +334,7 @@ Repo je umbenannt, muss er an beiden Stellen mitgeändert werden.
 
 ## Stand
 
-Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 166 Unit-Tests und
+Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 186 Unit-Tests und
 5 Offline-Prüfungen.
 
 ## Fachliche Durchsicht

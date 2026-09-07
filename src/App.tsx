@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
 import { findeNachId, kompositumVorschlaege, MINDESTLAENGE, suche } from './engine/suchen'
@@ -15,6 +15,7 @@ import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
 import { Scanergebnis } from './Scanergebnis'
 import { Scanner } from './Scanner'
+import { Sheet } from './Sheet'
 import { Suchansicht } from './Suchansicht'
 import { Uebersicht } from './Uebersicht'
 import { Fusszeile } from './Fusszeile'
@@ -36,7 +37,30 @@ export function App() {
     () => window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false,
   )
 
+  const kopf = useRef<HTMLElement>(null)
+
   const schema = ermittleSchema(wunsch, systemDunkel)
+
+  /*
+   * Die Suchleiste bleibt unter der Kopfzeile stehen, nicht darunter
+   * verschwinden. Deren Höhe hängt am Text und am sicheren Bereich des Geräts
+   * und lässt sich nicht als Zahl hinschreiben — also gemessen und als
+   * Variable weitergereicht.
+   */
+  useEffect(() => {
+    const element = kopf.current
+    if (!element) return
+    const messen = () =>
+      document.documentElement.style.setProperty(
+        '--kopf-hoehe',
+        `${element.getBoundingClientRect().height}px`,
+      )
+    messen()
+    if (typeof ResizeObserver === 'undefined') return
+    const beobachter = new ResizeObserver(messen)
+    beobachter.observe(element)
+    return () => beobachter.disconnect()
+  }, [])
 
   // Solange dem Gerät gefolgt wird, zieht ein Wechsel dort sofort nach.
   useEffect(() => {
@@ -76,10 +100,12 @@ export function App() {
     setAnsicht('suche')
   }
 
+  // Kein Scrollen nach oben mehr: die Karte kommt als Blatt darüber, die
+  // Trefferliste bleibt dahinter stehen. Zumachen führt dorthin zurück, wo
+  // gerade gesucht wurde — nicht an den Anfang.
   const oeffnen = (id: string, woher: Ansicht) => {
     setOffeneId(id)
     setHerkunft(woher)
-    window.scrollTo({ top: 0 })
   }
 
   /** Ein gelesener Code wird sofort nachgeschlagen und bewertet. */
@@ -90,13 +116,13 @@ export function App() {
 
   const zurueck = () => {
     setOffeneId(null)
-    if (herkunft === 'uebersicht') setAnsicht('uebersicht')
-    else zumAnfang()
+    setAnsicht(herkunft === 'uebersicht' ? 'uebersicht' : 'suche')
   }
 
   return (
     <div className="app">
       <header
+        ref={kopf}
         className="kopfzeile"
         // Speist den Fortschrittsbalken an der Unterkante.
         style={stand ? ({ '--anteil': `${fortschritt(stand.tageBis) * 100}%` } as CSSProperties) : undefined}
@@ -127,25 +153,7 @@ export function App() {
       </header>
 
       <main className="inhalt">
-        {terminBearbeiten && (
-          <Geburtstermin
-            vorhanden={termin}
-            onGespeichert={(datum) => {
-              setTermin(datum)
-              setTerminBearbeiten(false)
-            }}
-            onAbbruch={() => setTerminBearbeiten(false)}
-          />
-        )}
-
-        {urteil ? (
-          <>
-            <Ergebniskarte urteil={urteil} />
-            <button className="zurueck zurueck--flaeche" type="button" onClick={zurueck}>
-              {herkunft === 'uebersicht' ? 'Zurück zur Übersicht' : 'Neue Suche'}
-            </button>
-          </>
-        ) : ansicht === 'scanner' ? (
+        {ansicht === 'scanner' ? (
           <Scanner onErkannt={codeErkannt} onAbbruch={zumAnfang} />
         ) : ansicht === 'scanergebnis' && code ? (
           <Scanergebnis
@@ -177,6 +185,35 @@ export function App() {
           />
         )}
       </main>
+
+      {/*
+        Der Termin ist eine geschlossene Aufgabe und gehört deshalb ins selbe
+        Blatt wie das Detail. Vorher stand das Formular über der Startansicht
+        und wurde vom Fokus im Suchfeld sofort aus dem Bild geschoben.
+      */}
+      {terminBearbeiten && (
+        <Sheet titel="Geburtstermin" onSchliessen={() => setTerminBearbeiten(false)}>
+          <Geburtstermin
+            vorhanden={termin}
+            onGespeichert={(datum) => {
+              setTermin(datum)
+              setTerminBearbeiten(false)
+            }}
+            onAbbruch={() => setTerminBearbeiten(false)}
+          />
+        </Sheet>
+      )}
+
+      {/* Das Blatt liegt über der Ansicht, aus der es geöffnet wurde. */}
+      {urteil && (
+        <Sheet
+          titel={urteil.name}
+          onSchliessen={zurueck}
+          fussKnopf={herkunft === 'uebersicht' ? 'Zurück zur Übersicht' : 'Zurück zur Suche'}
+        >
+          <Ergebniskarte urteil={urteil} />
+        </Sheet>
+      )}
 
       <Fusszeile
         onTerminAendern={stand ? () => setTerminBearbeiten(true) : undefined}

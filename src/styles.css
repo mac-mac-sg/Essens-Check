@@ -1,50 +1,75 @@
+/*
+ * Farbwelt: tiefes Burgunder als Marke, warme Rosé-Neutrale als Grund.
+ *
+ * Die Marke ist bewusst pflaumig (Farbton 330 Grad) und sehr dunkel, das
+ * «meiden» der Ampel scharlachrot (358 Grad) und deutlich heller. Beide sind
+ * rot, und genau darin liegt die Gefahr: Rot ist in dieser App die Farbe für
+ * «Besser nicht». Getrennt werden sie über Farbton, Helligkeit und Rolle — die
+ * Marke erscheint nur als dunkle Fläche (Leiste, Hero, eine Aktion), das Urteil
+ * nur als Schrift auf heller Tönung, und jedes Urteil trägt zusätzlich sein
+ * Wort. src/palette.test.ts misst das nach und lässt es nicht auseinanderlaufen.
+ */
 :root {
-  /* Helles Schema — exakt die Palette aus SPEC.md, unverändert. */
-  --grundflaeche: #f4f5f2;
+  --grundflaeche: #faf7f7;
+  /* Warme Tönung für Hero und Verlauf — der Grund allein wäre zu leer. */
+  --grund-warm: #f4ecee;
   --karte: #ffffff;
-  --text: #16211c;
-  --text-gedaempft: #5f6b62;
-  --text-zweitrangig: #3b453e;
-  --tannengruen: #14432f;
-  /* Grüne Schrift auf der Grundfläche. Im Dunkeln aufgehellt — Tannengrün
-     als Schriftfarbe käme dort auf 1.5:1. */
-  --akzent: #14432f;
-  --linie: #d8dad2;
+  /* Milchglas: durchscheinende Fläche mit heller Oberkante, wie Licht darauf. */
+  --glas: rgba(255, 255, 255, 0.72);
+  --glas-kante: rgba(255, 255, 255, 0.85);
+
+  --text: #1e1418;
+  --text-zweitrangig: #4a3b40;
+  --text-gedaempft: #6b5c63;
+  --platzhalter: #8a7b81;
+  --pfeil: #a3939a;
+
+  --marke: #4e0f2f;
+  --marke-tief: #33071e;
+  /* Burgunder als Schriftfarbe auf Hellem. Im Dunkeln aufgehellt. */
+  --akzent: #8e1a45;
+
+  --linie: #e8dde1;
   /* Eigene, kräftigere Linie: die Fusszeilenkante darf feiner bleiben. */
-  --trennlinie: #ccd0c6;
-  --platzhalter: #8a938c;
-  --pfeil: #9aa39c;
+  --trennlinie: #ded0d5;
 
   /* Urteilsfarben: Schrift und zugehörige Fläche. */
-  --farbe-ok: #14432f;
-  --flaeche-ok: #dbe7de;
+  --farbe-ok: #17603c;
+  --flaeche-ok: #dcefe2;
   --farbe-bedingt: #7a5311;
-  --flaeche-bedingt: #efe6d5;
-  --farbe-meiden: #7a1e28;
-  --flaeche-meiden: #f0dcde;
-  --farbe-unklar: #55605a;
-  --flaeche-unklar: #e4e6e1;
+  --flaeche-bedingt: #f6ecd8;
+  --farbe-meiden: #c4161b;
+  --flaeche-meiden: #fcdcdb;
+  --farbe-unklar: #5a5257;
+  --flaeche-unklar: #eae5e6;
 
   /* Flächen statt Ränder: getönte Abstufungen der Grundfläche. */
-  --flaeche-still: #eceee8;
-  --flaeche-gedrueckt: #e3e6df;
-  --schatten: 0 1px 2px rgba(22, 33, 28, 0.04), 0 8px 24px rgba(22, 33, 28, 0.06);
-  --kopfzeile: rgba(20, 67, 47, 0.92);
+  --flaeche-still: #f1e9ec;
+  --flaeche-gedrueckt: #e8dee2;
+  --schatten: 0 1px 2px rgba(48, 12, 26, 0.05), 0 8px 24px rgba(48, 12, 26, 0.07);
+  /* Grosse Flächen tragen tiefer: das Sheet schwebt höher als eine Karte. */
+  --schatten-hoch: 0 2px 8px rgba(48, 12, 26, 0.09), 0 24px 56px rgba(48, 12, 26, 0.18);
+  --schleier: rgba(30, 20, 24, 0.5);
+
+  --kopfzeile: rgba(78, 15, 47, 0.88);
   --kopfzeile-still: rgba(255, 255, 255, 0.14);
-  --kopfzeile-gedrueckt: rgba(255, 255, 255, 0.19);
-  --kopfzeile-balken: rgba(255, 255, 255, 0.72);
-  --kopfzeile-spur: rgba(255, 255, 255, 0.10);
-  --kopfzeile-leise: #e9f2ed;
-  --schalter-an: #14432f;
-  --schalter-aus: #7d8880;
+  --kopfzeile-gedrueckt: rgba(255, 255, 255, 0.2);
+  --kopfzeile-balken: rgba(255, 255, 255, 0.75);
+  --kopfzeile-spur: rgba(255, 255, 255, 0.12);
+  --kopfzeile-leise: #f4d9e1;
+  --schalter-an: #8e1a45;
+  --schalter-aus: #8c7c83;
   --schalter-knopf: #ffffff;
 
-  --radius: 20px;
-  --radius-klein: 12px;
+  --radius: 24px;
+  --radius-klein: 14px;
+  --radius-pille: 999px;
   --spur: 1rem;
 
-  /* Die eingebauten CSS-Kurven sind zu weich. Diese hat Zug. */
+  /* Die eingebauten CSS-Kurven sind zu weich. Diese haben Zug. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* Die Kurve, mit der iOS seine Schubladen bewegt. */
+  --ease-schublade: cubic-bezier(0.32, 0.72, 0, 1);
 
   color-scheme: light;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -59,8 +84,7 @@
  * Dunkles Schema, aus derselben Palette abgeleitet: die Markenfarben sind als
  * dunkle Schrift auf hellen Tönungen entworfen und wären auf dunklem Grund
  * unlesbar. Deshalb kehrt sich das Verhältnis um — aufgehellte Farbe auf
- * dunkler Tönung derselben Buntheit. Die Kopfzeile bleibt tannengrün, damit
- * die App wiedererkennbar bleibt.
+ * dunkler Tönung derselben Buntheit.
  *
  * Es gilt über ein Attribut am Wurzelelement, nicht über die Medienabfrage:
  * Ein Skript in index.html setzt es vor dem ersten Malen aus Systemeinstellung
@@ -69,34 +93,45 @@
  * derselben Farben laufen früher oder später auseinander.
  */
 :root[data-schema='dunkel'] {
-  --grundflaeche: #0f1512;
-  --karte: #191f1b;
-  --text: #e9eee9;
-  --text-gedaempft: #9ca79f;
-  --text-zweitrangig: #c3ccc4;
-  --akzent: #86cca4;
-  --linie: #2c3430;
-  --trennlinie: #3c4540;
-  --platzhalter: #7d877f;
-  --pfeil: #77817a;
+  --grundflaeche: #141013;
+  --grund-warm: #1b1418;
+  --karte: #1f191c;
+  --glas: rgba(38, 30, 34, 0.72);
+  --glas-kante: rgba(255, 255, 255, 0.07);
 
-  --farbe-ok: #7cc79b;
-  --flaeche-ok: #17301f;
-  --farbe-bedingt: #e3b662;
-  --flaeche-bedingt: #332614;
-  --farbe-meiden: #f0a3ab;
-  --flaeche-meiden: #34191d;
-  --farbe-unklar: #aab4ac;
-  --flaeche-unklar: #262c28;
+  --text: #f0e9eb;
+  --text-zweitrangig: #cbbfc4;
+  --text-gedaempft: #a3959b;
+  --platzhalter: #8b7d83;
+  --pfeil: #837478;
 
-  --flaeche-still: #222923;
-  --flaeche-gedrueckt: #2a322c;
+  --marke: #22061a;
+  --marke-tief: #150310;
+  --akzent: #f0a5c0;
+
+  --linie: #332a2e;
+  --trennlinie: #43383d;
+
+  --farbe-ok: #79c99a;
+  --flaeche-ok: #16321f;
+  --farbe-bedingt: #e6ba66;
+  --flaeche-bedingt: #352815;
+  --farbe-meiden: #ff9187;
+  --flaeche-meiden: #5a221c;
+  --farbe-unklar: #aca3a7;
+  --flaeche-unklar: #302a2d;
+
+  --flaeche-still: #262024;
+  --flaeche-gedrueckt: #2f282c;
   /* Schatten tragen auf dunklem Grund nicht — eine feine Kante schon. */
-  --schatten: 0 0 0 1px #262e29, 0 8px 24px rgba(0, 0, 0, 0.4);
-  --kopfzeile: rgba(15, 46, 32, 0.92);
-  /* Auf dunklem Grund trägt das dunkle Tannengrün als Fläche nicht. */
-  --schalter-an: #2f7d55;
-  --schalter-aus: #59635c;
+  --schatten: 0 0 0 1px #2c2429, 0 8px 24px rgba(0, 0, 0, 0.45);
+  --schatten-hoch: 0 0 0 1px #362c31, 0 24px 56px rgba(0, 0, 0, 0.6);
+  --schleier: rgba(0, 0, 0, 0.6);
+
+  --kopfzeile: rgba(34, 6, 26, 0.9);
+  /* Auf dunklem Grund trägt das dunkle Burgunder als Fläche nicht. */
+  --schalter-an: #b8386a;
+  --schalter-aus: #6b5d63;
 
   color-scheme: dark;
 }
@@ -105,10 +140,17 @@
   box-sizing: border-box;
 }
 
+/*
+ * Eine warme Tönung oben, die nach unten in den Grund ausläuft. Sie gibt der
+ * Startansicht Tiefe, ohne dass irgendwo eine Kante entsteht — und liegt
+ * fest, damit sie beim Scrollen nicht mitwandert.
+ */
 body {
   margin: 0;
   min-height: 100dvh;
   background: var(--grundflaeche);
+  background-image: linear-gradient(var(--grund-warm), var(--grundflaeche) 22rem);
+  background-attachment: fixed;
 }
 
 :focus-visible {
@@ -263,8 +305,8 @@ body {
 }
 
 /*
- * Der allgemeine Fokusring ist tannengrün — auf der tannengrünen Leiste wäre
- * er unsichtbar. Auf dunklem Grund ringt Weiss.
+ * Der allgemeine Fokusring ist burgunderrot — auf der burgunderroten Leiste
+ * wäre er unsichtbar. Auf dunklem Grund ringt Weiss.
  */
 .kopfzeile :focus-visible {
   outline-color: #ffffff;
@@ -279,6 +321,26 @@ body {
 }
 
 /* ---------------------------- Suche ---------------------------- */
+
+/*
+ * Die Suchleiste bleibt beim Scrollen stehen. In einem Laden ist sie das
+ * Einzige, was zählt — sie darf nicht erst wieder gesucht werden müssen.
+ *
+ * Der Rand nach aussen holt die Fläche über die Spur des Inhalts hinaus, damit
+ * beim Durchscrollen nichts seitlich daran vorbeiläuft.
+ */
+.suchleiste {
+  position: sticky;
+  /* Unter der Kopfzeile, nicht darunter verschwunden. App.tsx misst sie. */
+  top: var(--kopf-hoehe, 4.5rem);
+  z-index: 5;
+  margin: 0 calc(-1 * var(--spur)) 0.25rem;
+  padding: 0.75rem var(--spur) 0.85rem;
+  background: var(--glas);
+  border-radius: 0 0 var(--radius-klein) var(--radius-klein);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
 
 .feldtitel {
   display: block;
@@ -297,26 +359,42 @@ body {
 
 .suchfeld-huelle svg {
   position: absolute;
-  left: 1rem;
+  left: 1.1rem;
   color: var(--text-gedaempft);
   pointer-events: none;
 }
 
 .suchfeld {
   width: 100%;
-  padding: 0.95rem 3rem 0.95rem 2.9rem;
+  padding: 1rem 3rem 1rem 3rem;
   font-family: inherit;
   font-size: 1.0625rem;
   color: var(--text);
   background: var(--karte);
   border: none;
-  border-radius: var(--radius-klein);
-  box-shadow: var(--schatten);
+  /* Als Pille: sie ist die eine Eingabe der App und darf sich abheben. */
+  border-radius: var(--radius-pille);
+  box-shadow: var(--schatten), inset 0 0 0 1px var(--linie);
   transition: box-shadow 160ms ease;
 }
 
-/* Das Datumsfeld braucht kein Lupensymbol. */
+.suchfeld:focus {
+  outline: none;
+  box-shadow: var(--schatten), inset 0 0 0 2px var(--akzent);
+}
+
+/*
+ * Kein zweiter Ring darüber: der innere ist zwei Pixel stark und in der
+ * Akzentfarbe, also selbst schon die Anzeige. Das Feld ist beim Öffnen
+ * fokussiert — ein doppelter Rahmen begrüsste die Ansicht mit Alarm.
+ */
+.suchfeld:focus-visible {
+  outline: none;
+}
+
+/* Das Datumsfeld braucht kein Lupensymbol und keine Pillenform. */
 .suchfeld--datum {
+  border-radius: var(--radius-klein);
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -334,7 +412,7 @@ body {
 
 .suchfeld-loeschen {
   position: absolute;
-  right: 0.4rem;
+  right: 0.55rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -353,36 +431,6 @@ body {
   background: var(--flaeche-still);
 }
 
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: var(--spur);
-}
-
-.chip {
-  padding: 0.55rem 0.95rem;
-  font-family: inherit;
-  font-size: 0.9375rem;
-  color: var(--text);
-  background: var(--flaeche-still);
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: transform 140ms var(--ease-out), background-color 140ms ease;
-}
-
-.chip:active {
-  transform: scale(0.96);
-  background: var(--flaeche-gedrueckt);
-}
-
-/* Berührungsgeräte lösen Hover beim Tippen aus — deshalb abgegrenzt. */
-@media (hover: hover) and (pointer: fine) {
-  .chip:hover {
-    background: var(--flaeche-gedrueckt);
-  }
-}
 
 .liste {
   margin: 0.875rem 0 0;
@@ -426,37 +474,6 @@ body {
   color: var(--pfeil);
 }
 
-.umkehr {
-  display: block;
-  width: 100%;
-  margin-top: 1.25rem;
-  padding: 0.9rem 1.1rem;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: left;
-  color: var(--akzent);
-  background: var(--flaeche-still);
-  border: none;
-  border-radius: var(--radius-klein);
-  cursor: pointer;
-  transition: transform 140ms var(--ease-out), background-color 140ms ease;
-}
-
-.umkehr:active {
-  transform: scale(0.985);
-  background: var(--flaeche-gedrueckt);
-}
-
-.umkehr {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-}
-
-.umkehr + .umkehr {
-  margin-top: 0.625rem;
-}
 
 .scanner__bild {
   position: relative;
@@ -501,6 +518,245 @@ body {
   color: var(--text-gedaempft);
 }
 
+/* ---------------------------- Hero ---------------------------- */
+
+/*
+ * Der Einstieg. Er sagt, was die App tut, und in welchen Stufen sie antwortet.
+ *
+ * Milchglas auf einer warmen Tönung: die Fläche steht über dem Grund, ohne
+ * ihn zu verdecken. Die Ampelfarben erscheinen hier nur als Punkte neben ihrem
+ * Wort — als Fläche gelesen wären sie eine Auskunft, und die App gibt hier
+ * keine ab.
+ */
+.hero {
+  position: relative;
+  margin-bottom: 1.25rem;
+  padding: 1.5rem 1.25rem 1.25rem;
+  background: var(--glas);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  /* Helle Oberkante: Licht, das sich auf der Materialkante fängt. */
+  border-top: 1px solid var(--glas-kante);
+}
+
+.hero__marke {
+  margin: 0 0 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  /* Kleine Schrift läuft zu eng — Tracking positiv. */
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--akzent);
+}
+
+.hero__titel {
+  margin: 0 0 0.6rem;
+  /* Grosse Schrift läuft optisch auseinander: Tracking negativ, Zeilen eng. */
+  font-size: clamp(1.5rem, 7.6vw, 2rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+}
+
+.hero__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-zweitrangig);
+}
+
+.hero__ampel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1.125rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ampelchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.7rem 0.4rem 0.6rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-zweitrangig);
+  background: var(--karte);
+  border-radius: var(--radius-pille);
+  box-shadow: inset 0 0 0 1px var(--linie);
+}
+
+.ampelchip__punkt {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  /* Ein Ring in der Schriftfarbe: der Punkt trägt auch ohne Farbwahrnehmung. */
+  box-shadow: inset 0 0 0 2px var(--karte);
+}
+
+.ampelchip__punkt[data-status='ok'] {
+  background: var(--farbe-ok);
+}
+.ampelchip__punkt[data-status='bedingt'] {
+  background: var(--farbe-bedingt);
+}
+.ampelchip__punkt[data-status='meiden'] {
+  background: var(--farbe-meiden);
+}
+.ampelchip__punkt[data-status='unklar'] {
+  background: var(--farbe-unklar);
+}
+
+.hero__kacheln {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 0.6rem;
+  margin-top: 1.125rem;
+}
+
+.kachel {
+  padding: 0.85rem 0.9rem;
+  background: var(--karte);
+  border-radius: var(--radius-klein);
+  box-shadow: inset 0 0 0 1px var(--linie);
+}
+
+.kachel__titel {
+  margin: 0 0 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.kachel__text {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-gedaempft);
+}
+
+/* ---------------------------- Wege ---------------------------- */
+
+.wege {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.weg {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 1rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: left;
+  color: var(--text);
+  background: var(--karte);
+  border: none;
+  border-radius: var(--radius-klein);
+  box-shadow: var(--schatten);
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), background-color 140ms ease;
+}
+
+.weg svg {
+  color: var(--akzent);
+}
+
+.weg:active {
+  transform: scale(0.98);
+  background: var(--flaeche-still);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .weg:hover {
+    background: var(--flaeche-still);
+  }
+}
+
+/* ---------------------------- Trefferzeilen ---------------------------- */
+
+.treffer-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.875rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.treffer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  /* Tippfläche deutlich über der Mindestgrösse. */
+  min-height: 60px;
+  padding: 0.8rem 0.85rem 0.8rem 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  text-align: left;
+  color: inherit;
+  background: var(--karte);
+  border: none;
+  border-radius: var(--radius-klein);
+  box-shadow: var(--schatten);
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), background-color 140ms ease;
+}
+
+.treffer:active {
+  transform: scale(0.985);
+  background: var(--flaeche-still);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .treffer:hover {
+    background: var(--flaeche-still);
+  }
+}
+
+.treffer__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.treffer__name {
+  display: block;
+  font-weight: 600;
+  letter-spacing: -0.006em;
+}
+
+/*
+ * Die Frage, die entscheidet — sie steht nur dort, wo die Zeile kein Urteil
+ * zeigen kann.
+ */
+.treffer__unten {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.treffer__hinweis {
+  min-width: 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--text-gedaempft);
+}
+
+.zeile__pfeil {
+  flex: 0 0 auto;
+  color: var(--pfeil);
+}
+
 /* ---------------------------- Abschnitte ---------------------------- */
 
 .abschnitt__titel {
@@ -510,6 +766,16 @@ body {
   line-height: 1.2;
   /* Grosse Schrift läuft auseinander — Tracking negativ. */
   letter-spacing: -0.021em;
+}
+
+/* Zwischentitel innerhalb einer Ansicht — leiser als ihre Überschrift. */
+.abschnitt__titel--klein {
+  margin: 1.75rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-gedaempft);
 }
 
 .abschnitt__hinweis {
@@ -856,6 +1122,69 @@ body {
   color: var(--farbe-unklar);
 }
 
+/*
+ * «Kommt drauf an» ist kein Urteil, sondern die Auskunft, dass die Liste
+ * keines geben kann. Es trägt deshalb den neutralen Ton und keine Ampelfarbe:
+ * Bernstein läse sich als «kleine Einschränkung» und wäre für den Camembert,
+ * der zweimal ein Nein ist, zu mild.
+ */
+.marke[data-status='gemischt'] {
+  color: var(--farbe-unklar);
+}
+
+/*
+ * «Kommt drauf an» bekommt bewusst keine gefüllte Pille: sonst sähe eine Liste,
+ * in der fast alles von der Zubereitung abhängt, aus wie eine Reihe von
+ * Urteilen. Die klaren Antworten sollen herausstechen, nicht untergehen.
+ * Der geteilte Punkt sagt, was los ist — hier steckt beides drin.
+ */
+.marke--klein[data-status='gemischt'] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-inline: 0;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  background: none;
+}
+
+.marke--klein[data-status='gemischt']::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 50%;
+  /* Senkrecht geteilt, harte Kante: schräg verschwimmen zehn Pixel zu einem Ton. */
+  background: linear-gradient(90deg, var(--farbe-ok) 0 50%, var(--farbe-meiden) 50%);
+}
+
+/* In der Liste trägt die Marke eine eigene Fläche — als Text allein ginge sie
+   neben dem fetten Namen unter. */
+.marke--klein {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  letter-spacing: 0;
+  white-space: nowrap;
+  border-radius: var(--radius-pille);
+}
+
+.marke--klein[data-status='ok'] {
+  background: var(--flaeche-ok);
+}
+
+.marke--klein[data-status='bedingt'] {
+  background: var(--flaeche-bedingt);
+}
+
+.marke--klein[data-status='meiden'] {
+  background: var(--flaeche-meiden);
+}
+
+.marke--klein[data-status='unklar'] {
+  background: var(--flaeche-unklar);
+}
+
 .urteil[data-status='unklar'],
 .zeile[data-status='unklar'] {
   background: var(--flaeche-unklar);
@@ -945,7 +1274,7 @@ body {
   font-size: 0.9375rem;
   font-weight: 600;
   color: #ffffff;
-  background: var(--tannengruen);
+  background: var(--marke);
   border: none;
   border-radius: var(--radius-klein);
   cursor: pointer;
@@ -1009,6 +1338,137 @@ body {
 
 .termin__knoepfe .zurueck {
   margin-top: 0;
+}
+
+/* ---------------------------- Blatt von unten ---------------------------- */
+
+/*
+ * Das Detail kommt als Blatt über die Ansicht, aus der es geöffnet wurde —
+ * die Trefferliste bleibt dahinter stehen. Es kommt von unten und geht nach
+ * unten: derselbe Weg in beide Richtungen, damit das Wegwischen sich anfühlt
+ * wie das, was es rückgängig macht.
+ */
+.sheet-lage {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/*
+ * Verdunkeln, um zu fokussieren: das Blatt ist eine geschlossene Aufgabe,
+ * kein nebenherlaufendes Feld.
+ */
+.schleier {
+  position: absolute;
+  inset: 0;
+  background: var(--schleier);
+  opacity: 1;
+  transition: opacity 260ms var(--ease-schublade);
+}
+
+@starting-style {
+  .schleier {
+    opacity: 0;
+  }
+}
+
+.schleier[data-geht] {
+  opacity: 0;
+}
+
+.sheet {
+  position: relative;
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
+  max-height: 86dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--karte);
+  border-radius: var(--radius) var(--radius) 0 0;
+  box-shadow: var(--schatten-hoch);
+  transform: translateY(0);
+  transition: transform 340ms var(--ease-schublade);
+}
+
+@starting-style {
+  .sheet {
+    transform: translateY(100%);
+  }
+}
+
+.sheet[data-geht] {
+  transform: translateY(100%);
+  /* Raus geht schneller als rein: das System antwortet, es entscheidet nicht. */
+  transition-duration: 260ms;
+}
+
+.sheet:focus {
+  outline: none;
+}
+
+/*
+ * Die Zugfläche. Nur sie zieht — würde das ganze Blatt ziehen, käme man bei
+ * einer langen Karte nicht mehr ans Ende.
+ */
+.sheet__griff {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  cursor: grab;
+  /* Der Zug nach unten wird hier selbst ausgewertet, nicht vom Browser
+     gescrollt. Auf dem ganzen Blatt stünde damit auch der Inhalt still. */
+  touch-action: none;
+}
+
+.sheet__griff:active {
+  cursor: grabbing;
+}
+
+.sheet__balken {
+  width: 2.5rem;
+  height: 5px;
+  border-radius: var(--radius-pille);
+  background: var(--trennlinie);
+}
+
+.sheet__inhalt {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 var(--spur) calc(1.25rem + env(safe-area-inset-bottom));
+}
+
+/* Im Blatt trägt das Blatt die Fläche — keine zweite darunter. */
+.sheet__inhalt .karte {
+  margin-top: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.sheet__inhalt .zurueck--flaeche {
+  margin-top: 1.25rem;
+}
+
+/*
+ * Ohne Bewegung gibt es kein Blatt, das hereinfährt — es steht einfach da und
+ * blendet auf. Das Stylesheet setzt hier jede Transformation zurück; das
+ * Ziehen ist in Sheet.tsx entsprechend abgeschaltet.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .sheet__griff {
+    cursor: default;
+    touch-action: auto;
+  }
 }
 
 /* ---------------------------- Fusszeile ---------------------------- */
@@ -1145,10 +1605,17 @@ body {
 
 /* ---------------------------- Barrierefreiheit ---------------------------- */
 
-/* Wer weniger Transparenz will, bekommt eine deckende Leiste. */
+/* Wer weniger Transparenz will, bekommt deckende Flächen. */
 @media (prefers-reduced-transparency: reduce) {
   .kopfzeile {
-    background: var(--tannengruen);
+    background: var(--marke);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .hero,
+  .suchleiste {
+    background: var(--karte);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
@@ -1163,7 +1630,9 @@ body {
 
   .karte,
   .suchfeld,
-  .chip,
+  .treffer,
+  .weg,
+  .kachel,
   .zeile {
     border: 1px solid var(--text);
     box-shadow: none;

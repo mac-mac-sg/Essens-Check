@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <!-- Wird vom Skript unten und von farbschema.ts auf das geltende Schema gesetzt. -->
-    <meta name="theme-color" content="#14432F" />
+    <meta name="theme-color" content="#4E0F2F" />
     <!--
       Läuft vor dem ersten Malen: sonst erschiene die App kurz hell, bevor
       React das dunkle Schema setzt. Der Schlüssel steht in src/farbschema.ts.
@@ -24,7 +24,7 @@
             window.matchMedia('(prefers-color-scheme: dark)').matches)
         document.documentElement.dataset.schema = dunkel ? 'dunkel' : 'hell'
         var leiste = document.querySelector('meta[name="theme-color"]')
-        if (leiste) leiste.setAttribute('content', dunkel ? '#0F2E20' : '#14432F')
+        if (leiste) leiste.setAttribute('content', dunkel ? '#22061A' : '#4E0F2F')
       })()
     </script>
     <meta name="description" content="Nachschlagewerk für die Schwangerschaft: Lebensmittel eingeben, eindeutige Antwort bekommen." />

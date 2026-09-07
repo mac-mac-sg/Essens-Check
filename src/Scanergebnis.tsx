@@ -11,6 +11,7 @@ import {
   vorschlaegeAusName,
 } from './engine/suchen'
 import { Ergebniskarte } from './Ergebniskarte'
+import { Trefferliste } from './Trefferliste'
 import type { Lebensmittel } from './typen'
 
 type Stand = 'laeuft' | 'urteil' | 'auswahl' | 'ohne'
@@ -154,33 +155,8 @@ export function Scanergebnis({
         spellCheck={false}
       />
 
-      {liste.length > 0 && (
-        <ul className="liste">
-          {liste.map((eintrag) => (
-            <li key={eintrag.id}>
-              <button type="button" onClick={() => waehlen(eintrag.id)}>
-                <span>{eintrag.name}</span>
-                <svg
-                  className="liste__pfeil"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M6 3.5 L10.5 8 L6 12.5"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      {/* Dieselben Zeilen wie in der Suche: das Urteil steht schon hier. */}
+      {liste.length > 0 && <Trefferliste eintraege={liste} onOeffnen={waehlen} />}
 
       {gesucht && eigene.length === 0 && (
         <p className="abschnitt__hinweis">

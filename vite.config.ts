@@ -37,8 +37,8 @@ export default defineConfig({
         id: BASIS,
         display: 'standalone',
         orientation: 'portrait',
-        background_color: '#F4F5F2',
-        theme_color: '#14432F',
+        background_color: '#FAF7F7',
+        theme_color: '#4E0F2F',
         categories: ['health', 'food'],
         icons: [
           { src: 'icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { istPlausibel, speichereGeburtstermin } from './konfig'
 
 /**
@@ -16,6 +16,13 @@ export function Geburtstermin({
 }) {
   const [wert, setWert] = useState(vorhanden ?? '')
   const [meckern, setMeckern] = useState(false)
+  const feld = useRef<HTMLInputElement>(null)
+
+  // Ohne das läge der Fokus auf dem Blatt und die Eingabe bräuchte einen
+  // zusätzlichen Griff — bei einem Formular mit genau einem Feld.
+  useEffect(() => {
+    feld.current?.focus()
+  }, [])
 
   const absenden = (ereignis: React.FormEvent) => {
     ereignis.preventDefault()
@@ -33,6 +40,7 @@ export function Geburtstermin({
         Errechneter Geburtstermin
       </label>
       <input
+        ref={feld}
         id="termin"
         className="suchfeld suchfeld--datum"
         type="date"

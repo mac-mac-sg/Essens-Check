@@ -15,8 +15,8 @@ export const SCHEMA_SCHLUESSEL = 'essens-check.farbschema'
 
 /** Farbe der Gerätestatusleiste je Schema. Muss zur Kopfzeile passen. */
 export const LEISTENFARBE: Record<Schema, string> = {
-  hell: '#14432F',
-  dunkel: '#0F2E20',
+  hell: '#4E0F2F',
+  dunkel: '#22061A',
 }
 
 export function istWunsch(wert: unknown): wert is Wunsch {

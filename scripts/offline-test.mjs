@@ -102,10 +102,11 @@ try {
   pruefe('Neuladevorgang liefert die App', titel === 'Darf ich das essen?', titel)
 
   await seite.fill('#suche', 'thunfisch')
-  await seite.waitForSelector('.liste')
-  await seite.locator('.liste button').first().click()
-  await seite.waitForSelector('.karte')
-  const marken = await seite.locator('.marke').allInnerTexts()
+  await seite.waitForSelector('.treffer')
+  await seite.locator('.treffer').first().click()
+  // Das Urteil kommt als Blatt von unten — erst wenn es steht, wird gelesen.
+  await seite.waitForSelector('.sheet .karte')
+  const marken = await seite.locator('.sheet .marke').allInnerTexts()
   pruefe(
     'Suche und Urteil funktionieren',
     marken.join(',') === 'Bedingt,Nein',
@@ -114,8 +115,8 @@ try {
 
   const zweite = await kontext.newPage()
   await zweite.goto(ADRESSE, { waitUntil: 'load' })
-  const chips = await zweite.locator('.chip').allInnerTexts()
-  pruefe('Kaltstart in einem neuen Tab', chips.length > 0, `${chips.length} Chips`)
+  const zeilen = await zweite.locator('.treffer__name').allInnerTexts()
+  pruefe('Kaltstart in einem neuen Tab', zeilen.length > 0, `${zeilen.length} Zeilen`)
 
   pruefe('Keine Seitenfehler', seitenfehler.length === 0, seitenfehler.join('; '))
   await browser.close()

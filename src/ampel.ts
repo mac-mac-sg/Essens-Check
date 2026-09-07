@@ -22,6 +22,15 @@ export const AMPEL: Record<import('./typen').Status, Ampelstufe> = {
 }
 
 /**
+ * Wort für eine Listenzeile, deren Varianten verschieden urteilen.
+ *
+ * Bewusst keine der vier Stufen: «Bedingt» wäre eine Aussage der Regelmaschine
+ * über das Lebensmittel, das hier ist eine Aussage über die Liste — sie kann
+ * dieses Urteil nicht in einer Farbe zeigen, ohne zu lügen.
+ */
+export const GEMISCHT_WORT = 'Kommt drauf an'
+
+/**
  * Wortlaut für die Suche ohne Treffer.
  *
  * Bewusst nicht `AMPEL.unklar.wort`: die beiden Fälle sehen gleich aus, meinen

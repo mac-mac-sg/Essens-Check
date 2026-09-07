@@ -104,6 +104,12 @@ nicht ersetzt: Einordnung, Erkennungsmerkmal, Verweis auf einen zweiten Eintrag
 mit gegenläufigem Urteil — etwa vom verordneten Jodpräparat auf die
 Jod-Obergrenze bei Algen und zurück.
 
+Für Listen gibt es einen fünften Zustand neben den vier Urteilen: `gemischt`.
+Er sagt, dass die Varianten eines Eintrags verschieden urteilen und die Zeile
+deshalb kein Urteil zeigen kann — mit der Frage, die entscheidet, als zweiter
+Zeile. Er ist keine Bewertung und trägt deshalb keine Ampelfarbe (siehe
+`src/engine/listenzeile.ts`).
+
 ## Auswertungslogik
 
 Pro Variante:
@@ -143,48 +149,53 @@ Modern, ruhig, im Supermarkt bei schlechtem Licht und mit einer Hand bedienbar.
 
 **Farben**
 
-| Rolle | Hex |
-|---|---|
-| Grundfläche | `#F4F5F2` |
-| Karten | `#FFFFFF` |
-| Text | `#16211C` |
-| Text gedämpft | `#5F6B62` |
-| Tannengrün (Ja, Kopfzeile) | `#14432F` |
-| Grünfläche | `#DBE7DE` |
-| Weinrot (Nein) | `#7A1E28` |
-| Rotfläche | `#F0DCDE` |
-| Ocker (Bedingt) | `#7A5311` |
-| Ockerfläche | `#EFE6D5` |
-| Linien | `#D8DAD2` |
+Burgunder als Marke, warme Rosé-Neutrale als Grund. Die Palette steht als
+Wahrheit in `src/styles.css`; diese Tabelle ist ihre Abschrift.
 
-Rot und Grün sind gleichzeitig Markenfarben und Ampelsemantik — das ist gewollt.
-Ocker steht bewusst zurück und ist als dritte Farbe nur für `bedingt` zugelassen.
-Rot-Grün-Schwäche abfangen: jedes Urteil trägt immer auch das Wort, nie nur die Farbe.
+| Rolle | Hell | Dunkel |
+|---|---|---|
+| Grundfläche | `#FAF7F7` | `#141013` |
+| Warme Tönung (Hero, Verlauf) | `#F4ECEE` | `#1B1418` |
+| Karten | `#FFFFFF` | `#1F191C` |
+| Text | `#1E1418` | `#F0E9EB` |
+| Text zweitrangig | `#4A3B40` | `#CBBFC4` |
+| Text gedämpft | `#6B5C63` | `#A3959B` |
+| Marke (Kopfzeile, Hero) | `#4E0F2F` | `#22061A` |
+| Akzent (Schrift, Fokusring) | `#8E1A45` | `#F0A5C0` |
+| Ja | `#17603C` auf `#DCEFE2` | `#79C99A` auf `#16321F` |
+| Bedingt | `#7A5311` auf `#F6ECD8` | `#E6BA66` auf `#352815` |
+| Nein | `#C4161B` auf `#FCDCDB` | `#FF9187` auf `#5A221C` |
+| Unklar | `#5A5257` auf `#EAE5E6` | `#ACA3A7` auf `#302A2D` |
+| Linien | `#E8DDE1` | `#332A2E` |
 
-**Dunkles Schema** (Erweiterung). Die Markenfarben sind als dunkle Schrift auf
-hellen Tönungen entworfen und wären auf dunklem Grund unlesbar. Das Verhältnis
-kehrt sich deshalb um: aufgehellte Farbe auf dunkler Tönung derselben Buntheit.
+Die Markenfarbe ist rot, und Rot ist in dieser App die Farbe für «Besser
+nicht». Das ist die gefährlichste Stelle der Palette und wird auf drei Wegen
+gehalten:
 
-| Rolle | Hex |
-|---|---|
-| Grundfläche | `#0F1512` |
-| Karten | `#191F1B` |
-| Text | `#E9EEE9` |
-| Text gedämpft | `#9CA79F` |
-| Akzent (grüne Schrift) | `#86CCA4` |
-| Ja | `#7CC79B` auf `#17301F` |
-| Bedingt | `#E3B662` auf `#332614` |
-| Nein | `#F0A3AB` auf `#34191D` |
-| Unklar | `#AAB4AC` auf `#262C28` |
-| Linien | `#2C3430` |
+- **Farbton.** Die Marke ist pflaumig (330 Grad hell, 317 Grad dunkel), das
+  Ampelrot scharlachrot (358 beziehungsweise 5 Grad).
+- **Helligkeit.** Die Marke ist sehr dunkel, das Ampelrot deutlich heller.
+- **Rolle.** Die Marke erscheint ausschliesslich als Fläche — Kopfzeile, Hero,
+  eine Aktion. Das Urteil erscheint ausschliesslich als Schrift auf heller
+  Tönung. Sie treffen nie aufeinander.
 
-Die Kopfzeile bleibt tannengrün, damit die App wiedererkennbar bleibt.
+`src/palette.test.ts` liest beide Paletten aus `styles.css` und misst das nach.
+Wer die Marke aufhellt oder das Ampelrot abdunkelt, bis beide dasselbe Rot
+sind, bekommt einen roten Testlauf.
+
+Ocker steht bewusst zurück und ist als dritte Farbe nur für `bedingt`
+zugelassen. Rot-Grün-Schwäche abfangen: jedes Urteil trägt immer auch das Wort,
+nie nur die Farbe. Für Listenzeilen ohne eindeutiges Urteil gibt es gar keine
+Farbe — nur das Wort «Kommt drauf an» und einen halb grünen, halb roten Punkt,
+der sagt, dass beides darin steckt.
+
+**Dunkles Schema.** Die Markenfarben sind als dunkle Schrift auf hellen
+Tönungen entworfen und wären auf dunklem Grund unlesbar. Das Verhältnis kehrt
+sich deshalb um: aufgehellte Farbe auf dunkler Tönung derselben Buntheit.
 
 Voreingestellt folgt das Schema `prefers-color-scheme`. Ein Schieberegler in der
 Fusszeile überschreibt das; die Wahl liegt im `localStorage` und gilt ab dann.
-Die Stellung steht zusätzlich als Wort daneben — nie Farbe allein. Rot kommt
-dafür nicht in Frage: es ist in dieser App die Farbe für «Besser nicht», und
-Rot gegen Grün fällt bei Rot-Grün-Schwäche zusammen.
+Die Stellung steht zusätzlich als Wort daneben — nie Farbe allein.
 «Dem Gerät folgen» stellt die Automatik wieder her — ohne diesen Weg gäbe es
 kein Zurück. Solange dem Gerät gefolgt wird, zieht ein Wechsel dort sofort nach.
 
@@ -193,16 +204,32 @@ ein Skript in `index.html` setzt es vor dem ersten Malen, sonst erschiene die
 App kurz hell, bevor React das dunkle Schema setzt. Die Palette steht damit
 einmal da, statt für Systemvorgabe und Schalterwahl doppelt gepflegt zu werden.
 
+**Elemente**
+
+- **Hero** auf der Startansicht: was die App tut, die vier Stufen als Legende,
+  und zwei Kacheln — woran sich das misst, und dass die Zubereitung entscheidet.
+  Milchglas über der warmen Tönung.
+- **Suchleiste** als Pille, klebt unter der Kopfzeile. In einem Laden ist sie
+  das Einzige, was zählt, und darf nie erst wieder gesucht werden müssen. Ihre
+  Position hängt an der gemessenen Höhe der Kopfzeile (`--kopf-hoehe`).
+- **Trefferzeilen** als Karten mit Name, Urteil und — wo es keines gibt — der
+  Frage, die entscheidet.
+- **Blatt von unten** für Detail und Terminformular: kommt von unten, geht nach
+  unten, lässt sich am Griff eins zu eins ziehen, federt über der Oberkante und
+  geht bei genug Weg oder genug Tempo zu. Die Ansicht dahinter bleibt stehen.
+  Bei reduzierter Bewegung entfällt das Ziehen — das Stylesheet setzt dort jede
+  Transformation zurück, das Blatt liesse sich sonst anfassen und bliebe stehen.
+
 Kontrast AA gilt in beiden Schemata und ist in beiden zu messen, nicht zu
-schätzen: das dunkle Tannengrün als Schriftfarbe käme auf dunklem Grund auf
-1.5:1.
+schätzen: das dunkle Burgunder als Schriftfarbe käme auf dunklem Grund auf
+1.3:1.
 
 **Typografie**: eine Familie, moderne Grotesk. Urteilswort deutlich grösser
 gesetzt als der Fliesstext. Keine Versalien-Labels.
 
 **Aufbau**
 
-1. Kopfzeile in Tannengrün: Titel links, der Stand als Fläche rechts — Woche und
+1. Kopfzeile in Burgunder: Titel links, der Stand als Fläche rechts — Woche und
    verbleibende Zeit auf einer Pille, die zugleich zum Geburtstermin führt. Der
    Stand ist damit anfassbar statt nur lesbar; vorher liess sich der Termin nur
    über die Fusszeile ändern. Ist kein Termin eingetragen, steht dort die
@@ -212,14 +239,17 @@ gesetzt als der Fliesstext. Keine Versalien-Labels.
    Schwangerschaft ist. Er sass zuerst als Füllung in der Pille; dort drückte er
    den gemessenen Kontrast der leisen Zeile auf 4.03 und damit unter AA. An der
    Kante liegt kein Text darauf.
-2. Suchfeld direkt darunter, beim Start fokussiert. Häufige Begriffe als Chips.
-3. Trefferliste ab zwei Zeichen.
-4. Ergebniskarte: Name, dann bei Zubereitungsabhängigkeit **alle Varianten
-   untereinander sichtbar**, jede mit eigener Marke (Ja / Bedingt / Nein) und
-   einer Zeile Begründung. Keine Rückfrage vorschalten — sie soll auf einen Blick
-   sehen, dass die Zubereitung der entscheidende Faktor ist.
-5. Alternativen darunter.
-6. Fusszeile mit dem Hinweis auf Hebamme und Ärztin, auf jedem Screen sichtbar.
+2. Hero darunter, solange nicht gesucht wird.
+3. Suchfeld als Pille, beim Start fokussiert, klebt unter der Kopfzeile.
+4. Häufige Begriffe als Trefferzeilen — mit ihrem Urteil, nicht als blosse Namen.
+5. Trefferliste ab zwei Zeichen, dieselben Zeilen.
+6. Ergebniskarte im Blatt von unten: Name, dann bei Zubereitungsabhängigkeit
+   **alle Varianten untereinander sichtbar**, jede mit eigener Marke
+   (Ja / Bedingt / Nein) und einer Zeile Begründung. Keine Rückfrage
+   vorschalten — sie soll auf einen Blick sehen, dass die Zubereitung der
+   entscheidende Faktor ist.
+7. Alternativen darunter.
+8. Fusszeile mit dem Hinweis auf Hebamme und Ärztin, auf jedem Screen sichtbar.
 
 Über jeder Begründung steht das Risikoprinzip, das sie ausgelöst hat. Der
 Katalog wird nie vollständig sein; wer das Muster kennt, kann ein nicht
