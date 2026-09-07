@@ -334,7 +334,7 @@ Repo je umbenannt, muss er an beiden Stellen mitgeändert werden.
 
 ## Stand
 
-Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 186 Unit-Tests und
+Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 190 Unit-Tests und
 5 Offline-Prüfungen.
 
 ## Fachliche Durchsicht

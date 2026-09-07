@@ -193,11 +193,14 @@ der sagt, dass beides darin steckt.
 Tönungen entworfen und wären auf dunklem Grund unlesbar. Das Verhältnis kehrt
 sich deshalb um: aufgehellte Farbe auf dunkler Tönung derselben Buntheit.
 
-Voreingestellt folgt das Schema `prefers-color-scheme`. Ein Schieberegler in der
-Fusszeile überschreibt das; die Wahl liegt im `localStorage` und gilt ab dann.
+Voreingestellt ist **Hell**, nicht die Systemvorgabe: viele Geräte stehen
+dauerhaft auf Dunkel, und die App soll beim ersten Öffnen so aussehen, wie sie
+entworfen ist. Ein Schieberegler in der Fusszeile stellt auf Dunkel um,
+«Dem Gerät folgen» übergibt an `prefers-color-scheme`. Jede der drei Wahlen
+liegt im `localStorage` und gilt ab dann — auch «system», sonst hielte sie nur
+bis zum Schliessen der App.
 Die Stellung steht zusätzlich als Wort daneben — nie Farbe allein.
-«Dem Gerät folgen» stellt die Automatik wieder her — ohne diesen Weg gäbe es
-kein Zurück. Solange dem Gerät gefolgt wird, zieht ein Wechsel dort sofort nach.
+Solange dem Gerät gefolgt wird, zieht ein Wechsel dort sofort nach.
 
 Technisch entscheidet ein Attribut am Wurzelelement, nicht die Medienabfrage:
 ein Skript in `index.html` setzt es vor dem ersten Malen, sonst erschiene die

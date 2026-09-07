@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { ermittleSchema, istWunsch, LEISTENFARBE, umgelegt } from './farbschema'
+import {
+  ermittleSchema,
+  istWunsch,
+  LEISTENFARBE,
+  leseWunsch,
+  SCHEMA_SCHLUESSEL,
+  speichereWunsch,
+  umgelegt,
+  VOREINSTELLUNG,
+} from './farbschema'
 
 describe('ermittleSchema', () => {
   it('folgt bei «system» dem Gerät', () => {
@@ -26,6 +35,56 @@ describe('istWunsch', () => {
     for (const schlecht of [null, '', 'light', 'Dunkel', 42, {}]) {
       expect(istWunsch(schlecht), String(schlecht)).toBe(false)
     }
+  })
+})
+
+describe('Voreinstellung', () => {
+  /** Ein Speicher, wie ihn der Browser stellt — die Tests laufen ohne DOM. */
+  function speicher(inhalt: Record<string, string> = {}) {
+    globalThis.localStorage = {
+      getItem: (k: string) => inhalt[k] ?? null,
+      setItem: (k: string, v: string) => {
+        inhalt[k] = v
+      },
+      removeItem: (k: string) => {
+        delete inhalt[k]
+      },
+    } as unknown as Storage
+    return inhalt
+  }
+
+  it('ist hell, nicht die Systemvorgabe', () => {
+    expect(VOREINSTELLUNG).toBe('hell')
+    speicher()
+    expect(leseWunsch()).toBe('hell')
+  })
+
+  it('liest eine gespeicherte Wahl zurück', () => {
+    speicher({ [SCHEMA_SCHLUESSEL]: 'dunkel' })
+    expect(leseWunsch()).toBe('dunkel')
+  })
+
+  it('hält «Dem Gerät folgen» über den nächsten Start hinweg', () => {
+    // Würde «system» den Schlüssel löschen, käme beim nächsten Start wieder
+    // die Voreinstellung — die Wahl hielte nur bis zum Schliessen der App.
+    const inhalt = speicher()
+    speichereWunsch('system')
+    expect(inhalt[SCHEMA_SCHLUESSEL]).toBe('system')
+    expect(leseWunsch()).toBe('system')
+  })
+
+  it('übersteht einen gesperrten Speicher', () => {
+    globalThis.localStorage = {
+      getItem: () => {
+        throw new Error('gesperrt')
+      },
+      setItem: () => {
+        throw new Error('gesperrt')
+      },
+      removeItem: () => {},
+    } as unknown as Storage
+    expect(leseWunsch()).toBe('hell')
+    expect(() => speichereWunsch('dunkel')).not.toThrow()
   })
 })
 

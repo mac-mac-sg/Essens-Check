@@ -17,9 +17,12 @@
         } catch (e) {
           /* gesperrter Speicher */
         }
+        // Ohne gespeicherte Wahl: hell. Dem Gerät wird nur gefolgt, wenn das
+        // ausdrücklich gewählt wurde. Muss zu VOREINSTELLUNG in
+        // src/farbschema.ts passen.
         var dunkel =
           wunsch === 'dunkel' ||
-          (wunsch !== 'hell' &&
+          (wunsch === 'system' &&
             window.matchMedia &&
             window.matchMedia('(prefers-color-scheme: dark)').matches)
         document.documentElement.dataset.schema = dunkel ? 'dunkel' : 'hell'
