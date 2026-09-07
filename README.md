@@ -362,7 +362,7 @@ offen bleibt. Wo der Entscheid nur ein Vorschlag ist, sagt die `herkunft` das.
 P13, die BLV-Ausweitung auf Halbhartkäse, ist fachlich bestätigt: kalt nicht
 konsumieren, unabhängig von der Milchbehandlung; erhitzt ab 70 °C
 Kerntemperatur während zwei Minuten in Ordnung. Dabei neu aufgetaucht ist P18 —
-das Tag `vorgeschnitten` meint an dreizehn Einträgen zweierlei, und der Katalog
+das Tag `vorgeschnitten` meint an zwölf Einträgen Verschiedenes, und der Katalog
 urteilt darüber in beide Richtungen zugleich. P12 wartet auf eine Zulieferung.
 
 Wer eine Entscheidung korrigiert, führt die Datei nach: sie soll zeigen, was

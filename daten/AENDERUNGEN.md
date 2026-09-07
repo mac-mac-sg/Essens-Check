@@ -74,8 +74,8 @@ ist bestätigt — kein Urteil ändert sich. Nachgetragen wurde, was fehlte.
   niedrigeres Risiko — nicht null
 - halbhartkaese: Zusatztext von der Wiederholung der Regel auf die Sortenliste
   umgestellt
-- NEU in offene-punkte.json: P18 — das Tag «vorgeschnitten» meint an
-  dreizehn Einträgen zweierlei, offene Theke und industriell abgepackte
-  Kühlware. Geflügelaufschnitt frisch abgepackt ist ein Ja, Sandwich aus
+- NEU in offene-punkte.json: P18 — das Tag «vorgeschnitten» meint an zwölf
+  Einträgen Verschiedenes: offene Theke, industriell abgepackte Kühlware, und
+  beim Kebab den rohen Salat darin. Geflügelaufschnitt frisch abgepackt ist ein Ja, Sandwich aus
   derselben Kühltheke ein Nein. Kein Urteil geändert: strenger stellen ginge
   ohne Quelle, lockern ist der Schadensfall.

@@ -411,18 +411,22 @@
         "Wurstsalat",
         "Melone",
         "Avocado",
+        "Smoothie",
         "Käse von der offenen Theke",
         "Fertigsalat",
-        "und 6 weitere"
+        "Sülze",
+        "Leberwurst",
+        "Caesar Dressing",
+        "Kebab"
       ],
       "app_sagt": "Geflügelaufschnitt frisch abgepackt: Ja. Sandwich vorgefertigt aus derselben Kühltheke: Nein.",
-      "warum": "Dreizehn Einträge hängen am Tag «vorgeschnitten». Es meint an manchen Stellen offene Ware von der Theke oder vom Buffet, an anderen industriell abgepackte Fertigware. Bei Geflügelaufschnitt ist «frisch abgepackt» die sichere Variante und «offen von der Theke» die gemiedene; bei Sandwich, Wurstsalat und Melone ist umgekehrt gerade das Abgepackte das Gemiedene. Beides sind kalte, verzehrfertige, gekühlt gelagerte Industrieprodukte — das Urteil kann nicht für dasselbe einmal Ja und einmal Nein sein.",
+      "warum": "Zwölf Einträge hängen am Tag «vorgeschnitten». Es meint an manchen Stellen offene Ware von der Theke oder vom Buffet, an anderen industriell abgepackte Fertigware — und beim Kebab sogar etwas Drittes, nämlich den rohen Salat darin. Bei Geflügelaufschnitt ist «frisch abgepackt» die sichere Variante und «offen von der Theke» die gemiedene; bei Sandwich, Wurstsalat und Melone ist umgekehrt gerade das Abgepackte das Gemiedene. Beides sind kalte, verzehrfertige, gekühlt gelagerte Industrieprodukte — das Urteil kann nicht für dasselbe einmal Ja und einmal Nein sein.",
       "frage": "Ist industriell abgepackte, verzehrfertige Kühlware in der Schwangerschaft anders zu beurteilen als dieselbe Ware von der offenen Theke? Und wenn nein: gilt für beide das Nein oder für beide das Ja?",
       "pruefung": {
         "status": "offen",
         "befund": "Aufgefallen bei der fachlichen Antwort zu P13. Dort wurde ausdrücklich davor gewarnt, industriell abgepackte Ware pauschal als riskanter einzustufen als Ware von der Frischetheke: Schneiden, Portionieren und Verpacken schaffen zusätzliche Gelegenheiten zur Rekontamination, aber eine hygienisch kontrollierte industrielle Verpackung kann sehr sicher sein. Der Katalog behauptet diesen Vergleich an mehreren Stellen implizit — und zwar in beide Richtungen zugleich.",
         "quelle": "Fachliche Rückmeldung vom 07.09.2026; Übertragungswege über Schneidemaschinen und Oberflächen sind dokumentiert, die pauschale Rangfolge industriell gegen Theke nicht.",
-        "katalog_aenderung": "Nicht selbst entschieden. Ein Urteil zu ändern hiesse hier entweder fünf Einträge strenger zu stellen, ohne Quelle dafür, oder fünf zu lockern — und Lockern ist in dieser App der Schadensfall. Vorschlag zur Prüfung: das Tag in zwei aufteilen — eines für offene Ware und Buffet, eines für kalte verzehrfertige Kühlware — und beide getrennt bewerten. Bis dahin gilt: was heute gemieden wird, bleibt gemieden."
+        "katalog_aenderung": "Nicht selbst entschieden. Ein Urteil zu ändern hiesse hier entweder Einträge strenger zu stellen, ohne Quelle dafür, oder zu lockern — und Lockern ist in dieser App der Schadensfall. Vorschlag zur Prüfung: das Tag in drei aufteilen — offene Ware und Buffet, kalte verzehrfertige Kühlware, und roher Salat als Bestandteil — und jedes getrennt bewerten. Beim Kebab trägt heute «vorgeschnitten» die Last für den rohen Salat, was mit Verpackung gar nichts zu tun hat. Bis dahin gilt: was heute gemieden wird, bleibt gemieden."
       },
       "rueckmeldung": null
     }
