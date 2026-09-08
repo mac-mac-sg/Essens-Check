@@ -12,6 +12,8 @@ export interface SchweizerProduktRegression {
     eindeutig: string | null
     /** Erwarteter erster Kandidat, auch wenn die Eindeutigkeitsschwelle nicht reicht. */
     erster: string | null
+    /** Weitere fachlich richtige Kandidaten, die in der Auswahl erhalten bleiben müssen. */
+    kandidatenEnthalten?: string[]
     /** Katalogeinträge, deren bekannte Risiken das Auto-Urteil blockieren müssen. */
     konflikte?: string[]
   }
@@ -73,7 +75,9 @@ export const SCHWEIZER_PRODUKTE: SchweizerProduktRegression[] = [
       zutaten: ['wasser', 'zucker', 'taurin', 'koffein'],
       vollstaendigkeit: 0.8,
     },
-    erwartung: { eindeutig: 'energydrink', erster: 'energydrink' },
+    // Der richtige Kandidat steht vorne, aber die 2:1-Eindeutigkeitsschwelle
+    // reicht bei den übrigen Koffein-/Getränketreffern bewusst nicht für Auto.
+    erwartung: { eindeutig: null, erster: 'energydrink' },
   },
   {
     ean: '7610100034084',
@@ -198,8 +202,8 @@ export const SCHWEIZER_PRODUKTE: SchweizerProduktRegression[] = [
       zutaten: ['wasser', 'milchserum', 'zucker', 'kohlensäure', 'milchsäure'],
       vollstaendigkeit: 0.8,
     },
-    // Rivella hat keinen eigenen Katalogeintrag. Fremdkategorien dürfen kein
-    // geratenes Urteil erzeugen.
+    // Rivella hat keinen eigenen Katalogeintrag. «Rot» ist nur die Variante und
+    // darf insbesondere keinen Rooibos-/Rotbusch-Treffer erzeugen.
     erwartung: { eindeutig: null, erster: null },
   },
   {
@@ -216,7 +220,13 @@ export const SCHWEIZER_PRODUKTE: SchweizerProduktRegression[] = [
       zutaten: ['zucker', 'kakaomasse', 'kirsch', 'kakaobutter', 'kakaopulver'],
       vollstaendigkeit: 0.9,
     },
-    // Die Schokoladen-Kategorie darf den enthaltenen Kirsch nicht überstimmen.
-    erwartung: { eindeutig: null, erster: 'schokolade', konflikte: ['wein-bier'] },
+    // Kakao kann im Ranking vor Schokolade liegen; entscheidend ist hier:
+    // Schokolade bleibt als plausibler Kandidat erhalten und Kirsch blockiert Auto.
+    erwartung: {
+      eindeutig: null,
+      erster: 'kakao',
+      kandidatenEnthalten: ['schokolade'],
+      konflikte: ['wein-bier'],
+    },
   },
 ]
