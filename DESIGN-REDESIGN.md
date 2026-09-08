@@ -4,16 +4,15 @@ Dieses Dokument aktualisiert für die Oberfläche die entsprechenden Aussagen im
 
 ## Ziel
 
-Die App ist primär ein Entscheidungswerkzeug im Laden: öffnen, Lebensmittel eingeben oder scannen, Antwort erfassen. Erklärung und Einstellungen treten hinter diesen Hauptfluss zurück.
+Die App ist primär ein Entscheidungswerkzeug im Laden: öffnen, Lebensmittel eingeben oder scannen, Antwort erfassen. Ergänzend bietet `Wissen` einen klar getrennten redaktionellen Bereich für Ernährungsthemen und Rezeptideen. Erklärung und Einstellungen treten hinter diesen Hauptflüssen zurück.
 
 ## Informationshierarchie
 
 1. App-Titel und Untertitel.
-2. Kompakter Schwangerschaftsstatus als Kontext, nicht als Hauptinhalt.
-3. Suchfeld unmittelbar danach und beim Start fokussiert.
-4. Eine einzige kurze Erklärung unter der Suche.
-5. Verlauf und Hintergrundinformationen erst darunter.
-6. Ergebnis mit Antwort vor Begründung.
+2. Schwangerschaftsstatus ausschliesslich auf der Startseite `Suchen`.
+3. Auf der Startseite Hero, Suchfeld und Verlauf.
+4. Ergebnis mit Antwort vor Begründung.
+5. `Wissen` als redaktioneller Bereich, getrennt von der Ja/Nein-Bewertung des Lebensmittelkatalogs.
 
 ## Materialsystem
 
@@ -28,9 +27,11 @@ Die bestehende Light-/Dark-Palette und die Trennung von Markenfarbe und Ampelfar
 
 ## Start und Suche
 
-Der frühere Hero als grosse Glasfläche entfällt. Unter der Suche steht nur eine kurze Orientierung. Das Suchfeld ist die visuell dominante Aktion.
+Die Startseite verwendet wieder den grösseren Hero mit dem Satz `Ein Lebensmittel, eine klare Antwort.`. Darunter folgt das Suchfeld. Der Schwangerschaftsstatus mit Schwangerschaftswoche und verbleibenden Tagen steht nur auf dieser Startseite.
 
-Treffer erscheinen in einer verbundenen Liste. Jede Zeile zeigt Name, ausgeschriebenen Status und gegebenenfalls die entscheidende Bedingung. Farbe wird nie allein zur Codierung verwendet.
+Die Hintergrundkacheln `Schweizer Empfehlungen` und `Zubereitung entscheidet` stehen nicht mehr auf der Suchseite; diese Einordnung liegt im Einstellungs-Menü.
+
+Treffer erscheinen als einzelne Karten mit Name, ausgeschriebenem Status und gegebenenfalls der entscheidenden Bedingung. Farbe wird nie allein zur Codierung verwendet.
 
 ## Ergebnis
 
@@ -40,25 +41,61 @@ Bei mehreren Varianten bleiben alle Varianten gleichzeitig sichtbar. Zubereitung
 
 ## Bottom Sheet
 
-Das Bottom Sheet bleibt erhalten und bekommt einen standardisierten Kopf mit Griff, Titel und sichtbarem Schliessen-Knopf. Die Ergebniskarte zeigt innerhalb des Sheets ihren Namen nicht ein zweites Mal. Beim Barcode-Scan kann dieselbe Ergebniskarte ausserhalb des Sheets weiterhin ihren eigenen Titel anzeigen.
+Das Bottom Sheet bleibt erhalten und hat einen standardisierten Kopf mit Griff, Titel und sichtbarem Schliessen-Knopf. Die Ergebniskarte zeigt innerhalb des Sheets ihren Namen nicht ein zweites Mal. Beim Barcode-Scan kann dieselbe Ergebniskarte ausserhalb des Sheets weiterhin ihren eigenen Titel anzeigen.
+
+Auch Wissensartikel und Rezepte öffnen ihre Detailansicht im Bottom Sheet, damit die Hauptnavigation im Hintergrund erhalten bleibt.
 
 ## Navigation
 
-Die drei Ziele bleiben `Suchen`, `Liste`, `Scannen`. Die Navigation bleibt in der Daumenzone, wird aber visuell ruhiger und konkurriert weniger mit dem Inhalt.
+Die vier Hauptbereiche sind:
+
+- `Suchen` — Startseite und Lebensmittelprüfung
+- `Liste` — Kategorienbrowser der klar freigegebenen Lebensmittel
+- `Wissen` — Ernährungsthemen und Rezeptideen
+- `Scannen` — Barcode-Prüfung
+
+Die Navigation bleibt in der Daumenzone. Das aktive Ziel trägt Farbe, Fettung und `aria-current`.
 
 ## Übersicht
 
-`Was kann ich essen?` startet als kompakter Kategorienbrowser. Eine gewählte Kategorie öffnet eine verbundene Liste der klar freigegebenen Einträge. Dadurch entfällt die Kombination aus horizontaler Filterleiste und zwölf Accordions.
+`Was kann ich essen?` startet als kompakter Kategorienbrowser. Eine gewählte Kategorie öffnet eine verbundene Liste der klar freigegebenen Einträge. Schwangerschaftswoche und verbleibende Tage werden hier nicht wiederholt.
+
+## Wissen
+
+Der Bereich `Wissen` ist redaktionell und darf nicht wie ein Lebensmittelurteil wirken. Er besteht aus zwei Einstiegen:
+
+### Ernährung in der Schwangerschaft
+
+- kompakte Themenkarten
+- kurze Einordnung auf der Karte
+- Detailansicht mit wenigen Kernpunkten
+- Quellenangabe und Stand der Information
+- keine Ableitung eines konkreten Lebensmittelurteils aus allgemeinen Texten
+
+Der erste Umfang umfasst acht Themen, darunter Folsäure, Vitamin D, Eisen, Jod, Koffein, Fisch & Omega-3, Listerien & Toxoplasmose sowie ausgewogene Ernährung.
+
+### Rezeptideen
+
+- visuelle Rezeptkarten mit Illustration, Zeit und wenigen Tags
+- Detailansicht mit Zutaten, Zubereitung und einem eigenen Block `In der Schwangerschaft beachten`
+- Zutaten mit vorhandenem Katalogbezug können direkt zur Suche übergeben werden
+- keine pauschale Kennzeichnung `sicher in der Schwangerschaft`; stattdessen konkrete Zubereitungshinweise
+
+Der Wissensbereich bleibt vollständig im App-Bundle und funktioniert offline. Er führt keine zusätzliche Netzwerkverbindung ein.
+
+## Scanner
+
+Der Scanner bleibt funktional unverändert. Schwangerschaftswoche und verbleibende Tage werden auf dieser Lasche nicht angezeigt.
 
 ## Einstellungen
 
-Geburtstermin und Erscheinungsbild liegen nicht mehr im Footer. Ein Einstellungen-Knopf im Kopf öffnet ein eigenes Bottom Sheet mit:
+Geburtstermin und Erscheinungsbild liegen im Einstellungen-Sheet. Der Einstellungen-Knopf bleibt oben rechts verfügbar. Das Sheet enthält:
 
 - Geburtstermin
 - Hell / Dunkel / Gerät
 - Informationen zur Einordnung und zu den Quellen
 
-Der medizinische Hinweis auf Hebamme oder Ärztin bleibt auf jedem Screen sichtbar. Auf der leeren Startansicht steht er in den Hintergrundinformationen; auf den übrigen Ansichten in der Fusszeile.
+Der medizinische Hinweis auf Hebamme oder Ärztin bleibt auf jedem Screen sichtbar.
 
 ## Barrierefreiheit
 
