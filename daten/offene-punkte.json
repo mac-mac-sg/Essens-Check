@@ -1,5 +1,5 @@
 {
-  "version": "7",
+  "version": 8,
   "hinweis": "Inhaltliche Entscheidungen zum Katalog und ihr Stand. Version 7: alle Punkte entschieden — durch Quellenprüfung oder durch die fachliche Durchsicht. Die Datei bleibt als Protokoll stehen: sie zeigt, worauf jedes Urteil beruht und wer es verantwortet. Neue Zweifel gehören hier hinein, nicht in eine neue Datei.",
   "pruefung": {
     "datum": "2026-09-06",
@@ -505,8 +505,8 @@
         "datum": "2026-09-08",
         "herkunft": "Fachliche Antwort auf die Rückfrage. Damit ist dieser Punkt entschieden.",
         "entscheid": "Nicht jeden Hartkäse-Eintrag mit der Rinden-Rückfrage belasten — das verwässerte die häufigste unbedenkliche Antwort der App. Die Rinden-Regel stattdessen einmal zentral sichtbar machen. — Fachlich bestätigt und ausdrücklich besser als die Wiederholung an jedem Hartkäse, solange die Regel in der App gut sichtbar ist.",
-        "umgesetzt": "Neuer Abschnitt «Gilt immer» auf dem Startbildschirm, gespeist aus regeln.json → grundsaetze. Erster und vorerst einziger Grundsatz ist die Käserinde. Betroffen sind acht Einträge, nicht zwölf — die Zahl in diesem Punkt war zu hoch. Die Sichtbarkeitsauflage ist umgesetzt: die Titel der Grundsätze stehen jetzt offen auf dem Startbildschirm, nur der Text klappt auf. Vorher lag alles hinter einer einzigen zugeklappten Zeile.",
-        "bleibt_offen": null
+        "umgesetzt": "Neuer Abschnitt «Gilt immer» auf dem Startbildschirm, gespeist aus regeln.json → grundsaetze. Erster und vorerst einziger Grundsatz ist die Käserinde. Betroffen sind acht Einträge, nicht zwölf — die Zahl in diesem Punkt war zu hoch. Die Sichtbarkeitsauflage ist umgesetzt: die Titel der Grundsätze stehen jetzt offen auf dem Startbildschirm, nur der Text klappt auf. Vorher lag alles hinter einer einzigen zugeklappten Zeile. — Nachtrag vom 8.9.2026: Der Abschnitt «Gilt immer» wurde auf Wunsch aus der Startansicht entfernt. Die Grundsätze bleiben in regeln.json und in den Tests, haben aber keinen zentralen Platz mehr in der App. Die Rindenangabe steht weiterhin auf jeder betroffenen Käsekarte, die Erhitzungsangabe auf jeder Karte, die sie braucht. Die Sichtbarkeitsauflage der fachlichen Durchsicht («solange die Regel in der App gut sichtbar ist») ist damit nur noch über die Einzelkarten erfüllt, nicht mehr zentral.",
+        "bleibt_offen": "Ob die Auflage aus der fachlichen Durchsicht mit der Angabe auf den Einzelkarten allein erfüllt ist, oder ob die Grundsätze einen eigenen Platz in der App zurückbekommen müssen — dann an anderer Stelle als auf dem Startbildschirm."
       },
       "gespraech": null
     },

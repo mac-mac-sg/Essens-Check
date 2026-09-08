@@ -99,7 +99,7 @@ try {
 
   await seite.reload({ waitUntil: 'load' })
   const titel = await seite.locator('.kopfzeile__titel').innerText()
-  pruefe('Neuladevorgang liefert die App', titel === 'Darf ich das essen?', titel)
+  pruefe('Neuladevorgang liefert die App', titel === 'Darf ich das?', titel)
 
   await seite.fill('#suche', 'thunfisch')
   await seite.waitForSelector('.treffer')

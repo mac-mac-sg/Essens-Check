@@ -1,4 +1,4 @@
-# Darf ich das essen? — Bau-Spezifikation
+# Darf ich das? — Bau-Spezifikation
 
 Persönliche App für eine Schwangere. Sie tippt ein Lebensmittel ein und bekommt in
 Sekunden eine eindeutige Antwort — auch offline, auch im Supermarkt-Untergeschoss.
@@ -48,13 +48,17 @@ entschärfen. Diese Ebene ändert sich fast nie.
 
 Neben den Regeln führt `regeln.json` eine Liste `grundsaetze`: was unabhängig
 vom einzelnen Lebensmittel gilt und deshalb einmal zentral steht statt an jedem
-betroffenen Eintrag. Die App zeigt sie auf dem Startbildschirm unter «Gilt
-immer», die Titel offen und den Text aufklappbar — zentral ist nur besser als
-wiederholt, solange es sichtbar bleibt. Zwei Grundsätze: die Käserinde, und was
-«durcherhitzt» heisst (70 °C Kerntemperatur, zwei Minuten). Die Rindenfrage an
-jedem der acht Hartkäse-Einträge zu stellen hätte aus acht klaren Ja acht
-bedingte gemacht, und Hartkäse ist der Rückfallweg, auf dem fast jede
-Alternativenliste endet.
+betroffenen Eintrag. Zwei Grundsätze: die Käserinde, und was «durcherhitzt»
+heisst (70 °C Kerntemperatur, zwei Minuten). Die Rindenfrage an jedem der acht
+Hartkäse-Einträge zu stellen hätte aus acht klaren Ja acht bedingte gemacht,
+und Hartkäse ist der Rückfallweg, auf dem fast jede Alternativenliste endet.
+
+Der Abschnitt «Gilt immer», der sie auf dem Startbildschirm zeigte, ist auf
+Wunsch entfernt. Die Angaben stehen weiter auf jeder betroffenen Karte; einen
+zentralen Platz in der App haben sie derzeit nicht. Die fachliche Durchsicht
+hatte die zentrale Führung ausdrücklich unter der Auflage bestätigt, dass die
+Regel «in der App gut sichtbar» bleibt — siehe P17 in
+`daten/offene-punkte.json`.
 
 **Ebene 2 — Lebensmittelkatalog** (`lebensmittel.json`). Jeder Eintrag verweist über
 Komponenten auf Regeln, statt eine eigene Bewertung mitzubringen:
@@ -163,7 +167,7 @@ Wahrheit in `src/styles.css`; diese Tabelle ist ihre Abschrift.
 | Text | `#1E1418` | `#F0E9EB` |
 | Text zweitrangig | `#4A3B40` | `#CBBFC4` |
 | Text gedämpft | `#6B5C63` | `#A3959B` |
-| Marke (Kopfzeile, Hero) | `#4E0F2F` | `#22061A` |
+| Marke (Flächen, Aktionen) | `#4E0F2F` | `#22061A` |
 | Akzent (Schrift, Fokusring) | `#8E1A45` | `#F0A5C0` |
 | Ja | `#17603C` auf `#DCEFE2` | `#79C99A` auf `#16321F` |
 | Bedingt | `#7A5311` auf `#F6ECD8` | `#E6BA66` auf `#352815` |
@@ -178,8 +182,8 @@ gehalten:
 - **Farbton.** Die Marke ist pflaumig (330 Grad hell, 317 Grad dunkel), das
   Ampelrot scharlachrot (358 beziehungsweise 5 Grad).
 - **Helligkeit.** Die Marke ist sehr dunkel, das Ampelrot deutlich heller.
-- **Rolle.** Die Marke erscheint ausschliesslich als Fläche — Kopfzeile, Hero,
-  eine Aktion. Das Urteil erscheint ausschliesslich als Schrift auf heller
+- **Rolle.** Die Marke erscheint ausschliesslich als Fläche — der gewählte
+  Filterchip, eine Aktion, der Fortschrittsstreifen. Das Urteil erscheint ausschliesslich als Schrift auf heller
   Tönung. Sie treffen nie aufeinander.
 
 `src/palette.test.ts` liest beide Paletten aus `styles.css` und misst das nach.
@@ -225,9 +229,10 @@ einmal da, statt für Systemvorgabe und Schalterwahl doppelt gepflegt zu werden.
   nicht.
 - **Zwei Hinweiskacheln** am Ende der Startansicht — woran sich die Auskunft
   misst, und dass die Zubereitung entscheidet. Hintergrund, kein Einstieg.
-- **Suchleiste** als Pille, klebt unter der Kopfzeile. In einem Laden ist sie
-  das Einzige, was zählt, und darf nie erst wieder gesucht werden müssen. Ihre
-  Position hängt an der gemessenen Höhe der Kopfzeile (`--kopf-hoehe`).
+- **Suchleiste** als Pille, klebt am oberen Rand. In einem Laden ist sie das
+  Einzige, was zählt, und darf nie erst wieder gesucht werden müssen. Der
+  sichere Bereich des Geräts steckt in ihrem Innenabstand, nicht im Versatz:
+  sonst liefe auf einem Gerät mit Aussparung Inhalt oberhalb der Leiste durch.
 - **Trefferzeilen** als Karten mit Name, Urteil und — wo es keines gibt — der
   Frage, die entscheidet.
 - **Blatt von unten** für Detail und Terminformular: kommt von unten, geht nach
@@ -270,19 +275,22 @@ ist keine Stufe der Skala.
 
 **Aufbau**
 
-1. Kopfzeile in Burgunder: Titel links, der Stand als Fläche rechts — Woche und
-   verbleibende Zeit auf einer Pille, die zugleich zum Geburtstermin führt. Der
-   Stand ist damit anfassbar statt nur lesbar; vorher liess sich der Termin nur
-   über die Fusszeile ändern. Ist kein Termin eingetragen, steht dort die
-   Einladung, einen zu erfassen — nie eine geratene Woche.
+1. Kopf ohne Balken: der Stand als Pille, darunter «Darf ich das?» und
+   «Food Checker für die Schwangerschaft». Das stand vorher in einer klebenden
+   burgunderroten Leiste — eine zweite Fläche über der Startansicht, die dem
+   Einstieg die Ruhe nahm. Jetzt steht der Text direkt auf dem Grund und
+   scrollt mit ihm weg.
 
-   An der Unterkante der Leiste zeigt ein zwei Pixel hoher Balken, wie weit die
-   Schwangerschaft ist. Er sass zuerst als Füllung in der Pille; dort drückte er
-   den gemessenen Kontrast der leisen Zeile auf 4.03 und damit unter AA. An der
-   Kante liegt kein Text darauf.
+   Die Pille nennt Woche und verbleibende Zeit und führt zugleich zum
+   Geburtstermin; der Stand ist damit anfassbar statt nur lesbar. Ist kein
+   Termin eingetragen, steht dort die Einladung, einen zu erfassen — nie eine
+   geratene Woche. In der Pille zeigt ein drei Pixel hoher Streifen, wie weit
+   die Schwangerschaft ist. Er sass zuerst als Füllung in der Fläche; dort
+   drückte er den gemessenen Kontrast der leisen Zeile auf 4.03 und damit unter
+   AA. Als eigener Streifen liegt kein Text darauf.
 2. Hero darunter, solange nicht gesucht wird.
-3. Suchfeld als Pille direkt darunter, beim Start fokussiert, klebt unter der
-   Kopfzeile.
+3. Suchfeld als Pille darunter, beim Start fokussiert, klebt beim Scrollen am
+   oberen Rand.
 4. Verlauf: die letzten fünf nachgeschlagenen Lebensmittel mit ihrem Urteil.
 5. Trefferliste ab zwei Zeichen, dieselben Zeilen.
 6. Ergebniskarte im Blatt von unten: Name, dann bei Zubereitungsabhängigkeit

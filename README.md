@@ -1,4 +1,4 @@
-# Darf ich das essen?
+# Darf ich das?
 
 Private, offline lauffähige App für die Schwangerschaft: Lebensmittel eingeben,
 eindeutige Antwort bekommen. Keine Konten, keine Telemetrie, keine externen Dienste.
@@ -121,11 +121,15 @@ zweiten Eintrag mit gegenläufigem Urteil.
 ### Was immer gilt
 
 Was unabhängig vom einzelnen Lebensmittel gilt, steht als `grundsaetze` in
-`regeln.json` und auf dem Startbildschirm unter «Gilt immer» — einmal zentral
-statt an jedem betroffenen Eintrag. Die Käserinde betrifft acht
-Hartkäse-Einträge; als Rückfrage an jedem einzelnen hätte sie aus acht klaren
-Ja acht bedingte gemacht, und Hartkäse ist der Rückfallweg, auf dem fast jede
-Alternativenliste endet.
+`regeln.json` — einmal zentral statt an jedem betroffenen Eintrag. Die
+Käserinde betrifft acht Hartkäse-Einträge; als Rückfrage an jedem einzelnen
+hätte sie aus acht klaren Ja acht bedingte gemacht, und Hartkäse ist der
+Rückfallweg, auf dem fast jede Alternativenliste endet.
+
+Der Abschnitt «Gilt immer», der die Grundsätze auf dem Startbildschirm zeigte,
+ist auf Wunsch entfernt. Die Angaben stehen weiter auf jeder betroffenen Karte;
+einen zentralen Platz in der App haben sie derzeit nicht (siehe P17 in
+`daten/offene-punkte.json`).
 
 Die Suche vergleicht ausschliesslich Teilzeichenketten von Name und Synonymen.
 Umlaute, Akzente und Grossschreibung sind egal, Wortähnlichkeit wird nicht

@@ -27,8 +27,8 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
       },
       manifest: {
-        name: 'Darf ich das essen?',
-        short_name: 'Darf ich?',
+        name: 'Darf ich das? — Food Checker für die Schwangerschaft',
+        short_name: 'Darf ich das?',
         description:
           'Nachschlagewerk für die Schwangerschaft: Lebensmittel eingeben, eindeutige Antwort bekommen.',
         lang: 'de-CH',
@@ -38,7 +38,7 @@ export default defineConfig({
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#FAF7F7',
-        theme_color: '#4E0F2F',
+        theme_color: '#F4ECEE',
         categories: ['health', 'food'],
         icons: [
           { src: 'icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },

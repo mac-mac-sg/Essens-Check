@@ -117,9 +117,21 @@ describe.each(SCHEMATA)('Palette (%s)', (_name, P) => {
   })
 
   it('liest weisse Schrift auf der Marke', () => {
-    // Die Kopfzeile ist die Markenfläche, ihre Schrift ist weiss.
+    // Die Marke trägt weisse Schrift, wo sie als Fläche steht — der gewählte
+    // Filterchip, die Knöpfe im Blatt.
     expect(kontrast('#ffffff', p('--marke'))).toBeGreaterThanOrEqual(4.5)
-    expect(kontrast(p('--kopfzeile-leise'), p('--marke'))).toBeGreaterThanOrEqual(4.5)
+  })
+
+  /*
+   * Der Stand liegt seit dem Wegfall der Kopfleiste auf hellem Grund. Die
+   * Restangabe ist die leiseste Zeile darauf und war vorher der Grund, den
+   * Fortschritt nicht als Füllung in die Fläche zu legen.
+   */
+  it('liest die Restangabe auf der Standfläche', () => {
+    expect(kontrast(p('--text-gedaempft'), p('--flaeche-still'))).toBeGreaterThanOrEqual(4.5)
+    expect(kontrast(p('--text'), p('--flaeche-still'))).toBeGreaterThanOrEqual(4.5)
+    // Der Fortschrittsstreifen trägt keinen Text, muss aber sichtbar sein.
+    expect(kontrast(p('--stand-balken'), p('--flaeche-still'))).toBeGreaterThanOrEqual(3)
   })
 })
 

@@ -54,12 +54,9 @@
   --schatten-hoch: 0 2px 8px rgba(48, 12, 26, 0.09), 0 24px 56px rgba(48, 12, 26, 0.18);
   --schleier: rgba(30, 20, 24, 0.5);
 
-  --kopfzeile: rgba(78, 15, 47, 0.88);
-  --kopfzeile-still: rgba(255, 255, 255, 0.14);
-  --kopfzeile-gedrueckt: rgba(255, 255, 255, 0.2);
-  --kopfzeile-balken: rgba(255, 255, 255, 0.75);
-  --kopfzeile-spur: rgba(255, 255, 255, 0.12);
-  --kopfzeile-leise: #f4d9e1;
+  /* Der zurückgelegte Teil der Schwangerschaft, als Streifen in der Fläche. */
+  --stand-balken: #8e1a45;
+  --stand-spur: rgba(78, 15, 47, 0.14);
   --schalter-an: #8e1a45;
   --schalter-aus: #8c7c83;
   --schalter-knopf: #ffffff;
@@ -132,7 +129,8 @@
   --schatten-hoch: 0 0 0 1px #362c31, 0 24px 56px rgba(0, 0, 0, 0.6);
   --schleier: rgba(0, 0, 0, 0.6);
 
-  --kopfzeile: rgba(34, 6, 26, 0.9);
+  --stand-balken: #f0a5c0;
+  --stand-spur: rgba(240, 165, 192, 0.22);
   /* Auf dunklem Grund trägt das dunkle Burgunder als Fläche nicht. */
   --schalter-an: #b8386a;
   --schalter-aus: #6b5d63;
@@ -195,50 +193,43 @@ body {
 /* ---------------------------- Kopfzeile ---------------------------- */
 
 /*
- * Durchscheinende Leiste, unter der der Inhalt durchläuft — statt eines
- * undurchsichtigen Streifens mit harter Trennlinie darunter.
+ * Kein Balken, sondern Text direkt auf dem Grund.
+ *
+ * Vorher stand hier eine klebende, burgunderrote Leiste. Sie war eine zweite
+ * Fläche über der Startansicht und nahm dem Einstieg die Ruhe — der Titel
+ * steht jetzt einfach als Erstes auf der Seite, in derselben Spur wie der
+ * Inhalt darunter, und scrollt mit ihm weg.
  */
 .kopfzeile {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem var(--spur);
-  padding: calc(0.75rem + env(safe-area-inset-top)) var(--spur) 0.75rem;
-  background: var(--kopfzeile);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  color: #ffffff;
-}
-
-/*
- * Der zurückgelegte Teil der Schwangerschaft, an der Unterkante der Leiste.
- * Er sass zuerst als Füllung in der Pille — dort drückte er den gemessenen
- * Kontrast der leisen Zeile auf 4.03 und damit unter AA. Hier liegt kein Text
- * darauf, und die Angabe ist auf einen Blick da, statt gelesen zu werden.
- */
-.kopfzeile::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 2px;
-  background: linear-gradient(
-    to right,
-    var(--kopfzeile-balken) 0 var(--anteil, 0%),
-    var(--kopfzeile-spur) var(--anteil, 0%)
-  );
+  /*
+   * Untereinander, nicht nebeneinander: neben dem Stand blieben für den Titel
+   * knapp zwei Drittel der Breite, und «Darf ich das?» brach mitten im Satz um.
+   */
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: calc(1.25rem + env(safe-area-inset-top)) var(--spur) 0.5rem;
 }
 
 .kopfzeile__titel {
   margin: 0;
-  min-width: 0;
   /* Grosse Schrift läuft optisch auseinander — Tracking negativ, Zeilen eng. */
-  font-size: clamp(1.0625rem, 4.8vw, 1.3125rem);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.021em;
+  font-size: clamp(1.75rem, 8.4vw, 2.125rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.kopfzeile__unter {
+  margin: 0.3rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  letter-spacing: -0.006em;
+  color: var(--text-zweitrangig);
 }
 
 /*
@@ -246,30 +237,50 @@ body {
  * zugleich der Weg zum Termin. Vorher stand die Angabe als drei lose Zeilen da
  * und war nirgends anfassbar — der Termin liess sich nur über die Fusszeile
  * ändern.
- *
- * Der gefüllte Anteil links zeigt den Fortschritt der Schwangerschaft. Er ist
- * eine Tönung, keine zweite durchscheinende Ebene: Milchglas auf Milchglas
- * frisst die Lesbarkeit.
  */
 .stand {
+  position: relative;
   flex: 0 0 auto;
-  margin-left: auto;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   /* Fingerbreit hoch, nicht textbreit. */
   min-height: 2.625rem;
-  padding: 0 0.875rem;
-  background: var(--kopfzeile-still);
+  /* Unten mehr Luft: darunter liegt der Fortschrittsstreifen. */
+  padding: 0.25rem 0.875rem 0.6875rem;
+  background: var(--karte);
   border: none;
   border-radius: 999px;
-  /* Helle Oberkante: das Licht, das sich auf der Fläche fängt. */
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  /* Auf der getönten Fläche der Leiste stand er von selbst ab; auf dem Grund
+     der Seite tut er das nicht — also als Karte, wie jede andere Fläche. */
+  box-shadow: var(--schatten);
+  color: var(--text);
   font-family: inherit;
   cursor: pointer;
   white-space: nowrap;
+  overflow: hidden;
   transition: transform 140ms var(--ease-out), background-color 140ms ease;
+}
+
+/*
+ * Der zurückgelegte Teil der Schwangerschaft, an der Unterkante der Fläche.
+ * Er sass zuerst als Füllung in der Pille — dort drückte er den gemessenen
+ * Kontrast der leisen Zeile auf 4.03 und damit unter AA. Hier liegt kein Text
+ * darauf, und die Angabe ist auf einen Blick da, statt gelesen zu werden.
+ */
+.stand::after {
+  content: "";
+  position: absolute;
+  /* In der Fläche, nicht an ihrer Kante: an der Unterkante schnitt die runde
+     Ecke den Streifen an und er las sich wie eine verrutschte Unterstreichung. */
+  inset: auto 0.875rem 0.4375rem;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--stand-balken) 0 var(--anteil, 0%),
+    var(--stand-spur) var(--anteil, 0%)
+  );
 }
 
 /*
@@ -278,12 +289,12 @@ body {
  */
 .stand:active {
   transform: scale(0.97);
-  background: var(--kopfzeile-gedrueckt);
+  background: var(--flaeche-still);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .stand:hover {
-    background: var(--kopfzeile-gedrueckt);
+    background: var(--flaeche-still);
   }
 }
 
@@ -298,28 +309,19 @@ body {
 .stand__trenner {
   width: 1px;
   height: 0.9375rem;
-  background: rgba(255, 255, 255, 0.28);
+  background: var(--linie);
 }
 
 .stand__rest {
   font-size: 0.8125rem;
   font-variant-numeric: tabular-nums;
-  /* Auf durchscheinendem Grund trägt blasses Grau nicht — lieber heller. */
   letter-spacing: 0.005em;
-  color: var(--kopfzeile-leise);
+  color: var(--text-gedaempft);
 }
 
 .stand--leer {
   font-size: 0.8125rem;
   font-weight: 500;
-}
-
-/*
- * Der allgemeine Fokusring ist burgunderrot — auf der burgunderroten Leiste
- * wäre er unsichtbar. Auf dunklem Grund ringt Weiss.
- */
-.kopfzeile :focus-visible {
-  outline-color: #ffffff;
 }
 
 .inhalt {
@@ -341,11 +343,15 @@ body {
  */
 .suchleiste {
   position: sticky;
-  /* Unter der Kopfzeile, nicht darunter verschwunden. App.tsx misst sie. */
-  top: var(--kopf-hoehe, 4.5rem);
+  /*
+   * Ganz oben, seit die Kopfzeile mitscrollt. Der sichere Bereich steckt im
+   * Innenabstand statt im Versatz: sonst liefe auf einem Gerät mit Aussparung
+   * der Inhalt oberhalb der Leiste durch, und die Beschriftung läge darunter.
+   */
+  top: 0;
   z-index: 5;
   margin: 0 calc(-1 * var(--spur)) 0.25rem;
-  padding: 0.75rem var(--spur) 0.85rem;
+  padding: calc(0.75rem + env(safe-area-inset-top)) var(--spur) 0.85rem;
   background: var(--glas);
   border-radius: 0 0 var(--radius-klein) var(--radius-klein);
   backdrop-filter: blur(20px) saturate(180%);
@@ -540,8 +546,7 @@ body {
  */
 .hero {
   position: relative;
-  /* Kein Abstand nach unten: die Suchleiste soll direkt anschliessen. */
-  margin-bottom: 0.25rem;
+  margin-bottom: 1.25rem;
   padding: 1.5rem 1.25rem 1.5rem;
   background: var(--glas);
   backdrop-filter: blur(24px) saturate(160%);
@@ -550,16 +555,6 @@ body {
   box-shadow: var(--schatten);
   /* Helle Oberkante: Licht, das sich auf der Materialkante fängt. */
   border-top: 1px solid var(--glas-kante);
-}
-
-.hero__marke {
-  margin: 0 0 0.6rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  /* Kleine Schrift läuft zu eng — Tracking positiv. */
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--akzent);
 }
 
 .hero__titel {
@@ -938,86 +933,6 @@ body {
   font-size: 0.8125rem;
   line-height: 1.35;
   color: var(--text-gedaempft);
-}
-
-/*
- * «Gilt immer» auf dem Startbildschirm: was unabhängig vom Lebensmittel gilt.
- *
- * Die Titel stehen offen da, nur der Text klappt auf. Hinter einer einzigen
- * zugeklappten Zeile wäre die Rindenregel nicht mehr sichtbar gewesen — und
- * genau darauf beruht die Entscheidung, sie nicht an jedem Hartkäse zu
- * wiederholen.
- */
-.grundsaetze {
-  margin-top: 1.75rem;
-}
-
-.grundsatz {
-  background: var(--karte);
-  border-radius: var(--radius-klein);
-  box-shadow: var(--schatten);
-}
-
-.grundsatz + .grundsatz {
-  margin-top: 0.5rem;
-}
-
-.grundsatz__titel {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  min-height: 52px;
-  padding: 0.8rem 1rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  list-style: none;
-  cursor: pointer;
-  border-radius: var(--radius-klein);
-  transition: transform 140ms var(--ease-out), background-color 140ms ease;
-}
-
-.grundsatz__titel::-webkit-details-marker {
-  display: none;
-}
-
-.grundsatz__titel span {
-  flex: 1;
-  min-width: 0;
-}
-
-.grundsatz__titel:active {
-  transform: scale(0.985);
-  background: var(--flaeche-gedrueckt);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .grundsatz__titel:hover {
-    background: var(--flaeche-still);
-  }
-}
-
-/*
- * Gedreht über die eigenständige `rotate`-Eigenschaft, nicht über `transform`:
- * unter prefers-reduced-motion wird `transform` zurückgesetzt, der Pfeil bliebe
- * sonst stehen.
- */
-.grundsatz__pfeil {
-  flex: 0 0 auto;
-  color: var(--pfeil);
-  rotate: 0deg;
-  transition: rotate 160ms var(--ease-out);
-}
-
-.grundsatz[open] .grundsatz__pfeil {
-  rotate: 90deg;
-}
-
-.grundsatz__text {
-  margin: 0;
-  padding: 0 1rem 1rem;
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--text-zweitrangig);
 }
 
 /* ---------------------------- Scannen ---------------------------- */
@@ -1831,12 +1746,6 @@ body {
 
 /* Wer weniger Transparenz will, bekommt deckende Flächen. */
 @media (prefers-reduced-transparency: reduce) {
-  .kopfzeile {
-    background: var(--marke);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-
   .hero,
   .suchleiste {
     background: var(--karte);
@@ -1847,11 +1756,7 @@ body {
 
 /* Wer mehr Kontrast will, bekommt definierte Ränder zurück. */
 @media (prefers-contrast: more) {
-  /* Auf der dunklen Leiste wäre der dunkle Rand unsichtbar. */
-  .stand {
-    border: 1px solid rgba(255, 255, 255, 0.85);
-  }
-
+  .stand,
   .karte,
   .suchfeld,
   .treffer,

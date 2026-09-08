@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
 import { findeNachId, kompositumVorschlaege, MINDESTLAENGE, suche } from './engine/suchen'
@@ -41,30 +41,7 @@ export function App() {
     () => window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false,
   )
 
-  const kopf = useRef<HTMLElement>(null)
-
   const schema = ermittleSchema(wunsch, systemDunkel)
-
-  /*
-   * Die Suchleiste bleibt unter der Kopfzeile stehen, nicht darunter
-   * verschwinden. Deren Höhe hängt am Text und am sicheren Bereich des Geräts
-   * und lässt sich nicht als Zahl hinschreiben — also gemessen und als
-   * Variable weitergereicht.
-   */
-  useEffect(() => {
-    const element = kopf.current
-    if (!element) return
-    const messen = () =>
-      document.documentElement.style.setProperty(
-        '--kopf-hoehe',
-        `${element.getBoundingClientRect().height}px`,
-      )
-    messen()
-    if (typeof ResizeObserver === 'undefined') return
-    const beobachter = new ResizeObserver(messen)
-    beobachter.observe(element)
-    return () => beobachter.disconnect()
-  }, [])
 
   // Solange dem Gerät gefolgt wird, zieht ein Wechsel dort sofort nach.
   useEffect(() => {
@@ -153,17 +130,18 @@ export function App() {
 
   return (
     <div className="app">
-      <header
-        ref={kopf}
-        className="kopfzeile"
-        // Speist den Fortschrittsbalken an der Unterkante.
-        style={stand ? ({ '--anteil': `${fortschritt(stand.tageBis) * 100}%` } as CSSProperties) : undefined}
-      >
-        <h1 className="kopfzeile__titel">Darf ich das essen?</h1>
+      {/*
+        Kein Balken mehr, sondern Text direkt auf dem Grund: Titel und
+        Untertitel stehen als Erstes auf der Seite, in derselben Spur wie der
+        Inhalt darunter.
+      */}
+      <header className="kopfzeile">
         {stand ? (
           <button
             className="stand"
             type="button"
+            // Speist den Fortschrittsstreifen an der Unterkante der Fläche.
+            style={{ '--anteil': `${fortschritt(stand.tageBis) * 100}%` } as CSSProperties}
             onClick={() => setTerminBearbeiten(true)}
             aria-label={`Woche ${stand.anzeige}, ${stand.trimester}. Trimester, ${restAnzeige(
               stand.tageBis,
@@ -182,6 +160,10 @@ export function App() {
             Termin eintragen
           </button>
         )}
+        <div>
+          <h1 className="kopfzeile__titel">Darf ich das?</h1>
+          <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
+        </div>
       </header>
 
       <main className="inhalt">
@@ -242,7 +224,13 @@ export function App() {
         </Sheet>
       )}
 
+      {/*
+        Auf dem Startbildschirm trägt die erste Hinweiskachel den Hinweis auf
+        Hebamme und Ärztin; dann entfällt der freistehende Satz darunter. In
+        jeder anderen Ansicht steht er in der Fusszeile.
+      */}
       <Fusszeile
+        hinweisSteht={ansicht === 'suche' && begriff.trim().length < MINDESTLAENGE}
         onTerminAendern={stand ? () => setTerminBearbeiten(true) : undefined}
         schema={schema}
         wunsch={wunsch}

@@ -1,6 +1,5 @@
 import { NICHTS_GEFUNDEN } from './ampel'
 import { MAX_TREFFER } from './engine/suchen'
-import { Grundsaetze } from './Grundsaetze'
 import { Hero, Hinweiskacheln } from './Hero'
 import { Trefferliste } from './Trefferliste'
 import { Verlauf } from './Verlauf'
@@ -90,7 +89,6 @@ export function Suchansicht({
       {!gesucht && (
         <>
           <Verlauf ids={verlauf} onOeffnen={onOeffnen} onLeeren={onVerlaufLeeren} />
-          <Grundsaetze />
           {/* Hintergrund, kein Einstieg — deshalb ganz unten. */}
           <Hinweiskacheln />
         </>

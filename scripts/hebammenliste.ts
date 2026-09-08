@@ -548,7 +548,7 @@ code { font-family: var(--mono); font-size: 0.8125em; }
 ${kopfZu}
 
 <header class="kopf bahn">
-  <p class="kopf__marke">Darf ich das essen? · Fachliche Durchsicht</p>
+  <p class="kopf__marke">Darf ich das? · Fachliche Durchsicht</p>
   <h1>${
     nurFragen
       ? allesEntschieden

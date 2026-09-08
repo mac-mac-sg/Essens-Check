@@ -2,28 +2,37 @@ import type { Schema, Wunsch } from './farbschema'
 import { umgelegt } from './farbschema'
 
 /**
- * Der Hinweis auf Hebamme und Ärztin ist auf jedem Screen sichtbar
- * und wird nicht wegoptimiert (siehe CLAUDE.md).
- * Formulierung aus dem Prototyp, Umlaute korrigiert.
+ * Der Hinweis auf Hebamme und Ärztin ist auf jedem Screen sichtbar und wird
+ * nicht wegoptimiert (siehe CLAUDE.md). Formulierung aus dem Prototyp,
+ * Umlaute korrigiert.
+ *
+ * `hinweisSteht` sagt, dass die Ansicht ihn schon trägt — auf dem
+ * Startbildschirm steht er in der ersten Hinweiskachel. Dann entfällt hier
+ * der freistehende Satz, der ihn ein zweites Mal gesagt hätte. Weggelassen
+ * wird er nie: ohne die Kachel steht er hier.
  */
 export function Fusszeile({
   onTerminAendern,
   schema,
   wunsch,
   onWunsch,
+  hinweisSteht = false,
 }: {
   onTerminAendern?: () => void
   schema: Schema
   wunsch: Wunsch
   onWunsch: (wunsch: Wunsch) => void
+  hinweisSteht?: boolean
 }) {
   const dunkel = schema === 'dunkel'
   return (
     <footer className="fusszeile">
-      <p>
-        Kuratierte Angaben nach den gängigen Schweizer Empfehlungen. Ersetzt keine Beratung
-        durch Hebamme oder Ärztin — im Zweifel dort nachfragen.
-      </p>
+      {!hinweisSteht && (
+        <p>
+          Kuratierte Angaben nach den gängigen Schweizer Empfehlungen. Ersetzt keine
+          Beratung durch Hebamme oder Ärztin — im Zweifel dort nachfragen.
+        </p>
+      )}
 
       {/*
         Die ganze Zeile ist der Schalter. role=switch statt einer Checkbox,
