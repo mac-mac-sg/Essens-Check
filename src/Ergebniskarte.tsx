@@ -1,11 +1,6 @@
 import { AMPEL } from './ampel'
 import type { Urteil, VariantenUrteil } from './engine/bewerten'
 
-/**
- * Über jeder Begründung steht das Risikoprinzip, das sie ausgelöst hat. Wer
- * weiss, dass es um Listerien geht, kann ein nicht hinterlegtes Lebensmittel
- * selbst einordnen — der Katalog wird nie vollständig sein.
- */
 function Begruendungen({ urteil }: { urteil: VariantenUrteil }) {
   return (
     <>
@@ -27,58 +22,46 @@ export function Ergebniskarte({ urteil }: { urteil: Urteil }) {
 
   return (
     <article className="karte karte--ergebnis" aria-labelledby="ergebnis-titel">
-      <h2 className="titel" id="ergebnis-titel">
-        {urteil.name}
-      </h2>
+      <h2 className="titel" id="ergebnis-titel">{urteil.name}</h2>
+
+      {einzeln && erste ? (
+        <section className="entscheidung" data-status={erste.status} aria-label="Entscheidung">
+          <span className="entscheidung__label">Antwort</span>
+          <strong className="entscheidung__wort">{AMPEL[erste.status].wort}</strong>
+        </section>
+      ) : (
+        <p className="frage">{urteil.frage ?? 'Je nach Zubereitung'}</p>
+      )}
 
       {trimesterHinweise.map((hinweis) => (
-        <p className="warnung" key={hinweis.regel}>
-          {hinweis.text}
-        </p>
+        <p className="warnung" key={hinweis.regel}>{hinweis.text}</p>
       ))}
 
       {einzeln && erste ? (
-        <>
-          <span className="urteil" data-status={erste.status}>
-            {AMPEL[erste.status].wort}
-          </span>
-          <div className="text">
-            <Begruendungen urteil={erste} />
-          </div>
-        </>
+        <section className="begruendung-block" aria-label="Begründung">
+          <h3 className="detailtitel">Warum?</h3>
+          <Begruendungen urteil={erste} />
+        </section>
       ) : (
-        <>
-          {/* Alle Varianten gleichzeitig sichtbar: die Zubereitung gliedert die
-              Karte, statt als Randnotiz danebenzustehen. */}
-          <p className="frage">{urteil.frage ?? 'Je nach Zubereitung'}</p>
+        <div className="varianten" role="list" aria-label="Bewertung nach Zubereitung">
           {urteil.varianten.map((variante, i) => (
-            <div className="zeile" key={variante.label ?? i} data-status={variante.status}>
+            <div className="zeile" key={variante.label ?? i} data-status={variante.status} role="listitem">
               <div className="zeile__kopf">
-                <span className="marke" data-status={variante.status}>
-                  {AMPEL[variante.status].kurz}
-                </span>
-                {variante.label && <p className="zlabel">{variante.label}</p>}
+                <span className="zlabel">{variante.label ?? 'Variante'}</span>
+                <span className="marke" data-status={variante.status}>{AMPEL[variante.status].kurz}</span>
               </div>
               <Begruendungen urteil={variante} />
             </div>
           ))}
-        </>
+        </div>
       )}
 
-      {/*
-        Die Einordnung gilt dem Eintrag, nicht der einzelnen Zubereitung —
-        deshalb einmal unter allen Varianten statt unter jeder einzelnen.
-      */}
       {urteil.zusatz && <p className="zusatz">{urteil.zusatz}</p>}
 
       {urteil.alternativen.length > 0 && (
         <div className="alt">
           <p>Stattdessen</p>
-          <ul>
-            {urteil.alternativen.map((alternative) => (
-              <li key={alternative}>{alternative}</li>
-            ))}
-          </ul>
+          <ul>{urteil.alternativen.map((alternative) => <li key={alternative}>{alternative}</li>)}</ul>
         </div>
       )}
     </article>
