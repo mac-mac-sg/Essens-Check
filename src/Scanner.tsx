@@ -84,8 +84,12 @@ export function Scanner({
   return (
     <section className="scanner" aria-labelledby="scanner-titel">
       <h2 className="abschnitt__titel" id="scanner-titel">
-        Strichcode scannen
+        Lebensmittel-Strichcode scannen
       </h2>
+      <p className="scanner__meldung">
+        Der Scanner nutzt Open Food Facts und ist derzeit nur für Lebensmittel vorgesehen.
+        Medikamente bitte über die Suche nach Präparat oder Wirkstoff prüfen.
+      </p>
 
       {zustand === 'nicht-unterstuetzt' ? (
         <p className="scanner__meldung">

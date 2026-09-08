@@ -1,0 +1,463 @@
+.suchbereich {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  margin: 0 0 1rem;
+  padding: 0.25rem;
+  background: var(--flaeche-still);
+  border-radius: var(--radius-pille);
+  box-shadow: inset 0 0 0 1px var(--linie);
+}
+
+.suchbereich button {
+  min-height: 2.65rem;
+  padding: 0.55rem 0.8rem;
+  border: 0;
+  border-radius: var(--radius-pille);
+  color: var(--text-zweitrangig);
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.suchbereich button[aria-pressed='true'] {
+  color: #fff8fb;
+  background: var(--marke-flaeche);
+  box-shadow: 0 3px 10px rgba(78, 15, 47, 0.18);
+}
+
+.med-suche__suchleiste {
+  margin-bottom: 0.7rem !important;
+}
+
+.med-suche__intro {
+  margin-top: 0.75rem;
+  padding: 1rem 1.05rem;
+  background: var(--karte);
+  border-radius: var(--radius-klein);
+  box-shadow: var(--schatten);
+  color: var(--text-zweitrangig);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.med-suche__intro p {
+  margin: 0;
+}
+
+.med-suche__intro p + p {
+  margin-top: 0.55rem;
+}
+
+.med-suche__intro .med-suche__intro-titel {
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.med-suche__gruppe {
+  margin-top: 1rem;
+}
+
+.med-suche__ueberschrift {
+  margin: 0 0 0.45rem;
+  color: var(--text-gedaempft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.med-trefferliste {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.med-treffer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 4.4rem;
+  padding: 0.78rem 0.85rem 0.78rem 1rem;
+  border: 0;
+  border-radius: var(--radius-klein);
+  color: var(--text);
+  background: var(--karte);
+  box-shadow: var(--schatten);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.med-treffer:active {
+  background: var(--flaeche-gedrueckt);
+}
+
+.med-treffer__haupt {
+  display: grid;
+  min-width: 0;
+}
+
+.med-treffer__art {
+  color: var(--akzent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
+.med-treffer__name {
+  margin-top: 0.12rem;
+  overflow-wrap: anywhere;
+  font-size: 0.96rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.med-treffer__meta {
+  margin-top: 0.18rem;
+  color: var(--text-gedaempft);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.med-treffer__warnung {
+  width: fit-content;
+  margin-top: 0.35rem;
+  padding: 0.2rem 0.48rem;
+  border-radius: var(--radius-pille);
+  color: var(--farbe-unklar);
+  background: var(--flaeche-unklar);
+  font-size: 0.7rem;
+  font-weight: 650;
+}
+
+.med-treffer__pfeil {
+  flex: 0 0 auto;
+  color: var(--pfeil);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.med-suche__leer {
+  margin-top: 1rem;
+}
+
+.med-detail {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: 0.25rem;
+}
+
+.med-detail__produktdaten,
+.med-detail__wirkstoffkopf,
+.med-detail__bewertung,
+.med-detail__eingenommen,
+.med-detail__klaerung,
+.med-detail__sperre,
+.med-detail__quellen,
+.med-detail__einzelwirkstoffe {
+  padding: 1rem;
+  border-radius: var(--radius-klein);
+  background: var(--grund-warm);
+}
+
+.med-detail__produktart {
+  display: block;
+  color: var(--akzent);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.med-detail__produktname {
+  margin: 0.15rem 0 0;
+  color: var(--text);
+  font-size: 1.08rem;
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.med-detail__wirkstoffkopf > p:last-child {
+  margin: 0.3rem 0 0;
+  color: var(--text-zweitrangig);
+  font-size: 0.84rem;
+}
+
+.med-detail__datenliste {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.85rem 0 0;
+}
+
+.med-detail__datenliste div {
+  display: grid;
+  grid-template-columns: 6.2rem minmax(0, 1fr);
+  gap: 0.6rem;
+}
+
+.med-detail__datenliste dt {
+  color: var(--text-gedaempft);
+  font-size: 0.76rem;
+}
+
+.med-detail__datenliste dd {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  color: var(--text-zweitrangig);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.med-detail__klaerung-titel,
+.med-detail__sperre-titel,
+.med-detail__eingenommen-titel {
+  margin: 0;
+  color: var(--text);
+  font-weight: 750;
+}
+
+.med-detail__klaerung-text,
+.med-detail__sperre p,
+.med-detail__eingenommen p {
+  margin: 0.35rem 0 0;
+  color: var(--text-zweitrangig);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.med-detail__sperre {
+  box-shadow: inset 4px 0 0 var(--farbe-unklar);
+}
+
+.med-detail__unbekannt {
+  color: var(--farbe-unklar) !important;
+  font-weight: 650;
+}
+
+.med-detail__profilwahl {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+}
+
+.med-detail__profilwahl button,
+.med-detail__einzelwirkstoffe button,
+.med-detail__aktion,
+.med-detail__profil-aendern {
+  width: 100%;
+  padding: 0.78rem 0.85rem;
+  border: 0;
+  border-radius: 0.85rem;
+  color: var(--text);
+  background: var(--karte);
+  box-shadow: inset 0 0 0 1px var(--linie);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.med-detail__profilwahl button {
+  display: grid;
+  gap: 0.22rem;
+}
+
+.med-detail__profilwahl strong {
+  font-size: 0.9rem;
+}
+
+.med-detail__profilwahl span,
+.med-detail__profilwahl small {
+  color: var(--text-zweitrangig);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.med-detail__profilwahl small {
+  color: var(--text-gedaempft);
+}
+
+.med-detail__aktion {
+  margin-top: 0.8rem;
+  color: #fff8fb;
+  background: var(--marke-flaeche);
+  box-shadow: none;
+  text-align: center;
+  font-weight: 700;
+}
+
+.med-detail__profil-aendern {
+  padding: 0.62rem 0.8rem;
+  color: var(--akzent);
+  background: transparent;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.med-detail__kontext {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.med-detail__kontext span {
+  padding: 0.28rem 0.55rem;
+  border-radius: var(--radius-pille);
+  color: var(--text-zweitrangig);
+  background: var(--flaeche-still);
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.med-detail__perspektive {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 1rem;
+  background: var(--flaeche-still);
+}
+
+.med-detail__perspektive button {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.55rem;
+  border: 0;
+  border-radius: 0.8rem;
+  color: var(--text-zweitrangig);
+  background: transparent;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.med-detail__perspektive button[aria-pressed='true'] {
+  color: var(--text);
+  background: var(--karte);
+  box-shadow: var(--schatten);
+}
+
+.med-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.78rem 0.85rem;
+  border-radius: 0.9rem;
+}
+
+.med-status span {
+  font-size: 0.76rem;
+  font-weight: 650;
+}
+
+.med-status strong {
+  font-size: 0.93rem;
+  text-align: right;
+}
+
+.med-status[data-status='geeignet'] {
+  color: var(--farbe-ok);
+  background: var(--flaeche-ok);
+}
+
+.med-status[data-status='mit_einschraenkung'],
+.med-status[data-status='nur_nach_ruecksprache'] {
+  color: var(--farbe-bedingt);
+  background: var(--flaeche-bedingt);
+}
+
+.med-status[data-status='nicht_empfohlen'] {
+  color: var(--farbe-meiden);
+  background: var(--flaeche-meiden);
+}
+
+.med-status[data-status='nicht_bewertet'] {
+  color: var(--farbe-unklar);
+  background: var(--flaeche-unklar);
+}
+
+.med-detail__haupttext {
+  margin: 0.8rem 0 0;
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.med-detail__hinweise {
+  display: grid;
+  gap: 0.42rem;
+  margin: 0.75rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--text-zweitrangig);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.med-detail__quellen > p {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.med-detail__quellen ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.55rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.med-detail__quellen a {
+  color: var(--akzent);
+  font-size: 0.78rem;
+}
+
+.med-detail__quellen small {
+  display: block;
+  margin-top: 0.65rem;
+  color: var(--text-gedaempft);
+  font-size: 0.7rem;
+}
+
+.med-detail__einzelwirkstoffe {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.med-detail__einzelwirkstoffe button {
+  color: var(--akzent);
+  font-size: 0.84rem;
+  font-weight: 650;
+  text-align: center;
+}
+
+.med-detail__sicherheit {
+  margin: 0;
+  padding: 0.85rem 0.95rem;
+  border-radius: var(--radius-klein);
+  color: var(--text-zweitrangig);
+  background: var(--flaeche-unklar);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 380px) {
+  .med-detail__perspektive {
+    grid-template-columns: 1fr;
+  }
+
+  .med-detail__datenliste div {
+    grid-template-columns: 1fr;
+    gap: 0.12rem;
+  }
+}
