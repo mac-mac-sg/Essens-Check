@@ -257,8 +257,16 @@ Kontrast AA gilt in beiden Schemata und ist in beiden zu messen, nicht zu
 schätzen: das dunkle Burgunder als Schriftfarbe käme auf dunklem Grund auf
 1.3:1.
 
-**Typografie**: eine Familie, moderne Grotesk. Urteilswort deutlich grösser
-gesetzt als der Fliesstext. Keine Versalien-Labels.
+**Typografie**: eine Familie, moderne Grotesk. Drei Gewichte — 500 für leise
+Beschriftungen, 600 für Titel und Namen, 700 für Urteilswörter und Marken.
+Urteilswort deutlich grösser gesetzt als der Fliesstext. Keine Versalien-Labels
+ausser bei kurzen Zwischentiteln.
+
+Ein viertes Gewicht, 650, stand einmal auf den Urteilswörtern. Es setzt einen
+variablen Schriftschnitt voraus: auf iOS stellt `-apple-system` es dar, überall
+sonst rundet der Browser auf 700 — gemessen im Browser, wo 600, 650, 700 und
+800 dieselbe Breite ergeben. Ein Gewicht, das nur auf einer Plattform existiert,
+ist keine Stufe der Skala.
 
 **Aufbau**
 
