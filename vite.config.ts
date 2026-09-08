@@ -39,7 +39,7 @@ export default defineConfig({
         display_override: ['standalone', 'minimal-ui'],
         orientation: 'portrait',
         background_color: '#FAF7F7',
-        theme_color: '#4E0F2F',
+        theme_color: '#075F74',
         categories: ['health', 'medical', 'food'],
         prefer_related_applications: false,
         icons: [

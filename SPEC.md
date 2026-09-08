@@ -156,24 +156,24 @@ Modern, ruhig, im Supermarkt bei schlechtem Licht und mit einer Hand bedienbar.
 
 **Farben**
 
-Burgunder als Marke, warme Rosé-Neutrale als Grund. Die Palette steht als
+Türkis-Blau als Marke, kühle helle Neutrale als Grund. Die Palette steht als
 Wahrheit in `src/styles.css`; diese Tabelle ist ihre Abschrift.
 
 | Rolle | Hell | Dunkel |
 |---|---|---|
-| Grundfläche | `#FAF7F7` | `#141013` |
-| Warme Tönung (Hero, Verlauf) | `#F4ECEE` | `#1B1418` |
-| Karten | `#FFFFFF` | `#1F191C` |
-| Text | `#1E1418` | `#F0E9EB` |
-| Text zweitrangig | `#4A3B40` | `#CBBFC4` |
-| Text gedämpft | `#6B5C63` | `#A3959B` |
-| Marke (Flächen, Aktionen) | `#4E0F2F` | `#22061A` |
-| Akzent (Schrift, Fokusring) | `#8E1A45` | `#F0A5C0` |
+| Grundfläche | `#F8FAFA` | `#0e1517` |
+| Warme Tönung (Hero, Verlauf) | `#EEF5F5` | `#111D20` |
+| Karten | `#FFFFFF` | `#172124` |
+| Text | `#152024` | `#EDF5F6` |
+| Text zweitrangig | `#3D4B50` | `#C4D0D3` |
+| Text gedämpft | `#607177` | `#98A9AD` |
+| Marke (Flächen, Aktionen) | `#075F74` | `#032F3B` |
+| Akzent (Schrift, Fokusring) | `#006579` | `#79DCE5` |
 | Ja | `#17603C` auf `#DCEFE2` | `#79C99A` auf `#16321F` |
 | Bedingt | `#7A5311` auf `#F6ECD8` | `#E6BA66` auf `#352815` |
 | Nein | `#C4161B` auf `#FCDCDB` | `#FF9187` auf `#5A221C` |
 | Unklar | `#5A5257` auf `#EAE5E6` | `#ACA3A7` auf `#302A2D` |
-| Linien | `#E8DDE1` | `#332A2E` |
+| Linien | `#DCE7E8` | `#28363A` |
 
 Die Markenfarbe ist rot, und Rot ist in dieser App die Farbe für «Besser
 nicht». Das ist die gefährlichste Stelle der Palette und wird auf drei Wegen
@@ -259,7 +259,7 @@ einmal da, statt für Systemvorgabe und Schalterwahl doppelt gepflegt zu werden.
   bewertet».
 
 Kontrast AA gilt in beiden Schemata und ist in beiden zu messen, nicht zu
-schätzen: das dunkle Burgunder als Schriftfarbe käme auf dunklem Grund auf
+schätzen: das dunkle Türkis-Blau als Schriftfarbe käme auf dunklem Grund auf
 1.3:1.
 
 **Typografie**: eine Familie, moderne Grotesk. Drei Gewichte — 500 für leise
@@ -277,7 +277,7 @@ ist keine Stufe der Skala.
 
 1. Kopf ohne Balken: der Stand als Pille, darunter «Darf ich das?» und
    «Food Checker für die Schwangerschaft». Das stand vorher in einer klebenden
-   burgunderroten Leiste — eine zweite Fläche über der Startansicht, die dem
+   türkis-blauroten Leiste — eine zweite Fläche über der Startansicht, die dem
    Einstieg die Ruhe nahm. Jetzt steht der Text direkt auf dem Grund und
    scrollt mit ihm weg.
 

@@ -15,12 +15,11 @@ export const SCHEMA_SCHLUESSEL = 'essens-check.farbschema'
 
 /**
  * Farbe der Gerätestatusleiste je Schema. Seit dem Wegfall der Kopfleiste ist
- * das die warme Tönung am oberen Rand des Grundes (--grund-warm), nicht mehr
- * das Burgunder der Marke.
+ * die Markenfläche des Headers: blau-türkis im hellen und tiefes Türkis im dunklen Schema.
  */
 export const LEISTENFARBE: Record<Schema, string> = {
-  hell: '#F4ECEE',
-  dunkel: '#1B1418',
+  hell: '#075F74',
+  dunkel: '#032F3B',
 }
 
 export function istWunsch(wert: unknown): wert is Wunsch {

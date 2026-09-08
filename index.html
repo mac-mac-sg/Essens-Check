@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <!-- Wird vom Skript unten und von farbschema.ts auf das geltende Schema gesetzt. -->
-    <meta name="theme-color" content="#F4ECEE" />
+    <meta name="theme-color" content="#075F74" />
     <!--
       Läuft vor dem ersten Malen: sonst erschiene die App kurz hell, bevor
       React das dunkle Schema setzt. Der Schlüssel steht in src/farbschema.ts.
@@ -27,7 +27,7 @@
             window.matchMedia('(prefers-color-scheme: dark)').matches)
         document.documentElement.dataset.schema = dunkel ? 'dunkel' : 'hell'
         var leiste = document.querySelector('meta[name="theme-color"]')
-        if (leiste) leiste.setAttribute('content', dunkel ? '#1B1418' : '#F4ECEE')
+        if (leiste) leiste.setAttribute('content', dunkel ? '#032F3B' : '#075F74')
       })()
     </script>
     <meta name="description" content="Nachschlagewerk für die Schwangerschaft: Lebensmittel und ausgewählte Medikamente sicher einordnen." />
@@ -36,7 +36,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <!--
       Nicht mehr «black-translucent»: dessen weisse Schrift lag auf der
-      burgunderroten Kopfleiste. Die ist weg, darunter steht jetzt der helle
+      türkis-blauen Kopfleiste. Die ist weg, darunter steht jetzt der helle
       Grund — die Leiste folgt deshalb der theme-color oben.
     -->
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />

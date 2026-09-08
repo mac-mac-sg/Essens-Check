@@ -27,7 +27,7 @@ Die bestehende Light-/Dark-Palette und die Trennung von Markenfarbe und Ampelfar
 
 ## Markenheader
 
-Die Startseite verwendet einen adaptiven, burgunderfarbenen Markenheader. Er ist die einzige grosse Markenfläche der App und enthält:
+Die Startseite verwendet einen adaptiven, türkis-blaufarbenen Markenheader. Er ist die einzige grosse Markenfläche der App und enthält:
 
 - das App-Signet,
 - `Darf ich das?`,
@@ -39,7 +39,7 @@ Der Schwangerschaftsstatus ist Teil derselben Markenfläche und keine weisse Ein
 
 Auf `Liste`, `Wissen` und `Scannen` reduziert sich derselbe Markenheader auf eine kompakte Leiste mit Signet, Titel, Untertitel und Einstellungen. Schwangerschaftswoche und verbleibende Tage werden dort nicht wiederholt.
 
-Die Burgunderfläche ist reine Markenidentität. Statusfarben für `ok`, `bedingt`, `meiden` und `unklar` bleiben ausschliesslich den Lebensmittelurteilen vorbehalten.
+Die Türkis-Blaufläche ist reine Markenidentität. Statusfarben für `ok`, `bedingt`, `meiden` und `unklar` bleiben ausschliesslich den Lebensmittelurteilen vorbehalten.
 
 ## Start und Suche
 
