@@ -11,21 +11,57 @@ function formatDatum(datum: string | null): string {
   }).format(parsed)
 }
 
+function InstallierenSymbol() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="6.5" y="2.75" width="11" height="18.5" rx="2.4" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M9.5 17.2h5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      <path d="M12 6.2v6.2M9.6 10.1 12 12.5l2.4-2.4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 export function Einstellungen({
   termin,
   schema,
   wunsch,
+  installierbar,
+  onInstallieren,
   onWunsch,
   onTerminAendern,
 }: {
   termin: string | null
   schema: Schema
   wunsch: Wunsch
+  installierbar: boolean
+  onInstallieren: () => void | Promise<void>
   onWunsch: (wunsch: Wunsch) => void
   onTerminAendern: () => void
 }) {
   return (
     <div className="einstellungen">
+      {installierbar && (
+        <section className="einstellungen__gruppe" aria-labelledby="einstellungen-app">
+          <h2 className="einstellungen__titel" id="einstellungen-app">
+            App
+          </h2>
+          <button
+            className="einstellungen__zeile einstellungen__zeile--installieren"
+            type="button"
+            onClick={onInstallieren}
+          >
+            <span className="einstellungen__symbol" aria-hidden="true">
+              <InstallierenSymbol />
+            </span>
+            <span className="einstellungen__inhalt">
+              <span className="einstellungen__name">App installieren</span>
+              <span className="einstellungen__wert">Als App auf deinem Startbildschirm</span>
+            </span>
+            <span className="einstellungen__pfeil" aria-hidden="true">›</span>
+          </button>
+        </section>
+      )}
+
       <section className="einstellungen__gruppe" aria-labelledby="einstellungen-termin">
         <h2 className="einstellungen__titel" id="einstellungen-termin">
           Schwangerschaft
