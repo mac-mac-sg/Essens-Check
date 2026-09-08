@@ -5,6 +5,7 @@ on:
     branches: [tuerkis-reisen-wissen]
     paths:
       - .github/workflows/tuerkis-reisen-migration.yml
+      - scripts/tuerkis-reisen-migration.mjs
 
 permissions:
   contents: write
@@ -21,18 +22,13 @@ jobs:
         with:
           node-version: 22
 
-      - name: SVG-Renderer installieren
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y imagemagick
-
-      - name: Design und Wissensbereich migrieren
+      - name: Feinschliff anwenden
         run: node scripts/tuerkis-reisen-migration.mjs
 
       - name: Änderungen zurückschreiben
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src public vite.config.ts index.html SPEC.md DESIGN-REDESIGN.md
-          git commit -m "Markenfarbe auf Türkis-Blau umstellen und Reisewissen ergänzen"
+          git add src
+          git commit -m "Reisesymbole und kühle Neutrale nachziehen"
           git push origin HEAD:tuerkis-reisen-wissen
