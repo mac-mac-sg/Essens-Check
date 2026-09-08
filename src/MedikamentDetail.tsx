@@ -1,11 +1,17 @@
 import { useMemo, useState } from 'react'
 import { bewerteMedikament } from './medikamente/bewerten'
 import { findeMedikament, medikamentKatalog } from './medikamente/daten'
+import { medikamentProduktSnapshot } from './medikamente/produkte'
 import { bereiteProduktBewertungVor } from './medikamente/suche'
 import { MEDIKAMENT_STATUS_META, type MedikamentProfil } from './medikamente/typen'
 import type { SwissmedicProdukt } from './medikamente/swissmedic'
 
 type Perspektive = 'einnehmen' | 'bereits-eingenommen'
+
+function formatiereDatum(iso: string): string {
+  const [jahr, monat, tag] = iso.split('-')
+  return jahr && monat && tag ? `${tag}.${monat}.${jahr}` : iso
+}
 
 function Produktdaten({ produkt }: { produkt: SwissmedicProdukt }) {
   return (
@@ -256,7 +262,11 @@ export function MedikamentDetail({
                   </li>
                 ))}
               </ul>
-              {produkt && <small>Produktdaten: Swissmedic-Snapshot, Stand 31.08.2026.</small>}
+              {produkt && (
+                <small>
+                  Produktdaten: Swissmedic-Snapshot, Stand {formatiereDatum(medikamentProduktSnapshot.stand)}.
+                </small>
+              )}
             </div>
           )}
         </>
