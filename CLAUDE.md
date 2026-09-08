@@ -53,6 +53,20 @@ Dieses Projekt gibt Auskunft, auf die im Laden eine Entscheidung folgt.
   Facts. Sie erfolgt bei jedem gelesenen Code, ohne Schalter und ohne lokalen
   Zwischenspeicher. Diese Ausnahme bleibt die einzige; jede weitere ist eine
   eigene Entscheidung.
+- Die Open-Food-Facts-Abfrage darf Produktname, generische Bezeichnung,
+  Kategorien und Zutaten abrufen. Diese Angaben sind **nur Evidenz für die
+  Zuordnung zum lokalen Katalog** und nie eine medizinische Quelle. Sie dürfen
+  eine Zuordnung stärken oder ein automatisches Urteil blockieren, aber niemals
+  einen lokalen Status entschärfen oder eine Freigabe erzeugen, die der
+  Schweizer Regelkatalog nicht selbst hergibt.
+- Eine Kategorie allein darf nie automatisch zu einem Urteil führen. Ein
+  automatischer Kandidat braucht weiterhin den Produktnamen oder mindestens
+  zwei voneinander unabhängige Anker (z. B. Bezeichnung + Kategorie) und den
+  bestehenden deutlichen Abstand zum nächsten Kandidaten.
+- Zutaten dürfen nur einen bereits verankerten Kandidaten bestätigen. Eine
+  Zutat, die der lokale Katalog klar als `meiden` oder `unklar` erkennt,
+  verhindert die automatische Gesamtbeurteilung. Fehlende Zutatenangaben bei
+  Open Food Facts gelten niemals als Entwarnung.
 - Ein Produktname aus der Datenbank darf zu einem Urteil führen, aber nur wenn
   er **eindeutig** auf einen Katalogeintrag zeigt: allein stehend oder
   mindestens doppelt so schwer wie der nächste Treffer. Bei Gleichstand wird
