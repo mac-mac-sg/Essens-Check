@@ -14,9 +14,13 @@ describe('Scanner-Regression mit realen Schweizer Produkten', () => {
   for (const fall of SCHWEIZER_PRODUKTE) {
     it(`${fall.ean} · ${fall.produktname}`, () => {
       const ergebnis = ordneProduktZu(fall.produkt, lebensmittelKatalog, regelKatalog)
+      const kandidaten = ergebnis.kandidaten.map((eintrag) => eintrag.id)
 
       expect(ergebnis.eindeutig?.id ?? null, fall.beleg).toBe(fall.erwartung.eindeutig)
-      expect(ergebnis.kandidaten[0]?.id ?? null, fall.beleg).toBe(fall.erwartung.erster)
+      expect(kandidaten[0] ?? null, fall.beleg).toBe(fall.erwartung.erster)
+      for (const id of fall.erwartung.kandidatenEnthalten ?? []) {
+        expect(kandidaten, `${fall.beleg}: Kandidat ${id}`).toContain(id)
+      }
       expect(
         ergebnis.konflikte.map((konflikt) => konflikt.eintrag.id).sort(),
         fall.beleg,
@@ -36,6 +40,23 @@ describe('Scanner-Regression mit realen Schweizer Produkten', () => {
       const ergebnis = ordneProduktZu(nurKategorie, lebensmittelKatalog, regelKatalog)
       expect(ergebnis.eindeutig, `${fall.ean} · ${fall.produktname}`).toBeNull()
     }
+  })
+
+  it('entfernt Variantenfarben nur am Ende und beschädigt Red Bull nicht', () => {
+    const ergebnis = ordneProduktZu(
+      {
+        name: 'Red Bull',
+        marke: 'Red Bull',
+        generischerName: null,
+        kategorien: [],
+        zutatenText: null,
+        zutaten: [],
+        vollstaendigkeit: null,
+      },
+      lebensmittelKatalog,
+      regelKatalog,
+    )
+    expect(ergebnis.kandidaten[0]?.id).toBe('energydrink')
   })
 
   it('enthält mindestens einen Fall, der wegen einer riskanten Zutat blockiert', () => {
