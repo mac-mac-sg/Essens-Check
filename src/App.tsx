@@ -11,6 +11,7 @@ import {
   type Wunsch,
 } from './farbschema'
 import { berechneStand, fortschritt, restAnzeige } from './schwangerschaft'
+import { sternzeichenFuerDatum } from './sternzeichen'
 import { ergaenzt, leseVerlauf, speichereVerlauf } from './verlauf'
 import { Einstellungen } from './Einstellungen'
 import { Ergebniskarte } from './Ergebniskarte'
@@ -138,6 +139,7 @@ export function App() {
   }
 
   const stand = useMemo(() => (termin ? berechneStand(termin, new Date()) : null), [termin])
+  const sternzeichen = useMemo(() => (termin ? sternzeichenFuerDatum(termin) : null), [termin])
   const treffer = useMemo(() => suche(begriff, lebensmittelKatalog), [begriff])
   const teilwort = useMemo(
     () => (treffer.length === 0 ? kompositumVorschlaege(begriff, lebensmittelKatalog) : []),
@@ -241,12 +243,23 @@ export function App() {
       onClick={() => setTerminBearbeiten(true)}
       aria-label={`SSW ${stand.anzeige}, ${stand.trimester}. Trimester, ${restAnzeige(
         stand.tageBis,
-      )}. Geburtstermin ändern`}
+      )}${sternzeichen ? `, voraussichtliches Sternzeichen ${sternzeichen.name}` : ''}. Geburtstermin ändern`}
     >
       <span className="stand__kopf">
         <span className="stand__woche">SSW {stand.anzeige}</span>
         <span className="stand__trimester">{stand.trimester}. Trimester</span>
-        <span className="stand__rest">{restAnzeige(stand.tageBis)}</span>
+        <span className="stand__rechts">
+          <span className="stand__rest">{restAnzeige(stand.tageBis)}</span>
+          {sternzeichen && (
+            <span
+              className="stand__sternzeichen"
+              aria-hidden="true"
+              title={`Voraussichtliches Sternzeichen: ${sternzeichen.name}`}
+            >
+              {sternzeichen.symbol}
+            </span>
+          )}
+        </span>
       </span>
       <span className="stand__fortschritt" aria-hidden="true">
         <span style={{ width: `${fortschritt(stand.tageBis) * 100}%` }} />
