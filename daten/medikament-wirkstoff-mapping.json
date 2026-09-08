@@ -1,0 +1,52 @@
+{
+  "version": "0.1",
+  "hinweis": "Explizite Zuordnung der im Pilot fachlich bewerteten Wirkstoffe zu den offiziellen Swissmedic-Stoffnamen. Präfixe sind absichtlich eng; unbekannte oder zusätzliche Wirkstoffe bleiben ungemappt und verhindern später eine automatische Gesamtbeurteilung.",
+  "wirkstoffe": [
+    {
+      "medikament_id": "paracetamol",
+      "treffer": [{ "modus": "praefix", "wert": "paracetamol" }]
+    },
+    {
+      "medikament_id": "ibuprofen",
+      "treffer": [{ "modus": "praefix", "wert": "ibuprofen" }]
+    },
+    {
+      "medikament_id": "diclofenac",
+      "treffer": [{ "modus": "praefix", "wert": "diclofenac" }]
+    },
+    {
+      "medikament_id": "acetylsalicylsaeure",
+      "treffer": [
+        { "modus": "enthaelt", "wert": "acetylsalicyl" },
+        { "modus": "praefix", "wert": "aspirin" }
+      ]
+    },
+    {
+      "medikament_id": "amoxicillin",
+      "treffer": [{ "modus": "praefix", "wert": "amoxicillin" }]
+    },
+    {
+      "medikament_id": "cetirizin",
+      "treffer": [
+        { "modus": "praefix", "wert": "cetirizin" },
+        { "modus": "praefix", "wert": "cetiriz" }
+      ]
+    },
+    {
+      "medikament_id": "loratadin",
+      "treffer": [{ "modus": "praefix", "wert": "loratadin" }]
+    },
+    {
+      "medikament_id": "omeprazol",
+      "treffer": [{ "modus": "praefix", "wert": "omeprazol" }]
+    },
+    {
+      "medikament_id": "metoclopramid",
+      "treffer": [{ "modus": "praefix", "wert": "metoclopramid" }]
+    },
+    {
+      "medikament_id": "xylometazolin",
+      "treffer": [{ "modus": "praefix", "wert": "xylometazolin" }]
+    }
+  ]
+}
