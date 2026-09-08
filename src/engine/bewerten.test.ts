@@ -214,7 +214,7 @@ describe('Algen, Supplemente und Kräuter', () => {
   })
 
   it('erfindet für Lakritze keine sichere Häufigkeit', () => {
-    expect(urteile('lakritz')).toEqual(['unklar'])
+    expect(urteile('lakritze')).toEqual(['unklar'])
   })
 
   it('entfernt die unbelegte Trimesterfreigabe für Kräutertees', () => {
