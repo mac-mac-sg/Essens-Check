@@ -1,0 +1,98 @@
+/* Erweiterte Produktdaten des Barcode-Scanners. */
+
+.scan-produktkopf {
+  margin-bottom: 0.85rem;
+}
+
+.scan-produktdaten {
+  margin: 0.65rem 0 1rem;
+  overflow: hidden;
+  background: var(--flaeche-still);
+  border-radius: var(--radius-klein);
+}
+
+.scan-produktdaten summary {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-zweitrangig);
+  cursor: pointer;
+}
+
+.scan-produktdaten[open] summary {
+  border-bottom: 1px solid var(--linie);
+}
+
+.scan-produktdaten dl {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, auto) 1fr;
+  gap: 0.45rem 0.8rem;
+  margin: 0;
+  padding: 0.85rem 0.9rem 0.5rem;
+}
+
+.scan-produktdaten dt {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-gedaempft);
+}
+
+.scan-produktdaten dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-zweitrangig);
+}
+
+.scan-produktdaten p {
+  margin: 0;
+  padding: 0.45rem 0.9rem 0.9rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-gedaempft);
+}
+
+.scan-konflikt {
+  margin: 0 0 1rem;
+  padding: 0.9rem 1rem;
+  background: var(--flaeche-still);
+  border-left: 3px solid var(--farbe-meiden);
+  border-radius: 0 var(--radius-klein) var(--radius-klein) 0;
+}
+
+.scan-konflikt strong {
+  display: block;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.scan-konflikt p {
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text-zweitrangig);
+}
+
+@media (max-width: 360px) {
+  .scan-produktdaten dl {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+
+  .scan-produktdaten dd + dt {
+    margin-top: 0.45rem;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .scan-produktdaten,
+  .scan-konflikt {
+    border: 1px solid var(--text);
+  }
+}
