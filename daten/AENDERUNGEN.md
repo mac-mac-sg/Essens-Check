@@ -97,3 +97,52 @@ ist bestätigt — kein Urteil ändert sich. Nachgetragen wurde, was fehlte.
   im Sprechzimmer gestellt wird, mit Material und den Folgen jeder Antwort
 - NEU: `npm run hebammenfragen` — Kurzform für einen Termin, drei Seiten
 - Die Prüfliste übernimmt die Burgunder-Palette der App
+
+# Korrekturen v0.5 -> v0.6
+
+Zweite fachliche Rückmeldung. Leitlinie: konsequent an BLV und BAG ausrichten,
+aber nicht strenger als die offiziellen Empfehlungen es rechtfertigen.
+
+P18 — das Sammel-Tag «vorgeschnitten» ist aufgelöst:
+
+- NEUE Regel `rohkost-vorgeschnitten` (meiden) — das BAG nennt vorgeschnittene
+  Rohkost ausdrücklich. Melone, Avocado, Fertigsalat, Smoothie-Bar, Kebabsalat
+- NEUE Regel `kuehlware-verzehrfertig` (bedingt) — gegarte Ware, nach dem Garen
+  geschnitten, kalt gegessen. Bedingung im Text: gekühlt halten, rasch
+  aufbrauchen. Sandwich, Wurstsalat, Geflügelaufschnitt, Leberwurst
+- `offene-ware` (meiden) bleibt für Theke und Buffet
+- kaese-offen entscheidet über die Käsekategorie statt über das Schneiden
+- caesar-dressing: das Tag war dort ohnehin ohne Wirkung, das rohe Ei urteilt
+
+P12 — fünf Lockerungen und eine Präzisierung:
+
+- suelze: von pauschal Nein auf drei Formen — gekühlt/kalt Nein, sterilisiert
+  und ungekühlt haltbar Ja, durcherhitzt Ja. NEUE Freigabe `konserve-sterilisiert`
+- rochen: von Nein auf gegart Ja, roh Nein — nicht auf der BLV-Quecksilberliste
+- weissfisch aufgeteilt in wels, steinbutt (gegart Ja) und seeteufel (gegart
+  bedingt) — drei Arten, drei Urteile
+- NEUE Regel `softeis-maschine` (bedingt statt meiden). Betrifft auch glace und
+  milchshake: dasselbe Tag, dieselbe Begründung
+- cremeschnitte: abgepackt Ja, frisch aus der Konditorei bedingt, rohe Eimasse Nein
+- mocktail: entscheidet über den Alkoholgehalt statt über das Wort
+  «Spirituosen-Ersatz». Urteile unverändert
+
+P16 — zurückgenommen. Meine Aufteilung des Cheddars nach Reifung war falsch:
+«mild» und «mature» sind Geschmacksangaben, keine Käsekategorie. Cheddar ist
+Hartkäse und wieder ein Ja.
+
+P19 (neu) — johanniskraut von den Heilkräutern getrennt. NEUE Regel
+`johanniskraut` (bedingt, nicht ohne ärztliche Rücksprache); Mönchspfeffer,
+Baldrian und Echinacea bleiben als `heilkraeuter` bei der erklärten Lücke.
+
+P08 — Freigabetext für Nährstoffpräparate geschärft: er gilt den für die
+Schwangerschaft empfohlenen und verordneten Präparaten, nicht
+Nahrungsergänzungsmitteln allgemein.
+
+P17 — Sichtbarkeitsauflage umgesetzt: die Titel der Grundsätze stehen offen auf
+dem Startbildschirm, nur der Text klappt auf.
+
+Verschärft wurde genau eine Stelle: Geflügelaufschnitt abgepackt von Ja auf
+Bedingt. Die Rückmeldung sagte «Ja bis Bedingt, sofern vollständig gegart,
+durchgehend gekühlt und rasch verbraucht» — das sind Bedingungen, und genau
+das heisst hier «bedingt».

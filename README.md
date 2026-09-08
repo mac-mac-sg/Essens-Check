@@ -182,7 +182,7 @@ Formulierungen. Drei bewusste Abweichungen:
 
 ## Katalog
 
-289 Einträge mit 430 Varianten und rund 1400 Synonymen, entlang realer Suchbegriffe: Käsesorten,
+292 Einträge mit 442 Varianten und rund 1400 Synonymen, entlang realer Suchbegriffe: Käsesorten,
 Fischarten, Wurstwaren, Fertiggerichte, Restaurantklassiker, Getränke,
 Süsswaren, Kräuter und Gewürze, verbreitete Mythen.
 
@@ -340,13 +340,13 @@ Repo je umbenannt, muss er an beiden Stellen mitgeändert werden.
 
 ## Stand
 
-Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 192 Unit-Tests und
+Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 206 Unit-Tests und
 5 Offline-Prüfungen.
 
 ## Fachliche Durchsicht
 
 Welche inhaltlichen Entscheidungen noch gegengelesen werden müssen, steht in
-`daten/offene-punkte.json`. Die Datei führt achtzehn Punkte, jeden mit dem,
+`daten/offene-punkte.json`. Die Datei führt neunzehn Punkte, jeden mit dem,
 was die App sagt, warum, und was an der Hebamme oder Gynäkologin hängt. Dazu
 kommt je Punkt eine Quellenprüfung gegen die Schweizer Referenzempfehlungen
 mit einem von drei Ständen: `bestaetigt` heisst durch Quellen gedeckt,
@@ -359,17 +359,13 @@ Wo zu einem Ermessenspunkt inzwischen ein Entscheid vorliegt, steht er als
 `rueckmeldung` daneben — mit dem, was daraus umgesetzt wurde, und dem, was
 offen bleibt. Wo der Entscheid nur ein Vorschlag ist, sagt die `herkunft` das.
 
-P13, die BLV-Ausweitung auf Halbhartkäse, ist fachlich bestätigt: kalt nicht
-konsumieren, unabhängig von der Milchbehandlung; erhitzt ab 70 °C
-Kerntemperatur während zwei Minuten in Ordnung. Offen sind noch P18 — das Tag
-`vorgeschnitten` meint an zwölf Einträgen Verschiedenes, und der Katalog
-urteilt darüber in beide Richtungen zugleich — und P12, die dreizehn Urteile
-aus dem letzten Katalogzuwachs. Deren Urteile stehen jetzt als
-`urteile_zum_gegenlesen` im Punkt selbst und werden in der Hebammenliste als
-Tabelle gedruckt; sechs davon sind als strittig markiert.
-
-Wer eine Entscheidung korrigiert, führt die Datei nach: sie soll zeigen, was
-noch offen ist, nicht was einmal offen war.
+Nach zwei Runden fachlicher Durchsicht sind alle neunzehn Punkte entschieden.
+Runde eins bestätigte die strenge Käselinie, Runde zwei lockerte an sechs
+Stellen, löste das Sammel-Tag `vorgeschnitten` in drei Regeln auf, nahm eine
+meiner eigenen Entscheidungen zurück (Cheddar ist Hartkäse, unabhängig von der
+Reifung) und trennte Johanniskraut von den Heilkräutern. Die Datei bleibt als
+Protokoll stehen: sie zeigt, worauf jedes Urteil beruht und wer es
+verantwortet. Neue Zweifel gehören dort hinein.
 
 `npm run hebammenliste` erzeugt aus den Katalogdateien ein Dokument zum
 Gegenlesen: Teil 1 die offenen Entscheidungen samt ihrer Quellenprüfung, Teil 2

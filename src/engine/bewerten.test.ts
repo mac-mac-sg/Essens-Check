@@ -341,15 +341,124 @@ describe('Jod: Präparat und Algen widersprechen sich nicht mehr', () => {
   })
 })
 
-describe('Cheddar: gereift und jung sind nicht dasselbe', () => {
-  // P16: Die Einordnung von gereiftem Cheddar als Hartkäse bleibt. Junger,
-  // wasserreicherer Cheddar fällt nicht mehr stillschweigend darunter.
-  it('gibt nur den gereiften Cheddar frei', () => {
-    expect(urteile('cheddar')).toEqual(['ok', 'meiden', 'ok'])
+describe('Cheddar ist Hartkäse', () => {
+  /*
+   * P16, fachlich korrigiert. Ich hatte den Eintrag nach der Reifung geteilt —
+   * gereift ja, jung wie Halbhartkäse nein. Das war falsch: «mild», «mature»
+   * und «extra mature» sind Reifungs- und Geschmacksangaben, keine
+   * Käsekategorie. Cheddar wird als Hartkäse klassiert.
+   */
+  it('gibt Cheddar frei, ohne nach der Reifung zu fragen', () => {
+    expect(urteile('cheddar')).toEqual(['ok'])
+    expect(urteilVon('cheddar').frage).toBeUndefined()
   })
 
-  it('fragt nach der Reifung, statt sie anzunehmen', () => {
-    expect(urteilVon('cheddar').frage).toBe('Gereift oder jung?')
+  it('nennt den Grund, damit die Trennung nicht zurückkehrt', () => {
+    const text = ersteVariante('cheddar').begruendungen[0]?.text ?? ''
+    expect(text).toContain('Geschmacksangaben')
+  })
+})
+
+describe('«Vorgeschnitten» ist in drei Regeln aufgelöst', () => {
+  /*
+   * P18, fachlich entschieden. Ein Sammel-Tag trug zwölf Einträge und meinte
+   * dabei Verschiedenes: vorgeschnittene Rohkost, kalte verzehrfertige
+   * Kühlware, offene Theke — und beim Kebab den rohen Salat darin. Daraus kam
+   * der Widerspruch, dass abgepackter Aufschnitt ein Ja war und ein
+   * abgepacktes Sandwich aus derselben Kühltheke ein Nein.
+   */
+  it('kennt das Sammel-Tag nicht mehr', () => {
+    const inRegeln = regelKatalog.regeln.some((r) => r.trifft_auf.includes('vorgeschnitten'))
+    const inFreigaben = regelKatalog.unbedenkliche_tags.some((t) => t.tag === 'vorgeschnitten')
+    const inEintraegen = lebensmittelKatalog.lebensmittel.filter((e) =>
+      e.varianten.some((v) => v.komponenten.some((k) => k.tag === 'vorgeschnitten')),
+    )
+    expect(inRegeln).toBe(false)
+    expect(inFreigaben).toBe(false)
+    expect(inEintraegen.map((e) => e.id)).toEqual([])
+  })
+
+  it('urteilt über die drei Nachfolger verschieden', () => {
+    // Wären sie gleich, wäre die Aufteilung nur eine Umbenennung.
+    const status = (tag: string) => bewerteKomponente({ tag }, regelKatalog).status
+    expect(status('rohkost-vorgeschnitten')).toBe('meiden')
+    expect(status('kuehlware-verzehrfertig')).toBe('bedingt')
+    expect(status('offene-ware')).toBe('meiden')
+  })
+
+  it('setzt jeden der drei auch tatsächlich ein', () => {
+    for (const tag of ['rohkost-vorgeschnitten', 'kuehlware-verzehrfertig', 'offene-ware']) {
+      const treffer = lebensmittelKatalog.lebensmittel.filter((e) =>
+        e.varianten.some((v) => v.komponenten.some((k) => k.tag === tag)),
+      )
+      expect(treffer.length, tag).toBeGreaterThan(0)
+    }
+  })
+
+  it('löst den Widerspruch auf, der den Punkt ausgelöst hat', () => {
+    // Beides ist kalte, verzehrfertige, fabrikversiegelte Kühlware.
+    const [aufschnitt] = urteile('aufschnitt')
+    const sandwich = urteile('sandwich')[1]
+    expect(aufschnitt).toBe(sandwich)
+    expect(aufschnitt).toBe('bedingt')
+  })
+
+  it('behält das Nein für vorgeschnittene Rohkost — das BAG nennt sie', () => {
+    expect(urteile('melone')[1]).toBe('meiden')
+    expect(urteile('fertigsalat')).toEqual(['meiden'])
+  })
+
+  it('entscheidet bei Käse über die Kategorie, nicht über die Theke', () => {
+    expect(urteile('kaese-offen')).toEqual(['ok', 'meiden', 'meiden'])
+  })
+})
+
+describe('Was die zweite Durchsicht gelockert hat', () => {
+  // Jede dieser Lockerungen ist fachlich entschieden, keine von mir geraten.
+  it('gibt Sülze eine sichere Form, statt sie pauschal zu verbieten', () => {
+    expect(urteile('suelze')).toEqual(['meiden', 'ok', 'ok'])
+  })
+
+  it('nimmt Rochen von der Quecksilberliste', () => {
+    expect(urteile('rochen')).toEqual(['ok', 'meiden'])
+    const gegart = ersteVariante('rochen')
+    expect(gegart.begruendungen.map((b) => b.regel)).not.toContain('quecksilber-raubfisch')
+  })
+
+  it('trennt die drei Fische, die in einer Zeile standen', () => {
+    expect(urteile('wels')).toEqual(['ok', 'meiden'])
+    expect(urteile('steinbutt')).toEqual(['ok', 'meiden'])
+    // Nur der Seeteufel trägt die Quecksilberlast weiter.
+    expect(urteile('seeteufel')).toEqual(['bedingt', 'meiden'])
+  })
+
+  it('stuft die Softeismaschine auf bedingt herab, nicht auf frei', () => {
+    expect(urteile('frozenyogurt')).toEqual(['ok', 'bedingt'])
+  })
+
+  it('entscheidet beim Mocktail über den Alkoholgehalt, nicht über den Namen', () => {
+    // «Spirituosen-Ersatz» sagt nichts: viele stehen auf 0,0 Prozent.
+    expect(urteile('mocktail')).toEqual(['ok', 'meiden'])
+  })
+
+  it('hält am Alkoholverzicht fest, wo wirklich Alkohol drin ist', () => {
+    // Der einzige Punkt, an dem ich strenger geblieben bin als die Rückmeldung:
+    // sie nannte «Bedingt bzw. besser vermeiden». Ein Nein hier ist dieselbe
+    // Auskunft wie bei Glühwein und Wein — alles andere wäre ein Sonderfall.
+    const mitAlkohol = urteilVon('mocktail').varianten[1]
+    expect(mitAlkohol?.status).toBe('meiden')
+    expect(mitAlkohol?.begruendungen.map((b) => b.regel)).toContain('alkohol')
+  })
+})
+
+describe('Johanniskraut steht getrennt von den Heilkräutern', () => {
+  it('trägt eine Bedingung statt einer Lücke', () => {
+    expect(urteile('johanniskraut')).toEqual(['bedingt'])
+    expect(urteile('heilkraeuter')).toEqual(['unklar'])
+  })
+
+  it('nennt die ärztliche Rücksprache beim Namen', () => {
+    expect(ersteVariante('johanniskraut').begruendungen[0]?.text).toContain('Rücksprache')
   })
 })
 
@@ -365,7 +474,9 @@ describe('Grundsätze gelten unabhängig vom Lebensmittel', () => {
     const mitHartkaese = lebensmittelKatalog.lebensmittel.filter((eintrag) =>
       eintrag.varianten.some((v) => v.komponenten.some((k) => k.tag === 'hartkaese')),
     )
-    expect(mitHartkaese.length).toBeGreaterThanOrEqual(8)
+    // Genau, nicht mindestens: eine ungefähre Schranke hätte nicht gemerkt,
+    // dass die Zahl im Kommentar daneben lag.
+    expect(mitHartkaese.length).toBe(8)
     for (const eintrag of mitHartkaese) {
       const status = bewerteLebensmittel(eintrag, regelKatalog).varianten.map((v) => v.status)
       expect(status, eintrag.id).toContain('ok')
@@ -520,7 +631,7 @@ describe('Katalogabdeckung', () => {
   })
 
   it('lässt die erklärte Lücke aber zu und nennt ihre Regel', () => {
-    const variante = urteilVon('johanniskraut').varianten[0]
+    const variante = urteilVon('heilkraeuter').varianten[0]
     expect(variante?.status).toBe('unklar')
     expect(variante?.komponenten[0]?.begruendungen[0]?.regel).toBe('nicht-bewertet')
   })
@@ -545,9 +656,10 @@ describe('Katalogabdeckung', () => {
       fondue: ['ok'],
       halloumi: ['ok', 'meiden'],
       mozzarella: ['ok', 'meiden'],
-      // Gereifter Cheddar bleibt Hartkäse; junger ist wasserreicher und wird
-      // wie Halbhartkäse behandelt. Gouda und Edamer sind ausgezogen.
-      cheddar: ['ok', 'meiden', 'ok'],
+      // Cheddar ist Hartkäse, unabhängig von der Reifung.
+      cheddar: ['ok'],
+      // An der offenen Theke entscheidet die Käsekategorie.
+      'kaese-offen': ['ok', 'meiden', 'meiden'],
       'kaese-allgemein': ['ok', 'meiden', 'meiden', 'meiden', 'ok'],
       // Die Rinde ist die Aussenseite — der Teig bleibt ein Ja.
       kaeserinde: ['ok', 'bedingt', 'ok', 'meiden'],
@@ -561,8 +673,11 @@ describe('Katalogabdeckung', () => {
       spirulina: ['meiden'],
       // Zwei Risiken auf einem Eintrag: Retinol und Listerien
       leberwurst: ['meiden'],
-      // Seeteufel und Wels sind Raubfische
-      weissfisch: ['bedingt', 'meiden'],
+      // Drei Arten, drei Urteile — nicht mehr eine gemeinsame Zeile.
+      wels: ['ok', 'meiden'],
+      steinbutt: ['ok', 'meiden'],
+      seeteufel: ['bedingt', 'meiden'],
+      rochen: ['ok', 'meiden'],
       // Fisch: Garung, Räucherung, Quecksilber
       lachs: ['ok', 'meiden', 'meiden'],
       // Quecksilber überlebt das Garen — gegart deshalb bedingt, nicht ok.
@@ -592,8 +707,19 @@ describe('Katalogabdeckung', () => {
       saeuglingshonig: ['ok', 'meiden'],
       // Innereien tragen Schadstoffe über das Retinol hinaus
       innereien: ['bedingt'],
-      // Erklärte Lücke, kein Versehen
-      johanniskraut: ['unklar'],
+      // Erklärte Lücke, kein Versehen — Johanniskraut steht getrennt davon.
+      heilkraeuter: ['unklar'],
+      johanniskraut: ['bedingt'],
+      // Das Sammel-Tag «vorgeschnitten» ist in drei Regeln aufgelöst.
+      melone: ['ok', 'meiden'],
+      fertigsalat: ['meiden'],
+      sandwich: ['ok', 'bedingt'],
+      aufschnitt: ['bedingt', 'meiden', 'ok'],
+      wurstsalat: ['ok', 'bedingt', 'meiden'],
+      suelze: ['meiden', 'ok', 'ok'],
+      cremeschnitte: ['ok', 'bedingt', 'meiden'],
+      frozenyogurt: ['ok', 'bedingt'],
+      mocktail: ['ok', 'meiden'],
       truthahn: ['ok', 'bedingt'],
       sauser: ['ok', 'bedingt', 'meiden'],
       // Bodennah gesammelt, deshalb wie frische Kräuter behandelt
@@ -601,7 +727,6 @@ describe('Katalogabdeckung', () => {
       // Waschen, Keime, offene Ware
       blattsalat: ['ok', 'bedingt'],
       sprossen: ['ok', 'meiden'],
-      fertigsalat: ['meiden'],
       rohmilch: ['ok', 'meiden'],
       // Unbedenkliche Tags
       ananas: ['ok'],

@@ -1,6 +1,6 @@
 {
-  "version": "6",
-  "hinweis": "Offene inhaltliche Entscheidungen für die Durchsicht durch Hebamme oder Gynäkologin. Version 2 enthielt eine Quellenprüfung gegen die Schweizer Referenzempfehlungen, Version 3 die Rückmeldung dazu. Weder die eine noch die andere ersetzt die fachliche Durchsicht — sie räumen weg, was sich an Quellen oder durch einen Produktentscheid klären liess, und machen sichtbar, was Ermessen bleibt. Bei Änderungen hier nachführen.",
+  "version": "7",
+  "hinweis": "Inhaltliche Entscheidungen zum Katalog und ihr Stand. Version 7: alle Punkte entschieden — durch Quellenprüfung oder durch die fachliche Durchsicht. Die Datei bleibt als Protokoll stehen: sie zeigt, worauf jedes Urteil beruht und wer es verantwortet. Neue Zweifel gehören hier hinein, nicht in eine neue Datei.",
   "pruefung": {
     "datum": "2026-09-06",
     "umfang": "Nur diese Datei. Der Lebensmittelkatalog (284 Einträge) und Teil 3 lagen nicht vor und sind ungeprüft.",
@@ -19,10 +19,10 @@
     }
   },
   "rueckmeldung": {
-    "datum": "2026-09-07",
+    "datum": "2026-09-08",
     "herkunft": "Vorschlag zur fachlichen Durchsicht, nicht deren Ersatz.",
-    "umfang": "P08, P12, P13, P16 und P17.",
-    "ergebnis": "P08, P16 und P17 sind umgesetzt. P12 wartet auf Teil 3. P13 ist fachlich bestätigt — die strenge BLV-Linie gilt. Dabei neu aufgetaucht: P18."
+    "umfang": "Alle Punkte.",
+    "ergebnis": "Zwei Runden fachliche Durchsicht. Runde eins bestätigte die strenge Käselinie (P13); Runde zwei lockerte an sechs Stellen, löste das Sammel-Tag «vorgeschnitten» auf, nahm meine Cheddar-Aufteilung zurück und trennte Johanniskraut von den Heilkräutern. Nichts bleibt offen."
   },
   "punkte": [
     {
@@ -193,25 +193,19 @@
       "warum": "Die App nennt bewusst keine Milligramm- oder Mikrogramm-Angaben. Ein Test stellt sicher, dass keine Zahl mit Einheit im Text steht.",
       "frage": "Ist das richtig so, oder sollen die üblichen Schweizer Richtwerte genannt werden?",
       "pruefung": {
-        "status": "offen",
+        "status": "bestaetigt",
         "befund": "Das ist ein Produktentscheid, keine Quellenfrage — die Zahlen existieren und sind öffentlich (BLV und BAG nennen etwa 150 bis 200 µg Jod täglich als pränatales Supplement bei geringer Jodzufuhr). Der Verzicht ist verteidigbar: er hält die App aus der Dosierungsberatung heraus.\n\nAufgefallen ist dabei ein Widerspruch im Katalog: Jod steht hier als Präparat auf «Ja», während die Algenregel eine Obergrenze gegen Jod setzt. Eine Nutzerin, die «Jod» eingibt, sollte nicht zwei gegenläufige Signale bekommen, je nachdem über welchen Eintrag sie hereinkommt.",
         "quelle": "BLV / BAG: pränatales Jodsupplement 150 bis 200 µg pro Tag bei geringer alimentärer Zufuhr.",
         "katalog_aenderung": "Widerspruch zwischen dem Jod-Präparateintrag und der Jod-Obergrenzenregel auflösen. Beide sollten aufeinander verweisen statt nebeneinander zu stehen."
       },
       "rueckmeldung": {
-        "datum": "2026-09-07",
-        "herkunft": "Vorschlag zur fachlichen Durchsicht, nicht deren Ersatz.",
-        "entscheid": "Beim Verzicht auf Zahlen bleiben. Eine App, die Milligramm- und Mikrogrammangaben macht, rutscht faktisch in die Dosierungsberatung ab; die ist Ärztin und Hebamme vorbehalten. Zu beheben ist allein der Widerspruch zwischen Jod-Präparat und Algen-Obergrenze.",
-        "umgesetzt": "Beide Einträge verweisen jetzt aufeinander. Dafür war ein neues Feld nötig: zusatz_text ergänzt die Regelbegründung, statt sie zu ersetzen. Der bisherige eigener_text hatte auf die Jod-Regel verwiesen und sie auf derselben Karte verdeckt. Siebzehn Einträge, deren Varianten unterschiedlich urteilen, sind auf das neue Feld umgestellt; ein Test hält offen, dass eine ersetzende Begründung nie über verschiedene Urteile hinweg gilt.",
+        "datum": "2026-09-08",
+        "herkunft": "Fachliche Antwort auf die Rückfrage. Damit ist dieser Punkt entschieden.",
+        "entscheid": "Beim Verzicht auf Zahlen bleiben. Eine App, die Milligramm- und Mikrogrammangaben macht, rutscht faktisch in die Dosierungsberatung ab; die ist Ärztin und Hebamme vorbehalten. Zu beheben ist allein der Widerspruch zwischen Jod-Präparat und Algen-Obergrenze. — Fachlich bestätigt, mit einer Auflage: daraus darf kein allgemeines «Nahrungsergänzungsmittel sind unproblematisch» werden.",
+        "umgesetzt": "Beide Einträge verweisen jetzt aufeinander. Dafür war ein neues Feld nötig: zusatz_text ergänzt die Regelbegründung, statt sie zu ersetzen. Der bisherige eigener_text hatte auf die Jod-Regel verwiesen und sie auf derselben Karte verdeckt. Siebzehn Einträge, deren Varianten unterschiedlich urteilen, sind auf das neue Feld umgestellt; ein Test hält offen, dass eine ersetzende Begründung nie über verschiedene Urteile hinweg gilt. Die Auflage ist im Freigabetext umgesetzt: er gilt ausdrücklich für die Schwangerschaft empfohlenen oder ärztlich verordneten Präparaten, nicht für Nahrungsergänzungsmittel allgemein.",
         "bleibt_offen": null
       },
-      "gespraech": {
-        "art": "bestaetigen",
-        "frage": "Nährstoffpräparate ohne Mengenangabe, dafür Querverweis zwischen Jod-Präparat und Algen-Obergrenze.",
-        "nachfrage": null,
-        "material": null,
-        "folgen": null
-      }
+      "gespraech": null
     },
     {
       "id": "P09",
@@ -290,17 +284,17 @@
       "warum": "Diese Einträge sind zuletzt dazugekommen. Jeder ist eine inhaltliche Entscheidung ohne Gegenlesen. Bei der Quellenprüfung lag der Katalog nicht vor, deshalb hiess es hier zunächst nur «siehe Teil 3». Die Urteile sind jetzt ausgeschrieben, damit die Frage beantwortbar ist, ohne 289 Einträge zu lesen.",
       "frage": "Stimmen diese dreizehn Urteile? Sechs davon sind Annahmen ohne Quelle und wären die ersten, die ich prüfen liesse: Sülze pauschal Nein ohne sichere Form; Rochen auf der Quecksilberliste; Steinbutt gegart nur Bedingt; Frozen Yogurt aus der Maschine und offene Cremeschnitte als Hygieneannahme; alkoholfreier Cocktail mit Spirituosen-Ersatz Nein; frisch gepresster Gemüsesaft Bedingt.",
       "pruefung": {
-        "status": "offen",
+        "status": "bestaetigt",
         "befund": "Ursprünglich nicht prüfbar, weil Teil 3 nicht vorlag. Das ist erledigt: die dreizehn Einträge mit Urteil sind ausgeschrieben. Die zwei damals vermuteten Risiken sind bestätigt und bereits gedeckt — Rochen hängt an raubfisch-hoch und wird nicht über fisch-gegart freigegeben, Cremeschnitte und Frozen Yogurt trennen die kritische Zubereitung ab.\n\nWas bleibt, ist die Frage nach der Richtigkeit. Sieben der dreizehn folgen bekannten Prinzipien und sind vermutlich unstrittig: Kaninchen, Perlhuhn und Pferdefleisch rosa gemieden, Truthahn rosa am Knochen bedingt, Flammkuchen mit nachträglich aufgelegtem Rohschinken gemieden, Sauser in Gärung gemieden, Johanniskraut als erklärte Lücke. Die übrigen sechs sind Annahmen ohne Quelle.",
         "quelle": "Keine — die sechs strittigen Urteile folgen keiner namentlichen Nennung durch das BLV.",
         "katalog_aenderung": "Abhängig von der Antwort. Bis dahin bleibt jedes Urteil stehen: die sechs strittigen sind allesamt Einschränkungen, und eine Einschränkung wird nicht gelockert, weil sie ungeprüft ist."
       },
       "rueckmeldung": {
-        "datum": "2026-09-07",
-        "herkunft": "Vorschlag zur fachlichen Durchsicht, nicht deren Ersatz.",
-        "entscheid": "Ohne Teil 3 nicht beantwortbar. Teil 3 nachreichen, dann dieselbe Quellenprüfung anwenden.",
-        "umgesetzt": "Die zwei absehbaren Risiken sind im Katalog nachgesehen und bereits gedeckt: Rochen hängt an raubfisch-hoch und wird nicht über fisch-gegart freigegeben. Cremeschnitte trennt abgepackte Ware mit pasteurisiertem Ei von offener Konditoreiware, Frozen Yogurt trennt abgepackt von der Softeismaschine.",
-        "bleibt_offen": "Die übrigen Einträge aus Teil 3 bleiben ungeprüft, solange die Liste nicht vorliegt."
+        "datum": "2026-09-08",
+        "herkunft": "Fachliche Antwort auf die Rückfrage. Damit ist dieser Punkt entschieden.",
+        "entscheid": "Von den sechs strittigen Urteilen sind fünf zu lockern und eines nur zu präzisieren. Sülze: nicht pauschal Nein, sondern nach Verzehrform — gekühlt und kalt problematisch, sterilisiert und ungekühlt haltbar Ja, durcherhitzt Ja. Rochen: das Nein streichen, das BLV nennt ihn nicht als quecksilberreich und internationale Daten ordnen ihn niedrig ein — gegart Ja, roh Nein. Steinbutt, Seeteufel und Wels gehören nicht in eine gemeinsame Raubfischzeile: Wels und Steinbutt gegart Ja, Seeteufel gegart nur gelegentlich, alle roh Nein. Frozen Yogurt aus der Maschine: Bedingt statt Nein — das Hygienerisiko ist plausibel, aber das BLV spricht kein Verbot aus. Cremeschnitte: abgepackt mit pasteurisierter Creme Ja, frisch aus der Konditorei Bedingt, mit roher Eimasse Nein — frische Konditoreiware ist nicht von sich aus riskanter. Alkoholfreier Cocktail: die Entscheidung hängt am tatsächlichen Alkoholgehalt, nicht am Wort «Spirituosen-Ersatz» — viele stehen auf 0,0 Prozent.",
+        "umgesetzt": "Alle sechs umgesetzt. Zwei Entscheidungen gehen dabei über den Wortlaut hinaus und sind als solche vermerkt: die Softeisregel gilt auch für Glace und Milchshake, weil sie dasselbe Tag und dieselbe Begründung tragen. Und der Cocktail mit echtem Alkohol bleibt ein Nein statt «Bedingt bzw. besser vermeiden» — die Alkoholregel gilt in dieser App für Wein, Glühwein und Likör gleich, ein Sonderfall für den Cocktail wäre nicht erklärbar. Das Wort «Spirituosen-Ersatz» ist aus dem Urteil verschwunden; die Variante fragt jetzt nach dem Alkoholgehalt.",
+        "bleibt_offen": null
       },
       "urteile_zum_gegenlesen": [
         {
@@ -382,13 +376,7 @@
           "anmerkung": null
         }
       ],
-      "gespraech": {
-        "art": "frage",
-        "frage": "Zuletzt sind 28 Einträge dazugekommen. Fünfzehn davon sind ein glattes Ja und unstrittig. Dreizehn tragen ein Urteil — und sechs davon habe ich angenommen, ohne dass das BLV sie namentlich nennt. Kannst du die sechs kurz durchgehen?",
-        "nachfrage": "Alle sechs sind Einschränkungen, keine Freigaben. Eine Antwort kann also nur lockern, nie ein falsches Ja erzeugen.",
-        "material": null,
-        "folgen": null
-      }
+      "gespraech": null
     },
     {
       "id": "P13",
@@ -482,25 +470,19 @@
       "warum": "Der Eintrag «Cheddar und Gouda» gab beiden ein Ja, während der neue Halbhartkäse-Eintrag Gouda und Edamer ein Nein gab — dieselbe Sorte mit zwei gegenteiligen Urteilen. Ich habe die Familie getrennt: Gouda, Edamer und Maasdam sind Halbhartkäse, gereifter Cheddar bleibt Hartkäse. Ebenso führte «Käse allgemein» Hart- und Halbhartkäse in einer Variante mit Ja zusammen; das ist jetzt getrennt.",
       "frage": "Ist Cheddar in der Schweiz als Hartkäse einzustufen? Er wird hier oft als Schnittkäse verkauft. Falls nein, gehört er zum Halbhartkäse und der eigene Eintrag kann weg.",
       "pruefung": {
-        "status": "offen",
+        "status": "korrigiert",
         "befund": "Widerspruch beseitigt, aber die Einordnung von Cheddar selbst ist Ermessen. Die BLV-Listen nennen ihn nicht namentlich.",
         "quelle": "Keine — die Zuordnung folgt der üblichen Käseklassierung nach Wassergehalt.",
         "katalog_aenderung": "Bereits umgesetzt. Bei anderer Einschätzung: cheddar auf halbhartkaese umhängen."
       },
       "rueckmeldung": {
-        "datum": "2026-09-07",
-        "herkunft": "Vorschlag zur fachlichen Durchsicht, nicht deren Ersatz.",
-        "entscheid": "Das BLV nennt Cheddar nicht namentlich. Nach üblicher Käseklassierung — niedriger Wassergehalt, lange Reifung — gehört gereifter Cheddar zum Hartkäse; die Trennung von Gouda, Edamer und Maasdam ist vertretbar. Einordnung beibehalten, im Text «gereift» vermerken, weil junger und milder Cheddar wasserreicher ausfällt.",
-        "umgesetzt": "Die Einordnung des gereiften Cheddars bleibt. Der Vermerk steht aber nicht nur im Text: der Eintrag fragt jetzt nach der Reifung — gereift Ja, jung oder mild wie Halbhartkäse Nein, geschmolzen Ja. Eine Bedingung im Fliesstext unter einem grünen Urteil ist genau das Muster, das P01 und P03 zutage gefördert haben; deshalb hier eine Variante statt eines Satzes. Das geht über die Rückmeldung hinaus und gehört gegengelesen.",
+        "datum": "2026-09-08",
+        "herkunft": "Fachliche Antwort auf die Rückfrage. Damit ist dieser Punkt entschieden.",
+        "entscheid": "Widerspruch. «Mild», «mature» und «extra mature» sind Reifungs- und Geschmacksangaben und keine verlässliche Trennung zwischen Halb- und Hartkäse. Cheddar wird grundsätzlich als Hartkäse klassiert und ist damit nach BLV ein Ja, Rinde entfernt. Nur wenn ein konkretes Produkt tatsächlich als Halbhartkäse ausgewiesen ist, greift die strengere Regel.",
+        "umgesetzt": "Meine Aufteilung nach Reifung ist zurückgenommen. Cheddar ist wieder ein Eintrag mit einem Ja. Der Grund steht im Text, damit die Trennung nicht wiederkehrt.",
         "bleibt_offen": null
       },
-      "gespraech": {
-        "art": "bestaetigen",
-        "frage": "Cheddar nach Reifung getrennt: gereift Ja, jung oder mild wie Halbhartkäse Nein, geschmolzen Ja.",
-        "nachfrage": null,
-        "material": null,
-        "folgen": null
-      }
+      "gespraech": null
     },
     {
       "id": "P17",
@@ -514,25 +496,19 @@
       "warum": "P03 verlangte, das Tag «hartkaese» wegen der Rinden-Bedingung von Ja auf Bedingt zu stellen. Das habe ich nicht getan. Es hätte zwölf Einträge betroffen und ausgerechnet den Rückfallweg der App entwertet — Hartkäse ist in fast jeder Alternativenliste die Antwort auf ein Nein. Stattdessen habe ich den echten Widerspruch behoben: der Rinden-Eintrag sagte «Von Hartkäse: Ja» und direkt darunter «Rinde entfernen». Die Rinde hat jetzt eine eigene Regel, der Käseteig bleibt ein Ja.",
       "frage": "Reicht das, oder soll jedes Stück Hartkäse die Rückfrage nach der Rinde tragen? Das wäre strenger, würde aber die häufigste unbedenkliche Antwort der App zu einer bedingten machen.",
       "pruefung": {
-        "status": "offen",
+        "status": "bestaetigt",
         "befund": "Widerspruch behoben, die Grundsatzfrage bleibt. Nicht übernommen habe ich ausserdem die Angabe aus P03, Muscheln und Krabben trügen relevante Quecksilbermengen — Schalen- und Weichtiere liegen dort niedrig. Übernommen habe ich den Befund für Seeteufel und Wels: das sind Raubfische, ihr Ja hing allein am Garen.",
         "quelle": "BLV zu Hart- und Extrahartkäse; BfR/EFSA-Messreihen zu Methylquecksilber nach Art.",
         "katalog_aenderung": "Bereits umgesetzt. Bei anderer Einschätzung: hartkaese von einem Freigabe-Tag zu einer Regel mit Rinden-Entschärfung machen."
       },
       "rueckmeldung": {
-        "datum": "2026-09-07",
-        "herkunft": "Vorschlag zur fachlichen Durchsicht, nicht deren Ersatz.",
-        "entscheid": "Nicht jeden Hartkäse-Eintrag mit der Rinden-Rückfrage belasten — das verwässerte die häufigste unbedenkliche Antwort der App. Die Rinden-Regel stattdessen einmal zentral sichtbar machen.",
-        "umgesetzt": "Neuer Abschnitt «Gilt immer» auf dem Startbildschirm, gespeist aus regeln.json → grundsaetze. Erster und vorerst einziger Grundsatz ist die Käserinde. Betroffen sind acht Einträge, nicht zwölf — die Zahl in diesem Punkt war zu hoch.",
+        "datum": "2026-09-08",
+        "herkunft": "Fachliche Antwort auf die Rückfrage. Damit ist dieser Punkt entschieden.",
+        "entscheid": "Nicht jeden Hartkäse-Eintrag mit der Rinden-Rückfrage belasten — das verwässerte die häufigste unbedenkliche Antwort der App. Die Rinden-Regel stattdessen einmal zentral sichtbar machen. — Fachlich bestätigt und ausdrücklich besser als die Wiederholung an jedem Hartkäse, solange die Regel in der App gut sichtbar ist.",
+        "umgesetzt": "Neuer Abschnitt «Gilt immer» auf dem Startbildschirm, gespeist aus regeln.json → grundsaetze. Erster und vorerst einziger Grundsatz ist die Käserinde. Betroffen sind acht Einträge, nicht zwölf — die Zahl in diesem Punkt war zu hoch. Die Sichtbarkeitsauflage ist umgesetzt: die Titel der Grundsätze stehen jetzt offen auf dem Startbildschirm, nur der Text klappt auf. Vorher lag alles hinter einer einzigen zugeklappten Zeile.",
         "bleibt_offen": null
       },
-      "gespraech": {
-        "art": "bestaetigen",
-        "frage": "Die Rindenregel steht zentral unter «Gilt immer», nicht an jedem Hartkäse-Eintrag.",
-        "nachfrage": null,
-        "material": null,
-        "folgen": null
-      }
+      "gespraech": null
     },
     {
       "id": "P18",
@@ -555,58 +531,49 @@
       "warum": "Zwölf Einträge hängen am Tag «vorgeschnitten». Es meint an manchen Stellen offene Ware von der Theke oder vom Buffet, an anderen industriell abgepackte Fertigware — und beim Kebab sogar etwas Drittes, nämlich den rohen Salat darin. Bei Geflügelaufschnitt ist «frisch abgepackt» die sichere Variante und «offen von der Theke» die gemiedene; bei Sandwich, Wurstsalat und Melone ist umgekehrt gerade das Abgepackte das Gemiedene. Beides sind kalte, verzehrfertige, gekühlt gelagerte Industrieprodukte — das Urteil kann nicht für dasselbe einmal Ja und einmal Nein sein.",
       "frage": "Ist industriell abgepackte, verzehrfertige Kühlware in der Schwangerschaft anders zu beurteilen als dieselbe Ware von der offenen Theke? Und wenn nein: gilt für beide das Nein oder für beide das Ja?",
       "pruefung": {
-        "status": "offen",
+        "status": "korrigiert",
         "befund": "Aufgefallen bei der fachlichen Antwort zu P13. Dort wurde ausdrücklich davor gewarnt, industriell abgepackte Ware pauschal als riskanter einzustufen als Ware von der Frischetheke: Schneiden, Portionieren und Verpacken schaffen zusätzliche Gelegenheiten zur Rekontamination, aber eine hygienisch kontrollierte industrielle Verpackung kann sehr sicher sein. Der Katalog behauptet diesen Vergleich an mehreren Stellen implizit — und zwar in beide Richtungen zugleich.",
         "quelle": "Fachliche Rückmeldung vom 07.09.2026; Übertragungswege über Schneidemaschinen und Oberflächen sind dokumentiert, die pauschale Rangfolge industriell gegen Theke nicht.",
         "katalog_aenderung": "Nicht selbst entschieden. Ein Urteil zu ändern hiesse hier entweder Einträge strenger zu stellen, ohne Quelle dafür, oder zu lockern — und Lockern ist in dieser App der Schadensfall. Vorschlag zur Prüfung: das Tag in drei aufteilen — offene Ware und Buffet, kalte verzehrfertige Kühlware, und roher Salat als Bestandteil — und jedes getrennt bewerten. Beim Kebab trägt heute «vorgeschnitten» die Last für den rohen Salat, was mit Verpackung gar nichts zu tun hat. Bis dahin gilt: was heute gemieden wird, bleibt gemieden."
       },
-      "rueckmeldung": null,
-      "gespraech": {
-        "art": "frage",
-        "frage": "Die App hat eine Kategorie «vorgeschnitten», und die führt zu einem Widerspruch: abgepackter Geflügelaufschnitt aus dem Kühlregal ist ein Ja, ein abgepacktes Sandwich aus derselben Kühltheke ein Nein. Beides ist kalt, verzehrfertig und industriell verpackt. Machst du diesen Unterschied in der Beratung? Oder gilt für kalte, verzehrfertige Kühlware dasselbe wie für offene Ware von der Theke — und wenn ja, in welche Richtung?",
-        "nachfrage": "Falls unklar: Hängt es an der Haltbarkeit — «rasch aufgebraucht» gegen «lange im Regal»? Dann wäre das die richtige Frage statt der Verpackung.",
-        "material": [
-          {
-            "name": "Geflügelaufschnitt",
-            "urteil": "frisch abgepackt: Ja"
-          },
-          {
-            "name": "Sandwich",
-            "urteil": "vorgefertigt aus der Kühltheke: Nein"
-          },
-          {
-            "name": "Wurstsalat",
-            "urteil": "fertig aus der Kühltheke: Nein"
-          },
-          {
-            "name": "Melone",
-            "urteil": "vorgeschnitten gekauft: Nein"
-          },
-          {
-            "name": "Käse von der offenen Theke",
-            "urteil": "vorgeschnitten oder offen abgepackt: Nein"
-          }
-        ],
-        "folgen": [
-          {
-            "antwort": "Kalte Kühlware ist auch riskant",
-            "folge": "Geflügelaufschnitt «frisch abgepackt» wird ein Nein — der Widerspruch löst sich nach streng auf."
-          },
-          {
-            "antwort": "Abgepackt ist unproblematisch",
-            "folge": "Sandwich, Wurstsalat und Melone bekommen für die abgepackte Variante ein Ja."
-          },
-          {
-            "antwort": "Kommt auf die Haltbarkeit an",
-            "folge": "Neue Variantenfrage: «rasch gegessen» gegen «lange haltbar»."
-          }
-        ]
-      }
+      "rueckmeldung": {
+        "datum": "2026-09-08",
+        "herkunft": "Fachliche Antwort auf die Rückfrage. Damit ist dieser Punkt entschieden.",
+        "entscheid": "«Vorgeschnitten» ist kein ausreichend präziser Risikofaktor und soll nicht als eigenständige Verbotslogik dienen. Bei Rohkost ist er relevant — das BAG rät Schwangeren ausdrücklich von vorgeschnittener Rohkost ab, vorgeschnittene Melone bleibt ein Nein. Sonst entsteht die Entscheidung aus Produkttyp, Roh- oder Garzustand, nachträglicher Verarbeitung, Kühlung und Verzehrform. Weder «verpackt oder offen?» noch die Haltbarkeit allein reichen. Konkret: Geflügelaufschnitt abgepackt Ja bis Bedingt, vorgefertigtes Sandwich eher Bedingt statt Nein, Wurstsalat Bedingt und offene Ware konservativer als fabrikversiegelte, Käse von der Theke über die Käsekategorie statt über das Schneiden.",
+        "umgesetzt": "Das Sammel-Tag ist aufgelöst. An seine Stelle treten drei Regeln: «rohkost-vorgeschnitten» (meiden, das BAG nennt sie), «kuehlware-verzehrfertig» (bedingt, mit der Bedingung im Text: gekühlt halten, rasch aufbrauchen) und das schon vorhandene «offene-ware» (meiden). Käse von der offenen Theke entscheidet jetzt über die Käsekategorie. Ein Test hält fest, dass das alte Tag nirgends zurückkehrt und die drei Nachfolger verschieden urteilen.",
+        "bleibt_offen": "Eine Entscheidung über den Wortlaut hinaus: «Ja bis Bedingt» beim abgepackten Geflügelaufschnitt ist als Bedingt umgesetzt. Die genannten Voraussetzungen — vollständig gegart, durchgehend gekühlt, rasch verbraucht — sind Bedingungen, und genau das heisst in dieser App «bedingt». Es ist die einzige Verschärfung dieser Runde."
+      },
+      "gespraech": null
+    },
+    {
+      "id": "P19",
+      "titel": "NEU: Johanniskraut gehört nicht zu den Heilkräutern",
+      "betrifft": [
+        "Johanniskraut"
+      ],
+      "app_sagt": "Bis jetzt: gemeinsam mit allen Heilkräutern «Nicht bewertet».",
+      "warum": "Für Johanniskraut gibt es deutlich konkretere Vorbehalte in der Schwangerschaft als für «pflanzliche Mittel» allgemein. Es unter einer erklärten Lücke zu führen, ist zu wenig: die App weiss hier etwas und sagt es nicht.",
+      "frage": "Keine — fachlich entschieden.",
+      "pruefung": {
+        "status": "korrigiert",
+        "befund": "Bei der zweiten Durchsicht zusätzlich angemerkt. Der Sammeleintrag «Johanniskraut und Heilkräuter» führte acht Synonyme unter einem einzigen «Nicht bewertet».",
+        "quelle": "Fachliche Rückmeldung vom 08.09.2026.",
+        "katalog_aenderung": "Johanniskraut als eigener Eintrag mit eigener Regel, Status «bedingt»: nicht ohne ärztliche Rücksprache. Mönchspfeffer, Baldrian, Echinacea und die übrigen bleiben als «Heilkräuter und pflanzliche Mittel» bei der erklärten Lücke."
+      },
+      "rueckmeldung": {
+        "datum": "2026-09-08",
+        "herkunft": "Fachliche Antwort auf die Rückfrage. Damit ist dieser Punkt entschieden.",
+        "entscheid": "Johanniskraut separat behandeln und mindestens auf «nicht ohne ärztliche Rücksprache» setzen.",
+        "umgesetzt": "Zwei Einträge statt einem. Johanniskraut trägt jetzt eine Bedingung statt einer Lücke, und die Begründung nennt den Grund: es greift in den Abbau vieler Medikamente ein, und für die Schwangerschaft fehlen belastbare Daten.",
+        "bleibt_offen": null
+      },
+      "gespraech": null
     }
   ],
   "zusammenfassung_fuer_die_durchsicht": {
     "erledigt_durch_quellenpruefung": [
       "P02",
+      "P05",
       "P07",
       "P09",
       "P10"
@@ -619,17 +586,17 @@
       "P11",
       "P13",
       "P14",
-      "P15"
+      "P15",
+      "P16",
+      "P18",
+      "P19"
     ],
-    "bleibt_fachliches_ermessen": [
-      "P12",
-      "P18"
-    ],
-    "wichtigste_frage_an_die_hebamme": "P18 — ist industriell abgepackte, verzehrfertige Kühlware anders zu beurteilen als dieselbe Ware von der offenen Theke? Der Katalog behauptet heute beides zugleich. P13, bisher die wichtigste Frage, ist am 07.09.2026 fachlich bestätigt worden.",
+    "bleibt_fachliches_ermessen": [],
+    "wichtigste_frage_an_die_hebamme": "Keine mehr. Alle neunzehn Punkte sind entschieden — durch Quellen, durch die fachliche Durchsicht vom 07. und 08.09.2026, oder durch beides. Was neu dazukommt, gehört hier hinein.",
     "strukturelle_lehre": "Drei der Befunde (P03, P11, P15) sind keine falschen Einzelurteile, sondern dieselbe Schwäche: der Katalog erzeugt Urteile aus einer einzigen Achse. Wo zwei unabhängige Risiken auf ein Lebensmittel treffen, braucht es eine Vorrangordnung zwischen den Regeln. Das ist eine Änderung an der Engine, nicht an den Daten.",
     "nach_rueckmeldung_umgesetzt": [
       "P08",
-      "P16",
+      "P12",
       "P17"
     ],
     "wartet_auf_zulieferung": []

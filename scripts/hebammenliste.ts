@@ -258,7 +258,14 @@ function gespraechsBlock(p: (typeof gespraechsPunkte)[number], nummer: number): 
 </article>`
 }
 
-const gespraechsTeil = `<div class="bahn">
+/** Ist nichts mehr offen, sagt der Bogen das — statt leer zu bleiben. */
+const gespraechsTeil = fragen.length === 0 && bestaetigungen.length === 0
+  ? `<div class="bahn">
+  <div class="teil"><span class="teil__zahl">Stand</span><h2>Nichts mehr offen</h2></div>
+  <p class="teil__text">Alle ${offenePunkte.punkte.length} Punkte sind entschieden — durch die Quellenprüfung oder durch die fachliche Durchsicht. Die vollständige Prüfliste zeigt, worauf jedes Urteil beruht und wer es verantwortet.</p>
+  <p class="teil__text">Kommt etwas Neues auf, gehört es in <code>daten/offene-punkte.json</code> und erscheint dann wieder hier.</p>
+</div>`
+  : `<div class="bahn">
   <div class="teil"><span class="teil__zahl">${fragen.length === 1 ? 'Eine Frage' : `${fragen.length} Fragen`}</span><h2>Worum ich Sie bitte</h2></div>
   <p class="teil__text">Alles andere im Katalog habe ich entweder an Quellen entscheiden können oder Sie haben es bereits beantwortet. Das hier bleibt übrig.</p>
   <div class="punkte">
@@ -279,6 +286,8 @@ ${fragen.map((p, i) => gespraechsBlock(p, i + 1)).join('\n')}
 const alsArtefakt = process.argv.includes('--artefakt')
 /** Nur der Gesprächsbogen, ohne Regelwerk und Katalog. */
 const nurFragen = process.argv.includes('--fragen')
+/** Ist alles entschieden, ändert der Bogen seinen Ton. */
+const allesEntschieden = fragen.length === 0 && bestaetigungen.length === 0
 const kopfAuf = alsArtefakt
   ? ''
   : `<!doctype html>
@@ -290,7 +299,13 @@ const kopfAuf = alsArtefakt
 const kopfZu = alsArtefakt ? '' : '</head>\n<body>'
 const fussZu = alsArtefakt ? '' : '\n</body>\n</html>'
 
-console.log(`${kopfAuf}<title>${nurFragen ? 'Zwei Fragen zum Schwangerschaftskatalog' : 'Prüfliste Schwangerschaftskatalog'}</title>
+console.log(`${kopfAuf}<title>${
+  nurFragen
+    ? allesEntschieden
+      ? 'Stand des Schwangerschaftskatalogs'
+      : 'Fragen zum Schwangerschaftskatalog'
+    : 'Prüfliste Schwangerschaftskatalog'
+}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
@@ -534,22 +549,34 @@ ${kopfZu}
 
 <header class="kopf bahn">
   <p class="kopf__marke">Darf ich das essen? · Fachliche Durchsicht</p>
-  <h1>${nurFragen ? 'Zwei Fragen zum Schwangerschaftskatalog' : 'Prüfliste zum Schwangerschaftskatalog'}</h1>
+  <h1>${
+    nurFragen
+      ? allesEntschieden
+        ? 'Stand des Schwangerschaftskatalogs'
+        : `${fragen.length === 1 ? 'Eine Frage' : 'Fragen'} zum Schwangerschaftskatalog`
+      : 'Prüfliste zum Schwangerschaftskatalog'
+  }</h1>
   <p class="kopf__lead">Diese App gibt Auskunft, auf die im Laden eine Entscheidung folgt. Der Katalog ist von mir zusammengestellt und nirgends fachlich gegengelesen. ${
     nurFragen
-      ? 'Das meiste liess sich an den Empfehlungen von BLV und BAG entscheiden, und einiges haben Sie bereits beantwortet. Übrig bleiben zwei Fragen — dieser Bogen enthält nur die.'
+      ? allesEntschieden
+        ? 'Alles, was ich nicht selbst entscheiden konnte, ist inzwischen beantwortet — an Quellen oder von Ihnen. Dieser Bogen sagt nur noch, wie der Stand ist.'
+        : 'Das meiste liess sich an den Empfehlungen von BLV und BAG entscheiden, und einiges haben Sie bereits beantwortet. Was übrig bleibt, steht hier.'
       : 'Diese Liste sagt, wo ich entschieden habe und woran ich zweifle.'
   }</p>
   ${
     nurFragen
-      ? '<p>Beide betreffen Einschränkungen, keine Freigaben: Ihre Antwort kann nur lockern, nie ein falsches Ja erzeugen. Bleibt sie aus, ändert sich nichts — dann gilt weiter die strengere Lesart.</p>'
+      ? allesEntschieden
+        ? '<p>Vielen Dank — Ihre Antworten haben den Katalog an mehreren Stellen gelockert, an einer verschärft und an zweien präziser gemacht. Was daraus geworden ist, steht in der vollständigen Prüfliste bei jedem Punkt.</p>'
+        : '<p>Sie betreffen Einschränkungen, keine Freigaben: Ihre Antwort kann nur lockern, nie ein falsches Ja erzeugen. Bleibt sie aus, ändert sich nichts — dann gilt weiter die strengere Lesart.</p>'
       : '<p>Teil 1 sind die Stellen, an denen meine Zeit am wenigsten wert war und Ihre am meisten. Teil 2 zeigt die Regeln, aus denen alle Urteile entstehen — steht dort etwas schief, betrifft es viele Einträge auf einmal. Teil 3 ist der vollständige Katalog zum Querlesen.</p>'
   }
   <p class="kopf__zahlen">
     <span>Stand ${datum}</span>
     ${
       nurFragen
-        ? `<span>${fragen.length} Fragen</span><span>${bestaetigungen.length} Entscheide zum Nicken</span>`
+        ? allesEntschieden
+          ? `<span>${offenePunkte.punkte.length} Punkte, alle entschieden</span>`
+          : `<span>${fragen.length} ${fragen.length === 1 ? 'Frage' : 'Fragen'}</span><span>${bestaetigungen.length} Entscheide zum Nicken</span>`
         : `<span>${offenePunkte.punkte.length} Punkte</span><span>${regelKatalog.regeln.length} Regeln</span><span>${regelKatalog.unbedenkliche_tags.length} Freigaben</span>`
     }
     <span>${lebensmittelKatalog.lebensmittel.length} Einträge</span>
@@ -589,9 +616,11 @@ ${gruppen}
 </div>`}
 
 <footer class="fuss bahn">
-  <p><strong>Was ich brauche:</strong> ${
+  <p><strong>${allesEntschieden && nurFragen ? 'Wie es weitergeht:' : 'Was ich brauche:'}</strong> ${
     nurFragen
-      ? 'zu den beiden Fragen eine Einschätzung, und bei den drei Entscheiden ein Ja oder ein Widerspruch. Auch ein «zu streng» ist eine Antwort — die App soll nicht mehr verbieten, als nötig ist.'
+      ? allesEntschieden
+        ? 'Nichts — ausser: wenn Ihnen später etwas auffällt, sagen Sie es. Der Katalog wächst weiter, und jeder neue Eintrag ist wieder eine Entscheidung ohne Gegenlesen.'
+        : 'zu den Fragen eine Einschätzung, und bei den Entscheiden ein Ja oder ein Widerspruch. Auch ein «zu streng» ist eine Antwort — die App soll nicht mehr verbieten, als nötig ist.'
       : 'zu Teil 1 eine Einschätzung je Nummer, in Teil 3 alles, was Ihnen beim Querlesen aufstösst. Auch ein «zu streng» ist eine Antwort — die App soll nicht mehr verbieten, als nötig ist.'
   }</p>
   <p>Diese App ersetzt keine Beratung. Sie soll das Nachschlagen abkürzen, nicht das Gespräch mit Ihnen.</p>

@@ -938,36 +938,79 @@ body {
 
 /*
  * «Gilt immer» auf dem Startbildschirm: was unabhängig vom Lebensmittel gilt.
- * Zugeklappt und ruhiger als die Schaltflächen darüber — es soll auffindbar
- * sein, nicht den Weg ins Suchfeld verstellen.
+ *
+ * Die Titel stehen offen da, nur der Text klappt auf. Hinter einer einzigen
+ * zugeklappten Zeile wäre die Rindenregel nicht mehr sichtbar gewesen — und
+ * genau darauf beruht die Entscheidung, sie nicht an jedem Hartkäse zu
+ * wiederholen.
  */
-.gruppe--grundsatz {
+.grundsaetze {
   margin-top: 1.75rem;
 }
 
-.gruppe--grundsatz .gruppe__titel {
-  font-size: 0.9375rem;
-  min-height: 48px;
-  color: var(--text-zweitrangig);
-}
-
 .grundsatz {
-  padding: 0.25rem 1rem 1rem;
+  background: var(--karte);
+  border-radius: var(--radius-klein);
+  box-shadow: var(--schatten);
 }
 
 .grundsatz + .grundsatz {
-  border-top: 1px solid var(--trennlinie);
-  padding-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .grundsatz__titel {
-  margin: 0 0 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 52px;
+  padding: 0.8rem 1rem;
   font-size: 0.9375rem;
   font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+  border-radius: var(--radius-klein);
+  transition: transform 140ms var(--ease-out), background-color 140ms ease;
+}
+
+.grundsatz__titel::-webkit-details-marker {
+  display: none;
+}
+
+.grundsatz__titel span {
+  flex: 1;
+  min-width: 0;
+}
+
+.grundsatz__titel:active {
+  transform: scale(0.985);
+  background: var(--flaeche-gedrueckt);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .grundsatz__titel:hover {
+    background: var(--flaeche-still);
+  }
+}
+
+/*
+ * Gedreht über die eigenständige `rotate`-Eigenschaft, nicht über `transform`:
+ * unter prefers-reduced-motion wird `transform` zurückgesetzt, der Pfeil bliebe
+ * sonst stehen.
+ */
+.grundsatz__pfeil {
+  flex: 0 0 auto;
+  color: var(--pfeil);
+  rotate: 0deg;
+  transition: rotate 160ms var(--ease-out);
+}
+
+.grundsatz[open] .grundsatz__pfeil {
+  rotate: 90deg;
 }
 
 .grundsatz__text {
   margin: 0;
+  padding: 0 1rem 1rem;
   font-size: 0.9375rem;
   line-height: 1.6;
   color: var(--text-zweitrangig);

@@ -1,6 +1,6 @@
 {
-  "version": "0.5",
-  "hinweis": "Lebensmittelkatalog. Einträge tragen keine eigene Bewertung, sondern verweisen über Komponenten-Tags auf den Regelkatalog. Inhaltlich nicht vollständig fachlich verifiziert — offene Punkte stehen in offene-punkte.json. Version 0.5: Käsetexte nach der fachlichen Rückmeldung zu P13 nachgeschärft.",
+  "version": "0.6",
+  "hinweis": "Lebensmittelkatalog. Einträge tragen keine eigene Bewertung, sondern verweisen über Komponenten-Tags auf den Regelkatalog. Offene Punkte stehen in offene-punkte.json. Version 0.6: zweite fachliche Rückmeldung eingearbeitet — «vorgeschnitten» aufgelöst, sechs Urteile gelockert, Cheddar zurück auf Hartkäse, Johanniskraut von den Heilkräutern getrennt.",
   "lebensmittel": [
     {
       "id": "sauser",
@@ -97,18 +97,40 @@
       ],
       "varianten": [
         {
-          "label": null,
+          "label": "Gekühlt und kalt gegessen",
           "komponenten": [
             {
-              "tag": "vorgeschnitten"
+              "tag": "kuehlware-verzehrfertig"
+            },
+            {
+              "tag": "offene-ware"
+            }
+          ]
+        },
+        {
+          "label": "Sterilisiert aus der Dose oder dem Glas, ungekühlt haltbar",
+          "komponenten": [
+            {
+              "tag": "konserve-sterilisiert"
+            }
+          ]
+        },
+        {
+          "label": "Durcherhitzt, etwa gebraten",
+          "komponenten": [
+            {
+              "tag": "kuehlware-verzehrfertig",
+              "zustand": "durcherhitzt"
             }
           ]
         }
       ],
       "alternativen": [
-        "Gekochter Schinken frisch abgepackt",
-        "Warmes Fleisch"
-      ]
+        "Sterilisierte Konserve",
+        "Gebratene Sülze",
+        "Gekochter Schinken"
+      ],
+      "frage": "Woher stammt sie, und wie wird sie gegessen?"
     },
     {
       "id": "rochen",
@@ -120,10 +142,21 @@
       ],
       "varianten": [
         {
-          "label": null,
+          "label": "Gegart",
           "komponenten": [
             {
-              "tag": "raubfisch-hoch"
+              "tag": "fisch-gegart"
+            }
+          ]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [
+            {
+              "tag": "fisch-roh"
+            },
+            {
+              "tag": "kalt-geraeuchert"
             }
           ]
         }
@@ -132,7 +165,9 @@
         "Dorsch",
         "Egli",
         "Forelle"
-      ]
+      ],
+      "frage": "Wie zubereitet?",
+      "zusatz_text": "Rochen steht nicht auf der Quecksilberliste des BLV, und internationale Messreihen ordnen ihn niedrig ein. Gegart ist er unbedenklich."
     },
     {
       "id": "cremeschnitte",
@@ -147,7 +182,7 @@
       ],
       "varianten": [
         {
-          "label": "Abgepackt gekauft",
+          "label": "Abgepackt gekauft, mit pasteurisierter Creme",
           "komponenten": [
             {
               "tag": "ei-roh",
@@ -156,10 +191,18 @@
           ]
         },
         {
-          "label": "Offen aus der Konditorei",
+          "label": "Frisch aus der Konditorei, gekühlt",
           "komponenten": [
             {
-              "tag": "offene-ware"
+              "tag": "kuehlware-verzehrfertig"
+            }
+          ]
+        },
+        {
+          "label": "Mit roher Eimasse oder unpasteurisierter Creme",
+          "komponenten": [
+            {
+              "tag": "ei-roh"
             }
           ]
         }
@@ -168,21 +211,49 @@
         "Gebackener Kuchen",
         "Abgepacktes Gebäck"
       ],
-      "frage": "Woher stammt sie?"
+      "frage": "Woraus ist die Creme, und wie wurde sie gelagert?",
+      "zusatz_text": "Frische Konditoreiware ist nicht von sich aus riskanter als abgepackte. Es kommt auf die Creme an — pasteurisiert oder roh — und auf die Kühlung. Im Zweifel in der Konditorei fragen."
     },
     {
       "id": "johanniskraut",
-      "name": "Johanniskraut und Heilkräuter",
+      "name": "Johanniskraut",
       "gruppe": "Kräuter, Gewürze, Präparate",
       "synonyme": [
         "johanniskraut",
+        "hypericum",
+        "johanniskrauttee",
+        "st. johanniskraut"
+      ],
+      "varianten": [
+        {
+          "label": null,
+          "komponenten": [
+            {
+              "tag": "johanniskraut"
+            }
+          ]
+        }
+      ],
+      "alternativen": [
+        "Rücksprache mit Ärztin oder Hebamme",
+        "Rooibos",
+        "Fenchel"
+      ]
+    },
+    {
+      "id": "heilkraeuter",
+      "name": "Heilkräuter und pflanzliche Mittel",
+      "gruppe": "Kräuter, Gewürze, Präparate",
+      "synonyme": [
         "mönchspfeffer",
         "baldrian",
         "echinacea",
         "heilkräuter",
         "phytotherapie",
         "pflanzliche mittel",
-        "traubensilberkerze"
+        "traubensilberkerze",
+        "ginkgo",
+        "ginseng"
       ],
       "varianten": [
         {
@@ -198,7 +269,7 @@
         "Speisemengen als Gewürz",
         "Rücksprache mit der Hebamme"
       ],
-      "eigener_text": "Heilkräuter in Arzneidosis sind hier nicht bewertet — das ist keine Freigabe, sondern eine Lücke. Auch pflanzliche Mittel wirken und können mit Medikamenten zusammenspielen. Das gehört mit Hebamme oder Ärztin besprochen."
+      "eigener_text": "Heilkräuter in Arzneidosis sind hier nicht bewertet — das ist keine Freigabe, sondern eine Lücke. Auch pflanzliche Mittel wirken und können mit Medikamenten zusammenspielen. Das gehört mit Hebamme oder Ärztin besprochen. Johanniskraut steht getrennt: dazu gibt es konkretere Vorbehalte."
     },
     {
       "id": "mocktail",
@@ -213,7 +284,7 @@
       ],
       "varianten": [
         {
-          "label": "Ausgewiesen ohne Alkohol gemixt",
+          "label": "Aus ausgewiesen alkoholfreien Zutaten (0,0 %)",
           "komponenten": [
             {
               "tag": "alkohol",
@@ -222,7 +293,7 @@
           ]
         },
         {
-          "label": "Mit Bitter oder Spirituosen-Ersatz ohne Angabe",
+          "label": "Mit alkoholhaltigem Bitter oder echter Spirituose",
           "komponenten": [
             {
               "tag": "alkohol"
@@ -234,7 +305,8 @@
         "Sirup mit Mineralwasser",
         "Ingwer-Limette mit Sprudel"
       ],
-      "frage": "Steht 0,0 Prozent dabei?"
+      "frage": "Woraus gemixt?",
+      "zusatz_text": "Nicht jeder Spirituosen-Ersatz enthält Alkohol — viele stehen auf 0,0 Prozent und sind unbedenklich. Angostura und ähnliche Bitters enthalten dagegen echten Alkohol, wenn auch in Tropfenmengen. Im Lokal nachfragen, woraus gemixt wird."
     },
     {
       "id": "rhabarber",
@@ -410,19 +482,99 @@
       "alternativen": []
     },
     {
-      "id": "weissfisch",
-      "name": "Steinbutt, Seeteufel und Wels",
+      "id": "wels",
+      "name": "Wels und Pangasius",
       "gruppe": "Fisch und Meeresfrüchte",
       "synonyme": [
-        "steinbutt",
-        "seeteufel",
-        "petersfisch",
-        "wittling",
-        "schellfisch"
+        "wels",
+        "waller",
+        "pangasius",
+        "catfish"
       ],
       "varianten": [
         {
           "label": "Gegart",
+          "komponenten": [
+            {
+              "tag": "fisch-gegart"
+            }
+          ]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [
+            {
+              "tag": "fisch-roh"
+            },
+            {
+              "tag": "kalt-geraeuchert"
+            }
+          ]
+        }
+      ],
+      "alternativen": [
+        "Gebratenes Filet",
+        "Dorsch",
+        "Egli"
+      ],
+      "frage": "Wie zubereitet?",
+      "zusatz_text": "Wels steht nicht auf der Quecksilberliste. Gegart ist er unbedenklich."
+    },
+    {
+      "id": "steinbutt",
+      "name": "Steinbutt und Plattfische",
+      "gruppe": "Fisch und Meeresfrüchte",
+      "synonyme": [
+        "steinbutt",
+        "plattfisch",
+        "petersfisch",
+        "wittling",
+        "schellfisch",
+        "scholle",
+        "flunder"
+      ],
+      "varianten": [
+        {
+          "label": "Gegart",
+          "komponenten": [
+            {
+              "tag": "fisch-gegart"
+            }
+          ]
+        },
+        {
+          "label": "Roh, gebeizt oder kalt geräuchert",
+          "komponenten": [
+            {
+              "tag": "fisch-roh"
+            },
+            {
+              "tag": "kalt-geraeuchert"
+            }
+          ]
+        }
+      ],
+      "alternativen": [
+        "Gebratenes Filet",
+        "Dorsch",
+        "Egli"
+      ],
+      "frage": "Wie zubereitet?",
+      "zusatz_text": "Plattfische stehen nicht auf der Quecksilberliste. Gegart unbedenklich."
+    },
+    {
+      "id": "seeteufel",
+      "name": "Seeteufel",
+      "gruppe": "Fisch und Meeresfrüchte",
+      "synonyme": [
+        "seeteufel",
+        "lotte",
+        "anglerfisch",
+        "monkfish"
+      ],
+      "varianten": [
+        {
+          "label": "Gegart, gelegentlich",
           "komponenten": [
             {
               "tag": "raubfisch-mittel",
@@ -435,15 +587,20 @@
           "komponenten": [
             {
               "tag": "fisch-roh"
+            },
+            {
+              "tag": "kalt-geraeuchert"
             }
           ]
         }
       ],
       "alternativen": [
-        "Gebratenes Filet"
+        "Dorsch",
+        "Egli",
+        "Forelle"
       ],
       "frage": "Wie zubereitet?",
-      "zusatz_text": "Seeteufel und Wels sind Raubfische, Steinbutt ein grosser Plattfisch — alle drei können erhöhte Quecksilberwerte tragen. Garen ändert daran nichts, die Mengenempfehlung gilt auch für das gegarte Filet."
+      "zusatz_text": "Seeteufel zeigt in Messreihen erhöhte Quecksilberwerte — Garen ändert daran nichts. Ein Totalverzicht wäre zu streng, gelegentlich ist vertretbar. Wels und Steinbutt sind davon nicht betroffen und stehen getrennt."
     },
     {
       "id": "stockfisch",
@@ -1548,7 +1705,7 @@
       ],
       "varianten": [
         {
-          "label": "Hartkäse am Stück",
+          "label": "Hartkäse — Gruyère, Emmentaler, Sbrinz, Parmesan",
           "komponenten": [
             {
               "tag": "hartkaese"
@@ -1556,19 +1713,28 @@
           ]
         },
         {
-          "label": "Vorgeschnitten oder offen abgepackt",
+          "label": "Halbhartkäse — Tilsiter, Appenzeller, Raclettekäse",
           "komponenten": [
             {
-              "tag": "vorgeschnitten"
+              "tag": "halbhartkaese"
+            }
+          ]
+        },
+        {
+          "label": "Weichkäse — Camembert, Brie, Blauschimmel",
+          "komponenten": [
+            {
+              "tag": "rohmilch-weichkaese"
             }
           ]
         }
       ],
       "alternativen": [
-        "Original abgepackter Käse",
-        "Am Stück kaufen und selber schneiden"
+        "Hartkäse am Stück",
+        "Geschmolzen oder überbacken"
       ],
-      "frage": "Am Stück oder vorgeschnitten?"
+      "frage": "Welche Käsekategorie?",
+      "zusatz_text": "An der offenen Theke entscheidet die Käsekategorie, nicht die Frage nach vorgeschnitten oder am Stück. Bei Hartkäse die Rinde grosszügig wegschneiden."
     },
     {
       "id": "milch",
@@ -3134,7 +3300,7 @@
               "tag": "leber"
             },
             {
-              "tag": "vorgeschnitten"
+              "tag": "kuehlware-verzehrfertig"
             }
           ]
         }
@@ -3239,7 +3405,7 @@
               "tag": "fleisch-durchgegart"
             },
             {
-              "tag": "vorgeschnitten"
+              "tag": "rohkost-vorgeschnitten"
             }
           ]
         }
@@ -3502,9 +3668,6 @@
           "komponenten": [
             {
               "tag": "ei-roh"
-            },
-            {
-              "tag": "vorgeschnitten"
             }
           ]
         }
@@ -3921,7 +4084,7 @@
           "label": "Vorgefertigt aus der Kühltheke",
           "komponenten": [
             {
-              "tag": "vorgeschnitten"
+              "tag": "kuehlware-verzehrfertig"
             }
           ]
         }
@@ -3930,7 +4093,8 @@
         "Selber belegen",
         "Frisch zubereitet bestellen"
       ],
-      "frage": "Frisch oder vorgefertigt?"
+      "frage": "Frisch oder vorgefertigt?",
+      "zusatz_text": "Entscheidend ist die Zutat, nicht die Verpackung: mit Rohschinken, Weichkäse oder rohem Salat gilt, was für die gilt. Ohne solche Zutat ist ein fabrikversiegeltes Sandwich vertretbar, wenn es gekühlt war und rasch gegessen wird."
     },
     {
       "id": "fertiggericht",
@@ -4509,7 +4673,7 @@
           "label": "Aus der Smoothie-Bar",
           "komponenten": [
             {
-              "tag": "vorgeschnitten"
+              "tag": "rohkost-vorgeschnitten"
             }
           ]
         }
@@ -4945,7 +5109,7 @@
           "label": "Vorgeschnitten oder als offene Guacamole",
           "komponenten": [
             {
-              "tag": "vorgeschnitten"
+              "tag": "rohkost-vorgeschnitten"
             }
           ]
         }
@@ -5071,7 +5235,7 @@
           "label": "Vorgeschnitten gekauft",
           "komponenten": [
             {
-              "tag": "vorgeschnitten"
+              "tag": "rohkost-vorgeschnitten"
             }
           ]
         }
@@ -5225,7 +5389,7 @@
           "label": null,
           "komponenten": [
             {
-              "tag": "vorgeschnitten"
+              "tag": "rohkost-vorgeschnitten"
             }
           ]
         }
@@ -7563,10 +7727,18 @@
           ]
         },
         {
-          "label": "Fertig aus der Kühltheke",
+          "label": "Fabrikversiegelt aus der Kühltheke",
           "komponenten": [
             {
-              "tag": "vorgeschnitten"
+              "tag": "kuehlware-verzehrfertig"
+            }
+          ]
+        },
+        {
+          "label": "Offen von der Theke oder vom Buffet",
+          "komponenten": [
+            {
+              "tag": "offene-ware"
             }
           ]
         }
@@ -7574,7 +7746,7 @@
       "alternativen": [
         "Zu Hause frisch anmachen"
       ],
-      "frage": "Frisch oder fertig gekauft?"
+      "frage": "Woher stammt er?"
     },
     {
       "id": "schinkengipfeli",
@@ -8017,27 +8189,10 @@
       ],
       "varianten": [
         {
-          "label": "Gereift, mindestens einige Monate",
+          "label": null,
           "komponenten": [
             {
               "tag": "hartkaese"
-            }
-          ]
-        },
-        {
-          "label": "Jung oder mild",
-          "komponenten": [
-            {
-              "tag": "halbhartkaese"
-            }
-          ]
-        },
-        {
-          "label": "Geschmolzen oder überbacken",
-          "komponenten": [
-            {
-              "tag": "halbhartkaese",
-              "zustand": "durcherhitzt"
             }
           ]
         }
@@ -8047,8 +8202,7 @@
         "Sbrinz",
         "Emmentaler"
       ],
-      "frage": "Gereift oder jung?",
-      "zusatz_text": "Gereifter Cheddar ist wasserarm und lange gereift — damit ein Hartkäse. Junger, milder Cheddar ist wasserreicher und wird wie Halbhartkäse behandelt. Sagt die Packung nichts zur Reifung, gilt die strengere Auskunft. Gouda, Edamer und Maasdam sind Halbhartkäse und stehen dort."
+      "eigener_text": "Cheddar wird als Hartkäse klassiert und ist damit unbedenklich, Rinde entfernt — auch der milde. «Mild», «mature» und «extra mature» sind Reifungs- und Geschmacksangaben, keine Käsekategorie. Nur wenn ein bestimmtes Produkt ausdrücklich als Halbhartkäse ausgewiesen ist, gilt die strengere Halbhartkäseregel. Gouda, Edamer und Maasdam sind Halbhartkäse und stehen dort."
     },
     {
       "id": "sushi-ingwer",
@@ -8245,10 +8399,10 @@
       ],
       "varianten": [
         {
-          "label": "Frisch abgepackt, rasch gegessen",
+          "label": "Abgepackt, gekühlt und rasch verbraucht",
           "komponenten": [
             {
-              "tag": "fleisch-durchgegart"
+              "tag": "kuehlware-verzehrfertig"
             }
           ]
         },
@@ -8256,7 +8410,15 @@
           "label": "Offen von der Theke",
           "komponenten": [
             {
-              "tag": "vorgeschnitten"
+              "tag": "offene-ware"
+            }
+          ]
+        },
+        {
+          "label": "Frisch gebraten und heiss gegessen",
+          "komponenten": [
+            {
+              "tag": "fleisch-durchgegart"
             }
           ]
         }
@@ -8265,7 +8427,7 @@
         "Original abgepackte Ware",
         "Frisch gebratene Pouletbrust"
       ],
-      "frage": "Abgepackt oder offen?"
+      "frage": "Woher stammt er, und wie wird er gegessen?"
     },
     {
       "id": "raeuchertofu",

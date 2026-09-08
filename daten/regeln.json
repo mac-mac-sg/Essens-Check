@@ -1,6 +1,6 @@
 {
-  "version": "0.5",
-  "hinweis": "Regelkatalog. Jede Regel beschreibt EIN Risikoprinzip. Lebensmittel verweisen über Komponenten-Tags auf diese Regeln. Version 0.5: die Käseregeln nach der fachlichen Rückmeldung zu P13 nachgeschärft — 70 °C während zwei Minuten als Bedingung fürs Erhitzen, die Rekontamination nach der Pasteurisierung als Begründung, und der Hartkäse-Text auf das zurückgeführt, was sich sagen lässt.",
+  "version": "0.6",
+  "hinweis": "Regelkatalog. Jede Regel beschreibt EIN Risikoprinzip. Lebensmittel verweisen über Komponenten-Tags auf diese Regeln. Version 0.6: nach der zweiten fachlichen Rückmeldung. Das Sammel-Tag «vorgeschnitten» ist aufgelöst — es warf vorgeschnittene Rohkost, kalte Kühlware und offene Theke zusammen. Jede der drei hat jetzt ihre eigene Regel und ihr eigenes Urteil.",
   "grundsaetze": [
     {
       "titel": "Käserinde immer wegschneiden",
@@ -19,12 +19,10 @@
         "rohmilch-weichkaese",
         "rohmilch-trinken",
         "kalt-geraeuchert",
-        "offene-ware",
-        "softeis-maschine",
-        "vorgeschnitten"
+        "offene-ware"
       ],
       "status": "meiden",
-      "begruendung": "Listerien vermehren sich auch im Kühlschrank. Eine Infektion verläuft bei der Mutter oft harmlos, kann aber auf das Kind übergehen. Gefährdet ist, was kalt und verzehrfertig lange gekühlt steht: jedes Schneiden, Portionieren und Umfüllen ist eine weitere Gelegenheit, dass Keime hineingelangen.",
+      "begruendung": "Listerien vermehren sich auch im Kühlschrank. Eine Infektion verläuft bei der Mutter oft harmlos, kann aber auf das Kind übergehen. Offen verkaufte Ware steht dabei ungünstiger als fabrikversiegelte: sie wird an gemeinsamen Flächen portioniert, umgefüllt und offen gelagert.",
       "entschaerfung": [
         {
           "durch": "durcherhitzt",
@@ -32,6 +30,56 @@
           "text": "Mindestens 70 °C Kerntemperatur während zwei Minuten tötet Listerien ab."
         }
       ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "rohkost-vorgeschnitten",
+      "titel": "Vorgeschnittene Rohkost",
+      "trifft_auf": [
+        "rohkost-vorgeschnitten"
+      ],
+      "status": "meiden",
+      "begruendung": "Das BAG rät Schwangeren ausdrücklich von vorgeschnittener Rohkost ab. Aufgeschnittenes Obst und Gemüse liegt gekühlt und feucht, ist nicht mehr von seiner Schale geschützt und hat beim Schneiden Kontakt zu Flächen und Händen gehabt. Waschen hilft danach nicht mehr.",
+      "entschaerfung": [
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Mitgekocht oder durcherhitzt unbedenklich — mindestens 70 °C Kerntemperatur während zwei Minuten."
+        },
+        {
+          "durch": "gekocht",
+          "auf": "ok",
+          "text": "Gekocht unbedenklich."
+        }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "kuehlware-verzehrfertig",
+      "titel": "Kalte verzehrfertige Kühlware",
+      "trifft_auf": [
+        "kuehlware-verzehrfertig"
+      ],
+      "status": "bedingt",
+      "begruendung": "Gegarte Ware, die nach dem Garen nochmals geschnitten oder zusammengesetzt wurde und danach kalt gegessen wird: Listerien wachsen auch im Kühlschrank, und je länger sie steht, desto mehr. Durchgehend gekühlt halten, das Verbrauchsdatum beachten und nach dem Öffnen rasch aufbrauchen — dann ist sie unbedenklich.",
+      "entschaerfung": [
+        {
+          "durch": "durcherhitzt",
+          "auf": "ok",
+          "text": "Nochmals durcherhitzt unbedenklich — mindestens 70 °C Kerntemperatur während zwei Minuten."
+        }
+      ],
+      "trimester_gewichtung": null
+    },
+    {
+      "id": "softeis-maschine",
+      "titel": "Eis aus der Maschine",
+      "trifft_auf": [
+        "softeis-maschine"
+      ],
+      "status": "bedingt",
+      "begruendung": "Softeis- und Frozen-Yogurt-Maschinen führen Milchmischungen über Stunden bei Kühl- statt Gefriertemperatur und sind aufwendig zu reinigen — schlecht gewartet können sich Listerien darin halten. Das BLV spricht dafür kein Verbot aus. In einem Betrieb, dem du die Hygiene zutraust, ist es vertretbar; abgepackte Ware ist die sichere Wahl.",
+      "entschaerfung": [],
       "trimester_gewichtung": null
     },
     {
@@ -438,6 +486,17 @@
       "trimester_gewichtung": null
     },
     {
+      "id": "johanniskraut",
+      "titel": "Johanniskraut",
+      "trifft_auf": [
+        "johanniskraut"
+      ],
+      "status": "bedingt",
+      "begruendung": "Nicht ohne ärztliche Rücksprache. Johanniskraut ist kein blosses Teekraut: es greift in den Abbau vieler Medikamente ein und schwächt deren Wirkung, und für die Anwendung in der Schwangerschaft fehlen belastbare Daten. Wer es nimmt oder nehmen möchte, bespricht das mit Ärztin oder Hebamme — nicht mit einer App.",
+      "entschaerfung": [],
+      "trimester_gewichtung": null
+    },
+    {
       "id": "innereien-schadstoffe",
       "titel": "Innereien",
       "trifft_auf": [
@@ -536,7 +595,11 @@
     },
     {
       "tag": "naehrstoff-praeparat",
-      "text": "Nährstoffpräparate in der verordneten Dosis sind unbedenklich. Über die Menge entscheidet die Ärztin, nicht diese App."
+      "text": "Für die Schwangerschaft empfohlene oder ärztlich verordnete Nährstoffpräparate sind in der vorgesehenen Dosis unbedenklich — Folsäure, Jod, Vitamin D, Eisen. Das gilt diesen Präparaten, nicht Nahrungsergänzungsmitteln allgemein: was nicht verordnet oder ausdrücklich für die Schwangerschaft ausgewiesen ist, fällt nicht darunter. Über die Menge entscheidet die Ärztin, nicht diese App."
+    },
+    {
+      "tag": "konserve-sterilisiert",
+      "text": "Sterilisierte, ungekühlt haltbare Konserven sind unbedenklich: die Sterilisation im verschlossenen Behälter tötet auch Listerien ab, und ungeöffnet kommt nichts mehr hinein. Nach dem Öffnen gilt wieder, was für gekühlte verzehrfertige Ware gilt."
     }
   ]
 }

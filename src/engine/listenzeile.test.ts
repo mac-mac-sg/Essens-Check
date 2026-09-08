@@ -14,7 +14,7 @@ describe('Listenzeile', () => {
   it('zeigt das Urteil, wo alle Varianten dasselbe sagen', () => {
     expect(zeile('tatar').status).toBe('meiden')
     expect(zeile('brot').status).toBe('ok')
-    expect(zeile('johanniskraut').status).toBe('unklar')
+    expect(zeile('heilkraeuter').status).toBe('unklar')
   })
 
   it('lässt die zweite Zeile leer, wo das Urteil eindeutig ist', () => {

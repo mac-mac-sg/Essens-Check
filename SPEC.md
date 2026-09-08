@@ -49,9 +49,12 @@ entschärfen. Diese Ebene ändert sich fast nie.
 Neben den Regeln führt `regeln.json` eine Liste `grundsaetze`: was unabhängig
 vom einzelnen Lebensmittel gilt und deshalb einmal zentral steht statt an jedem
 betroffenen Eintrag. Die App zeigt sie auf dem Startbildschirm unter «Gilt
-immer». Erster Eintrag ist die Käserinde — als Rückfrage an jedem der acht
-Hartkäse-Einträge hätte sie aus acht klaren Ja acht bedingte gemacht, und
-Hartkäse ist der Rückfallweg, auf dem fast jede Alternativenliste endet.
+immer», die Titel offen und den Text aufklappbar — zentral ist nur besser als
+wiederholt, solange es sichtbar bleibt. Zwei Grundsätze: die Käserinde, und was
+«durcherhitzt» heisst (70 °C Kerntemperatur, zwei Minuten). Die Rindenfrage an
+jedem der acht Hartkäse-Einträge zu stellen hätte aus acht klaren Ja acht
+bedingte gemacht, und Hartkäse ist der Rückfallweg, auf dem fast jede
+Alternativenliste endet.
 
 **Ebene 2 — Lebensmittelkatalog** (`lebensmittel.json`). Jeder Eintrag verweist über
 Komponenten auf Regeln, statt eine eigene Bewertung mitzubringen:
