@@ -2,26 +2,61 @@ import { useEffect, useMemo, useState } from 'react'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
 import { holeProdukt, type Produkt } from './engine/produktsuche'
-import {
-  eindeutigerVorschlag,
-  findeNachId,
-  MAX_TREFFER,
-  MINDESTLAENGE,
-  suche,
-  vorschlaegeAusName,
-} from './engine/suchen'
+import { ordneProduktZu, type ProduktZuordnung } from './engine/produktzuordnung'
+import { findeNachId, MAX_TREFFER, MINDESTLAENGE, suche } from './engine/suchen'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Trefferliste } from './Trefferliste'
 import type { Lebensmittel } from './typen'
 
 type Stand = 'laeuft' | 'urteil' | 'auswahl' | 'ohne'
 
+function grundlagenText(zuordnung: ProduktZuordnung | null): string {
+  if (!zuordnung || zuordnung.grundlagen.length === 0) return 'Produktname'
+  return zuordnung.grundlagen.join(', ')
+}
+
+function Produktdaten({ produkt }: { produkt: Produkt }) {
+  const hatDetails = produkt.generischerName || produkt.kategorien.length > 0 || produkt.zutatenText
+  if (!hatDetails) return null
+
+  return (
+    <details className="scan-produktdaten">
+      <summary>Produktdaten von Open Food Facts</summary>
+      <dl>
+        {produkt.generischerName && (
+          <>
+            <dt>Bezeichnung</dt>
+            <dd>{produkt.generischerName}</dd>
+          </>
+        )}
+        {produkt.kategorien.length > 0 && (
+          <>
+            <dt>Kategorie</dt>
+            <dd>{produkt.kategorien.slice(0, 4).join(' · ')}</dd>
+          </>
+        )}
+        {produkt.zutatenText && (
+          <>
+            <dt>Zutaten</dt>
+            <dd>{produkt.zutatenText}</dd>
+          </>
+        )}
+      </dl>
+      <p>
+        Diese Fremddaten helfen nur bei der Zuordnung. Das Schwangerschaftsurteil stammt
+        weiterhin ausschliesslich aus dem lokalen Schweizer Regelkatalog.
+      </p>
+    </details>
+  )
+}
+
 /**
- * Was nach einem gelesenen Strichcode passiert: nachschlagen, und wenn der
- * Produktname eindeutig auf einen Katalogeintrag zeigt, sofort das Urteil.
+ * Was nach einem gelesenen Strichcode passiert: Open Food Facts liefert
+ * Produktmerkmale, die gemeinsam gegen den lokalen Katalog geprüft werden.
  *
- * Ist er es nicht, kommt die Auswahl. Ohne zu wissen, wovon die Rede ist,
- * lässt sich keine Einschätzung zeigen — und geraten wird nicht.
+ * Eine automatische Zuordnung gibt es nur bei ausreichend eindeutiger Evidenz.
+ * Zutaten dürfen sie bestätigen oder bei einem klaren Nein-/Unklar-Signal
+ * stoppen, aber nie ein Urteil lockern.
  */
 export function Scanergebnis({
   ean,
@@ -36,12 +71,15 @@ export function Scanergebnis({
 }) {
   const [stand, setStand] = useState<Stand>('laeuft')
   const [produkt, setProdukt] = useState<Produkt | null>(null)
+  const [zuordnung, setZuordnung] = useState<ProduktZuordnung | null>(null)
   const [gewaehlt, setGewaehlt] = useState<Lebensmittel | null>(null)
   const [begriff, setBegriff] = useState('')
 
   useEffect(() => {
     const steuerung = new AbortController()
     setStand('laeuft')
+    setProdukt(null)
+    setZuordnung(null)
     setGewaehlt(null)
     setBegriff('')
 
@@ -52,9 +90,11 @@ export function Scanergebnis({
         setStand('ohne')
         return
       }
-      const eindeutig = eindeutigerVorschlag(gefunden.name, lebensmittelKatalog)
-      if (eindeutig) {
-        setGewaehlt(eindeutig)
+
+      const abgleich = ordneProduktZu(gefunden, lebensmittelKatalog, regelKatalog)
+      setZuordnung(abgleich)
+      if (abgleich.eindeutig) {
+        setGewaehlt(abgleich.eindeutig)
         setStand('urteil')
       } else {
         setStand('auswahl')
@@ -68,10 +108,7 @@ export function Scanergebnis({
     [gewaehlt, trimester],
   )
 
-  const vorschlaege = useMemo(
-    () => (produkt ? vorschlaegeAusName(produkt.name, lebensmittelKatalog) : []),
-    [produkt],
-  )
+  const vorschlaege = zuordnung?.kandidaten ?? []
   const eigene = useMemo(() => suche(begriff, lebensmittelKatalog), [begriff])
   const gesucht = begriff.trim().length >= MINDESTLAENGE
   const liste = gesucht ? eigene.slice(0, MAX_TREFFER) : vorschlaege
@@ -88,7 +125,7 @@ export function Scanergebnis({
     return (
       <section className="scanstand" aria-live="polite">
         <p className="scanstand__code">{ean}</p>
-        <p className="scanstand__text">Wird nachgeschlagen …</p>
+        <p className="scanstand__text">Produktdaten werden geprüft …</p>
       </section>
     )
   }
@@ -97,18 +134,33 @@ export function Scanergebnis({
     return (
       <>
         {produkt && (
-          <p className="scan-quelle">
-            Gescannt: <strong>{produkt.name}</strong>
-            {produkt.marke && <span> · {produkt.marke}</span>}
-            {gewaehlt && (
-              <>
-                <br />
-                Zugeordnet zu «{gewaehlt.name}». Stimmt das nicht, wähle unten
-                das richtige Lebensmittel.
-              </>
-            )}
-          </p>
+          <div className="scan-produktkopf">
+            <p className="scan-quelle">
+              Gescannt: <strong>{produkt.name}</strong>
+              {produkt.marke && <span> · {produkt.marke}</span>}
+              {gewaehlt && (
+                <>
+                  <br />
+                  Zugeordnet zu «{gewaehlt.name}» über {grundlagenText(zuordnung)}.
+                </>
+              )}
+            </p>
+            <Produktdaten produkt={produkt} />
+          </div>
         )}
+
+        {zuordnung && zuordnung.konflikte.length > 0 && (
+          <div className="scan-konflikt" role="note">
+            <strong>Das Gesamtprodukt ist damit nicht automatisch freigegeben.</strong>
+            <p>
+              Open Food Facts nennt zusätzlich{' '}
+              {zuordnung.konflikte.map((konflikt) => konflikt.eintrag.name).join(', ')}. Das
+              folgende Urteil bewertet nur die gewählte Zuordnung «{gewaehlt?.name}» und
+              nicht alle Zutaten des Produkts.
+            </p>
+          </div>
+        )}
+
         <Ergebniskarte urteil={urteil} />
         <div className="scan-knoepfe">
           <button className="zurueck zurueck--flaeche" type="button" onClick={onNeuScannen}>
@@ -130,16 +182,26 @@ export function Scanergebnis({
       <p className="abschnitt__hinweis">
         {stand === 'ohne' ? (
           <>
-            Zum Code <span className="zuordnen__code">{ean}</span> liefert die Datenbank nichts
-            — oder es fehlt gerade das Netz. Suche das Lebensmittel von Hand.
+            Zum Code <span className="zuordnen__code">{ean}</span> liefert Open Food Facts
+            nichts — oder es fehlt gerade das Netz. Suche das Lebensmittel von Hand.
+          </>
+        ) : zuordnung && zuordnung.konflikte.length > 0 ? (
+          <>
+            Gescannt wurde <strong>{produkt?.name}</strong>. Zusätzlich wurde{' '}
+            <strong>{zuordnung.konflikte.map((konflikt) => konflikt.eintrag.name).join(', ')}</strong>{' '}
+            erkannt. Deshalb gibt es kein automatisches Gesamturteil — wähle die passende
+            Einordnung bewusst aus.
           </>
         ) : (
           <>
-            Gescannt wurde <strong>{produkt?.name}</strong>. Der Name passt auf mehrere Einträge,
-            deshalb entscheidest du.
+            Gescannt wurde <strong>{produkt?.name}</strong>. Produktname, Bezeichnung und
+            Kategorie reichen für eine sichere automatische Zuordnung nicht aus. Wähle den
+            passenden Katalogeintrag.
           </>
         )}
       </p>
+
+      {produkt && <Produktdaten produkt={produkt} />}
 
       <label className="feldtitel" htmlFor="scan-suche">
         {vorschlaege.length > 0 && !gesucht ? 'Oder selbst suchen' : 'Lebensmittel suchen'}
