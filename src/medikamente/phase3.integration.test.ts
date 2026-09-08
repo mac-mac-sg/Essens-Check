@@ -58,7 +58,7 @@ describe('Phase-3-Fluss vom Schweizer Präparat zum Schwangerschaftsurteil', () 
     if (!ass) return
 
     expect(ass.profile.map((profil) => profil.id)).toEqual(
-      expect.arrayContaining(['low-dose-verordnet', 'schmerz-fieber']),
+      expect.arrayContaining(['low-dose-verordnet', 'analgetisch']),
     )
     expect(bewerteMedikament(ass, medikamentKatalog, 20).klaerung).toBe('profil')
   })
