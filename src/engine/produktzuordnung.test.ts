@@ -73,11 +73,11 @@ function produkt(teil: Partial<Produkt>): Produkt {
 }
 
 describe('ordneProduktZu', () => {
-  it('löst einen mehrdeutigen Produktnamen mit Bezeichnung und Kategorie auf', () => {
+  it('löst einen mehrdeutigen Produktnamen mit zusätzlicher Bezeichnung und Kategorie auf', () => {
     const ergebnis = ordneProduktZu(
       produkt({
         name: 'Vanille Joghurt',
-        generischerName: 'Joghurt mit Vanille',
+        generischerName: 'Joghurt',
         kategorien: ['Joghurt'],
       }),
       katalog,
