@@ -44,14 +44,31 @@ async function dateiIndex(verzeichnis: string): Promise<Map<string, string>> {
   return result
 }
 
+function findeQuelldatei(index: Map<string, string>, kandidaten: readonly string[]): string | undefined {
+  const normalisierteKandidaten = kandidaten.map((kandidat) =>
+    kandidat.toLocaleLowerCase('de-CH'),
+  )
+
+  for (const kandidat of normalisierteKandidaten) {
+    const exakt = index.get(kandidat)
+    if (exakt) return exakt
+  }
+
+  for (const [dateiname, pfad] of index) {
+    if (normalisierteKandidaten.some((kandidat) => dateiname.endsWith(kandidat))) {
+      return pfad
+    }
+  }
+
+  return undefined
+}
+
 async function leseQuellen(verzeichnis: string): Promise<SwissmedicXmlQuellen> {
   const index = await dateiIndex(verzeichnis)
   const result = {} as Record<QuellenKey, string>
 
   for (const [key, kandidaten] of Object.entries(QUELLDATEIEN) as [QuellenKey, readonly string[]][]) {
-    const pfad = kandidaten
-      .map((kandidat) => index.get(kandidat.toLocaleLowerCase('de-CH')))
-      .find((wert): wert is string => wert !== undefined)
+    const pfad = findeQuelldatei(index, kandidaten)
     if (!pfad) {
       throw new Error(
         `Swissmedic-Import: Datei für «${key}» fehlt. Gesucht: ${kandidaten.join(', ')}`,
