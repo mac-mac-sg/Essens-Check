@@ -15,7 +15,9 @@
     "pruefstand": "vite-node scripts/pruefstand.ts --",
     "karte": "vite-node scripts/karte.ts --",
     "hebammenliste": "vite-node scripts/hebammenliste.ts",
-    "hebammenfragen": "vite-node scripts/hebammenliste.ts -- --fragen"
+    "hebammenfragen": "vite-node scripts/hebammenliste.ts -- --fragen",
+    "medikamente:swissmedic:import": "vite-node scripts/swissmedic-import.ts --",
+    "medikamente:swissmedic": "bash scripts/swissmedic-aktualisieren.sh"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -24,7 +26,7 @@
   "devDependencies": {
     "@types/node": "^26.4.1",
     "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react-dom": "^18.3.12",
     "@vitejs/plugin-react": "^4.3.4",
     "playwright": "^1.63.0",
     "typescript": "^5.7.2",
