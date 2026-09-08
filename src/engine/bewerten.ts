@@ -17,11 +17,7 @@ import type {
 export interface Begruendung {
   /** Regel-ID, oder 'unbedenklich', 'unklar' beziehungsweise 'eigener_text'. */
   regel: string
-  /**
-   * Titel des Risikoprinzips, sofern eine Regel die Begründung erzeugt hat.
-   * Sichtbar gemacht, damit das Muster erkennbar wird: wer weiss, dass es um
-   * Listerien geht, kann ein nicht hinterlegtes Lebensmittel selbst einordnen.
-   */
+  /** Titel des Risikoprinzips, sofern eine Regel die Begründung erzeugt hat. */
   titel?: string
   text: string
   /** Grenze über die Mahlzeit hinaus, sofern die Regel eine kennt. */
@@ -49,11 +45,7 @@ export interface Urteil {
   name: string
   frage?: string
   varianten: VariantenUrteil[]
-  /**
-   * Einordnung zum ganzen Eintrag, nicht zu einer Variante — steht deshalb
-   * einmal unter der Karte statt unter jeder Zeile. Bei drei Varianten stand
-   * derselbe Absatz sonst dreimal auf einem Bildschirm.
-   */
+  /** Einordnung zum ganzen Eintrag, nicht zu einer Variante. */
   zusatz?: string
   alternativen: string[]
 }
@@ -62,21 +54,15 @@ export const UNKLAR_TEXT =
   'Zu dieser Zutat ist keine Bewertung hinterlegt. Im Zweifel die Hebamme fragen.'
 
 /**
- * Vorrang eines Status. Ein Status, den die Rangfolge nicht kennt, gilt als
- * der stärkste — ein Tippfehler in den Daten macht die Auskunft strenger,
- * nicht milder.
+ * Vorrang eines Status. Ein unbekannter Status gilt als der stärkste — ein
+ * Tippfehler macht die Auskunft strenger, nicht milder.
  */
 function rang(status: Status, rangfolge: Status[]): number {
   const index = rangfolge.indexOf(status)
   return index === -1 ? rangfolge.length : index
 }
 
-/**
- * Das Urteil mit dem höchsten Vorrang gewinnt.
- *
- * Ohne jede Aussage gibt es kein Urteil: eine leere Liste ergibt «unklar»,
- * nicht «ok». Sonst wäre ein Datenfehler eine stillschweigende Freigabe.
- */
+/** Das Urteil mit dem höchsten Vorrang gewinnt. */
 function schlechtester(status: Status[], rangfolge: Status[]): Status {
   if (status.length === 0) return 'unklar'
   return status.reduce<Status>(
@@ -97,18 +83,25 @@ function ohneDoppelte(begruendungen: Begruendung[]): Begruendung[] {
 }
 
 /**
- * Wendet eine einzelne Regel auf einen Zustand an. Ein Zustand, der in
- * `nicht_entschaerfbar_durch` steht, stuft nicht herab — Quecksilber
- * verschwindet nicht durch Kochen.
+ * Wendet eine einzelne Regel auf Zustand und Schwangerschaftsstand an.
  *
- * Treffen mehrere Entschärfungen auf denselben Zustand zu, greift die
- * strengste. Mehrdeutigkeit darf nie zur milderen Auskunft führen.
+ * Ein `trimester_status` darf nur bei bekanntem Trimester lockern. Fehlt der
+ * Termin, bleibt der normale Regelstatus als sicherer Rückfallwert bestehen.
+ * Ein anschliessender Zubereitungszustand kann die Regel wie bisher
+ * entschärfen, sofern er nicht ausdrücklich blockiert ist.
  */
 function wendeRegelAn(
   regel: Regel,
   zustand: string | undefined,
   rangfolge: Status[],
+  trimester?: number,
 ): Begruendung & { status: Status } {
+  const trimesterStatus =
+    trimester === 1 || trimester === 2 || trimester === 3
+      ? regel.trimester_status?.[trimester]
+      : undefined
+  const basisStatus = trimesterStatus ?? regel.status
+
   if (zustand !== undefined && !(regel.nicht_entschaerfbar_durch ?? []).includes(zustand)) {
     const passende = regel.entschaerfung.filter((eintrag) => eintrag.durch === zustand)
     const strengste = passende.reduce<(typeof passende)[number] | undefined>(
@@ -124,17 +117,15 @@ function wendeRegelAn(
         titel: regel.titel,
         status: strengste.auf,
         text: strengste.text,
-        // Eine entschärfte Regel trägt ihre Grenze nicht mehr: «unbegrenzt
-        // möglich» und «zählt aufs Tagesbudget» im selben Atemzug ist der
-        // Widerspruch, den der pasteurisierte Camembert schon einmal hatte.
         ...(regel.grenze !== undefined && strengste.auf !== 'ok' && { grenze: regel.grenze }),
       }
     }
   }
+
   return {
     regel: regel.id,
     titel: regel.titel,
-    status: regel.status,
+    status: basisStatus,
     text: regel.begruendung,
     ...(regel.grenze !== undefined && { grenze: regel.grenze }),
   }
@@ -171,7 +162,12 @@ export function bewerteKomponente(
   const status: Status[] = []
 
   for (const regel of treffer) {
-    const ergebnis = wendeRegelAn(regel, komponente.zustand, katalog.status_rangfolge)
+    const ergebnis = wendeRegelAn(
+      regel,
+      komponente.zustand,
+      katalog.status_rangfolge,
+      trimester,
+    )
     status.push(ergebnis.status)
     begruendungen.push({
       regel: ergebnis.regel,
@@ -208,8 +204,6 @@ export function bewerteVariante(
     bewerteKomponente(komponente, katalog, trimester),
   )
 
-  // Eine Variante ohne Komponenten trifft keine Aussage — und darf deshalb
-  // auch keine sein. Sie erscheint als unklar mit dem Verweis auf die Hebamme.
   const begruendungen =
     komponenten.length === 0
       ? [{ regel: 'unklar', text: UNKLAR_TEXT }]
@@ -234,7 +228,6 @@ export function bewerteLebensmittel(
 ): Urteil {
   const varianten = eintrag.varianten.map((variante) => {
     const urteil = bewerteVariante(variante, katalog, trimester)
-    // eigener_text ersetzt die generierte Begründung, nicht das Urteil.
     return eintrag.eigener_text
       ? { ...urteil, begruendungen: [{ regel: 'eigener_text', text: eintrag.eigener_text }] }
       : urteil
@@ -245,7 +238,6 @@ export function bewerteLebensmittel(
     name: eintrag.name,
     ...(eintrag.frage !== undefined && { frage: eintrag.frage }),
     varianten,
-    // zusatz_text verdrängt die Regel nicht, er schliesst die Karte ab.
     ...(eintrag.zusatz_text ? { zusatz: eintrag.zusatz_text } : {}),
     alternativen: eintrag.alternativen,
   }
