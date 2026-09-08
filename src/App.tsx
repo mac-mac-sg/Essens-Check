@@ -20,10 +20,11 @@ import { Scanner } from './Scanner'
 import { Sheet } from './Sheet'
 import { Suchansicht } from './Suchansicht'
 import { Uebersicht } from './Uebersicht'
+import { Wissensbereich } from './Wissen'
 import { Fusszeile } from './Fusszeile'
 import { Navigation, type Ziel } from './Navigation'
 
-type Ansicht = 'suche' | 'uebersicht' | 'scanner' | 'scanergebnis'
+type Ansicht = 'suche' | 'uebersicht' | 'wissen' | 'scanner' | 'scanergebnis'
 
 function Zahnrad() {
   return (
@@ -129,6 +130,14 @@ export function App() {
     setAnsicht(herkunft === 'uebersicht' ? 'uebersicht' : 'suche')
   }
 
+  const ausWissenPruefen = (suchwort: string) => {
+    setOffeneId(null)
+    setCode(null)
+    setBegriff(suchwort)
+    setHerkunft('suche')
+    setAnsicht('suche')
+  }
+
   const standKnopf = (mitSsw: boolean) =>
     stand ? (
       <button
@@ -191,7 +200,9 @@ export function App() {
       </header>
 
       <main className={`inhalt ${ansicht === 'suche' ? 'inhalt--suche' : ''}`}>
-        {ansicht === 'scanner' ? (
+        {ansicht === 'wissen' ? (
+          <Wissensbereich onPruefen={ausWissenPruefen} />
+        ) : ansicht === 'scanner' ? (
           <Scanner onErkannt={codeErkannt} onAbbruch={zumAnfang} />
         ) : ansicht === 'scanergebnis' && code ? (
           <Scanergebnis
