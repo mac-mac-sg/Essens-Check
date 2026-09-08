@@ -180,16 +180,13 @@ export function App() {
             </div>
           </>
         ) : (
-          <>
-            <div className="kopfzeile__oben">
-              <div className="kopfzeile__marke">
-                <h1 className="kopfzeile__titel">Darf ich das?</h1>
-                <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
-              </div>
-              {einstellungenKnopf}
+          <div className="kopfzeile__oben">
+            <div className="kopfzeile__marke">
+              <h1 className="kopfzeile__titel">Darf ich das?</h1>
+              <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
             </div>
-            {standKnopf(true)}
-          </>
+            {einstellungenKnopf}
+          </div>
         )}
       </header>
 
