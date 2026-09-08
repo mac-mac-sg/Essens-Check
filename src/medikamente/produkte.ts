@@ -64,10 +64,10 @@ function suchScore(produkt: SwissmedicProdukt, suche: string): number {
   if (name.startsWith(`${query} `) || name.startsWith(query)) return 80
   if (sequenz.startsWith(`${query} `) || sequenz.startsWith(query)) return 70
 
-  const nameWoerter = name.split(' ')
+  const suchWoerter = [...new Set(`${name} ${sequenz}`.trim().split(' ').filter(Boolean))]
   const queryWoerter = query.split(' ')
   const alleWoerter = queryWoerter.every((wort) =>
-    nameWoerter.some((nameWort) => nameWort.startsWith(wort)),
+    suchWoerter.some((produktWort) => produktWort.startsWith(wort)),
   )
   return alleWoerter ? 50 : 0
 }
