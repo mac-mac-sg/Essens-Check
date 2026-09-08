@@ -25,13 +25,6 @@ function Pfeil() {
   )
 }
 
-/**
- * Eine Zeile mit dem, was die App auf einen Blick verantworten kann.
- *
- * Wo die Varianten verschieden urteilen, steht keine Ampelfarbe, sondern
- * «Kommt drauf an» und die Frage, die entscheidet. Ein grüner Punkt neben
- * «Lachs» wäre für zwei von drei Zubereitungen falsch.
- */
 function Treffer({ zeile, onOeffnen }: { zeile: Listenzeile; onOeffnen: (id: string) => void }) {
   const wort = zeile.status === 'gemischt' ? GEMISCHT_WORT : AMPEL[zeile.status].kurz
   return (
@@ -39,15 +32,11 @@ function Treffer({ zeile, onOeffnen }: { zeile: Listenzeile; onOeffnen: (id: str
       <button className="treffer" type="button" onClick={() => onOeffnen(zeile.id)}>
         <span className="treffer__text">
           <span className="treffer__name">{zeile.name}</span>
-          {/*
-            Urteil und Frage stehen unter dem Namen, nicht neben ihm: «Salami,
-            Rohschinken, Trockenfleisch» drückte die Marke sonst in den Umbruch.
-          */}
           <span className="treffer__unten">
             <span className="marke marke--klein" data-status={zeile.status}>
               {wort}
             </span>
-            {zeile.hinweis && <span className="treffer__hinweis">{zeile.hinweis}</span>}
+            {zeile.hinweis && <span className="treffer__hinweis">· {zeile.hinweis}</span>}
           </span>
         </span>
         <Pfeil />

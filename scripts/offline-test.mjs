@@ -113,13 +113,19 @@ try {
     marken.join(', ') || 'keine Marken',
   )
 
-  // Der Startbildschirm zeigt ohne Verlauf keine Trefferzeilen mehr — geprüft
-  // wird deshalb, was immer da ist: Hero und Suchfeld.
+  // Der Startbildschirm zeigt ohne Verlauf keine Trefferzeilen. Nach dem
+  // Redesign ist der Hero bewusst nur noch eine kurze Orientierung ohne Titel;
+  // geprüft werden deshalb App-Titel, Kurzhinweis und Suchfeld.
   const zweite = await kontext.newPage()
   await zweite.goto(ADRESSE, { waitUntil: 'load' })
-  const einstieg = await zweite.locator('.hero__titel').innerText()
+  const appTitel = await zweite.locator('.kopfzeile__titel').innerText()
+  const hinweis = await zweite.locator('.hero__text').innerText()
   const feld = await zweite.locator('#suche').count()
-  pruefe('Kaltstart in einem neuen Tab', einstieg.length > 0 && feld === 1, einstieg)
+  pruefe(
+    'Kaltstart in einem neuen Tab',
+    appTitel === 'Darf ich das?' && hinweis.length > 0 && feld === 1,
+    `${appTitel} · ${hinweis}`,
+  )
 
   pruefe('Keine Seitenfehler', seitenfehler.length === 0, seitenfehler.join('; '))
   await browser.close()
