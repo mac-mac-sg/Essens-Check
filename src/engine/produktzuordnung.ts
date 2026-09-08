@@ -28,6 +28,31 @@ export interface ProduktZuordnung {
   konflikte: ZutatenKonflikt[]
 }
 
+/**
+ * Fremde Produkttexte enthalten kurze Funktionswörter, die als Wortanfang
+ * zufällig auf Katalogbegriffe zeigen können. «mit» traf beispielsweise
+ * «Mittel» in «pflanzliche Mittel». Diese Wörter tragen keinerlei
+ * Produktinformation und werden nur in OFF-Ankern entfernt; die Handsuche
+ * bleibt unverändert.
+ */
+const FREMDTEXT_STOPPWOERTER = new Set([
+  'mit', 'und', 'oder', 'von', 'vom', 'aus',
+  'der', 'die', 'das', 'den', 'dem', 'des',
+  'ein', 'eine', 'einer', 'eines',
+  'de', 'du', 'des', 'et', 'avec', 'aux',
+  'the', 'with', 'and', 'of',
+])
+
+function ohneFuellwoerter(text: string): string {
+  return text
+    .split(/\s+/)
+    .filter((wort) => {
+      const sauber = normalisiere(wort).replace(/[^a-z]/g, '')
+      return sauber.length > 0 && !FREMDTEXT_STOPPWOERTER.has(sauber)
+    })
+    .join(' ')
+}
+
 function fuegeAnkerHinzu(
   kandidaten: Map<string, KandidatIntern>,
   text: string | null,
@@ -36,7 +61,7 @@ function fuegeAnkerHinzu(
   katalog: LebensmittelKatalog,
 ) {
   if (!text) return
-  for (const vorschlag of bewerteteVorschlaege(text, katalog, 12)) {
+  for (const vorschlag of bewerteteVorschlaege(ohneFuellwoerter(text), katalog, 12)) {
     const punkte = vorschlag.gewicht * faktor
     const vorhanden = kandidaten.get(vorschlag.eintrag.id)
     if (vorhanden) {
@@ -102,9 +127,25 @@ function zutatenTeile(produkt: Produkt): string[] {
  * Wortgrenze erkannt: «Weinessig» oder «Bierhefe» dürfen deshalb nicht sperren.
  */
 function istAlkoholzutat(teil: string): boolean {
-  return /^(?:alkohol|ethanol|kirsch|rum|marsala|likör|likoer|cognac|brandy|weinbrand|grappa|amaretto|whisky|whiskey|gin|wodka|vodka)(?:\b|\s)/u.test(
+  return /^(?:alkohol|ethanol|kirsch|rum|marsala|likor|liqueur|cognac|brandy|weinbrand|grappa|amaretto|whisky|whiskey|gin|wodka|vodka)(?:\b|\s)/u.test(
     normalisiere(teil),
   )
+}
+
+/**
+ * Für ein explizites Fremddaten-Signal wie «Alkohol» wird keine fuzzy Suche
+ * benutzt. Nur genau ein Katalogeintrag mit exakt diesem Namen/Synonym darf
+ * stellvertretend als Konflikt dienen; bei Mehrdeutigkeit gibt es keinen Fund.
+ */
+function exaktBenannterEintrag(
+  begriff: string,
+  katalog: LebensmittelKatalog,
+): Lebensmittel | null {
+  const gesucht = normalisiere(begriff)
+  const treffer = katalog.lebensmittel.filter((eintrag) =>
+    [eintrag.name, ...eintrag.synonyme].some((text) => normalisiere(text) === gesucht),
+  )
+  return treffer.length === 1 ? treffer[0] ?? null : null
 }
 
 function zutatenTreffer(
@@ -117,7 +158,7 @@ function zutatenTreffer(
     if (eintrag) treffer.set(eintrag.id, eintrag)
 
     if (istAlkoholzutat(teil)) {
-      const alkohol = eindeutigerVorschlag('alkohol', katalog)
+      const alkohol = exaktBenannterEintrag('alkohol', katalog)
       if (alkohol) treffer.set(alkohol.id, alkohol)
     }
   }
