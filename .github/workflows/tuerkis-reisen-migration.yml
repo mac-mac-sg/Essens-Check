@@ -21,6 +21,11 @@ jobs:
         with:
           node-version: 22
 
+      - name: SVG-Renderer installieren
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
       - name: Design und Wissensbereich migrieren
         run: node scripts/tuerkis-reisen-migration.mjs
 
