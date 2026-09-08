@@ -1,30 +1,17 @@
+/**
+ * Der Einstieg: was die App tut, in zwei Sätzen — und dann das Suchfeld
+ * darunter.
+ */
 export function Hero() {
   return (
-    <section className="hero" aria-label="Kurzhinweis">
+    <section className="hero" aria-labelledby="hero-titel">
+      <h2 className="hero__titel" id="hero-titel">
+        Ein Lebensmittel, eine klare Antwort.
+      </h2>
       <p className="hero__text">
-        Eingeben oder scannen — die Antwort zeigt direkt, ob und unter welcher Zubereitung
-        ein Lebensmittel passt.
+        Eingeben oder scannen — und die Auskunft steht da: mit der Zubereitung, unter der
+        sie gilt, und dem Risiko, aus dem sie folgt.
       </p>
     </section>
-  )
-}
-
-export function Hinweiskacheln() {
-  return (
-    <div className="kacheln">
-      <div className="kachel">
-        <p className="kachel__titel">Schweizer Empfehlungen</p>
-        <p className="kachel__text">
-          Kuratiert nach BLV und BAG, strittige Stellen fachlich gegengelesen. Ersetzt
-          keine Beratung durch Hebamme oder Ärztin.
-        </p>
-      </div>
-      <div className="kachel">
-        <p className="kachel__titel">Zubereitung entscheidet</p>
-        <p className="kachel__text">
-          Roh, durcherhitzt, pasteurisiert oder gekühlt kann das Urteil verändern.
-        </p>
-      </div>
-    </div>
   )
 }
