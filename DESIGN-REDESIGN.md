@@ -20,14 +20,30 @@ Die App ist primär ein Entscheidungswerkzeug im Laden: öffnen, Lebensmittel ei
 - Normale Inhalte möglichst ohne zusätzliche Kartenfläche.
 - Verbundene Listen verwenden eine gemeinsame Fläche mit Trennlinien statt Einzelkarten.
 - Getönte Flächen sind Urteilen und gezielten Zuständen vorbehalten.
-- Milchglas wird auf sticky Suche und Bottom Navigation beschränkt.
+- Milchglas wird auf sticky Suche und Bottom Navigation beschränkt; die Schwangerschaftskarte im Markenheader darf eine leicht transparente Markenfläche verwenden, weil dort keine Urteilsfarbe codiert wird.
 - Das Bottom Sheet bleibt die höchste Oberflächenebene.
 
 Die bestehende Light-/Dark-Palette und die Trennung von Markenfarbe und Ampelfarben bleiben unverändert.
 
+## Markenheader
+
+Die Startseite verwendet einen adaptiven, burgunderfarbenen Markenheader. Er ist die einzige grosse Markenfläche der App und enthält:
+
+- das App-Signet,
+- `Darf ich das?`,
+- den Untertitel `Food Checker für die Schwangerschaft`,
+- den Einstellungen-Knopf,
+- den Schwangerschaftsstatus mit SSW, Trimester, verbleibenden Tagen und Fortschrittsbalken.
+
+Der Schwangerschaftsstatus ist Teil derselben Markenfläche und keine weisse Einzelkarte mehr. Dadurch konkurriert er nicht mehr mit dem App-Titel. Der Header darf subtile abstrakte Hintergrundformen verwenden; keine Illustration trägt fachliche Bedeutung.
+
+Auf `Liste`, `Wissen` und `Scannen` reduziert sich derselbe Markenheader auf eine kompakte Leiste mit Signet, Titel, Untertitel und Einstellungen. Schwangerschaftswoche und verbleibende Tage werden dort nicht wiederholt.
+
+Die Burgunderfläche ist reine Markenidentität. Statusfarben für `ok`, `bedingt`, `meiden` und `unklar` bleiben ausschliesslich den Lebensmittelurteilen vorbehalten.
+
 ## Start und Suche
 
-Die Startseite verwendet wieder den grösseren Hero mit dem Satz `Ein Lebensmittel, eine klare Antwort.`. Darunter folgt das Suchfeld. Der Schwangerschaftsstatus mit Schwangerschaftswoche und verbleibenden Tagen steht nur auf dieser Startseite.
+Die Startseite verwendet wieder den grösseren Hero mit dem Satz `Ein Lebensmittel, eine klare Antwort.`. Darunter folgt das Suchfeld. Der Schwangerschaftsstatus mit Schwangerschaftswoche und verbleibenden Tagen steht nur auf dieser Startseite und ist in den Markenheader integriert.
 
 Die Hintergrundkacheln `Schweizer Empfehlungen` und `Zubereitung entscheidet` stehen nicht mehr auf der Suchseite; diese Einordnung liegt im Einstellungs-Menü.
 
@@ -91,9 +107,12 @@ Der Scanner bleibt funktional unverändert. Schwangerschaftswoche und verbleiben
 
 Geburtstermin und Erscheinungsbild liegen im Einstellungen-Sheet. Der Einstellungen-Knopf bleibt oben rechts verfügbar. Das Sheet enthält:
 
-- Geburtstermin
-- Hell / Dunkel / Gerät
-- Informationen zur Einordnung und zu den Quellen
+- `App installieren`, wenn der Browser die PWA-Installation anbietet,
+- Geburtstermin,
+- Hell / Dunkel / Gerät,
+- Informationen zur Einordnung und zu den Quellen.
+
+Die Installationsaktion verwendet das native `beforeinstallprompt`-Ereignis des Browsers und erscheint nicht, wenn die App bereits im Standalone-Modus läuft oder der Browser keinen direkten Installationsdialog bereitstellt. Das Web-App-Manifest definiert `standalone` als bevorzugten Darstellungsmodus und verwendet die vorhandenen 192-, 512- und maskable Icons für den Homescreen.
 
 Der medizinische Hinweis auf Hebamme oder Ärztin bleibt auf jedem Screen sichtbar.
 
