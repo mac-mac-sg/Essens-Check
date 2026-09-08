@@ -24,22 +24,14 @@ export function Suchansicht({
   onOeffnen: (id: string) => void
   onVerlaufLeeren: () => void
 }) {
-  // Lange Listen sind auf dem Handy unbrauchbar. Es wird nichts weggelassen,
-  // nur später gezeigt — der Hinweis darunter sagt, wie viele noch folgen.
   const sichtbar = treffer.slice(0, MAX_TREFFER)
   const weitere = treffer.length - sichtbar.length
 
   return (
     <>
-      {!gesucht && <Hero />}
-
-      {/*
-        Die Suchleiste bleibt beim Scrollen oben stehen. In einem Laden ist sie
-        das Einzige, was zählt — sie darf nie erst wieder gesucht werden müssen.
-      */}
       <div className="suchleiste">
         <label className="feldtitel" htmlFor="suche">
-          Lebensmittel eingeben
+          Lebensmittel prüfen
         </label>
         <div className="suchfeld-huelle">
           <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -88,8 +80,8 @@ export function Suchansicht({
 
       {!gesucht && (
         <>
+          <Hero />
           <Verlauf ids={verlauf} onOeffnen={onOeffnen} onLeeren={onVerlaufLeeren} />
-          {/* Hintergrund, kein Einstieg — deshalb ganz unten. */}
           <Hinweiskacheln />
         </>
       )}
@@ -103,14 +95,6 @@ export function Suchansicht({
         </>
       )}
 
-      {/*
-        Nulltreffer: nicht raten, sondern sagen, dass nichts hinterlegt ist.
-
-        Bewusst ohne Urteilsmarke. Ein Suchbegriff, den der Katalog nicht kennt,
-        ist keine Bewertung — er sah aber wie eine aus, solange «Nichts
-        gefunden» in derselben Marke stand wie «Nicht bewertet». Ruhige Fläche,
-        gestrichelte Kante, keine Ampelfarbe.
-      */}
       {gesucht && treffer.length === 0 && (
         <div className="leer" role="status">
           <p className="leer__titel">{NICHTS_GEFUNDEN}</p>
@@ -122,10 +106,6 @@ export function Suchansicht({
         </div>
       )}
 
-      {/*
-        Steckt ein Katalogbegriff im Suchwort, wird gefragt statt geraten:
-        «Leberkäse» enthält «Leber» und ist doch eine Brühwurst.
-      */}
       {gesucht && treffer.length === 0 && teilwort.length > 0 && (
         <>
           <p className="teilwort__frage">Meintest du eines davon?</p>
