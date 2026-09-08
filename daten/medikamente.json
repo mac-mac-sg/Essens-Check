@@ -1,0 +1,445 @@
+{
+  "version": "0.1",
+  "stand": "2026-09-08",
+  "status": "pilot",
+  "hinweis": "Pilotkatalog für die geplante Medikamentenfunktion. Noch nicht in der produktiven Suche sichtbar. Die Einträge bilden Schwangerschaftsbewertungen auf Wirkstoffebene ab; konkrete Schweizer Handelsprodukte und Packungen werden in einem späteren Schritt über Swissmedic zugeordnet.",
+  "sicherheitshinweis": "Verordnete Medikamente nicht eigenständig beginnen, absetzen oder in der Dosis verändern. Die App ersetzt keine ärztliche oder pharmazeutische Beratung. Bei Überdosierung, akuten Beschwerden oder Unsicherheit medizinische Hilfe kontaktieren.",
+  "produktdaten_quellen": [
+    "swissmedic-ogd",
+    "swissmedic-aips"
+  ],
+  "quellen": [
+    {
+      "id": "swissmedic-ogd",
+      "typ": "swissmedic",
+      "titel": "Swissmedic – Listen, Verzeichnisse und OGD zu zugelassenen Arzneimitteln",
+      "url": "https://www.swissmedic.ch/swissmedic/de/home/services/listen_neu.html",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "produktdaten"
+    },
+    {
+      "id": "swissmedic-aips",
+      "typ": "swissmedic",
+      "titel": "Swissmedic – Fach- und Patienteninformationen (AIPS)",
+      "url": "https://www.swissmedic.ch/swissmedic/de/home/humanarzneimittel/authorisations/aips.html",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "produktdaten"
+    },
+    {
+      "id": "embryotox-paracetamol",
+      "typ": "teratologie",
+      "titel": "Embryotox – Paracetamol",
+      "url": "https://www.embryotox.de/arzneimittel/details/ansicht/medikament/paracetamol",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "schwangerschaftsbewertung"
+    },
+    {
+      "id": "embryotox-ibuprofen",
+      "typ": "teratologie",
+      "titel": "Embryotox – Ibuprofen",
+      "url": "https://www.embryotox.de/arzneimittel/details/ansicht/medikament/ibuprofen/",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "schwangerschaftsbewertung"
+    },
+    {
+      "id": "embryotox-diclofenac",
+      "typ": "teratologie",
+      "titel": "Embryotox – Diclofenac",
+      "url": "https://www.embryotox.de/arzneimittel/details/ansicht/medikament/diclofenac",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "schwangerschaftsbewertung"
+    },
+    {
+      "id": "embryotox-ass",
+      "typ": "teratologie",
+      "titel": "Embryotox – Acetylsalicylsäure",
+      "url": "https://www.embryotox.de/arzneimittel/details/ansicht/medikament/acetylsalicylsaeure/",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "schwangerschaftsbewertung"
+    },
+    {
+      "id": "embryotox-amoxicillin",
+      "typ": "teratologie",
+      "titel": "Embryotox – Amoxicillin",
+      "url": "https://www.embryotox.de/arzneimittel/details/ansicht/medikament/amoxicillin/",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "schwangerschaftsbewertung"
+    },
+    {
+      "id": "embryotox-cetirizin",
+      "typ": "teratologie",
+      "titel": "Embryotox – Cetirizin",
+      "url": "https://www.embryotox.de/arzneimittel/details/ansicht/medikament/cetirizin",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "schwangerschaftsbewertung"
+    },
+    {
+      "id": "embryotox-loratadin",
+      "typ": "teratologie",
+      "titel": "Embryotox – Loratadin",
+      "url": "https://www.embryotox.de/arzneimittel/details/ansicht/medikament/loratadin",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "schwangerschaftsbewertung"
+    },
+    {
+      "id": "embryotox-omeprazol",
+      "typ": "teratologie",
+      "titel": "Embryotox – Omeprazol",
+      "url": "https://www.embryotox.de/arzneimittel/details/ansicht/medikament/omeprazol",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "schwangerschaftsbewertung"
+    },
+    {
+      "id": "embryotox-metoclopramid",
+      "typ": "teratologie",
+      "titel": "Embryotox – Metoclopramid",
+      "url": "https://www.embryotox.de/arzneimittel/details/ansicht/medikament/metoclopramid",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "schwangerschaftsbewertung"
+    },
+    {
+      "id": "embryotox-xylometazolin",
+      "typ": "teratologie",
+      "titel": "Embryotox – Xylometazolin",
+      "url": "https://www.embryotox.de/arzneimittel/details/ansicht/medikament/xylometazolin",
+      "abgerufen_am": "2026-09-08",
+      "rolle": "schwangerschaftsbewertung"
+    }
+  ],
+  "medikamente": [
+    {
+      "id": "paracetamol",
+      "wirkstoff": "Paracetamol",
+      "synonyme": ["acetaminophen"],
+      "gruppe": "Schmerz und Fieber",
+      "verschreibungspflichtig": null,
+      "allgemeiner_hinweis": "Nicht unkritisch über mehrere Tage oder Wochen ohne ärztlichen Rat anwenden.",
+      "profile": [
+        {
+          "id": "indizierte-anwendung",
+          "label": "Übliche Anwendung gegen Schmerzen oder Fieber",
+          "beschreibung": "Anwendung im vorgesehenen Dosisbereich für die notwendige Behandlungsdauer.",
+          "darreichungswege": ["oral", "rektal", "intravenös"],
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 42,
+              "status": "geeignet",
+              "text": "Bei behandlungsbedürftigen Schmerzen und hohem Fieber gehört Paracetamol in jeder Phase der Schwangerschaft zu den Mitteln der Wahl.",
+              "bereits_eingenommen": "Bei üblicher Anwendung nennt die hinterlegte Schwangerschaftsquelle keine besonderen Massnahmen aufgrund der Einnahme.",
+              "hinweise": ["Nur für die notwendige Behandlungsdauer anwenden."]
+            }
+          ]
+        }
+      ],
+      "quellen": ["embryotox-paracetamol"]
+    },
+    {
+      "id": "ibuprofen",
+      "wirkstoff": "Ibuprofen",
+      "synonyme": [],
+      "gruppe": "Schmerz, Fieber und Entzündung",
+      "verschreibungspflichtig": null,
+      "allgemeiner_hinweis": "Eine länger dauernde NSAID-Therapie gehört in ärztliche Hände.",
+      "profile": [
+        {
+          "id": "systemisch",
+          "label": "Systemische Anwendung",
+          "beschreibung": "Zum Beispiel Tabletten oder andere systemisch wirksame Formen.",
+          "darreichungswege": ["oral", "intravenös"],
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 19,
+              "status": "geeignet",
+              "text": "Ibuprofen gehört in den ersten zwei Dritteln der Schwangerschaft neben Paracetamol zu den bevorzugten Schmerz- und Entzündungshemmern.",
+              "bereits_eingenommen": "Bei üblicher Anwendung in diesem Zeitraum nennt die hinterlegte Quelle keine besonderen Massnahmen allein aufgrund der Einnahme.",
+              "hinweise": ["Nicht ohne ärztlichen Rat über längere Zeit anwenden."]
+            },
+            {
+              "von_ssw": 20,
+              "bis_ssw": 27,
+              "status": "geeignet",
+              "text": "Ibuprofen kann bis vor SSW 28 eingesetzt werden. Ab SSW 20 wird eine wiederholte oder mehrtägige Anwendung jedoch relevanter für fetale Nierenfunktion und Fruchtwassermenge.",
+              "bereits_eingenommen": "Bei regelmässiger mehrtägiger Anwendung zwischen SSW 20 und 27 empfiehlt die hinterlegte Quelle eine ärztliche Beurteilung; eine einzelne übliche Einnahme wird davon unterschieden.",
+              "hinweise": ["Bei wiederholter oder mehrtägiger Anwendung ab SSW 20 ärztlich Rücksprache halten."]
+            },
+            {
+              "von_ssw": 28,
+              "bis_ssw": 42,
+              "status": "nicht_empfohlen",
+              "text": "Ab SSW 28 dürfen Ibuprofen und andere NSAID wegen möglicher fetaler Nieren- und Kreislaufwirkungen nicht angewendet werden.",
+              "bereits_eingenommen": "Nicht eigenständig weiter einnehmen. Bei wiederholter Einnahme ab SSW 28 oder einer Einnahme kurz vor dem Geburtstermin ärztlich abklären lassen.",
+              "hinweise": ["Paracetamol ist in der gesamten Schwangerschaft die besser geeignete Standardalternative bei Schmerzen oder Fieber."]
+            }
+          ]
+        }
+      ],
+      "quellen": ["embryotox-ibuprofen"]
+    },
+    {
+      "id": "diclofenac",
+      "wirkstoff": "Diclofenac",
+      "synonyme": [],
+      "gruppe": "Schmerz und Entzündung",
+      "verschreibungspflichtig": null,
+      "allgemeiner_hinweis": "Die Pilotbewertung deckt die systemische Anwendung ab; lokale Formen werden später separat modelliert.",
+      "profile": [
+        {
+          "id": "systemisch",
+          "label": "Systemische Anwendung",
+          "beschreibung": "Zum Beispiel Tabletten, Zäpfchen oder Injektionen.",
+          "darreichungswege": ["oral", "rektal", "intramuskulär", "intravenös"],
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 19,
+              "status": "geeignet",
+              "text": "Diclofenac kann in den ersten zwei Dritteln der Schwangerschaft als Schmerz- oder Entzündungshemmer verwendet werden.",
+              "bereits_eingenommen": "Bei üblicher Anwendung in diesem Zeitraum nennt die hinterlegte Quelle keine besonderen Massnahmen allein aufgrund der Einnahme.",
+              "hinweise": ["Nicht ohne ärztlichen Rat über längere Zeit anwenden."]
+            },
+            {
+              "von_ssw": 20,
+              "bis_ssw": 27,
+              "status": "geeignet",
+              "text": "Diclofenac kann bis vor SSW 28 eingesetzt werden. Ab SSW 20 ist bei regelmässiger oder mehrtägiger NSAID-Anwendung besondere Vorsicht erforderlich.",
+              "bereits_eingenommen": "Bei regelmässiger mehrtägiger Anwendung zwischen SSW 20 und 27 empfiehlt die hinterlegte Quelle eine ärztliche Beurteilung.",
+              "hinweise": ["Bei wiederholter oder mehrtägiger Anwendung ab SSW 20 ärztlich Rücksprache halten."]
+            },
+            {
+              "von_ssw": 28,
+              "bis_ssw": 42,
+              "status": "nicht_empfohlen",
+              "text": "Ab SSW 28 dürfen Diclofenac und andere NSAID wegen möglicher fetaler Nieren- und Kreislaufwirkungen nicht angewendet werden.",
+              "bereits_eingenommen": "Nicht eigenständig weiter einnehmen. Wiederholte Einnahmen ab SSW 28 oder eine Einnahme kurz vor dem Geburtstermin ärztlich abklären lassen.",
+              "hinweise": ["Paracetamol kann in der gesamten Schwangerschaft eingesetzt werden."]
+            }
+          ]
+        }
+      ],
+      "quellen": ["embryotox-diclofenac"]
+    },
+    {
+      "id": "acetylsalicylsaeure",
+      "wirkstoff": "Acetylsalicylsäure",
+      "synonyme": ["ASS", "Aspirin"],
+      "gruppe": "Schmerz, Fieber und Thrombozytenhemmung",
+      "verschreibungspflichtig": null,
+      "allgemeiner_hinweis": "Bei ASS ist die Dosis entscheidend. Eine ärztlich indizierte Low-dose-Therapie darf nicht mit einer Schmerzmitteldosis gleichgesetzt werden.",
+      "profile": [
+        {
+          "id": "low-dose-verordnet",
+          "label": "Low-dose, ärztlich verordnet",
+          "beschreibung": "30 bis maximal 300 mg pro Tag zur Thrombozytenhemmung beziehungsweise bei entsprechender geburtshilflicher Indikation.",
+          "darreichungswege": ["oral"],
+          "voraussetzung": "Nur für eine bereits ärztlich angeordnete Low-dose-Therapie; nicht eigenständig beginnen.",
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 42,
+              "status": "geeignet",
+              "text": "Eine medizinisch indizierte Low-dose-Behandlung mit ASS kann während der gesamten Schwangerschaft durchgeführt werden.",
+              "bereits_eingenommen": "Eine verordnete Low-dose-Therapie nicht eigenständig verändern. Zeitpunkt eines möglichen Absetzens vor Geburt oder Eingriff mit der behandelnden Fachperson klären.",
+              "hinweise": ["Diese Bewertung gilt ausdrücklich nur für eine ärztlich indizierte Low-dose-Therapie."]
+            }
+          ]
+        },
+        {
+          "id": "analgetisch",
+          "label": "Als Schmerz- oder Fiebermittel",
+          "beschreibung": "Analgetische Dosierung; Embryotox grenzt diese von Low-dose ab und nennt Einzeldosen ab etwa 500 mg als schmerzstillenden Bereich.",
+          "darreichungswege": ["oral"],
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 19,
+              "status": "mit_einschraenkung",
+              "text": "ASS ist als Schmerz- oder Fiebermittel bis SSW 28 nur zweite Wahl; Paracetamol und in den ersten zwei Dritteln auch Ibuprofen sind besser geeignete Optionen.",
+              "bereits_eingenommen": "Eine gelegentliche Einnahme vor SSW 28 ist nicht automatisch ein Anlass für besondere Massnahmen; bei wiederholter Anwendung ärztlich Rücksprache halten.",
+              "hinweise": ["Nicht mit einer ärztlich verordneten Low-dose-Therapie verwechseln."]
+            },
+            {
+              "von_ssw": 20,
+              "bis_ssw": 27,
+              "status": "mit_einschraenkung",
+              "text": "ASS bleibt als Schmerzmittel zweite Wahl. Bei regelmässiger oder mehrtägiger NSAID-Anwendung ab SSW 20 steigt die Bedeutung möglicher fetaler Nieren- und Fruchtwasserwirkungen.",
+              "bereits_eingenommen": "Bei regelmässiger mehrtägiger Anwendung zwischen SSW 20 und 27 ärztlich beurteilen lassen.",
+              "hinweise": ["Paracetamol ist die bevorzugte Standardoption bei Schmerzen oder Fieber."]
+            },
+            {
+              "von_ssw": 28,
+              "bis_ssw": 42,
+              "status": "nicht_empfohlen",
+              "text": "ASS in analgetischer Dosierung darf ab SSW 28 wie andere NSAID nicht angewendet werden. Das gilt nicht für eine separat ärztlich indizierte Low-dose-Therapie.",
+              "bereits_eingenommen": "Nicht eigenständig weiter einnehmen. Wiederholte analgetische Einnahmen ab SSW 28 oder eine Einnahme kurz vor dem Geburtstermin ärztlich abklären lassen.",
+              "hinweise": ["Eine verordnete Low-dose-Therapie ist ein anderes Anwendungsprofil und muss separat bewertet werden."]
+            }
+          ]
+        }
+      ],
+      "quellen": ["embryotox-ass"]
+    },
+    {
+      "id": "amoxicillin",
+      "wirkstoff": "Amoxicillin",
+      "synonyme": [],
+      "gruppe": "Antibiotika",
+      "verschreibungspflichtig": true,
+      "allgemeiner_hinweis": "Antibiotika nur für die ärztlich festgelegte Indikation und Behandlungsdauer anwenden.",
+      "profile": [
+        {
+          "id": "verordnet",
+          "label": "Ärztlich verordnete Anwendung",
+          "beschreibung": "Behandlung einer bakteriellen Infektion entsprechend der ärztlichen Verordnung.",
+          "darreichungswege": ["oral", "intravenös"],
+          "voraussetzung": "Nur nach ärztlicher Verordnung.",
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 42,
+              "status": "geeignet",
+              "text": "Amoxicillin gehört zu den Antibiotika der Wahl in der Schwangerschaft; die umfangreichen Daten ergeben keinen Hinweis auf ein erhöhtes Gesamtfehlbildungs- oder fetotoxisches Risiko.",
+              "bereits_eingenommen": "Die hinterlegte Schwangerschaftsquelle nennt nach einer Anwendung keine besonderen Massnahmen allein aufgrund von Amoxicillin.",
+              "hinweise": ["Nicht eigenständig für nicht abgeklärte Infektionen beginnen oder vorzeitig absetzen."]
+            }
+          ]
+        }
+      ],
+      "quellen": ["embryotox-amoxicillin"]
+    },
+    {
+      "id": "cetirizin",
+      "wirkstoff": "Cetirizin",
+      "synonyme": [],
+      "gruppe": "Allergie",
+      "verschreibungspflichtig": null,
+      "profile": [
+        {
+          "id": "indizierte-anwendung",
+          "label": "Übliche Anwendung bei Allergien",
+          "beschreibung": "Symptomatische Behandlung allergischer Beschwerden.",
+          "darreichungswege": ["oral"],
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 42,
+              "status": "geeignet",
+              "text": "Cetirizin kann nach der hinterlegten Schwangerschaftsquelle in allen Phasen der Schwangerschaft eingenommen werden.",
+              "bereits_eingenommen": "Nach üblicher Anwendung sind keine besonderen Massnahmen allein aufgrund von Cetirizin genannt.",
+              "hinweise": []
+            }
+          ]
+        }
+      ],
+      "quellen": ["embryotox-cetirizin"]
+    },
+    {
+      "id": "loratadin",
+      "wirkstoff": "Loratadin",
+      "synonyme": [],
+      "gruppe": "Allergie",
+      "verschreibungspflichtig": null,
+      "profile": [
+        {
+          "id": "indizierte-anwendung",
+          "label": "Übliche Anwendung bei Allergien",
+          "beschreibung": "Symptomatische Behandlung allergischer Beschwerden.",
+          "darreichungswege": ["oral"],
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 42,
+              "status": "geeignet",
+              "text": "Loratadin kann nach der hinterlegten Schwangerschaftsquelle in allen Phasen der Schwangerschaft eingenommen werden.",
+              "bereits_eingenommen": "Nach üblicher Anwendung sind keine besonderen Massnahmen allein aufgrund von Loratadin genannt.",
+              "hinweise": []
+            }
+          ]
+        }
+      ],
+      "quellen": ["embryotox-loratadin"]
+    },
+    {
+      "id": "omeprazol",
+      "wirkstoff": "Omeprazol",
+      "synonyme": [],
+      "gruppe": "Magen und Reflux",
+      "verschreibungspflichtig": null,
+      "profile": [
+        {
+          "id": "indizierte-anwendung",
+          "label": "Indizierte Anwendung bei säurebedingten Beschwerden",
+          "beschreibung": "Zum Beispiel bei Refluxösophagitis oder ärztlich begründeter Gastritisprophylaxe.",
+          "darreichungswege": ["oral", "intravenös"],
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 42,
+              "status": "geeignet",
+              "text": "Omeprazol gehört nach der hinterlegten Schwangerschaftsquelle zu den Mitteln der Wahl bei Refluxösophagitis beziehungsweise entsprechender Gastritisprophylaxe in der Schwangerschaft.",
+              "bereits_eingenommen": "Die hinterlegte Quelle nennt keine besonderen Massnahmen allein aufgrund einer Omeprazol-Anwendung.",
+              "hinweise": []
+            }
+          ]
+        }
+      ],
+      "quellen": ["embryotox-omeprazol"]
+    },
+    {
+      "id": "metoclopramid",
+      "wirkstoff": "Metoclopramid",
+      "synonyme": ["MCP"],
+      "gruppe": "Übelkeit und Erbrechen",
+      "verschreibungspflichtig": true,
+      "allgemeiner_hinweis": "Wegen dosis- und dauerabhängiger neurologischer Nebenwirkungen so kurz wie möglich anwenden.",
+      "profile": [
+        {
+          "id": "verordnet",
+          "label": "Ärztlich verordnete Anwendung",
+          "beschreibung": "Behandlung von Übelkeit und Erbrechen, insbesondere wenn die Indikation ärztlich gestellt wurde.",
+          "darreichungswege": ["oral", "intravenös"],
+          "voraussetzung": "Nur nach ärztlicher Verordnung.",
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 42,
+              "status": "mit_einschraenkung",
+              "text": "Metoclopramid kann in der Schwangerschaft gegen Übelkeit und Erbrechen eingesetzt werden, soll wegen möglicher neurologischer Nebenwirkungen aber möglichst kurz und nicht wochenlang angewendet werden.",
+              "bereits_eingenommen": "Die hinterlegte Schwangerschaftsquelle nennt nach einer Anwendung keine besonderen Massnahmen allein aufgrund von Metoclopramid.",
+              "hinweise": ["Für Schwangerschaftsübelkeit werden je nach Situation zunächst andere Wirkstoffe bevorzugt."]
+            }
+          ]
+        }
+      ],
+      "quellen": ["embryotox-metoclopramid"]
+    },
+    {
+      "id": "xylometazolin",
+      "wirkstoff": "Xylometazolin",
+      "synonyme": [],
+      "gruppe": "Schnupfen und verstopfte Nase",
+      "verschreibungspflichtig": null,
+      "allgemeiner_hinweis": "Nur lokal in therapeutischer Dosierung und kurzzeitig über einige Tage; chronische Anwendung vermeiden.",
+      "profile": [
+        {
+          "id": "nasal-kurzzeitig",
+          "label": "Nasale Kurzzeitanwendung",
+          "beschreibung": "Nasenspray oder Nasentropfen in therapeutischer Dosierung über wenige Tage.",
+          "darreichungswege": ["nasal"],
+          "ssw_fenster": [
+            {
+              "von_ssw": 0,
+              "bis_ssw": 42,
+              "status": "mit_einschraenkung",
+              "text": "Eine indikationsgerechte kurzzeitige nasale Anwendung von Xylometazolin in therapeutischer Dosierung ist während der gesamten Schwangerschaft möglich.",
+              "bereits_eingenommen": "Bei üblicher kurzzeitiger Anwendung nennt die hinterlegte Quelle keine besonderen Massnahmen. Bei chronischer oder deutlich überhöhter Anwendung ärztlich Rücksprache halten.",
+              "hinweise": ["Nur einige Tage anwenden, um Gewöhnung und Schleimhautschädigung zu vermeiden."]
+            }
+          ]
+        }
+      ],
+      "quellen": ["embryotox-xylometazolin"]
+    }
+  ]
+}
