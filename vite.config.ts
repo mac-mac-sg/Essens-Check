@@ -36,10 +36,12 @@ export default defineConfig({
         scope: BASIS,
         id: BASIS,
         display: 'standalone',
+        display_override: ['standalone', 'minimal-ui'],
         orientation: 'portrait',
         background_color: '#FAF7F7',
-        theme_color: '#F4ECEE',
+        theme_color: '#4E0F2F',
         categories: ['health', 'food'],
+        prefer_related_applications: false,
         icons: [
           { src: 'icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
           { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
