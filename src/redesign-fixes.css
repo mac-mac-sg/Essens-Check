@@ -1,0 +1,11 @@
+/* Kontextabhängige Korrekturen, die erst nach dem Basissheet greifen. */
+.sheet__inhalt .karte--ergebnis .titel {
+  display: none;
+}
+
+/* Die Systemschrift kennt 650 nicht überall zuverlässig. */
+.treffer__name,
+.kategorie__name,
+.sheet__titel {
+  font-weight: 600;
+}
