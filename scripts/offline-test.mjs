@@ -109,7 +109,7 @@ try {
   const marken = await seite.locator('.sheet .marke').allInnerTexts()
   pruefe(
     'Suche und Urteil funktionieren',
-    marken.join(',') === 'Bedingt,Nein',
+    marken.join(',') === 'Bedingt,Ja,Nein',
     marken.join(', ') || 'keine Marken',
   )
 

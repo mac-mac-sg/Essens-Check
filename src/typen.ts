@@ -20,12 +20,19 @@ export interface Regel {
   trimester_gewichtung: number | null
   trimester_text?: string
   /**
+   * Optionaler Status für ein bekanntes Trimester. Der normale `status` bleibt
+   * der sichere Rückfallwert, wenn kein Geburtstermin hinterlegt ist.
+   * So kann eine zeitlich begrenzte Schweizer Empfehlung abgebildet werden,
+   * ohne bei unbekanntem Schwangerschaftsstand zu früh zu lockern.
+   */
+  trimester_status?: Partial<Record<1 | 2 | 3, Status>>
+  /**
    * Grenze, die über die einzelne Mahlzeit hinausgeht — Koffein pro Tag,
-   * Thunfisch pro Woche. Sie steht auf der Karte, weil eine Auskunft pro
-   * Lebensmittel sie sonst verschweigt.
+   * frischer Thunfisch pro Woche. Sie steht auf der Karte, weil eine Auskunft
+   * pro Lebensmittel sie sonst verschweigt.
    */
   grenze?: string
-  /** Zustände, die diese Regel gerade NICHT entschärfen (Quecksilber überlebt das Kochen). */
+  /** Zustände, die diese Regel gerade NICHT entschärfen (Schadstoffe überleben das Kochen). */
   nicht_entschaerfbar_durch?: string[]
 }
 
@@ -41,8 +48,7 @@ export interface UnbedenklicherTag {
 
 /**
  * Etwas, das unabhängig vom einzelnen Lebensmittel gilt. Steht zentral, weil
- * es sonst an jedem betroffenen Eintrag wiederholt werden müsste — und die
- * Rindenfrage aus acht klaren Ja acht bedingte machen würde.
+ * es sonst an jedem betroffenen Eintrag wiederholt werden müsste.
  */
 export interface Grundsatz {
   titel: string
@@ -91,15 +97,14 @@ export interface Lebensmittel {
    * Überschreibt die generierte Begründung — für ALLE Varianten.
    *
    * Nur zulässig, wenn alle Varianten dasselbe Urteil tragen. Sonst steht ein
-   * beruhigender Satz unter einem roten Urteil (Halloumi roh) oder eine
-   * Warnung unter einem grünen (Kinderpunsch). Ein Test hält das offen.
+   * beruhigender Satz unter einem roten Urteil oder eine Warnung unter einem
+   * grünen. Ein Test hält das offen.
    */
   eigener_text?: string | null
   /**
    * Ergänzt die generierte Begründung, statt sie zu ersetzen. Das ist der
    * richtige Ort für alles, was zum Eintrag gehört, aber die Regel nicht
-   * ersetzt — Einordnung, Erkennungsmerkmal, Verweis auf einen zweiten
-   * Eintrag mit gegenläufigem Urteil.
+   * ersetzt.
    */
   zusatz_text?: string | null
 }
