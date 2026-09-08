@@ -134,23 +134,31 @@ function istAlkoholzutat(teil: string): boolean {
 
 /**
  * Für ein explizites Fremddaten-Signal wie «Alkohol» wird keine fuzzy Suche
- * benutzt. Nur genau ein Katalogeintrag mit exakt diesem Namen/Synonym darf
- * stellvertretend als Konflikt dienen; bei Mehrdeutigkeit gibt es keinen Fund.
+ * benutzt. Wenn mehrere Katalogeinträge den Begriff exakt führen, zählt nur
+ * ein einzelner klar riskanter Treffer (`meiden` oder `unklar`). So bleibt die
+ * Auswahl datengetrieben und eine harmlose/mehrdeutige Verwendung kann kein
+ * Sicherheitsargument vortäuschen.
  */
-function exaktBenannterEintrag(
+function exaktBenannterKonflikt(
   begriff: string,
   katalog: LebensmittelKatalog,
+  regeln: RegelKatalog,
 ): Lebensmittel | null {
   const gesucht = normalisiere(begriff)
   const treffer = katalog.lebensmittel.filter((eintrag) =>
     [eintrag.name, ...eintrag.synonyme].some((text) => normalisiere(text) === gesucht),
   )
-  return treffer.length === 1 ? treffer[0] ?? null : null
+  const riskant = treffer.filter((eintrag) => {
+    const status = listenzeile(eintrag, regeln).status
+    return status === 'meiden' || status === 'unklar'
+  })
+  return riskant.length === 1 ? riskant[0] ?? null : null
 }
 
 function zutatenTreffer(
   produkt: Produkt,
   katalog: LebensmittelKatalog,
+  regeln: RegelKatalog,
 ): Map<string, Lebensmittel> {
   const treffer = new Map<string, Lebensmittel>()
   for (const teil of zutatenTeile(produkt)) {
@@ -158,7 +166,7 @@ function zutatenTreffer(
     if (eintrag) treffer.set(eintrag.id, eintrag)
 
     if (istAlkoholzutat(teil)) {
-      const alkohol = exaktBenannterEintrag('alkohol', katalog)
+      const alkohol = exaktBenannterKonflikt('alkohol', katalog, regeln)
       if (alkohol) treffer.set(alkohol.id, alkohol)
     }
   }
@@ -201,7 +209,7 @@ export function ordneProduktZu(
     katalog,
   )
 
-  const zutaten = zutatenTreffer(produkt, katalog)
+  const zutaten = zutatenTreffer(produkt, katalog, regeln)
   for (const [id] of zutaten) {
     const kandidat = kandidaten.get(id)
     if (!kandidat) continue
