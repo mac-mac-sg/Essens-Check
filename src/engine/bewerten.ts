@@ -82,6 +82,73 @@ function ohneDoppelte(begruendungen: Begruendung[]): Begruendung[] {
   })
 }
 
+function grundsatzNachTitel(katalog: RegelKatalog, suchwort: string) {
+  const gesucht = suchwort.toLocaleLowerCase('de-CH')
+  return katalog.grundsaetze.find((grundsatz) =>
+    grundsatz.titel.toLocaleLowerCase('de-CH').includes(gesucht),
+  )
+}
+
+function hatRindenhinweis(begruendungen: Begruendung[]): boolean {
+  return begruendungen.some((begruendung) => {
+    const text = begruendung.text.toLocaleLowerCase('de-CH')
+    return text.includes('rinde') && (text.includes('wegschneid') || text.includes('entfern'))
+  })
+}
+
+function hatErhitzungsdefinition(begruendungen: Begruendung[]): boolean {
+  return begruendungen.some((begruendung) => {
+    const text = begruendung.text.toLocaleLowerCase('de-CH')
+    const temperatur = text.includes('70 °c') || text.includes('70°c')
+    const dauer = text.includes('zwei minuten') || text.includes('2 minuten')
+    return temperatur && dauer
+  })
+}
+
+/**
+ * Die früher zentral gezeigten «Gilt immer»-Hinweise bleiben fachlich erhalten,
+ * erscheinen aber nur noch direkt dort, wo sie für die konkrete Variante
+ * relevant sind. So geht der Hinweis bei einem `eigener_text` nicht verloren,
+ * ohne die Startseite wieder mit einer globalen Regelbox zu belasten.
+ */
+function grundsaetzeFuerVariante(
+  eintrag: Lebensmittel,
+  variante: Variante,
+  begruendungen: Begruendung[],
+  katalog: RegelKatalog,
+): Begruendung[] {
+  const ergaenzungen: Begruendung[] = []
+
+  const istHartkaeseImKaeseEintrag =
+    eintrag.gruppe === 'Käse' && variante.komponenten.some((komponente) => komponente.tag === 'hartkaese')
+  if (istHartkaeseImKaeseEintrag && !hatRindenhinweis(begruendungen)) {
+    const grundsatz = grundsatzNachTitel(katalog, 'Käserinde')
+    if (grundsatz) {
+      ergaenzungen.push({
+        regel: 'grundsatz-kaeserinde',
+        titel: grundsatz.titel,
+        text: grundsatz.text,
+      })
+    }
+  }
+
+  const istDurcherhitzt = variante.komponenten.some(
+    (komponente) => komponente.zustand === 'durcherhitzt',
+  )
+  if (istDurcherhitzt && !hatErhitzungsdefinition(begruendungen)) {
+    const grundsatz = grundsatzNachTitel(katalog, 'Erhitzen')
+    if (grundsatz) {
+      ergaenzungen.push({
+        regel: 'grundsatz-durcherhitzen',
+        titel: grundsatz.titel,
+        text: grundsatz.text,
+      })
+    }
+  }
+
+  return ergaenzungen
+}
+
 /**
  * Wendet eine einzelne Regel auf Zustand und Schwangerschaftsstand an.
  *
@@ -228,9 +295,20 @@ export function bewerteLebensmittel(
 ): Urteil {
   const varianten = eintrag.varianten.map((variante) => {
     const urteil = bewerteVariante(variante, katalog, trimester)
-    return eintrag.eigener_text
-      ? { ...urteil, begruendungen: [{ regel: 'eigener_text', text: eintrag.eigener_text }] }
-      : urteil
+    const basisBegruendungen: Begruendung[] = eintrag.eigener_text
+      ? [{ regel: 'eigener_text', text: eintrag.eigener_text }]
+      : urteil.begruendungen
+    const grundsaetze = grundsaetzeFuerVariante(
+      eintrag,
+      variante,
+      basisBegruendungen,
+      katalog,
+    )
+
+    return {
+      ...urteil,
+      begruendungen: ohneDoppelte([...basisBegruendungen, ...grundsaetze]),
+    }
   })
 
   return {
