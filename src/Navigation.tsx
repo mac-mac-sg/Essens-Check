@@ -1,5 +1,5 @@
-/** Die drei Wege durch die App. Reihenfolge wie im Alltag: erst suchen. */
-export type Ziel = 'suche' | 'uebersicht' | 'scanner'
+/** Die vier Wege durch die App. Reihenfolge wie im Alltag: erst suchen. */
+export type Ziel = 'suche' | 'uebersicht' | 'wissen' | 'scanner'
 
 function Lupe() {
   return (
@@ -18,6 +18,20 @@ function Liste() {
         stroke="currentColor"
         strokeWidth="1.9"
         strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
+function Buch() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path
+        d="M3.5 4.5c2.4-.8 4.6-.4 6.5 1.2v10c-1.9-1.6-4.1-2-6.5-1.2v-10Zm13 0c-2.4-.8-4.6-.4-6.5 1.2v10c1.9-1.6 4.1-2 6.5-1.2v-10Z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
@@ -45,15 +59,12 @@ function Strichcode() {
 const ZIELE: { ziel: Ziel; wort: string; Zeichen: () => JSX.Element }[] = [
   { ziel: 'suche', wort: 'Suchen', Zeichen: Lupe },
   { ziel: 'uebersicht', wort: 'Liste', Zeichen: Liste },
+  { ziel: 'wissen', wort: 'Wissen', Zeichen: Buch },
   { ziel: 'scanner', wort: 'Scannen', Zeichen: Strichcode },
 ]
 
 /**
- * Die drei Ziele der App in der Daumenzone.
- *
- * Vorher waren Liste und Scanner nur vom Startbildschirm aus erreichbar: wer
- * gesucht hatte, musste erst zurück. In einem Laden, einhändig, ist das der
- * falsche Weg.
+ * Die vier Hauptbereiche der App in der Daumenzone.
  *
  * Das aktive Ziel trägt Farbe **und** Fettung — die Farbe allein wäre bei
  * Rot-Grün-Schwäche verloren, und `aria-current` sagt es zusätzlich an.
