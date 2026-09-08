@@ -1,20 +1,10 @@
-import { BELIEBT, NICHTS_GEFUNDEN } from './ampel'
-import { lebensmittelKatalog } from './daten'
-import { MAX_TREFFER, suche } from './engine/suchen'
+import { NICHTS_GEFUNDEN } from './ampel'
+import { MAX_TREFFER } from './engine/suchen'
 import { Grundsaetze } from './Grundsaetze'
-import { Hero } from './Hero'
+import { Hero, Hinweiskacheln } from './Hero'
 import { Trefferliste } from './Trefferliste'
+import { Verlauf } from './Verlauf'
 import type { Lebensmittel } from './typen'
-
-/**
- * Die häufigen Begriffe als Katalogeinträge — einmal aufgelöst, nicht bei
- * jedem Tastendruck. Ein Begriff ohne Treffer fällt heraus, statt eine leere
- * Zeile zu erzeugen.
- */
-const BELIEBTE: Lebensmittel[] = BELIEBT.map(
-  (begriff) => suche(begriff, lebensmittelKatalog)[0],
-).filter((eintrag): eintrag is Lebensmittel => eintrag !== undefined)
-
 
 export function Suchansicht({
   begriff,
@@ -22,14 +12,18 @@ export function Suchansicht({
   treffer,
   teilwort,
   gesucht,
+  verlauf,
   onOeffnen,
+  onVerlaufLeeren,
 }: {
   begriff: string
   setBegriff: (wert: string) => void
   treffer: Lebensmittel[]
   teilwort: Lebensmittel[]
   gesucht: boolean
+  verlauf: readonly string[]
   onOeffnen: (id: string) => void
+  onVerlaufLeeren: () => void
 }) {
   // Lange Listen sind auf dem Handy unbrauchbar. Es wird nichts weggelassen,
   // nur später gezeigt — der Hinweis darunter sagt, wie viele noch folgen.
@@ -95,11 +89,10 @@ export function Suchansicht({
 
       {!gesucht && (
         <>
-
-          <h2 className="abschnitt__titel abschnitt__titel--klein">Häufig gesucht</h2>
-          <Trefferliste eintraege={BELIEBTE} onOeffnen={onOeffnen} />
-
+          <Verlauf ids={verlauf} onOeffnen={onOeffnen} onLeeren={onVerlaufLeeren} />
           <Grundsaetze />
+          {/* Hintergrund, kein Einstieg — deshalb ganz unten. */}
+          <Hinweiskacheln />
         </>
       )}
 

@@ -212,9 +212,19 @@ einmal da, statt für Systemvorgabe und Schalterwahl doppelt gepflegt zu werden.
 
 **Elemente**
 
-- **Hero** auf der Startansicht: was die App tut, die vier Stufen als Legende,
-  und zwei Kacheln — woran sich das misst, und dass die Zubereitung entscheidet.
-  Milchglas über der warmen Tönung.
+- **Hero** auf der Startansicht: was die App tut, in Titel und zwei Sätzen.
+  Milchglas über der warmen Tönung. Direkt darunter das Suchfeld — wer die App
+  öffnet, will etwas nachschlagen. Eine Legende der vier Stufen stand hier
+  einmal und ist weg: sie erklärt sich auf der ersten Karte von selbst.
+- **Verlauf** statt einer Liste häufiger Begriffe: die letzten fünf
+  nachgeschlagenen Lebensmittel, das Jüngste zuoberst, mit ihrem Urteil.
+  Gemerkt wird beim Öffnen einer Karte, nicht beim Tippen. Der Verlauf bleibt
+  auf dem Gerät wie der Geburtstermin und lässt sich mit einem Griff leeren —
+  eine Liste nachgeschlagener Lebensmittel verrät auf einem geteilten Gerät
+  etwas über eine Schwangerschaft. Ist er leer, erscheint der Abschnitt gar
+  nicht.
+- **Zwei Hinweiskacheln** am Ende der Startansicht — woran sich die Auskunft
+  misst, und dass die Zubereitung entscheidet. Hintergrund, kein Einstieg.
 - **Suchleiste** als Pille, klebt unter der Kopfzeile. In einem Laden ist sie
   das Einzige, was zählt, und darf nie erst wieder gesucht werden müssen. Ihre
   Position hängt an der gemessenen Höhe der Kopfzeile (`--kopf-hoehe`).
@@ -263,8 +273,9 @@ gesetzt als der Fliesstext. Keine Versalien-Labels.
    den gemessenen Kontrast der leisen Zeile auf 4.03 und damit unter AA. An der
    Kante liegt kein Text darauf.
 2. Hero darunter, solange nicht gesucht wird.
-3. Suchfeld als Pille, beim Start fokussiert, klebt unter der Kopfzeile.
-4. Häufige Begriffe als Trefferzeilen — mit ihrem Urteil, nicht als blosse Namen.
+3. Suchfeld als Pille direkt darunter, beim Start fokussiert, klebt unter der
+   Kopfzeile.
+4. Verlauf: die letzten fünf nachgeschlagenen Lebensmittel mit ihrem Urteil.
 5. Trefferliste ab zwei Zeichen, dieselben Zeilen.
 6. Ergebniskarte im Blatt von unten: Name, dann bei Zubereitungsabhängigkeit
    **alle Varianten untereinander sichtbar**, jede mit eigener Marke

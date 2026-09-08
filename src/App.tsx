@@ -11,6 +11,7 @@ import {
   type Wunsch,
 } from './farbschema'
 import { berechneStand, fortschritt, restAnzeige } from './schwangerschaft'
+import { ergaenzt, leseVerlauf, speichereVerlauf } from './verlauf'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
 import { Scanergebnis } from './Scanergebnis'
@@ -34,6 +35,8 @@ export function App() {
   const [termin, setTermin] = useState(() => leseGeburtstermin())
   const [terminBearbeiten, setTerminBearbeiten] = useState(false)
   const [wunsch, setWunsch] = useState<Wunsch>(() => leseWunsch())
+  /** Was zuletzt nachgeschlagen wurde. Bleibt auf dem Gerät. */
+  const [verlauf, setVerlauf] = useState<string[]>(() => leseVerlauf())
   const [systemDunkel, setSystemDunkel] = useState(
     () => window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false,
   )
@@ -123,6 +126,18 @@ export function App() {
   const oeffnen = (id: string, woher: Ansicht) => {
     setOffeneId(id)
     setHerkunft(woher)
+    // Gemerkt wird beim Öffnen, nicht beim Tippen: was tatsächlich
+    // nachgeschlagen wurde, ist die Auskunft — nicht jede halbe Eingabe.
+    setVerlauf((bisher) => {
+      const neu = ergaenzt(bisher, id)
+      speichereVerlauf(neu)
+      return neu
+    })
+  }
+
+  const verlaufLeeren = () => {
+    setVerlauf([])
+    speichereVerlauf([])
   }
 
   /** Ein gelesener Code wird sofort nachgeschlagen und bewertet. */
@@ -191,7 +206,9 @@ export function App() {
             treffer={treffer}
             teilwort={teilwort}
             gesucht={begriff.trim().length >= MINDESTLAENGE}
+            verlauf={verlauf}
             onOeffnen={(id) => oeffnen(id, 'suche')}
+            onVerlaufLeeren={verlaufLeeren}
           />
         )}
       </main>

@@ -113,10 +113,13 @@ try {
     marken.join(', ') || 'keine Marken',
   )
 
+  // Der Startbildschirm zeigt ohne Verlauf keine Trefferzeilen mehr — geprüft
+  // wird deshalb, was immer da ist: Hero und Suchfeld.
   const zweite = await kontext.newPage()
   await zweite.goto(ADRESSE, { waitUntil: 'load' })
-  const zeilen = await zweite.locator('.treffer__name').allInnerTexts()
-  pruefe('Kaltstart in einem neuen Tab', zeilen.length > 0, `${zeilen.length} Zeilen`)
+  const einstieg = await zweite.locator('.hero__titel').innerText()
+  const feld = await zweite.locator('#suche').count()
+  pruefe('Kaltstart in einem neuen Tab', einstieg.length > 0 && feld === 1, einstieg)
 
   pruefe('Keine Seitenfehler', seitenfehler.length === 0, seitenfehler.join('; '))
   await browser.close()

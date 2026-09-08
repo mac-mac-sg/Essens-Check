@@ -11,7 +11,6 @@ import {
   kompositumVorschlaege,
 } from './suchen'
 import { lebensmittelKatalog } from '../daten'
-import { BELIEBT } from '../ampel'
 
 const ids = (anfrage: string) => suche(anfrage, lebensmittelKatalog).map((e) => e.id)
 
@@ -114,11 +113,13 @@ describe('Rangfolge bei vielen Treffern', () => {
   })
 })
 
-describe('Einstiegs-Chips', () => {
-  it('führt jeder häufige Begriff zu mindestens einem Treffer', () => {
-    // Ein Chip, der ins Leere führt, wäre die schlechteste Visitenkarte.
-    for (const eintrag of BELIEBT) {
-      expect(ids(eintrag), eintrag).not.toEqual([])
+describe('Der Platzhalter im Suchfeld', () => {
+  it('nennt nur Begriffe, die auch treffen', () => {
+    // Er ist das Einzige, was jetzt noch Beispiele vorschlägt — seit die
+    // Einstiegs-Chips dem Verlauf gewichen sind. Ein Beispiel, das ins Leere
+    // führt, wäre die schlechteste Visitenkarte.
+    for (const begriff of ['Camembert', 'Lachs', 'Kaffee']) {
+      expect(ids(begriff), begriff).not.toEqual([])
     }
   })
 })

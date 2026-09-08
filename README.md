@@ -86,6 +86,13 @@ misst nach — Farbton, Helligkeit, und jeden Text gegen seinen Grund. Wer die
 Marke aufhellt oder das Ampelrot abdunkelt, bis beide dasselbe Rot sind, bekommt
 einen roten Testlauf.
 
+Auf dem Startbildschirm steht das Suchfeld direkt unter dem Hero, darunter der
+Verlauf: die letzten fünf nachgeschlagenen Lebensmittel mit ihrem Urteil,
+gemerkt beim Öffnen einer Karte. Er bleibt auf dem Gerät und lässt sich mit
+einem Griff leeren — eine Liste nachgeschlagener Lebensmittel verrät auf einem
+geteilten Gerät etwas über eine Schwangerschaft. Ganz unten zwei Hinweiskacheln
+als Hintergrund.
+
 In der Trefferliste steht neben jedem Namen, was die App verantworten kann.
 Wo die Varianten verschieden urteilen — bei fast der Hälfte des Katalogs —
 steht keine Ampelfarbe, sondern «Kommt drauf an» und die Frage, die
@@ -340,7 +347,7 @@ Repo je umbenannt, muss er an beiden Stellen mitgeändert werden.
 
 ## Stand
 
-Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 206 Unit-Tests und
+Alle fünf Aufgaben aus `SPEC.md` sind umgesetzt. 217 Unit-Tests und
 5 Offline-Prüfungen.
 
 ## Fachliche Durchsicht

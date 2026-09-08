@@ -40,5 +40,3 @@ export const GEMISCHT_WORT = 'Kommt drauf an'
  */
 export const NICHTS_GEFUNDEN = 'Nichts gefunden'
 
-/** Häufige Begriffe als Einstieg. Alle im Katalog hinterlegt. */
-export const BELIEBT = ['Camembert', 'Lachs', 'Kaffee', 'Salami', 'Tiramisu', 'Thunfisch']

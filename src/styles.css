@@ -540,8 +540,9 @@ body {
  */
 .hero {
   position: relative;
-  margin-bottom: 1.25rem;
-  padding: 1.5rem 1.25rem 1.25rem;
+  /* Kein Abstand nach unten: die Suchleiste soll direkt anschliessen. */
+  margin-bottom: 0.25rem;
+  padding: 1.5rem 1.25rem 1.5rem;
   background: var(--glas);
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
@@ -577,61 +578,24 @@ body {
   color: var(--text-zweitrangig);
 }
 
-.hero__ampel {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin: 1.125rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ampelchip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.4rem 0.7rem 0.4rem 0.6rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text-zweitrangig);
-  background: var(--karte);
-  border-radius: var(--radius-pille);
-  box-shadow: inset 0 0 0 1px var(--linie);
-}
-
-.ampelchip__punkt {
-  width: 0.625rem;
-  height: 0.625rem;
-  border-radius: 50%;
-  /* Ein Ring in der Schriftfarbe: der Punkt trägt auch ohne Farbwahrnehmung. */
-  box-shadow: inset 0 0 0 2px var(--karte);
-}
-
-.ampelchip__punkt[data-status='ok'] {
-  background: var(--farbe-ok);
-}
-.ampelchip__punkt[data-status='bedingt'] {
-  background: var(--farbe-bedingt);
-}
-.ampelchip__punkt[data-status='meiden'] {
-  background: var(--farbe-meiden);
-}
-.ampelchip__punkt[data-status='unklar'] {
-  background: var(--farbe-unklar);
-}
-
-.hero__kacheln {
+/*
+ * Hintergrund am Ende der Startansicht, nicht mehr im Hero. Leiser als alles
+ * darüber: wer hier ankommt, sucht nicht, sondern will wissen, worauf die
+ * Auskunft beruht.
+ */
+.kacheln {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
   gap: 0.6rem;
-  margin-top: 1.125rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--linie);
 }
 
 .kachel {
   padding: 0.85rem 0.9rem;
-  background: var(--karte);
+  background: var(--flaeche-still);
   border-radius: var(--radius-klein);
-  box-shadow: inset 0 0 0 1px var(--linie);
 }
 
 .kachel__titel {
@@ -749,6 +713,45 @@ body {
   font-size: 0.9375rem;
   line-height: 1.6;
   color: var(--text-zweitrangig);
+}
+
+/* ---------------------------- Verlauf ---------------------------- */
+
+.verlauf__kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/*
+ * Klein und leise: der Verlauf soll sich leeren lassen, ohne dass der Knopf
+ * so aussieht, als wäre das der Zweck des Abschnitts.
+ */
+.verlauf__leeren {
+  flex: 0 0 auto;
+  margin-top: 1.75rem;
+  padding: 0.25rem 0.5rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-gedaempft);
+  background: none;
+  border: none;
+  border-radius: var(--radius-klein);
+  cursor: pointer;
+  transition: color 140ms ease, background-color 140ms ease;
+}
+
+.verlauf__leeren:active {
+  background: var(--flaeche-gedrueckt);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .verlauf__leeren:hover {
+    color: var(--akzent);
+    background: var(--flaeche-still);
+  }
 }
 
 /* ---------------------------- Filterreihe ---------------------------- */

@@ -1,17 +1,10 @@
-import { AMPEL } from './ampel'
-import type { Status } from './typen'
-
-/** Die vier Stufen in der Reihenfolge, in der sie gelesen werden sollen. */
-const STUFEN: Status[] = ['ok', 'bedingt', 'meiden', 'unklar']
-
 /**
- * Der Einstieg: was die App tut, in welchen Stufen sie antwortet, und woran
- * sich das misst.
+ * Der Einstieg: was die App tut, in zwei Sätzen — und dann sofort das
+ * Suchfeld, das direkt darunter steht.
  *
- * Beides sind Aussagen über die App und keine Auskunft über ein Lebensmittel —
- * deshalb steht hier keine Ampelfarbe als Fläche, sondern nur als Punkt neben
- * ihrem Wort. Die Legende zeigt alle vier Stufen, auch «Nicht bewertet»: dass
- * die App eine Lücke als Lücke ausweist, gehört zu dem, was sie ausmacht.
+ * Ohne Ampellegende. Sie stand hier als Erklärung der vier Stufen, aber wer
+ * die App öffnet, will etwas nachschlagen und nicht erst eine Legende lesen;
+ * die Stufen erklären sich auf der ersten Karte von selbst.
  */
 export function Hero() {
   return (
@@ -24,30 +17,33 @@ export function Hero() {
         Eingeben oder scannen — und die Auskunft steht da: mit der Zubereitung, unter der
         sie gilt, und dem Risiko, aus dem sie folgt.
       </p>
-
-      <ul className="hero__ampel">
-        {STUFEN.map((status) => (
-          <li className="ampelchip" key={status}>
-            <span className="ampelchip__punkt" data-status={status} aria-hidden="true" />
-            {AMPEL[status].wort}
-          </li>
-        ))}
-      </ul>
-
-      <div className="hero__kacheln">
-        <div className="kachel">
-          <p className="kachel__titel">Schweizer Empfehlungen</p>
-          <p className="kachel__text">
-            Kuratiert nach den Angaben von BLV und BAG. Fachlich noch nicht gegengelesen.
-          </p>
-        </div>
-        <div className="kachel">
-          <p className="kachel__titel">Die Zubereitung zählt</p>
-          <p className="kachel__text">
-            Roh, durcherhitzt, pasteurisiert oder gekühlt macht meistens den Unterschied.
-          </p>
-        </div>
-      </div>
     </section>
+  )
+}
+
+/**
+ * Woran sich die Auskunft misst und was sie regelmässig entscheidet.
+ *
+ * Steht am Ende der Startansicht: es ist Hintergrund, kein Einstieg. Wer
+ * sucht, kommt gar nicht bis hierher — und wer wissen will, worauf die App
+ * beruht, scrollt ohnehin.
+ */
+export function Hinweiskacheln() {
+  return (
+    <div className="kacheln">
+      <div className="kachel">
+        <p className="kachel__titel">Schweizer Empfehlungen</p>
+        <p className="kachel__text">
+          Kuratiert nach den Angaben von BLV und BAG, die strittigen Stellen
+          fachlich gegengelesen.
+        </p>
+      </div>
+      <div className="kachel">
+        <p className="kachel__titel">Die Zubereitung zählt</p>
+        <p className="kachel__text">
+          Roh, durcherhitzt, pasteurisiert oder gekühlt macht meistens den Unterschied.
+        </p>
+      </div>
+    </div>
   )
 }
