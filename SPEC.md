@@ -162,7 +162,7 @@ Wahrheit in `src/styles.css`; diese Tabelle ist ihre Abschrift.
 | Rolle | Hell | Dunkel |
 |---|---|---|
 | Grundfläche | `#F8FAFA` | `#0e1517` |
-| Warme Tönung (Hero, Verlauf) | `#EEF5F5` | `#111D20` |
+| Kühle Tönung (Hero, Verlauf) | `#EEF5F5` | `#111D20` |
 | Karten | `#FFFFFF` | `#172124` |
 | Text | `#152024` | `#EDF5F6` |
 | Text zweitrangig | `#3D4B50` | `#C4D0D3` |
@@ -175,20 +175,17 @@ Wahrheit in `src/styles.css`; diese Tabelle ist ihre Abschrift.
 | Unklar | `#5A5257` auf `#EAE5E6` | `#ACA3A7` auf `#302A2D` |
 | Linien | `#DCE7E8` | `#28363A` |
 
-Die Markenfarbe ist rot, und Rot ist in dieser App die Farbe für «Besser
-nicht». Das ist die gefährlichste Stelle der Palette und wird auf drei Wegen
-gehalten:
+Die Markenfarbe ist bewusst **blau-türkis** und damit klar von den semantischen
+Urteilfarben getrennt. Besonders wichtig ist der Abstand zum grünen «Ja»: Das
+Türkis bleibt deutlich auf der blauen Seite und darf nicht in ein Sicherheitsgrün
+kippen. Rot, Ocker und Grau bleiben ausschliesslich den Urteilen vorbehalten.
 
-- **Farbton.** Die Marke ist pflaumig (330 Grad hell, 317 Grad dunkel), das
-  Ampelrot scharlachrot (358 beziehungsweise 5 Grad).
-- **Helligkeit.** Die Marke ist sehr dunkel, das Ampelrot deutlich heller.
-- **Rolle.** Die Marke erscheint ausschliesslich als Fläche — der gewählte
-  Filterchip, eine Aktion, der Fortschrittsstreifen. Das Urteil erscheint ausschliesslich als Schrift auf heller
-  Tönung. Sie treffen nie aufeinander.
-
-`src/palette.test.ts` liest beide Paletten aus `styles.css` und misst das nach.
-Wer die Marke aufhellt oder das Ampelrot abdunkelt, bis beide dasselbe Rot
-sind, bekommt einen roten Testlauf.
+- **Farbton.** Türkis-Blau und das grüne «Ja» haben einen messbaren Farbtonabstand.
+- **Rolle.** Die Marke erscheint als Headerfläche, Aktion, Fokussignal und
+  Fortschrittsstreifen. Ein Urteil trägt dagegen immer seine eigene Farbe und das
+  ausgeschriebene Statuswort.
+- **Test.** `src/palette.test.ts` liest beide Paletten direkt aus `styles.css` und
+  prüft Kontrast sowie den Farbtonabstand der Marke zu «Ja» und «Nein».
 
 Ocker steht bewusst zurück und ist als dritte Farbe nur für `bedingt`
 zugelassen. Rot-Grün-Schwäche abfangen: jedes Urteil trägt immer auch das Wort,
@@ -217,7 +214,7 @@ einmal da, statt für Systemvorgabe und Schalterwahl doppelt gepflegt zu werden.
 **Elemente**
 
 - **Hero** auf der Startansicht: was die App tut, in Titel und zwei Sätzen.
-  Milchglas über der warmen Tönung. Direkt darunter das Suchfeld — wer die App
+  Milchglas über der kühlen Tönung. Direkt darunter das Suchfeld — wer die App
   öffnet, will etwas nachschlagen. Eine Legende der vier Stufen stand hier
   einmal und ist weg: sie erklärt sich auf der ersten Karte von selbst.
 - **Verlauf** statt einer Liste häufiger Begriffe: die letzten fünf
