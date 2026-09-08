@@ -59,7 +59,6 @@ export function App() {
 
   const schema = ermittleSchema(wunsch, systemDunkel)
 
-  // Solange dem Gerät gefolgt wird, zieht ein Wechsel dort sofort nach.
   useEffect(() => {
     const abfrage = window.matchMedia?.('(prefers-color-scheme: dark)')
     if (!abfrage) return
@@ -77,10 +76,8 @@ export function App() {
     speichereWunsch(neu)
   }
 
-  // Ohne Termin bleibt die Wochenanzeige leer, statt eine falsche zu zeigen.
   const stand = useMemo(() => (termin ? berechneStand(termin, new Date()) : null), [termin])
   const treffer = useMemo(() => suche(begriff, lebensmittelKatalog), [begriff])
-  // Nur wenn die Suche leer ausgeht: Katalogbegriffe, die im Suchwort stecken.
   const teilwort = useMemo(
     () => (treffer.length === 0 ? kompositumVorschlaege(begriff, lebensmittelKatalog) : []),
     [begriff, treffer.length],
@@ -97,11 +94,6 @@ export function App() {
     setAnsicht('suche')
   }
 
-  /**
-   * Ein Ziel aus der Leiste. Der Scanner bekommt jedes Mal einen frischen
-   * Anlauf — sonst stünde nach der Rückkehr noch das Ergebnis des letzten
-   * Codes da, obwohl gerade neu gescannt werden soll.
-   */
   const zumZiel = (ziel: Ziel) => {
     setOffeneId(null)
     if (ziel === 'scanner') setCode(null)
@@ -110,17 +102,11 @@ export function App() {
     setAnsicht(ziel)
   }
 
-  /** Das Scanergebnis gehört zum Scanner, nicht zu einem vierten Ziel. */
   const aktivesZiel: Ziel = ansicht === 'scanergebnis' ? 'scanner' : ansicht
 
-  // Kein Scrollen nach oben mehr: die Karte kommt als Blatt darüber, die
-  // Trefferliste bleibt dahinter stehen. Zumachen führt dorthin zurück, wo
-  // gerade gesucht wurde — nicht an den Anfang.
   const oeffnen = (id: string, woher: Ansicht) => {
     setOffeneId(id)
     setHerkunft(woher)
-    // Gemerkt wird beim Öffnen, nicht beim Tippen: was tatsächlich
-    // nachgeschlagen wurde, ist die Auskunft — nicht jede halbe Eingabe.
     setVerlauf((bisher) => {
       const neu = ergaenzt(bisher, id)
       speichereVerlauf(neu)
@@ -133,7 +119,6 @@ export function App() {
     speichereVerlauf([])
   }
 
-  /** Ein gelesener Code wird sofort nachgeschlagen und bewertet. */
   const codeErkannt = (ean: string) => {
     setCode(ean)
     setAnsicht('scanergebnis')
@@ -144,50 +129,71 @@ export function App() {
     setAnsicht(herkunft === 'uebersicht' ? 'uebersicht' : 'suche')
   }
 
+  const standKnopf = (mitSsw: boolean) =>
+    stand ? (
+      <button
+        className="stand"
+        type="button"
+        style={{ '--anteil': `${fortschritt(stand.tageBis) * 100}%` } as CSSProperties}
+        onClick={() => setTerminBearbeiten(true)}
+        aria-label={`Woche ${stand.anzeige}, ${stand.trimester}. Trimester, ${restAnzeige(
+          stand.tageBis,
+        )}. Geburtstermin ändern`}
+      >
+        <span className="stand__woche">{mitSsw ? `SSW ${stand.anzeige}` : stand.anzeige}</span>
+        <span className="stand__trenner" aria-hidden="true" />
+        <span className="stand__rest">{restAnzeige(stand.tageBis)}</span>
+      </button>
+    ) : (
+      <button
+        className="stand stand--leer"
+        type="button"
+        onClick={() => setTerminBearbeiten(true)}
+      >
+        {mitSsw ? 'Geburtstermin eintragen' : 'Termin eintragen'}
+      </button>
+    )
+
+  const einstellungenKnopf = (
+    <button
+      className="einstellungen-knopf"
+      type="button"
+      aria-label="Einstellungen öffnen"
+      onClick={() => setEinstellungenOffen(true)}
+    >
+      <Zahnrad />
+    </button>
+  )
+
   return (
     <div className="app">
-      <header className="kopfzeile">
-        <div className="kopfzeile__oben">
-          <div className="kopfzeile__marke">
-            <h1 className="kopfzeile__titel">Darf ich das?</h1>
-            <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
-          </div>
-          <button
-            className="einstellungen-knopf"
-            type="button"
-            aria-label="Einstellungen öffnen"
-            onClick={() => setEinstellungenOffen(true)}
-          >
-            <Zahnrad />
-          </button>
-        </div>
-
-        {stand ? (
-          <button
-            className="stand"
-            type="button"
-            style={{ '--anteil': `${fortschritt(stand.tageBis) * 100}%` } as CSSProperties}
-            onClick={() => setTerminBearbeiten(true)}
-            aria-label={`Woche ${stand.anzeige}, ${stand.trimester}. Trimester, ${restAnzeige(
-              stand.tageBis,
-            )}. Geburtstermin ändern`}
-          >
-            <span className="stand__woche">SSW {stand.anzeige}</span>
-            <span className="stand__trenner" aria-hidden="true" />
-            <span className="stand__rest">{restAnzeige(stand.tageBis)}</span>
-          </button>
+      <header className={`kopfzeile ${ansicht === 'suche' ? 'kopfzeile--suche' : ''}`}>
+        {ansicht === 'suche' ? (
+          <>
+            <div className="kopfzeile__suche-meta">
+              {standKnopf(false)}
+              {einstellungenKnopf}
+            </div>
+            <div className="kopfzeile__marke">
+              <h1 className="kopfzeile__titel">Darf ich das?</h1>
+              <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
+            </div>
+          </>
         ) : (
-          <button
-            className="stand stand--leer"
-            type="button"
-            onClick={() => setTerminBearbeiten(true)}
-          >
-            Geburtstermin eintragen
-          </button>
+          <>
+            <div className="kopfzeile__oben">
+              <div className="kopfzeile__marke">
+                <h1 className="kopfzeile__titel">Darf ich das?</h1>
+                <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
+              </div>
+              {einstellungenKnopf}
+            </div>
+            {standKnopf(true)}
+          </>
         )}
       </header>
 
-      <main className="inhalt">
+      <main className={`inhalt ${ansicht === 'suche' ? 'inhalt--suche' : ''}`}>
         {ansicht === 'scanner' ? (
           <Scanner onErkannt={codeErkannt} onAbbruch={zumAnfang} />
         ) : ansicht === 'scanergebnis' && code ? (
@@ -254,7 +260,7 @@ export function App() {
         </Sheet>
       )}
 
-      <Fusszeile hinweisSteht={ansicht === 'suche' && begriff.trim().length < MINDESTLAENGE} />
+      <Fusszeile nurSicherheit={ansicht === 'suche'} />
 
       <Navigation aktiv={aktivesZiel} onWechsel={zumZiel} />
     </div>
