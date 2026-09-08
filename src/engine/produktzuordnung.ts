@@ -1,5 +1,6 @@
 import type { Lebensmittel, LebensmittelKatalog, RegelKatalog, Status } from '../typen'
 import type { Produkt } from './produktsuche'
+import { bewerteLebensmittel } from './bewerten'
 import { listenzeile } from './listenzeile'
 import { bewerteteVorschlaege, eindeutigerVorschlag, normalisiere } from './suchen'
 
@@ -28,6 +29,31 @@ export interface ProduktZuordnung {
   konflikte: ZutatenKonflikt[]
 }
 
+/**
+ * Fremde Produkttexte enthalten kurze Funktionswörter, die als Wortanfang
+ * zufällig auf Katalogbegriffe zeigen können. «mit» traf beispielsweise
+ * «Mittel» in «pflanzliche Mittel». Diese Wörter tragen keinerlei
+ * Produktinformation und werden nur in OFF-Ankern entfernt; die Handsuche
+ * bleibt unverändert.
+ */
+const FREMDTEXT_STOPPWOERTER = new Set([
+  'mit', 'und', 'oder', 'von', 'vom', 'aus',
+  'der', 'die', 'das', 'den', 'dem', 'des',
+  'ein', 'eine', 'einer', 'eines',
+  'de', 'du', 'des', 'et', 'avec', 'aux',
+  'the', 'with', 'and', 'of',
+])
+
+function ohneFuellwoerter(text: string): string {
+  return text
+    .split(/\s+/)
+    .filter((wort) => {
+      const sauber = normalisiere(wort).replace(/[^a-z]/g, '')
+      return sauber.length > 0 && !FREMDTEXT_STOPPWOERTER.has(sauber)
+    })
+    .join(' ')
+}
+
 function fuegeAnkerHinzu(
   kandidaten: Map<string, KandidatIntern>,
   text: string | null,
@@ -36,7 +62,7 @@ function fuegeAnkerHinzu(
   katalog: LebensmittelKatalog,
 ) {
   if (!text) return
-  for (const vorschlag of bewerteteVorschlaege(text, katalog, 12)) {
+  for (const vorschlag of bewerteteVorschlaege(ohneFuellwoerter(text), katalog, 12)) {
     const punkte = vorschlag.gewicht * faktor
     const vorhanden = kandidaten.get(vorschlag.eintrag.id)
     if (vorhanden) {
@@ -54,6 +80,32 @@ function fuegeAnkerHinzu(
   }
 }
 
+/**
+ * Hersteller hängen Variantenfarben oft als letztes Wort an einen Markennamen
+ * («Rivella Rot», «... Blue»). Als Lebensmittelbegriff ist dieses Wort wertlos
+ * und kann falsche Treffer erzeugen — «Rot» traf etwa «Rotbusch»/Rooibos.
+ *
+ * Nur die *nachgestellte* Farbe wird entfernt. Ein Markenname wie «Red Bull»
+ * bleibt deshalb vollständig erhalten und kann weiterhin über sein explizites
+ * Katalogsynonym erkannt werden.
+ */
+const PRODUKTNAME_ENDVARIANTEN = new Set([
+  'rot', 'red', 'rouge',
+  'blau', 'blue', 'bleu',
+  'grun', 'green', 'vert',
+  'gelb', 'yellow', 'jaune',
+  'schwarz', 'black', 'noir',
+  'weiss', 'white', 'blanc',
+])
+
+function produktnameOhneEndvariante(text: string): string {
+  const teile = text.trim().split(/\s+/)
+  if (teile.length < 2) return text
+  const letztes = normalisiere(teile[teile.length - 1] ?? '').replace(/[^a-z]/g, '')
+  if (!PRODUKTNAME_ENDVARIANTEN.has(letztes)) return text
+  return teile.slice(0, -1).join(' ')
+}
+
 function zutatenTeile(produkt: Produkt): string[] {
   const teile = new Set<string>()
   for (const tag of produkt.zutaten) {
@@ -67,6 +119,49 @@ function zutatenTeile(produkt: Produkt): string[] {
     }
   }
   return [...teile]
+}
+
+/**
+ * Zutatenlisten verwenden für Spirituosen oft nicht das Wort «Alkohol»,
+ * sondern die konkrete Zutat. In diesem engen Kontext ist «Kirsch» der Brand
+ * und nicht die Frucht «Kirschen». Die Begriffe werden nur am Wortanfang mit
+ * Wortgrenze erkannt: «Weinessig» oder «Bierhefe» dürfen deshalb nicht sperren.
+ */
+function istAlkoholzutat(teil: string): boolean {
+  return /^(?:alkohol|ethanol|kirsch|rum|marsala|likor|liqueur|cognac|brandy|weinbrand|grappa|amaretto|whisky|whiskey|gin|wodka|vodka)(?:\b|\s)/u.test(
+    normalisiere(teil),
+  )
+}
+
+function strengsterStatus(eintrag: Lebensmittel, regeln: RegelKatalog): Status {
+  const urteil = bewerteLebensmittel(eintrag, regeln)
+  const rang = (status: Status) => regeln.status_rangfolge.indexOf(status)
+  return urteil.varianten.reduce<Status>(
+    (strengster, variante) => rang(variante.status) > rang(strengster) ? variante.status : strengster,
+    'ok',
+  )
+}
+
+/**
+ * Für ein explizites Fremddaten-Signal wie «Alkohol» wird keine fuzzy Suche
+ * benutzt. Ein gemischter Katalogeintrag darf hier trotzdem als Konflikt dienen:
+ * Die Zutat beweist gerade, dass nicht seine harmlose 0,0-%-Variante gemeint ist.
+ * Deshalb zählt bei exakten Treffern der strengste lokal hinterlegte Variantenstatus.
+ */
+function exaktBenannterKonflikt(
+  begriff: string,
+  katalog: LebensmittelKatalog,
+  regeln: RegelKatalog,
+): ZutatenKonflikt | null {
+  const gesucht = normalisiere(begriff)
+  const treffer = katalog.lebensmittel
+    .filter((eintrag) =>
+      [eintrag.name, ...eintrag.synonyme].some((text) => normalisiere(text) === gesucht),
+    )
+    .map((eintrag) => ({ eintrag, status: strengsterStatus(eintrag, regeln) }))
+    .filter(({ status }) => status === 'meiden' || status === 'unklar')
+
+  return treffer.length === 1 ? treffer[0] ?? null : null
 }
 
 function zutatenTreffer(
@@ -101,7 +196,13 @@ export function ordneProduktZu(
   regeln: RegelKatalog,
 ): ProduktZuordnung {
   const kandidaten = new Map<string, KandidatIntern>()
-  fuegeAnkerHinzu(kandidaten, produkt.name, 5, 'Produktname', katalog)
+  fuegeAnkerHinzu(
+    kandidaten,
+    produktnameOhneEndvariante(produkt.name),
+    5,
+    'Produktname',
+    katalog,
+  )
   fuegeAnkerHinzu(kandidaten, produkt.generischerName, 4, 'Bezeichnung', katalog)
   fuegeAnkerHinzu(
     kandidaten,
@@ -111,6 +212,7 @@ export function ordneProduktZu(
     katalog,
   )
 
+  const teile = zutatenTeile(produkt)
   const zutaten = zutatenTreffer(produkt, katalog)
   for (const [id] of zutaten) {
     const kandidat = kandidaten.get(id)
@@ -126,9 +228,15 @@ export function ordneProduktZu(
   const [erster, zweiter] = sortiert
 
   const konflikte: ZutatenKonflikt[] = []
+  if (teile.some(istAlkoholzutat)) {
+    const alkohol = exaktBenannterKonflikt('alkohol', katalog, regeln)
+    if (alkohol) konflikte.push(alkohol)
+  }
+
   if (erster) {
     for (const eintrag of zutaten.values()) {
       if (eintrag.id === erster.eintrag.id) continue
+      if (konflikte.some((konflikt) => konflikt.eintrag.id === eintrag.id)) continue
       const status = listenzeile(eintrag, regeln).status
       // Nur bekannte klare Nein-/Unklar-Signale blockieren. Ein gemischtes
       // Lebensmittel wie «Milch» darf nicht jedes verarbeitete Produkt sperren.
