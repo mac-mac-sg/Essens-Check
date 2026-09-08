@@ -69,6 +69,18 @@ function zutatenTeile(produkt: Produkt): string[] {
   return [...teile]
 }
 
+/**
+ * Zutatenlisten verwenden für Spirituosen oft nicht das Wort «Alkohol»,
+ * sondern die konkrete Zutat. In diesem engen Kontext ist «Kirsch» der Brand
+ * und nicht die Frucht «Kirschen». Die Begriffe werden nur am Wortanfang mit
+ * Wortgrenze erkannt: «Weinessig» oder «Bierhefe» dürfen deshalb nicht sperren.
+ */
+function istAlkoholzutat(teil: string): boolean {
+  return /^(?:alkohol|ethanol|kirsch|rum|marsala|likör|likoer|cognac|brandy|weinbrand|grappa|amaretto|whisky|whiskey|gin|wodka|vodka)(?:\b|\s)/u.test(
+    normalisiere(teil),
+  )
+}
+
 function zutatenTreffer(
   produkt: Produkt,
   katalog: LebensmittelKatalog,
@@ -77,6 +89,11 @@ function zutatenTreffer(
   for (const teil of zutatenTeile(produkt)) {
     const eintrag = eindeutigerVorschlag(teil, katalog)
     if (eintrag) treffer.set(eintrag.id, eintrag)
+
+    if (istAlkoholzutat(teil)) {
+      const alkohol = eindeutigerVorschlag('alkohol', katalog)
+      if (alkohol) treffer.set(alkohol.id, alkohol)
+    }
   }
   return treffer
 }
