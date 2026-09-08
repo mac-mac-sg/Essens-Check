@@ -15,10 +15,13 @@ import { ergaenzt, leseVerlauf, speichereVerlauf } from './verlauf'
 import { Einstellungen } from './Einstellungen'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
+import { MedikamentDetail } from './MedikamentDetail'
+import { findeMedikament } from './medikamente/daten'
+import { findeMedikamentProdukt } from './medikamente/suche'
 import { Scanergebnis } from './Scanergebnis'
 import { Scanner } from './Scanner'
 import { Sheet } from './Sheet'
-import { Suchansicht } from './Suchansicht'
+import { Suchansicht, type Suchbereich } from './Suchansicht'
 import { Uebersicht } from './Uebersicht'
 import { Wissensbereich } from './Wissen'
 import { Fusszeile } from './Fusszeile'
@@ -66,8 +69,11 @@ function Markenlogo() {
 
 export function App() {
   const [ansicht, setAnsicht] = useState<Ansicht>('suche')
+  const [suchbereich, setSuchbereich] = useState<Suchbereich>('lebensmittel')
   const [begriff, setBegriff] = useState('')
   const [offeneId, setOffeneId] = useState<string | null>(null)
+  const [medikamentProduktId, setMedikamentProduktId] = useState<string | null>(null)
+  const [medikamentWirkstoffId, setMedikamentWirkstoffId] = useState<string | null>(null)
   /** Wohin der Rücksprung aus der Ergebniskarte führt. */
   const [herkunft, setHerkunft] = useState<Ansicht>('suche')
   /** Zuletzt gelesener Strichcode. */
@@ -140,10 +146,22 @@ export function App() {
 
   const offen = offeneId ? findeNachId(offeneId, lebensmittelKatalog) : undefined
   const urteil = offen ? bewerteLebensmittel(offen, regelKatalog, stand?.trimester) : undefined
+  const medikamentProdukt = medikamentProduktId
+    ? findeMedikamentProdukt(medikamentProduktId)
+    : null
+  const medikamentWirkstoff = medikamentWirkstoffId
+    ? findeMedikament(medikamentWirkstoffId)
+    : null
+
+  const medikamentSchliessen = () => {
+    setMedikamentProduktId(null)
+    setMedikamentWirkstoffId(null)
+  }
 
   const zumAnfang = () => {
     setBegriff('')
     setOffeneId(null)
+    medikamentSchliessen()
     setCode(null)
     setHerkunft('suche')
     setAnsicht('suche')
@@ -151,6 +169,7 @@ export function App() {
 
   const zumZiel = (ziel: Ziel) => {
     setOffeneId(null)
+    medikamentSchliessen()
     if (ziel === 'scanner') setCode(null)
     if (ziel === 'suche') setBegriff('')
     setHerkunft(ziel === 'uebersicht' ? 'uebersicht' : 'suche')
@@ -160,6 +179,7 @@ export function App() {
   const aktivesZiel: Ziel = ansicht === 'scanergebnis' ? 'scanner' : ansicht
 
   const oeffnen = (id: string, woher: Ansicht) => {
+    medikamentSchliessen()
     setOffeneId(id)
     setHerkunft(woher)
     setVerlauf((bisher) => {
@@ -167,6 +187,26 @@ export function App() {
       speichereVerlauf(neu)
       return neu
     })
+  }
+
+  const medikamentProduktOeffnen = (id: string) => {
+    setOffeneId(null)
+    setMedikamentWirkstoffId(null)
+    setMedikamentProduktId(id)
+  }
+
+  const medikamentWirkstoffOeffnen = (id: string) => {
+    setOffeneId(null)
+    setMedikamentProduktId(null)
+    setMedikamentWirkstoffId(id)
+  }
+
+  const suchbereichWechseln = (neu: Suchbereich) => {
+    if (neu === suchbereich) return
+    setSuchbereich(neu)
+    setBegriff('')
+    setOffeneId(null)
+    medikamentSchliessen()
   }
 
   const verlaufLeeren = () => {
@@ -186,7 +226,9 @@ export function App() {
 
   const ausWissenPruefen = (suchwort: string) => {
     setOffeneId(null)
+    medikamentSchliessen()
     setCode(null)
+    setSuchbereich('lebensmittel')
     setBegriff(suchwort)
     setHerkunft('suche')
     setAnsicht('suche')
@@ -243,7 +285,7 @@ export function App() {
             </div>
             <div className="kopfzeile__marke">
               <h1 className="kopfzeile__titel">Darf ich das?</h1>
-              <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
+              <p className="kopfzeile__unter">Lebensmittel & Medikamente in der Schwangerschaft</p>
             </div>
             {schwangerschaftsKarte}
           </>
@@ -252,7 +294,7 @@ export function App() {
             <Markenlogo />
             <div className="kopfzeile__marke">
               <h1 className="kopfzeile__titel">Darf ich das?</h1>
-              <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
+              <p className="kopfzeile__unter">Lebensmittel & Medikamente in der Schwangerschaft</p>
             </div>
             {einstellungenKnopf}
           </div>
@@ -278,6 +320,8 @@ export function App() {
           <Uebersicht onOeffnen={(id) => oeffnen(id, 'uebersicht')} />
         ) : (
           <Suchansicht
+            bereich={suchbereich}
+            onBereichWechsel={suchbereichWechseln}
             begriff={begriff}
             setBegriff={setBegriff}
             treffer={treffer}
@@ -286,6 +330,8 @@ export function App() {
             verlauf={verlauf}
             onOeffnen={(id) => oeffnen(id, 'suche')}
             onVerlaufLeeren={verlaufLeeren}
+            onMedikamentProduktOeffnen={medikamentProduktOeffnen}
+            onMedikamentWirkstoffOeffnen={medikamentWirkstoffOeffnen}
           />
         )}
       </main>
@@ -327,6 +373,26 @@ export function App() {
           fussKnopf={herkunft === 'uebersicht' ? 'Zurück zur Übersicht' : 'Zurück zur Suche'}
         >
           <Ergebniskarte urteil={urteil} />
+        </Sheet>
+      )}
+
+      {(medikamentProdukt || medikamentWirkstoff) && (
+        <Sheet
+          titel={medikamentProdukt?.name ?? medikamentWirkstoff?.wirkstoff ?? 'Medikament'}
+          onSchliessen={medikamentSchliessen}
+          fussKnopf="Zurück zur Medikamentensuche"
+        >
+          <MedikamentDetail
+            key={medikamentProdukt?.id ?? medikamentWirkstoff?.id}
+            produkt={medikamentProdukt}
+            medikamentId={medikamentWirkstoff?.id}
+            {...(stand ? { ssw: stand.woche, sswAnzeige: stand.anzeige } : {})}
+            onTerminAendern={() => {
+              medikamentSchliessen()
+              setTerminBearbeiten(true)
+            }}
+            onWirkstoffOeffnen={medikamentWirkstoffOeffnen}
+          />
         </Sheet>
       )}
 
