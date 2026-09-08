@@ -11,7 +11,7 @@ export function Fusszeile({
         {medikamente
           ? 'Ersetzt keine Beratung durch Ärztin, Hebamme oder Apotheke. Verordnete Medikamente nicht eigenständig beginnen, absetzen oder in der Dosis verändern.'
           : nurSicherheit
-            ? 'Ersetzt keine Beratung durch Hebamme oder Ärztin — im Zweifel dort nachfragen.'
+            ? 'Ersetzt keine Beratung durch Hebamme, Ärztin oder Apotheke — im Zweifel dort nachfragen.'
             : 'Kuratierte Angaben nach gängigen Schweizer Empfehlungen. Ersetzt keine Beratung durch Hebamme oder Ärztin — im Zweifel dort nachfragen.'}
       </p>
     </footer>
