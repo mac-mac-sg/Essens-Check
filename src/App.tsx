@@ -12,6 +12,7 @@ import {
 } from './farbschema'
 import { berechneStand, fortschritt, restAnzeige } from './schwangerschaft'
 import { ergaenzt, leseVerlauf, speichereVerlauf } from './verlauf'
+import { Einstellungen } from './Einstellungen'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
 import { Scanergebnis } from './Scanergebnis'
@@ -24,6 +25,20 @@ import { Navigation, type Ziel } from './Navigation'
 
 type Ansicht = 'suche' | 'uebersicht' | 'scanner' | 'scanergebnis'
 
+function Zahnrad() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="10" cy="10" r="2.6" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M10 2.7v1.4M10 15.9v1.4M17.3 10h-1.4M4.1 10H2.7M15.15 4.85l-.98.98M5.83 14.17l-.98.98M15.15 15.15l-.98-.98M5.83 5.83l-.98-.98"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
 export function App() {
   const [ansicht, setAnsicht] = useState<Ansicht>('suche')
   const [begriff, setBegriff] = useState('')
@@ -34,6 +49,7 @@ export function App() {
   const [code, setCode] = useState<string | null>(null)
   const [termin, setTermin] = useState(() => leseGeburtstermin())
   const [terminBearbeiten, setTerminBearbeiten] = useState(false)
+  const [einstellungenOffen, setEinstellungenOffen] = useState(false)
   const [wunsch, setWunsch] = useState<Wunsch>(() => leseWunsch())
   /** Was zuletzt nachgeschlagen wurde. Bleibt auf dem Gerät. */
   const [verlauf, setVerlauf] = useState<string[]>(() => leseVerlauf())
@@ -130,24 +146,33 @@ export function App() {
 
   return (
     <div className="app">
-      {/*
-        Kein Balken mehr, sondern Text direkt auf dem Grund: Titel und
-        Untertitel stehen als Erstes auf der Seite, in derselben Spur wie der
-        Inhalt darunter.
-      */}
       <header className="kopfzeile">
+        <div className="kopfzeile__oben">
+          <div className="kopfzeile__marke">
+            <h1 className="kopfzeile__titel">Darf ich das?</h1>
+            <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
+          </div>
+          <button
+            className="einstellungen-knopf"
+            type="button"
+            aria-label="Einstellungen öffnen"
+            onClick={() => setEinstellungenOffen(true)}
+          >
+            <Zahnrad />
+          </button>
+        </div>
+
         {stand ? (
           <button
             className="stand"
             type="button"
-            // Speist den Fortschrittsstreifen an der Unterkante der Fläche.
             style={{ '--anteil': `${fortschritt(stand.tageBis) * 100}%` } as CSSProperties}
             onClick={() => setTerminBearbeiten(true)}
             aria-label={`Woche ${stand.anzeige}, ${stand.trimester}. Trimester, ${restAnzeige(
               stand.tageBis,
             )}. Geburtstermin ändern`}
           >
-            <span className="stand__woche">{stand.anzeige}</span>
+            <span className="stand__woche">SSW {stand.anzeige}</span>
             <span className="stand__trenner" aria-hidden="true" />
             <span className="stand__rest">{restAnzeige(stand.tageBis)}</span>
           </button>
@@ -157,13 +182,9 @@ export function App() {
             type="button"
             onClick={() => setTerminBearbeiten(true)}
           >
-            Termin eintragen
+            Geburtstermin eintragen
           </button>
         )}
-        <div>
-          <h1 className="kopfzeile__titel">Darf ich das?</h1>
-          <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
-        </div>
       </header>
 
       <main className="inhalt">
@@ -195,11 +216,6 @@ export function App() {
         )}
       </main>
 
-      {/*
-        Der Termin ist eine geschlossene Aufgabe und gehört deshalb ins selbe
-        Blatt wie das Detail. Vorher stand das Formular über der Startansicht
-        und wurde vom Fokus im Suchfeld sofort aus dem Bild geschoben.
-      */}
       {terminBearbeiten && (
         <Sheet titel="Geburtstermin" onSchliessen={() => setTerminBearbeiten(false)}>
           <Geburtstermin
@@ -213,7 +229,21 @@ export function App() {
         </Sheet>
       )}
 
-      {/* Das Blatt liegt über der Ansicht, aus der es geöffnet wurde. */}
+      {einstellungenOffen && (
+        <Sheet titel="Einstellungen" onSchliessen={() => setEinstellungenOffen(false)}>
+          <Einstellungen
+            termin={termin}
+            schema={schema}
+            wunsch={wunsch}
+            onWunsch={waehleSchema}
+            onTerminAendern={() => {
+              setEinstellungenOffen(false)
+              setTerminBearbeiten(true)
+            }}
+          />
+        </Sheet>
+      )}
+
       {urteil && (
         <Sheet
           titel={urteil.name}
@@ -224,18 +254,7 @@ export function App() {
         </Sheet>
       )}
 
-      {/*
-        Auf dem Startbildschirm trägt die erste Hinweiskachel den Hinweis auf
-        Hebamme und Ärztin; dann entfällt der freistehende Satz darunter. In
-        jeder anderen Ansicht steht er in der Fusszeile.
-      */}
-      <Fusszeile
-        hinweisSteht={ansicht === 'suche' && begriff.trim().length < MINDESTLAENGE}
-        onTerminAendern={stand ? () => setTerminBearbeiten(true) : undefined}
-        schema={schema}
-        wunsch={wunsch}
-        onWunsch={waehleSchema}
-      />
+      <Fusszeile hinweisSteht={ansicht === 'suche' && begriff.trim().length < MINDESTLAENGE} />
 
       <Navigation aktiv={aktivesZiel} onWechsel={zumZiel} />
     </div>
