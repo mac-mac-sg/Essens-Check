@@ -1,40 +1,39 @@
 /*
- * Farbwelt: tiefes Burgunder als Marke, warme Rosé-Neutrale als Grund.
+ * Farbwelt: blau-lastiges Türkis als Marke, kühle Neutrale als Grund.
  *
- * Die Marke ist bewusst pflaumig (Farbton 330 Grad) und sehr dunkel, das
- * «meiden» der Ampel scharlachrot (358 Grad) und deutlich heller. Beide sind
- * rot, und genau darin liegt die Gefahr: Rot ist in dieser App die Farbe für
- * «Besser nicht». Getrennt werden sie über Farbton, Helligkeit und Rolle — die
+ * Die Marke ist bewusst blau-türkis (Farbton rund 190 Grad) und sehr dunkel, das
+ * «meiden» der Ampel scharlachrot (358 Grad) und deutlich heller. Damit liegt sie klar ausserhalb des grünen «Ja» und des roten «Nein». Getrennt werden
+ * Marke und Urteilfarben zusätzlich über Rolle und Beschriftung — die
  * Marke erscheint nur als dunkle Fläche (Leiste, Hero, eine Aktion), das Urteil
  * nur als Schrift auf heller Tönung, und jedes Urteil trägt zusätzlich sein
  * Wort. src/palette.test.ts misst das nach und lässt es nicht auseinanderlaufen.
  */
 :root {
-  --grundflaeche: #faf7f7;
+  --grundflaeche: #f8fafa;
   /* Warme Tönung für Hero und Verlauf — der Grund allein wäre zu leer. */
-  --grund-warm: #f4ecee;
+  --grund-warm: #eef5f5;
   --karte: #ffffff;
   /* Milchglas: durchscheinende Fläche mit heller Oberkante, wie Licht darauf. */
   --glas: rgba(255, 255, 255, 0.72);
   --glas-kante: rgba(255, 255, 255, 0.85);
 
-  --text: #1e1418;
-  --text-zweitrangig: #4a3b40;
-  --text-gedaempft: #6b5c63;
-  --platzhalter: #8a7b81;
-  --pfeil: #a3939a;
+  --text: #152024;
+  --text-zweitrangig: #3d4b50;
+  --text-gedaempft: #607177;
+  --platzhalter: #7d8c91;
+  --pfeil: #91a0a4;
 
-  --marke: #4e0f2f;
-  --marke-tief: #33071e;
+  --marke: #075f74;
+  --marke-tief: #033c4c;
   /* Die Marke als Fläche mit weisser Schrift darauf — gewählter Filterchip.
-     Im Dunkeln aufgehellt: das dunkle Burgunder träfe dort den Grund. */
-  --marke-flaeche: #4e0f2f;
-  /* Burgunder als Schriftfarbe auf Hellem. Im Dunkeln aufgehellt. */
-  --akzent: #8e1a45;
+     Im Dunkeln aufgehellt: das dunkle Türkis träfe dort den Grund. */
+  --marke-flaeche: #075f74;
+  /* Türkis-Blau als Schriftfarbe auf Hellem. Im Dunkeln aufgehellt. */
+  --akzent: #006579;
 
-  --linie: #e8dde1;
+  --linie: #dce7e8;
   /* Eigene, kräftigere Linie: die Fusszeilenkante darf feiner bleiben. */
-  --trennlinie: #ded0d5;
+  --trennlinie: #d1dee0;
 
   /* Urteilsfarben: Schrift und zugehörige Fläche. */
   --farbe-ok: #17603c;
@@ -47,18 +46,18 @@
   --flaeche-unklar: #eae5e6;
 
   /* Flächen statt Ränder: getönte Abstufungen der Grundfläche. */
-  --flaeche-still: #f1e9ec;
-  --flaeche-gedrueckt: #e8dee2;
-  --schatten: 0 1px 2px rgba(48, 12, 26, 0.05), 0 8px 24px rgba(48, 12, 26, 0.07);
+  --flaeche-still: #edf4f4;
+  --flaeche-gedrueckt: #e3ecee;
+  --schatten: 0 1px 2px rgba(9, 48, 58, 0.05), 0 8px 24px rgba(9, 48, 58, 0.07);
   /* Grosse Flächen tragen tiefer: das Sheet schwebt höher als eine Karte. */
-  --schatten-hoch: 0 2px 8px rgba(48, 12, 26, 0.09), 0 24px 56px rgba(48, 12, 26, 0.18);
-  --schleier: rgba(30, 20, 24, 0.5);
+  --schatten-hoch: 0 2px 8px rgba(9, 48, 58, 0.09), 0 24px 56px rgba(9, 48, 58, 0.18);
+  --schleier: rgba(14, 24, 27, 0.5);
 
   /* Der zurückgelegte Teil der Schwangerschaft, als Streifen in der Fläche. */
-  --stand-balken: #8e1a45;
-  --stand-spur: rgba(78, 15, 47, 0.14);
-  --schalter-an: #8e1a45;
-  --schalter-aus: #8c7c83;
+  --stand-balken: #006579;
+  --stand-spur: rgba(7, 95, 116, 0.14);
+  --schalter-an: #006579;
+  --schalter-aus: #7d8d92;
   --schalter-knopf: #ffffff;
 
   --radius: 24px;
@@ -93,25 +92,25 @@
  * derselben Farben laufen früher oder später auseinander.
  */
 :root[data-schema='dunkel'] {
-  --grundflaeche: #141013;
-  --grund-warm: #1b1418;
-  --karte: #1f191c;
-  --glas: rgba(38, 30, 34, 0.72);
+  --grundflaeche: #0e1517;
+  --grund-warm: #111d20;
+  --karte: #172124;
+  --glas: rgba(22, 33, 36, 0.72);
   --glas-kante: rgba(255, 255, 255, 0.07);
 
-  --text: #f0e9eb;
-  --text-zweitrangig: #cbbfc4;
-  --text-gedaempft: #a3959b;
-  --platzhalter: #8b7d83;
-  --pfeil: #837478;
+  --text: #edf5f6;
+  --text-zweitrangig: #c4d0d3;
+  --text-gedaempft: #98a9ad;
+  --platzhalter: #819398;
+  --pfeil: #75898e;
 
-  --marke: #22061a;
-  --marke-tief: #150310;
-  --marke-flaeche: #b8386a;
-  --akzent: #f0a5c0;
+  --marke: #032f3b;
+  --marke-tief: #011f29;
+  --marke-flaeche: #0a7486;
+  --akzent: #79dce5;
 
-  --linie: #332a2e;
-  --trennlinie: #43383d;
+  --linie: #28363a;
+  --trennlinie: #34464b;
 
   --farbe-ok: #79c99a;
   --flaeche-ok: #16321f;
@@ -122,18 +121,18 @@
   --farbe-unklar: #aca3a7;
   --flaeche-unklar: #302a2d;
 
-  --flaeche-still: #262024;
-  --flaeche-gedrueckt: #2f282c;
+  --flaeche-still: #1d2a2d;
+  --flaeche-gedrueckt: #263438;
   /* Schatten tragen auf dunklem Grund nicht — eine feine Kante schon. */
-  --schatten: 0 0 0 1px #2c2429, 0 8px 24px rgba(0, 0, 0, 0.45);
-  --schatten-hoch: 0 0 0 1px #362c31, 0 24px 56px rgba(0, 0, 0, 0.6);
+  --schatten: 0 0 0 1px #233034, 0 8px 24px rgba(0, 0, 0, 0.45);
+  --schatten-hoch: 0 0 0 1px #2b3a3f, 0 24px 56px rgba(0, 0, 0, 0.6);
   --schleier: rgba(0, 0, 0, 0.6);
 
-  --stand-balken: #f0a5c0;
-  --stand-spur: rgba(240, 165, 192, 0.22);
-  /* Auf dunklem Grund trägt das dunkle Burgunder als Fläche nicht. */
-  --schalter-an: #b8386a;
-  --schalter-aus: #6b5d63;
+  --stand-balken: #79dce5;
+  --stand-spur: rgba(121, 220, 229, 0.22);
+  /* Auf dunklem Grund trägt das sehr dunkle Türkis als Fläche nicht. */
+  --schalter-an: #0a7486;
+  --schalter-aus: #607176;
 
   color-scheme: dark;
 }
@@ -143,7 +142,7 @@
 }
 
 /*
- * Eine warme Tönung oben, die nach unten in den Grund ausläuft. Sie gibt der
+ * Eine kühle Tönung oben, die nach unten in den Grund ausläuft. Sie gibt der
  * Startansicht Tiefe, ohne dass irgendwo eine Kante entsteht — und liegt
  * fest, damit sie beim Scrollen nicht mitwandert.
  */

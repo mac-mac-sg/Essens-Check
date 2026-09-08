@@ -4,7 +4,7 @@ Dieses Dokument aktualisiert für die Oberfläche die entsprechenden Aussagen im
 
 ## Ziel
 
-Die App ist primär ein Entscheidungswerkzeug im Laden: öffnen, Lebensmittel eingeben oder scannen, Antwort erfassen. Ergänzend bietet `Wissen` einen klar getrennten redaktionellen Bereich für Ernährungsthemen und Rezeptideen. Erklärung und Einstellungen treten hinter diesen Hauptflüssen zurück.
+Die App ist primär ein Entscheidungswerkzeug im Laden: öffnen, Lebensmittel eingeben oder scannen, Antwort erfassen. Ergänzend bietet `Wissen` einen klar getrennten redaktionellen Bereich für Ernährungsthemen, Rezeptideen sowie Orientierung für unterwegs und auf Reisen. Erklärung und Einstellungen treten hinter diesen Hauptflüssen zurück.
 
 ## Informationshierarchie
 
@@ -16,18 +16,18 @@ Die App ist primär ein Entscheidungswerkzeug im Laden: öffnen, Lebensmittel ei
 
 ## Materialsystem
 
-- Grundfläche: warme Rosé-Neutrale aus der bestehenden Palette.
+- Grundfläche: kühle, sehr helle Neutrale aus der bestehenden Palette.
 - Normale Inhalte möglichst ohne zusätzliche Kartenfläche.
 - Verbundene Listen verwenden eine gemeinsame Fläche mit Trennlinien statt Einzelkarten.
 - Getönte Flächen sind Urteilen und gezielten Zuständen vorbehalten.
 - Milchglas wird auf sticky Suche und Bottom Navigation beschränkt; die Schwangerschaftskarte im Markenheader darf eine leicht transparente Markenfläche verwenden, weil dort keine Urteilsfarbe codiert wird.
 - Das Bottom Sheet bleibt die höchste Oberflächenebene.
 
-Die bestehende Light-/Dark-Palette und die Trennung von Markenfarbe und Ampelfarben bleiben unverändert.
+Light und Dark Mode verwenden dieselbe blau-türkise Markenidentität. Die semantischen Ampelfarben bleiben davon klar getrennt.
 
 ## Markenheader
 
-Die Startseite verwendet einen adaptiven, burgunderfarbenen Markenheader. Er ist die einzige grosse Markenfläche der App und enthält:
+Die Startseite verwendet einen adaptiven, türkis-blaufarbenen Markenheader. Er ist die einzige grosse Markenfläche der App und enthält:
 
 - das App-Signet,
 - `Darf ich das?`,
@@ -39,7 +39,7 @@ Der Schwangerschaftsstatus ist Teil derselben Markenfläche und keine weisse Ein
 
 Auf `Liste`, `Wissen` und `Scannen` reduziert sich derselbe Markenheader auf eine kompakte Leiste mit Signet, Titel, Untertitel und Einstellungen. Schwangerschaftswoche und verbleibende Tage werden dort nicht wiederholt.
 
-Die Burgunderfläche ist reine Markenidentität. Statusfarben für `ok`, `bedingt`, `meiden` und `unklar` bleiben ausschliesslich den Lebensmittelurteilen vorbehalten.
+Die Türkis-Blaufläche ist reine Markenidentität. Statusfarben für `ok`, `bedingt`, `meiden` und `unklar` bleiben ausschliesslich den Lebensmittelurteilen vorbehalten.
 
 ## Start und Suche
 
@@ -67,7 +67,7 @@ Die vier Hauptbereiche sind:
 
 - `Suchen` — Startseite und Lebensmittelprüfung
 - `Liste` — Kategorienbrowser der klar freigegebenen Lebensmittel
-- `Wissen` — Ernährungsthemen und Rezeptideen
+- `Wissen` — Ernährung, Rezeptideen sowie Unterwegs & Reisen
 - `Scannen` — Barcode-Prüfung
 
 Die Navigation bleibt in der Daumenzone. Das aktive Ziel trägt Farbe, Fettung und `aria-current`.
@@ -78,7 +78,7 @@ Die Navigation bleibt in der Daumenzone. Das aktive Ziel trägt Farbe, Fettung u
 
 ## Wissen
 
-Der Bereich `Wissen` ist redaktionell und darf nicht wie ein Lebensmittelurteil wirken. Er besteht aus zwei Einstiegen:
+Der Bereich `Wissen` ist redaktionell und darf nicht wie ein Lebensmittelurteil wirken. Er besteht aus drei Einstiegen:
 
 ### Ernährung in der Schwangerschaft
 
@@ -96,6 +96,14 @@ Der erste Umfang umfasst acht Themen, darunter Folsäure, Vitamin D, Eisen, Jod,
 - Detailansicht mit Zutaten, Zubereitung und einem eigenen Block `In der Schwangerschaft beachten`
 - Zutaten mit vorhandenem Katalogbezug können direkt zur Suche übergeben werden
 - keine pauschale Kennzeichnung `sicher in der Schwangerschaft`; stattdessen konkrete Zubereitungshinweise
+
+### Unterwegs & Reisen
+
+- sechs kompakte Themen für Wandern, Naturtage und Reisen
+- Bewegung und Höhenlage, Sonne und Hitze, Zecken, Lebensmittel-/Trinkwasserhygiene, Reiseplanung/lange Wege sowie Malaria/Zika und Mückenschutz
+- aktuelle Schweizer Quellen: BAG, Gesundheitsförderung Schweiz und HealthyTravel / Schweizerisches Expertenkomitee für Reisemedizin
+- keine statische Länderrisikoliste in der App; veränderliche Malaria-/Zika-Lagen werden ausdrücklich zur aktuellen Reisemedizinquelle verwiesen
+- keine individuelle Reisefreigabe oder medizinische Risikobeurteilung
 
 Der Wissensbereich bleibt vollständig im App-Bundle und funktioniert offline. Er führt keine zusätzliche Netzwerkverbindung ein.
 

@@ -156,39 +156,36 @@ Modern, ruhig, im Supermarkt bei schlechtem Licht und mit einer Hand bedienbar.
 
 **Farben**
 
-Burgunder als Marke, warme Rosé-Neutrale als Grund. Die Palette steht als
+Türkis-Blau als Marke, kühle helle Neutrale als Grund. Die Palette steht als
 Wahrheit in `src/styles.css`; diese Tabelle ist ihre Abschrift.
 
 | Rolle | Hell | Dunkel |
 |---|---|---|
-| Grundfläche | `#FAF7F7` | `#141013` |
-| Warme Tönung (Hero, Verlauf) | `#F4ECEE` | `#1B1418` |
-| Karten | `#FFFFFF` | `#1F191C` |
-| Text | `#1E1418` | `#F0E9EB` |
-| Text zweitrangig | `#4A3B40` | `#CBBFC4` |
-| Text gedämpft | `#6B5C63` | `#A3959B` |
-| Marke (Flächen, Aktionen) | `#4E0F2F` | `#22061A` |
-| Akzent (Schrift, Fokusring) | `#8E1A45` | `#F0A5C0` |
+| Grundfläche | `#F8FAFA` | `#0e1517` |
+| Kühle Tönung (Hero, Verlauf) | `#EEF5F5` | `#111D20` |
+| Karten | `#FFFFFF` | `#172124` |
+| Text | `#152024` | `#EDF5F6` |
+| Text zweitrangig | `#3D4B50` | `#C4D0D3` |
+| Text gedämpft | `#607177` | `#98A9AD` |
+| Marke (Flächen, Aktionen) | `#075F74` | `#032F3B` |
+| Akzent (Schrift, Fokusring) | `#006579` | `#79DCE5` |
 | Ja | `#17603C` auf `#DCEFE2` | `#79C99A` auf `#16321F` |
 | Bedingt | `#7A5311` auf `#F6ECD8` | `#E6BA66` auf `#352815` |
 | Nein | `#C4161B` auf `#FCDCDB` | `#FF9187` auf `#5A221C` |
 | Unklar | `#5A5257` auf `#EAE5E6` | `#ACA3A7` auf `#302A2D` |
-| Linien | `#E8DDE1` | `#332A2E` |
+| Linien | `#DCE7E8` | `#28363A` |
 
-Die Markenfarbe ist rot, und Rot ist in dieser App die Farbe für «Besser
-nicht». Das ist die gefährlichste Stelle der Palette und wird auf drei Wegen
-gehalten:
+Die Markenfarbe ist bewusst **blau-türkis** und damit klar von den semantischen
+Urteilfarben getrennt. Besonders wichtig ist der Abstand zum grünen «Ja»: Das
+Türkis bleibt deutlich auf der blauen Seite und darf nicht in ein Sicherheitsgrün
+kippen. Rot, Ocker und Grau bleiben ausschliesslich den Urteilen vorbehalten.
 
-- **Farbton.** Die Marke ist pflaumig (330 Grad hell, 317 Grad dunkel), das
-  Ampelrot scharlachrot (358 beziehungsweise 5 Grad).
-- **Helligkeit.** Die Marke ist sehr dunkel, das Ampelrot deutlich heller.
-- **Rolle.** Die Marke erscheint ausschliesslich als Fläche — der gewählte
-  Filterchip, eine Aktion, der Fortschrittsstreifen. Das Urteil erscheint ausschliesslich als Schrift auf heller
-  Tönung. Sie treffen nie aufeinander.
-
-`src/palette.test.ts` liest beide Paletten aus `styles.css` und misst das nach.
-Wer die Marke aufhellt oder das Ampelrot abdunkelt, bis beide dasselbe Rot
-sind, bekommt einen roten Testlauf.
+- **Farbton.** Türkis-Blau und das grüne «Ja» haben einen messbaren Farbtonabstand.
+- **Rolle.** Die Marke erscheint als Headerfläche, Aktion, Fokussignal und
+  Fortschrittsstreifen. Ein Urteil trägt dagegen immer seine eigene Farbe und das
+  ausgeschriebene Statuswort.
+- **Test.** `src/palette.test.ts` liest beide Paletten direkt aus `styles.css` und
+  prüft Kontrast sowie den Farbtonabstand der Marke zu «Ja» und «Nein».
 
 Ocker steht bewusst zurück und ist als dritte Farbe nur für `bedingt`
 zugelassen. Rot-Grün-Schwäche abfangen: jedes Urteil trägt immer auch das Wort,
@@ -217,7 +214,7 @@ einmal da, statt für Systemvorgabe und Schalterwahl doppelt gepflegt zu werden.
 **Elemente**
 
 - **Hero** auf der Startansicht: was die App tut, in Titel und zwei Sätzen.
-  Milchglas über der warmen Tönung. Direkt darunter das Suchfeld — wer die App
+  Milchglas über der kühlen Tönung. Direkt darunter das Suchfeld — wer die App
   öffnet, will etwas nachschlagen. Eine Legende der vier Stufen stand hier
   einmal und ist weg: sie erklärt sich auf der ersten Karte von selbst.
 - **Verlauf** statt einer Liste häufiger Begriffe: die letzten fünf
@@ -259,7 +256,7 @@ einmal da, statt für Systemvorgabe und Schalterwahl doppelt gepflegt zu werden.
   bewertet».
 
 Kontrast AA gilt in beiden Schemata und ist in beiden zu messen, nicht zu
-schätzen: das dunkle Burgunder als Schriftfarbe käme auf dunklem Grund auf
+schätzen: das dunkle Türkis-Blau als Schriftfarbe käme auf dunklem Grund auf
 1.3:1.
 
 **Typografie**: eine Familie, moderne Grotesk. Drei Gewichte — 500 für leise
@@ -277,7 +274,7 @@ ist keine Stufe der Skala.
 
 1. Kopf ohne Balken: der Stand als Pille, darunter «Darf ich das?» und
    «Food Checker für die Schwangerschaft». Das stand vorher in einer klebenden
-   burgunderroten Leiste — eine zweite Fläche über der Startansicht, die dem
+   türkis-blauroten Leiste — eine zweite Fläche über der Startansicht, die dem
    Einstieg die Ruhe nahm. Jetzt steht der Text direkt auf dem Grund und
    scrollt mit ihm weg.
 

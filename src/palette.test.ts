@@ -43,7 +43,7 @@ function farbe(palette: Record<string, string>, name: string): string {
   return wert
 }
 
-/** Farbton in Grad — sagt, ob zwei Rottöne wirklich verschiedene Rottöne sind. */
+/** Farbton in Grad — prüft den Abstand zwischen Marke und semantischen Urteilfarben. */
 function farbton(f: string): number {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(f.slice(i, i + 2), 16) / 255) as [
     number,
@@ -97,20 +97,19 @@ describe.each(SCHEMATA)('Palette (%s)', (_name, P) => {
   /*
    * Der Grund, aus dem diese Datei existiert.
    *
-   * Die Marke ist rot, und Rot ist in dieser App die Farbe für «Besser nicht».
-   * Getrennt werden beide über den Farbton — die Marke ist pflaumig, das Urteil
-   * scharlachrot — und über die Helligkeit. Wer die Marke aufhellt oder das
-   * Urteil abdunkelt, bis beide dasselbe Rot sind, hebt die Ampel auf.
+   * Die Marke ist blau-türkis. Entscheidend ist jetzt vor allem der Abstand zum
+   * grünen «Ja»: ein zu grün gezogenes Türkis würde Marken- und Sicherheitsfarbe
+   * visuell vermischen. Das rote «Nein» bleibt ebenfalls klar getrennt.
    */
-  it('hält die Marke vom Ampelrot getrennt', () => {
-    const abstand = Math.abs(farbton(p('--marke')) - farbton(p('--farbe-meiden')))
-    expect(Math.min(abstand, 360 - abstand)).toBeGreaterThanOrEqual(20)
-    expect(kontrast(p('--marke'), p('--farbe-meiden'))).toBeGreaterThanOrEqual(2)
-    expect(kontrast(p('--marke'), p('--flaeche-meiden'))).toBeGreaterThanOrEqual(1.5)
+  it('hält die türkis-blaue Marke von Ja und Nein getrennt', () => {
+    for (const [stufe, mindestabstand] of [['ok', 30], ['meiden', 70]] as const) {
+      const abstand = Math.abs(farbton(p('--marke')) - farbton(p(`--farbe-${stufe}`)))
+      expect(Math.min(abstand, 360 - abstand), stufe).toBeGreaterThanOrEqual(mindestabstand)
+    }
   })
 
   it('trägt die Marke auch als Fläche mit weisser Schrift', () => {
-    // Der gewählte Filterchip. Im Dunkeln träfe das dunkle Burgunder den
+    // Der gewählte Filterchip. Im Dunkeln träfe das sehr dunkle Türkis den
     // Grund — dort steht deshalb eine aufgehellte Fassung.
     expect(kontrast('#ffffff', p('--marke-flaeche'))).toBeGreaterThanOrEqual(4.5)
     expect(kontrast(p('--marke-flaeche'), p('--grundflaeche'))).toBeGreaterThanOrEqual(3)

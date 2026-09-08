@@ -386,6 +386,20 @@
   width: min(26rem, calc(100vw - 2 * var(--spur)));
 }
 
+.wissen-bereich:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 560px) {
+  .wissen-bereiche {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .wissen-bereich:nth-child(3) {
+    grid-column: auto;
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .wissen-bereich:hover,
   .wissen-karte:hover,

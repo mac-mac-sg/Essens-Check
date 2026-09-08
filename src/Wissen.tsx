@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Sheet } from './Sheet'
 
-type Bereich = 'ernaehrung' | 'rezepte'
+type Bereich = 'ernaehrung' | 'rezepte' | 'unterwegs'
 
 type Wissensartikel = {
   id: string
@@ -30,7 +30,7 @@ type Rezept = {
   symbol: SymbolArt
 }
 
-type SymbolArt = 'blatt' | 'tropfen' | 'korn' | 'tasse' | 'fisch' | 'schild' | 'sonne' | 'teller' | 'topf'
+type SymbolArt = 'blatt' | 'tropfen' | 'korn' | 'tasse' | 'fisch' | 'schild' | 'sonne' | 'teller' | 'topf' | 'berg' | 'koffer' | 'muecke'
 
 const ARTIKEL: Wissensartikel[] = [
   {
@@ -136,6 +136,87 @@ const ARTIKEL: Wissensartikel[] = [
     ],
     quelle: 'Quellen: BLV Ernährungsempfehlungen und SGE-Merkblatt Schwangerschaft, Stand 2026/2024.',
     symbol: 'teller',
+  },
+]
+
+const UNTERWEGS: Wissensartikel[] = [
+  {
+    id: 'wandern-bewegung',
+    titel: 'Wandern & Bewegung',
+    kicker: 'Draussen aktiv',
+    kurz: 'Bei unkomplizierter Schwangerschaft ist Bewegung erwünscht — Tour und Risiko sollten aber zur Situation passen.',
+    punkte: [
+      'Gesundheitsförderung Schweiz hält Bewegung bei einer unkomplizierten Schwangerschaft grundsätzlich für sinnvoll und nennt Wandern bis rund 2000 m ü. M. als gut möglich.',
+      'Aktivitäten mit hoher Sturz- oder Kollisionsgefahr werden nicht empfohlen. Bei anspruchsvollen Touren zählt deshalb nicht nur die Kondition, sondern auch Gelände, Trittsicherheit und Rückzugsmöglichkeit.',
+      'Bei Schmerzen oder deutlichem Unwohlsein die Aktivität abbrechen und erholen. Bei Unsicherheit oder einer Risikoschwangerschaft Touren vorher mit Ärztin oder Hebamme abstimmen.',
+    ],
+    quelle: 'Quelle: Gesundheitsförderung Schweiz, Bewegung in der Schwangerschaft; Empfehlungen für die Schweiz.',
+    symbol: 'berg',
+  },
+  {
+    id: 'sonne-hitze',
+    titel: 'Sonne, Hitze & Pausen',
+    kicker: 'Tourentag planen',
+    kurz: 'Schatten, Sonnenschutz, Flüssigkeit und ein angepasstes Tempo gehören draussen zur Grundausrüstung.',
+    punkte: [
+      'Das BAG empfiehlt, starke Sonne möglichst zu meiden; zwischen 11 und 16 Uhr ist die UV-Belastung besonders hoch. Kleidung, Kopfbedeckung und Sonnenbrille sind der wichtigste Schutz.',
+      'Unbedeckte Haut mit einem breit wirksamen Sonnenschutz mit mindestens LSF 30 schützen und den Schutz unterwegs erneuern.',
+      'An warmen Tagen Intensität und Etappenlänge anpassen, Schattenpausen einplanen und regelmässig trinken. Auf Reisen nur Wasser verwenden, dessen hygienische Qualität zuverlässig ist.',
+    ],
+    quelle: 'Quellen: BAG «Sonne und UV-Strahlung»; HealthyTravel, gesundes Reisen.',
+    symbol: 'sonne',
+  },
+  {
+    id: 'zecken',
+    titel: 'Zecken',
+    kicker: 'Nach der Tour',
+    kurz: 'Zecken kommen in der ganzen Schweiz vor — Schutz und Körperkontrolle sind einfach und wirksam.',
+    punkte: [
+      'Im Unterholz und hohen Gras möglichst bedeckende Kleidung und geschlossenes Schuhwerk tragen; Zeckenschutzmittel können ergänzen.',
+      'Nach Aufenthalten im Freien Körper und Kleidung sorgfältig absuchen. Eine gefundene Zecke möglichst rasch entfernen und die Stichstelle desinfizieren.',
+      'Bei Fieber oder auffälliger Hautrötung nach einem Zeckenstich ärztlich abklären lassen.',
+    ],
+    quelle: 'Quelle: BAG, FAQ und Schutzempfehlungen zu Zecken und zeckenübertragenen Krankheiten, Stand 2026.',
+    symbol: 'schild',
+  },
+  {
+    id: 'essen-wasser-reise',
+    titel: 'Essen & Trinkwasser unterwegs',
+    kicker: 'Reisehygiene',
+    kurz: 'Je ungewohnter die Hygieneverhältnisse, desto wichtiger werden heisse Speisen, sauberes Wasser und Handhygiene.',
+    punkte: [
+      'HealthyTravel empfiehlt konsequente Hand-, Lebensmittel- und Trinkwasserhygiene. Wo die Hygiene unsicher ist: gut durchgekocht und heiss serviert essen, Früchte selbst schälen und Wasser aus zuverlässig verschlossenen Flaschen verwenden.',
+      'In der Schwangerschaft zusätzlich rohen Fisch, rohes oder ungenügend gegartes Fleisch sowie nicht pasteurisierte Milch und entsprechende Produkte vermeiden.',
+      'Eiswürfel, kalte Buffets, rohe Salate oder bereits geschnittene Früchte sind bei unsicherer Wasser- und Küchenhygiene keine gute Wahl.',
+    ],
+    quelle: 'Quelle: HealthyTravel.ch, Nahrungsmittel und Trinkwasser sowie Reisen in Schwangerschaft und Stillzeit.',
+    symbol: 'tropfen',
+  },
+  {
+    id: 'reiseplanung-fliegen',
+    titel: 'Reiseplanung & lange Wege',
+    kicker: 'Vor der Abreise',
+    kurz: 'Eine unkomplizierte Schwangerschaft schliesst Reisen nicht aus — Reiseziel, Versorgung und lange Sitzzeiten verdienen aber Planung.',
+    punkte: [
+      'HealthyTravel nennt das mittlere Drittel der Schwangerschaft häufig als günstige Reisezeit. Vor grösseren Reisen sollten medizinische Versorgung am Ziel und Versicherungsschutz für Mutter und Kind geklärt sein.',
+      'Bei Flugreisen gelten je nach Airline unterschiedliche Regeln und Nachweispflichten. Diese vor der Buchung direkt bei der Fluggesellschaft prüfen.',
+      'Bei langen Flug-, Auto- oder Zugreisen regelmässig die Beine bewegen, wenn möglich aufstehen und genügend trinken. Individuelle Thromboserisiken vor längeren Reisen medizinisch besprechen.',
+    ],
+    quelle: 'Quelle: HealthyTravel.ch, Schweizerisches Expertenkomitee für Reisemedizin, «Reisen in Schwangerschaft und Stillzeit».',
+    symbol: 'koffer',
+  },
+  {
+    id: 'tropen-muecken',
+    titel: 'Tropen, Malaria & Zika',
+    kicker: 'Ziel entscheidet',
+    kurz: 'Bei tropischen Reisezielen ist die aktuelle Risikolage wichtiger als eine statische Länderliste in der App.',
+    punkte: [
+      'HealthyTravel rät während der Schwangerschaft von Reisen in Malaria-Risikogebiete ab. Lässt sich eine Reise nicht vermeiden, ist vorab eine reisemedizinische Beratung erforderlich.',
+      'Von Reisen in Gebiete mit einem aktuellen Zika-Ausbruch wird Schwangeren ebenfalls abgeraten. Risikogebiete können sich ändern — deshalb vor der Buchung und kurz vor Abreise aktuell auf HealthyTravel prüfen.',
+      'Konsequenter Mückenschutz umfasst lange Kleidung, geeignetes Repellent und je nach Reiseziel Moskitonetz beziehungsweise geschützte Schlafräume.',
+    ],
+    quelle: 'Quellen: HealthyTravel.ch und BAG, Reise- und Mückenschutzempfehlungen, Stand 2026.',
+    symbol: 'muecke',
   },
 ]
 
@@ -373,6 +454,12 @@ function Illustration({ art }: { art: SymbolArt }) {
         return <><circle cx="10" cy="10" r="3.3" /><path d="M10 2.4v2M10 15.6v2M2.4 10h2M15.6 10h2M4.6 4.6 6 6M14 14l1.4 1.4M15.4 4.6 14 6M6 14l-1.4 1.4" /></>
       case 'topf':
         return <><path d="M4.2 8h11.6v6.2a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V8ZM2.8 8h14.4M7.4 5.2h5.2" /><path d="M7 3.5c.8-.7.8-1.3 0-2M11 3.5c.8-.7.8-1.3 0-2" /></>
+      case 'berg':
+        return <><path d="M2.7 16 7.5 8l2.2 3.1 2.6-4.4L17.3 16H2.7Z" /><path d="m6.2 10.2 1.3-2.2 1.3 1.9" /></>
+      case 'koffer':
+        return <><rect x="4" y="6.2" width="12" height="9.2" rx="1.8" /><path d="M7.5 6.2V4.8c0-.7.5-1.2 1.2-1.2h2.6c.7 0 1.2.5 1.2 1.2v1.4M7 10.8h6M10 8.8v4" /></>
+      case 'muecke':
+        return <><ellipse cx="10" cy="10.5" rx="1.8" ry="3.2" /><path d="M8.5 8.8 5.2 6.2M11.5 8.8l3.3-2.6M8.4 11l-3.6 1.5M11.6 11l3.6 1.5M10 7.3V4.5M10 13.7v2.2" /></>
       default:
         return <><path d="M3.5 10h13a6.5 6.5 0 0 1-13 0Z" /><path d="M6.2 7.4c1.4-.9 2.6-.9 3.8 0 1.2-.9 2.4-.9 3.8 0" /></>
     }
@@ -459,7 +546,7 @@ export function Wissensbereich({ onPruefen }: { onPruefen: (begriff: string) => 
         <p className="wissen-start__kicker">Good to know</p>
         <h2 className="wissen-start__titel" id="wissen-titel">Wissen für den Alltag</h2>
         <p className="wissen-start__text">
-          Ernährung verstehen, Ideen finden und bei einzelnen Lebensmitteln weiterhin gezielt nachschlagen.
+          Ernährung verstehen, Rezeptideen finden und auch draussen oder auf Reisen schnell die wichtigsten Punkte nachschlagen.
         </p>
       </section>
 
@@ -490,6 +577,19 @@ export function Wissensbereich({ onPruefen }: { onPruefen: (begriff: string) => 
             <span>10 einfache Rezepte</span>
           </span>
         </button>
+        <button
+          type="button"
+          className="wissen-bereich"
+          data-aktiv={bereich === 'unterwegs' || undefined}
+          aria-pressed={bereich === 'unterwegs'}
+          onClick={() => setBereich('unterwegs')}
+        >
+          <Illustration art="sonne" />
+          <span className="wissen-bereich__text">
+            <strong>Unterwegs & Reisen</strong>
+            <span>6 praktische Themen</span>
+          </span>
+        </button>
       </div>
 
       {bereich === 'ernaehrung' ? (
@@ -515,7 +615,7 @@ export function Wissensbereich({ onPruefen }: { onPruefen: (begriff: string) => 
             ))}
           </div>
         </section>
-      ) : (
+      ) : bereich === 'rezepte' ? (
         <section className="wissen-abschnitt" aria-labelledby="wissen-rezepte">
           <div className="wissen-abschnitt__kopf">
             <h2 id="wissen-rezepte">Rezeptideen</h2>
@@ -543,10 +643,33 @@ export function Wissensbereich({ onPruefen }: { onPruefen: (begriff: string) => 
             ))}
           </div>
         </section>
+      ) : (
+        <section className="wissen-abschnitt" aria-labelledby="wissen-unterwegs">
+          <div className="wissen-abschnitt__kopf">
+            <h2 id="wissen-unterwegs">Unterwegs & Reisen</h2>
+            <p>Praktische Orientierung für Wandern, Naturtage und Reisen — mit Schweizer Quellen.</p>
+          </div>
+          <div className="wissen-karten">
+            {UNTERWEGS.map((artikel) => (
+              <button
+                key={artikel.id}
+                className="wissen-karte"
+                type="button"
+                onClick={() => setArtikelOffen(artikel)}
+              >
+                <Illustration art={artikel.symbol} />
+                <span className="wissen-karte__kicker">{artikel.kicker}</span>
+                <strong>{artikel.titel}</strong>
+                <span className="wissen-karte__kurz">{artikel.kurz}</span>
+                <span className="wissen-karte__mehr">Mehr erfahren <span aria-hidden="true">›</span></span>
+              </button>
+            ))}
+          </div>
+        </section>
       )}
 
       <p className="wissen-einordnung">
-        Wissensartikel und Rezepte sind Orientierung. Für das Urteil zu einem konkreten Lebensmittel bleibt «Suchen» massgebend.
+        Wissensartikel, Reisetipps und Rezepte sind Orientierung. Konkrete Gesundheitsfragen und individuelle Reise- oder Schwangerschaftsrisiken gehören in die medizinische Beratung; für Lebensmittel und Medikamente bleibt «Suchen» massgebend.
       </p>
 
       {artikelOffen && (
