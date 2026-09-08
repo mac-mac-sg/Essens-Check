@@ -1,70 +1,11 @@
-import type { Schema, Wunsch } from './farbschema'
-import { umgelegt } from './farbschema'
-
-/**
- * Der Hinweis auf Hebamme und Ärztin ist auf jedem Screen sichtbar und wird
- * nicht wegoptimiert (siehe CLAUDE.md). Formulierung aus dem Prototyp,
- * Umlaute korrigiert.
- *
- * `hinweisSteht` sagt, dass die Ansicht ihn schon trägt — auf dem
- * Startbildschirm steht er in der ersten Hinweiskachel. Dann entfällt hier
- * der freistehende Satz, der ihn ein zweites Mal gesagt hätte. Weggelassen
- * wird er nie: ohne die Kachel steht er hier.
- */
-export function Fusszeile({
-  onTerminAendern,
-  schema,
-  wunsch,
-  onWunsch,
-  hinweisSteht = false,
-}: {
-  onTerminAendern?: () => void
-  schema: Schema
-  wunsch: Wunsch
-  onWunsch: (wunsch: Wunsch) => void
-  hinweisSteht?: boolean
-}) {
-  const dunkel = schema === 'dunkel'
+export function Fusszeile({ hinweisSteht = false }: { hinweisSteht?: boolean }) {
   return (
     <footer className="fusszeile">
       {!hinweisSteht && (
         <p>
-          Kuratierte Angaben nach den gängigen Schweizer Empfehlungen. Ersetzt keine
-          Beratung durch Hebamme oder Ärztin — im Zweifel dort nachfragen.
+          Kuratierte Angaben nach gängigen Schweizer Empfehlungen. Ersetzt keine Beratung
+          durch Hebamme oder Ärztin — im Zweifel dort nachfragen.
         </p>
-      )}
-
-      {/*
-        Die ganze Zeile ist der Schalter. role=switch statt einer Checkbox,
-        weil die Wirkung sofort eintritt und nichts abgeschickt wird.
-      */}
-      <button
-        className="schema"
-        type="button"
-        role="switch"
-        aria-checked={dunkel}
-        onClick={() => onWunsch(umgelegt(schema))}
-      >
-        <span>Dunkelmodus</span>
-        <span className="schema__stand" aria-hidden="true">
-          {dunkel ? 'An' : 'Aus'}
-        </span>
-        <span className="schalter" aria-hidden="true">
-          <span className="schalter__knopf" />
-        </span>
-      </button>
-
-      {/* Ohne diesen Weg gäbe es kein Zurück zur Systemeinstellung. */}
-      {wunsch !== 'system' && (
-        <button className="fusszeile__termin" type="button" onClick={() => onWunsch('system')}>
-          Dem Gerät folgen
-        </button>
-      )}
-
-      {onTerminAendern && (
-        <button className="fusszeile__termin" type="button" onClick={onTerminAendern}>
-          Geburtstermin ändern
-        </button>
       )}
     </footer>
   )
