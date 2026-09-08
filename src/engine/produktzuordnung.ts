@@ -1,5 +1,6 @@
 import type { Lebensmittel, LebensmittelKatalog, RegelKatalog, Status } from '../typen'
 import type { Produkt } from './produktsuche'
+import { bewerteLebensmittel } from './bewerten'
 import { listenzeile } from './listenzeile'
 import { bewerteteVorschlaege, eindeutigerVorschlag, normalisiere } from './suchen'
 
@@ -132,43 +133,45 @@ function istAlkoholzutat(teil: string): boolean {
   )
 }
 
+function strengsterStatus(eintrag: Lebensmittel, regeln: RegelKatalog): Status {
+  const urteil = bewerteLebensmittel(eintrag, regeln)
+  const rang = (status: Status) => regeln.status_rangfolge.indexOf(status)
+  return urteil.varianten.reduce<Status>(
+    (strengster, variante) => rang(variante.status) > rang(strengster) ? variante.status : strengster,
+    'ok',
+  )
+}
+
 /**
  * Für ein explizites Fremddaten-Signal wie «Alkohol» wird keine fuzzy Suche
- * benutzt. Wenn mehrere Katalogeinträge den Begriff exakt führen, zählt nur
- * ein einzelner klar riskanter Treffer (`meiden` oder `unklar`). So bleibt die
- * Auswahl datengetrieben und eine harmlose/mehrdeutige Verwendung kann kein
- * Sicherheitsargument vortäuschen.
+ * benutzt. Ein gemischter Katalogeintrag darf hier trotzdem als Konflikt dienen:
+ * Die Zutat beweist gerade, dass nicht seine harmlose 0,0-%-Variante gemeint ist.
+ * Deshalb zählt bei exakten Treffern der strengste lokal hinterlegte Variantenstatus.
  */
 function exaktBenannterKonflikt(
   begriff: string,
   katalog: LebensmittelKatalog,
   regeln: RegelKatalog,
-): Lebensmittel | null {
+): ZutatenKonflikt | null {
   const gesucht = normalisiere(begriff)
-  const treffer = katalog.lebensmittel.filter((eintrag) =>
-    [eintrag.name, ...eintrag.synonyme].some((text) => normalisiere(text) === gesucht),
-  )
-  const riskant = treffer.filter((eintrag) => {
-    const status = listenzeile(eintrag, regeln).status
-    return status === 'meiden' || status === 'unklar'
-  })
-  return riskant.length === 1 ? riskant[0] ?? null : null
+  const treffer = katalog.lebensmittel
+    .filter((eintrag) =>
+      [eintrag.name, ...eintrag.synonyme].some((text) => normalisiere(text) === gesucht),
+    )
+    .map((eintrag) => ({ eintrag, status: strengsterStatus(eintrag, regeln) }))
+    .filter(({ status }) => status === 'meiden' || status === 'unklar')
+
+  return treffer.length === 1 ? treffer[0] ?? null : null
 }
 
 function zutatenTreffer(
   produkt: Produkt,
   katalog: LebensmittelKatalog,
-  regeln: RegelKatalog,
 ): Map<string, Lebensmittel> {
   const treffer = new Map<string, Lebensmittel>()
   for (const teil of zutatenTeile(produkt)) {
     const eintrag = eindeutigerVorschlag(teil, katalog)
     if (eintrag) treffer.set(eintrag.id, eintrag)
-
-    if (istAlkoholzutat(teil)) {
-      const alkohol = exaktBenannterKonflikt('alkohol', katalog, regeln)
-      if (alkohol) treffer.set(alkohol.id, alkohol)
-    }
   }
   return treffer
 }
@@ -209,7 +212,8 @@ export function ordneProduktZu(
     katalog,
   )
 
-  const zutaten = zutatenTreffer(produkt, katalog, regeln)
+  const teile = zutatenTeile(produkt)
+  const zutaten = zutatenTreffer(produkt, katalog)
   for (const [id] of zutaten) {
     const kandidat = kandidaten.get(id)
     if (!kandidat) continue
@@ -224,9 +228,15 @@ export function ordneProduktZu(
   const [erster, zweiter] = sortiert
 
   const konflikte: ZutatenKonflikt[] = []
+  if (teile.some(istAlkoholzutat)) {
+    const alkohol = exaktBenannterKonflikt('alkohol', katalog, regeln)
+    if (alkohol) konflikte.push(alkohol)
+  }
+
   if (erster) {
     for (const eintrag of zutaten.values()) {
       if (eintrag.id === erster.eintrag.id) continue
+      if (konflikte.some((konflikt) => konflikt.eintrag.id === eintrag.id)) continue
       const status = listenzeile(eintrag, regeln).status
       // Nur bekannte klare Nein-/Unklar-Signale blockieren. Ein gemischtes
       // Lebensmittel wie «Milch» darf nicht jedes verarbeitete Produkt sperren.
