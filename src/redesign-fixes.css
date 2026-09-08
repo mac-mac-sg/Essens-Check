@@ -430,3 +430,35 @@
     box-shadow: none;
   }
 }
+
+
+/* Kleine persönliche Ergänzung im Schwangerschaftsstatus: aus dem ET abgeleitet. */
+.stand__rechts {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.42rem;
+  min-width: 0;
+}
+
+.stand__sternzeichen {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  font-size: 0.95rem;
+  line-height: 1;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 999px;
+}
+
+@media (max-width: 350px) {
+  .stand__sternzeichen {
+    width: 1.4rem;
+    height: 1.4rem;
+    font-size: 0.86rem;
+  }
+}

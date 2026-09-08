@@ -142,15 +142,17 @@ const ARTIKEL: Wissensartikel[] = [
 const UNTERWEGS: Wissensartikel[] = [
   {
     id: 'wandern-bewegung',
-    titel: 'Wandern & Bewegung',
+    titel: 'Wandern, Höhe & Bewegung',
     kicker: 'Draussen aktiv',
-    kurz: 'Bei unkomplizierter Schwangerschaft ist Bewegung erwünscht — Tour und Risiko sollten aber zur Situation passen.',
+    kurz: 'Bei unkomplizierter Schwangerschaft ist Bewegung erwünscht — bei Bergtouren zählen Höhe, Belastung und Gelände.',
     punkte: [
-      'Gesundheitsförderung Schweiz hält Bewegung bei einer unkomplizierten Schwangerschaft grundsätzlich für sinnvoll und nennt Wandern bis rund 2000 m ü. M. als gut möglich.',
-      'Aktivitäten mit hoher Sturz- oder Kollisionsgefahr werden nicht empfohlen. Bei anspruchsvollen Touren zählt deshalb nicht nur die Kondition, sondern auch Gelände, Trittsicherheit und Rückzugsmöglichkeit.',
-      'Bei Schmerzen oder deutlichem Unwohlsein die Aktivität abbrechen und erholen. Bei Unsicherheit oder einer Risikoschwangerschaft Touren vorher mit Ärztin oder Hebamme abstimmen.',
+      'Für körperliche Aktivität nennt Gesundheitsförderung Schweiz Höhen bis rund 2000 m ü. M. als gut möglich. Das ist die praktische Orientierung für Wanderungen und aktive Bergtouren.',
+      'Ein Aufstieg und Aufenthalt für einige Stunden bis etwa 2500 m ü. M. gilt bei unkomplizierter Schwangerschaft grundsätzlich als möglich, wenn dabei keine stärkere körperliche Belastung dazukommt.',
+      'Über 2500 m sollte man in der Schwangerschaft zurückhaltend sein: HealthyTravel empfiehlt Aufenthalte oberhalb dieser Höhe zu meiden, weil das Risiko für Höhenkrankheit und Komplikationen steigt. Das gilt besonders bei schnellem Aufstieg aus dem Flachland oder längerem Aufenthalt.',
+      'Aktivitäten mit hoher Sturz- oder Kollisionsgefahr werden nicht empfohlen. Bei anspruchsvollen Touren zählen deshalb neben der Höhe auch Gelände, Trittsicherheit und eine einfache Rückzugsmöglichkeit.',
+      'Bei Schmerzen, Schwindel, Atemnot oder deutlichem Unwohlsein die Tour abbrechen. Bei Risikoschwangerschaft oder geplanten Aufenthalten nahe beziehungsweise über 2500 m die Tour vorher mit Ärztin oder Hebamme besprechen.',
     ],
-    quelle: 'Quelle: Gesundheitsförderung Schweiz, Bewegung in der Schwangerschaft; Empfehlungen für die Schweiz.',
+    quelle: 'Quellen: Gesundheitsförderung Schweiz, «Gesundheitswirksame Bewegung bei Frauen während und nach der Schwangerschaft»; HealthyTravel / Schweizerisches Expertenkomitee für Reisemedizin, Schwangerschaft und Reisen.',
     symbol: 'berg',
   },
   {
