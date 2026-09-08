@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
 import { findeNachId, kompositumVorschlaege, MINDESTLAENGE, suche } from './engine/suchen'
@@ -26,6 +26,19 @@ import { Navigation, type Ziel } from './Navigation'
 
 type Ansicht = 'suche' | 'uebersicht' | 'wissen' | 'scanner' | 'scanergebnis'
 
+interface Installationsaufforderung extends Event {
+  readonly platforms: string[]
+  readonly userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>
+  prompt: () => Promise<void>
+}
+
+declare global {
+  interface WindowEventMap {
+    beforeinstallprompt: Installationsaufforderung
+    appinstalled: Event
+  }
+}
+
 function Zahnrad() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -37,6 +50,17 @@ function Zahnrad() {
         strokeLinecap="round"
       />
     </svg>
+  )
+}
+
+function Markenlogo() {
+  return (
+    <img
+      className="kopfzeile__logo"
+      src={`${import.meta.env.BASE_URL}icon.svg`}
+      alt=""
+      aria-hidden="true"
+    />
   )
 }
 
@@ -57,6 +81,11 @@ export function App() {
   const [systemDunkel, setSystemDunkel] = useState(
     () => window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false,
   )
+  const [installationsaufforderung, setInstallationsaufforderung] =
+    useState<Installationsaufforderung | null>(null)
+  const [installiert, setInstalliert] = useState(
+    () => window.matchMedia?.('(display-mode: standalone)').matches ?? false,
+  )
 
   const schema = ermittleSchema(wunsch, systemDunkel)
 
@@ -72,9 +101,34 @@ export function App() {
     wendeAn(schema)
   }, [schema])
 
+  useEffect(() => {
+    const beiInstallierbar = (ereignis: Installationsaufforderung) => {
+      ereignis.preventDefault()
+      setInstallationsaufforderung(ereignis)
+    }
+    const beiInstalliert = () => {
+      setInstalliert(true)
+      setInstallationsaufforderung(null)
+    }
+
+    window.addEventListener('beforeinstallprompt', beiInstallierbar)
+    window.addEventListener('appinstalled', beiInstalliert)
+    return () => {
+      window.removeEventListener('beforeinstallprompt', beiInstallierbar)
+      window.removeEventListener('appinstalled', beiInstalliert)
+    }
+  }, [])
+
   const waehleSchema = (neu: Wunsch) => {
     setWunsch(neu)
     speichereWunsch(neu)
+  }
+
+  const appInstallieren = async () => {
+    if (!installationsaufforderung) return
+    await installationsaufforderung.prompt()
+    await installationsaufforderung.userChoice
+    setInstallationsaufforderung(null)
   }
 
   const stand = useMemo(() => (termin ? berechneStand(termin, new Date()) : null), [termin])
@@ -138,30 +192,34 @@ export function App() {
     setAnsicht('suche')
   }
 
-  const standKnopf = (mitSsw: boolean) =>
-    stand ? (
-      <button
-        className="stand"
-        type="button"
-        style={{ '--anteil': `${fortschritt(stand.tageBis) * 100}%` } as CSSProperties}
-        onClick={() => setTerminBearbeiten(true)}
-        aria-label={`Woche ${stand.anzeige}, ${stand.trimester}. Trimester, ${restAnzeige(
-          stand.tageBis,
-        )}. Geburtstermin ändern`}
-      >
-        <span className="stand__woche">{mitSsw ? `SSW ${stand.anzeige}` : stand.anzeige}</span>
-        <span className="stand__trenner" aria-hidden="true" />
+  const schwangerschaftsKarte = stand ? (
+    <button
+      className="stand stand--hero"
+      type="button"
+      onClick={() => setTerminBearbeiten(true)}
+      aria-label={`SSW ${stand.anzeige}, ${stand.trimester}. Trimester, ${restAnzeige(
+        stand.tageBis,
+      )}. Geburtstermin ändern`}
+    >
+      <span className="stand__kopf">
+        <span className="stand__woche">SSW {stand.anzeige}</span>
+        <span className="stand__trimester">{stand.trimester}. Trimester</span>
         <span className="stand__rest">{restAnzeige(stand.tageBis)}</span>
-      </button>
-    ) : (
-      <button
-        className="stand stand--leer"
-        type="button"
-        onClick={() => setTerminBearbeiten(true)}
-      >
-        {mitSsw ? 'Geburtstermin eintragen' : 'Termin eintragen'}
-      </button>
-    )
+      </span>
+      <span className="stand__fortschritt" aria-hidden="true">
+        <span style={{ width: `${fortschritt(stand.tageBis) * 100}%` }} />
+      </span>
+    </button>
+  ) : (
+    <button
+      className="stand stand--hero stand--leer"
+      type="button"
+      onClick={() => setTerminBearbeiten(true)}
+    >
+      <span className="stand__leer-titel">Schwangerschaft einrichten</span>
+      <span className="stand__leer-text">Geburtstermin eintragen und SSW anzeigen</span>
+    </button>
+  )
 
   const einstellungenKnopf = (
     <button
@@ -179,17 +237,19 @@ export function App() {
       <header className={`kopfzeile ${ansicht === 'suche' ? 'kopfzeile--suche' : ''}`}>
         {ansicht === 'suche' ? (
           <>
-            <div className="kopfzeile__suche-meta">
-              {standKnopf(false)}
+            <div className="kopfzeile__suche-kopf">
+              <Markenlogo />
               {einstellungenKnopf}
             </div>
             <div className="kopfzeile__marke">
               <h1 className="kopfzeile__titel">Darf ich das?</h1>
               <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
             </div>
+            {schwangerschaftsKarte}
           </>
         ) : (
-          <div className="kopfzeile__oben">
+          <div className="kopfzeile__kompakt">
+            <Markenlogo />
             <div className="kopfzeile__marke">
               <h1 className="kopfzeile__titel">Darf ich das?</h1>
               <p className="kopfzeile__unter">Food Checker für die Schwangerschaft</p>
@@ -249,6 +309,8 @@ export function App() {
             termin={termin}
             schema={schema}
             wunsch={wunsch}
+            installierbar={Boolean(installationsaufforderung) && !installiert}
+            onInstallieren={appInstallieren}
             onWunsch={waehleSchema}
             onTerminAendern={() => {
               setEinstellungenOffen(false)
