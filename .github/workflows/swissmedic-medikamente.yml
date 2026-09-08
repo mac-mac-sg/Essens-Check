@@ -1,0 +1,101 @@
+name: Swissmedic-Medikamentendaten aktualisieren
+
+on:
+  schedule:
+    # Swissmedic publiziert monatlich. Der 5. lässt Zeit für den Monatswechsel
+    # und erzeugt bei unveränderten Daten einfach keinen PR.
+    - cron: '23 5 5 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  aktualisieren:
+    name: Monatlichen Produktsnapshot prüfen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Swissmedic OGD laden und Snapshot erzeugen
+        run: npm run medikamente:swissmedic
+
+      - name: Fach- und Datenregressionen ausführen
+        run: |
+          npm run typecheck
+          npm test
+
+      - name: Änderung feststellen
+        id: aenderung
+        shell: bash
+        run: |
+          if git diff --quiet -- daten/medikament-produkte.json; then
+            echo "vorhanden=false" >> "$GITHUB_OUTPUT"
+            echo "Der Swissmedic-Produktsnapshot ist unverändert."
+          else
+            echo "vorhanden=true" >> "$GITHUB_OUTPUT"
+            STAND="$(node --input-type=module -e "import fs from 'node:fs'; const d=JSON.parse(fs.readFileSync('daten/medikament-produkte.json','utf8')); process.stdout.write(d.stand)")"
+            echo "stand=$STAND" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update-Branch schreiben
+        if: steps.aenderung.outputs.vorhanden == 'true'
+        id: branch
+        shell: bash
+        run: |
+          STAND="${{ steps.aenderung.outputs.stand }}"
+          BRANCH="daten/swissmedic-medikamente-${STAND}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add daten/medikament-produkte.json
+          git commit -m "Swissmedic-Medikamentendaten ${STAND} aktualisieren"
+          git push --force origin "HEAD:$BRANCH"
+          echo "name=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Pull Request erstellen
+        if: steps.aenderung.outputs.vorhanden == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+          STAND: ${{ steps.aenderung.outputs.stand }}
+        shell: bash
+        run: |
+          if gh pr list --head "$BRANCH" --state open --json number --jq 'length' | grep -q '^1$'; then
+            echo "Für $BRANCH besteht bereits ein offener Pull Request."
+            exit 0
+          fi
+
+          BODY=$(cat <<EOF
+          Automatisch erzeugter monatlicher Swissmedic-Produktsnapshot mit Stand **${STAND}**.
+
+          Der Import verwendet ausschliesslich den offiziellen OGD-Export. Vor dem Erstellen dieses PR wurden TypeScript und die vollständige Unit-Test-Suite ausgeführt.
+
+          **Sicherheitsgrenze:** Der Snapshot ändert keine kuratierten Schwangerschaftsbewertungen. Unvollständig gemappte Kombinationspräparate bleiben für automatische Aussagen gesperrt.
+          EOF
+          )
+
+          if gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "Swissmedic-Medikamentendaten ${STAND} aktualisieren" \
+            --body "$BODY"; then
+            exit 0
+          fi
+
+          echo "Automatische PR-Erstellung ist für GitHub Actions offenbar nicht erlaubt."
+          gh issue create \
+            --title "Swissmedic-Update ${STAND} wartet auf Pull Request" \
+            --body "Der geprüfte Branch \`${BRANCH}\` wurde erzeugt, aber GitHub hat die automatische PR-Erstellung blockiert. Bitte daraus einen Pull Request gegen \`main\` eröffnen."
