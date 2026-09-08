@@ -1,61 +1,29 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 
-/** Ab hier gilt ein Zug nach unten als Wegwischen, auch ohne Schwung. */
 const WEG_AB_PIXELN = 96
-/** Ein kurzer Schnipser reicht auch ohne Weg: Pixel pro Millisekunde. */
 const WEG_AB_TEMPO = 0.5
-/** Muss zur Dauer von `.sheet` im Stylesheet passen. */
 const AUSBLENDDAUER = 260
 
-/**
- * Widerstand über der Oberkante: je weiter darüber hinaus, desto weniger
- * folgt das Blatt. Ein harter Anschlag läse sich wie eingefroren.
- */
 function gummiband(weg: number, hoehe: number, staerke = 0.55): number {
   return (weg * hoehe * staerke) / (hoehe + staerke * Math.abs(weg))
 }
 
-/**
- * Blatt, das von unten hereinfährt und über der Ansicht liegt.
- *
- * Es kommt von unten und geht nach unten — derselbe Weg in beide Richtungen,
- * damit das Wegwischen sich anfühlt wie das, was es rückgängig macht. Ziehen
- * wird eins zu eins verfolgt, nicht erst beim Loslassen ausgewertet; über der
- * Oberkante federt es, statt zu blockieren. Losgelassen entscheidet nicht nur
- * der Weg, sondern auch das Tempo: ein kurzer Schnipser genügt.
- *
- * Bei reduzierter Bewegung fällt das Ziehen weg. Das Stylesheet setzt dort
- * jede Transformation zurück — das Blatt liesse sich sonst anfassen und bliebe
- * regungslos stehen.
- */
 export function Sheet({
   titel,
   children,
   onSchliessen,
   fussKnopf,
 }: {
-  /** Beschriftet den Dialog für Hilfsmittel. */
   titel: string
   children: ReactNode
   onSchliessen: () => void
-  /**
-   * Beschriftung der Schaltfläche unter dem Inhalt. Weggelassen, wo der Inhalt
-   * eigene Schaltflächen mitbringt — ein zweites «Abbrechen» hilft niemandem.
-   */
   fussKnopf?: string
 }) {
   const blatt = useRef<HTMLDivElement>(null)
   const schleier = useRef<HTMLDivElement>(null)
   const zug = useRef<{ start: number; zeit: number; hoehe: number } | null>(null)
   const [geht, setGeht] = useState(false)
-  /** Womit die Ansicht vorher gearbeitet hat — dorthin geht der Fokus zurück. */
   const vorher = useRef<HTMLElement | null>(null)
-  /*
-   * Beim ersten Rendern gemerkt, nicht erst im Effekt: Effekte laufen von
-   * innen nach aussen, und ein Inhalt, der sich selbst ein Feld holt, hätte
-   * den Auslöser bis dahin längst überschrieben. Dann führte das Zumachen
-   * zurück auf ein Element, das es nicht mehr gibt.
-   */
   if (vorher.current === null && typeof document !== 'undefined') {
     vorher.current = document.activeElement as HTMLElement | null
   }
@@ -64,17 +32,9 @@ export function Sheet({
     typeof window !== 'undefined' &&
     (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false)
 
-  /*
-   * Die Rückmeldung liegt in einer Referenz, nicht in der Abhängigkeitsliste.
-   * Sie kommt als Pfeilfunktion herein und ist damit bei jedem Rendern eine
-   * andere — als Abhängigkeit hätte sie den Effekt unten jedes Mal abgeräumt
-   * und neu aufgesetzt: Fokus weg, Scrollsperre kurz auf, und der Ort, an den
-   * der Fokus zurücksoll, überschrieben.
-   */
   const rueckmeldung = useRef(onSchliessen)
   rueckmeldung.current = onSchliessen
 
-  // Erst ausblenden, dann abräumen: sonst verschwände das Blatt schlagartig.
   const schliessen = useCallback(() => {
     setGeht(true)
     window.setTimeout(() => rueckmeldung.current(), sanft ? 0 : AUSBLENDDAUER)
@@ -82,8 +42,6 @@ export function Sheet({
 
   useEffect(() => {
     const el = blatt.current
-    // Der Effekt des Kindes läuft vor diesem. Hat der Inhalt sich schon ein
-    // Feld geholt — das Terminformular tut das — bleibt er dort.
     if (el && !el.contains(document.activeElement)) el.focus()
 
     const beiTaste = (ereignis: KeyboardEvent) => {
@@ -91,15 +49,12 @@ export function Sheet({
     }
     document.addEventListener('keydown', beiTaste)
 
-    // Der Hintergrund darf nicht mitscrollen, solange das Blatt oben liegt.
     const vorherigerUeberlauf = document.body.style.overflow
     document.body.style.overflow = 'hidden'
 
     return () => {
       document.removeEventListener('keydown', beiTaste)
       document.body.style.overflow = vorherigerUeberlauf
-      // Nur zurück, wenn es das Element noch gibt — sonst bliebe der Fokus
-      // an einer Leiche hängen und fiele stumm auf den Seitenrumpf.
       const ziel = vorher.current
       if (ziel && ziel.isConnected) ziel.focus()
     }
@@ -128,11 +83,7 @@ export function Sheet({
 
   const greifen = (ereignis: React.PointerEvent<HTMLDivElement>) => {
     if (sanft || !blatt.current) return
-    // Gefangen wird auf dem Griff, nicht auf dem Blatt: ein Fang leitet alle
-    // folgenden Ereignisse auf das fangende Element um — läge er auf dem
-    // Blatt, erreichte kein pointermove mehr den Griff.
     ereignis.currentTarget.setPointerCapture(ereignis.pointerId)
-    // Während des Ziehens keine Übergangsdauer: die Fläche klebt am Finger.
     blatt.current.style.transition = 'none'
     if (schleier.current) schleier.current.style.transition = 'none'
     zug.current = {
@@ -163,26 +114,16 @@ export function Sheet({
 
   return (
     <div className="sheet-lage">
-      <div
-        className="schleier"
-        ref={schleier}
-        data-geht={geht || undefined}
-        onClick={schliessen}
-        aria-hidden="true"
-      />
+      <div className="schleier" ref={schleier} data-geht={geht || undefined} onClick={schliessen} aria-hidden="true" />
       <div
         className="sheet"
         ref={blatt}
         data-geht={geht || undefined}
         role="dialog"
         aria-modal="true"
-        aria-label={titel}
+        aria-labelledby="sheet-titel"
         tabIndex={-1}
       >
-        {/*
-          Der Griff ist die Zugfläche. Der Inhalt darunter bleibt scrollbar —
-          würde das ganze Blatt ziehen, käme man nicht mehr an lange Karten.
-        */}
         <div
           className="sheet__griff"
           onPointerDown={greifen}
@@ -193,33 +134,19 @@ export function Sheet({
           <span className="sheet__balken" aria-hidden="true" />
         </div>
 
-        {/*
-          Sichtbarer Weg hinaus. Ziehen, Escape und der Schleier tun dasselbe,
-          aber keines davon ist zu sehen — und wer das Blatt zum ersten Mal
-          vor sich hat, sucht einen Knopf.
-        */}
-        <button
-          className="sheet__zu"
-          type="button"
-          aria-label="Schliessen"
-          onClick={schliessen}
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path
-              d="M4 4 L12 12 M12 4 L4 12"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
+        <div className="sheet__kopf">
+          <h2 className="sheet__titel" id="sheet-titel">{titel}</h2>
+          <button className="sheet__zu" type="button" aria-label="Schliessen" onClick={schliessen}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
 
         <div className="sheet__inhalt">
           {children}
           {fussKnopf && (
-            <button className="zurueck zurueck--flaeche" type="button" onClick={schliessen}>
-              {fussKnopf}
-            </button>
+            <button className="zurueck zurueck--flaeche" type="button" onClick={schliessen}>{fussKnopf}</button>
           )}
         </div>
       </div>
