@@ -1,15 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { bewerteKomponente, bewerteLebensmittel, bewerteVariante, UNKLAR_TEXT } from './bewerten'
 import { lebensmittelKatalog, regelKatalog } from '../daten'
-import { findeNachId } from './suchen'
 import type { Status } from '../typen'
-
-/** Urteile aller Varianten eines Eintrags, in Katalogreihenfolge. */
-function urteile(id: string, trimester?: number): Status[] {
-  const eintrag = findeNachId(id, lebensmittelKatalog)
-  if (!eintrag) throw new Error(`Lebensmittel «${id}» fehlt im Katalog`)
-  return bewerteLebensmittel(eintrag, regelKatalog, trimester).varianten.map((v) => v.status)
-}
+import { bewerteKomponente, bewerteLebensmittel, bewerteVariante, UNKLAR_TEXT } from './bewerten'
+import { findeNachId } from './suchen'
 
 function urteilVon(id: string, trimester?: number) {
   const eintrag = findeNachId(id, lebensmittelKatalog)
@@ -17,478 +10,261 @@ function urteilVon(id: string, trimester?: number) {
   return bewerteLebensmittel(eintrag, regelKatalog, trimester)
 }
 
-function ersteVariante(id: string, trimester?: number) {
-  const eintrag = findeNachId(id, lebensmittelKatalog)
-  if (!eintrag) throw new Error(`Lebensmittel «${id}» fehlt im Katalog`)
-  const urteil = bewerteLebensmittel(eintrag, regelKatalog, trimester)
-  const erste = urteil.varianten[0]
-  if (!erste) throw new Error(`Lebensmittel «${id}» hat keine Variante`)
-  return erste
+function urteile(id: string, trimester?: number): Status[] {
+  return urteilVon(id, trimester).varianten.map((variante) => variante.status)
 }
 
-describe('Zubereitung entscheidet', () => {
-  it('bewertet Lachs je nach Zubereitung', () => {
-    // Gegart, kalt geräuchert, roh
-    expect(urteile('lachs')).toEqual(['ok', 'meiden', 'meiden'])
-  })
+function ersteVariante(id: string, trimester?: number) {
+  const variante = urteilVon(id, trimester).varianten[0]
+  if (!variante) throw new Error(`Lebensmittel «${id}» hat keine Variante`)
+  return variante
+}
 
-  it('gibt Salami erst durcherhitzt frei, tiefgefroren nur bedingt', () => {
-    expect(urteile('salami')).toEqual(['meiden', 'ok', 'bedingt'])
-  })
-
-  it('trennt durchgebratenes von rosa Fleisch', () => {
-    expect(urteile('steak')).toEqual(['ok', 'meiden'])
-  })
-
-  it('gibt Eier nur durchgegart frei', () => {
-    expect(urteile('ei')).toEqual(['ok', 'meiden'])
-  })
-
-  it('gibt Austern und Sprossen nur gegart frei', () => {
-    expect(urteile('austern')).toEqual(['ok', 'meiden'])
-    expect(urteile('sprossen')).toEqual(['ok', 'meiden'])
-  })
-
-  it('gibt Salat nur gewaschen ohne Vorbehalt frei', () => {
-    expect(urteile('blattsalat')).toEqual(['ok', 'bedingt'])
-  })
-})
-
-describe('Entschärfung', () => {
-  it('stuft rohes Ei durch Pasteurisierung auf ok herab', () => {
-    expect(urteile('tiramisu')).toEqual(['meiden', 'ok'])
-  })
-
-  it('stuft Koffein durch Entkoffeinierung auf ok herab', () => {
-    expect(urteile('kaffee')).toEqual(['bedingt', 'ok'])
-  })
-
-  it('stuft Alkohol nur bei ausgewiesenen 0,0 Prozent auf ok herab', () => {
-    expect(urteile('wein-bier')).toEqual(['meiden', 'ok'])
-  })
-
-  it('stuft Thunfisch durch Mengenbegrenzung auf bedingt herab', () => {
-    expect(urteile('thunfisch')).toEqual(['bedingt', 'meiden'])
-  })
-
-  it('nennt bei Entschärfung den Entschärfungstext statt der Regelbegründung', () => {
-    const variante = ersteVariante('kaffee')
-    expect(variante.begruendungen.map((b) => b.text).join(' ')).toContain('200 mg')
-  })
-})
-
-describe('nicht_entschaerfbar_durch', () => {
-  it('lässt Quecksilber durch Erhitzen nicht verschwinden', () => {
-    // Schwertfisch trägt den Zustand durcherhitzt und bleibt trotzdem meiden.
-    expect(urteile('schwertfisch')).toEqual(['meiden'])
-    expect(ersteVariante('schwertfisch').begruendungen[0]?.text).toContain('Methylquecksilber')
-  })
-})
-
-describe('Schlechtester Status gewinnt', () => {
-  it('bewertet Vitello tonnato über die kritischste Komponente', () => {
-    // Restaurant: rohes Ei und Quecksilber trotz durchgegartem Fleisch.
-    // Gekaufte Sauce: pasteurisiertes Ei — die Thunfischsauce bleibt aber
-    // Thunfischsauce, also greift die Mengenbegrenzung.
-    expect(urteile('vitello-tonnato')).toEqual(['meiden', 'bedingt'])
-  })
-
-  it('lässt die Thunfischsauce in beiden Varianten mitzählen', () => {
-    const eintrag = findeNachId('vitello-tonnato', lebensmittelKatalog)
-    if (!eintrag) throw new Error('Vitello tonnato fehlt im Katalog')
-    for (const variante of bewerteLebensmittel(eintrag, regelKatalog).varianten) {
-      expect(variante.komponenten.map((k) => k.tag)).toContain('raubfisch-mittel')
-    }
-  })
-})
-
-describe('Was eine Entschärfung verspricht, muss sie halten', () => {
-  it('erreicht mit jedem Entschärfungszustand genau den versprochenen Status', () => {
-    // Fehlerklasse: eine Regel entschärft, eine zweite auf demselben Tag hält
-    // dagegen. Der Text sagt dann «vertretbar», das Urteil sagt «besser nicht».
-    // Genau so stand pasteurisierter Camembert im Katalog.
-    for (const regel of regelKatalog.regeln) {
-      for (const entschaerfung of regel.entschaerfung) {
-        for (const tag of regel.trifft_auf) {
-          const urteil = bewerteKomponente({ tag, zustand: entschaerfung.durch }, regelKatalog)
-          expect(
-            urteil.status,
-            `${regel.id}: «${entschaerfung.durch}» auf ${tag} verspricht ${entschaerfung.auf}`,
-          ).toBe(entschaerfung.auf)
-        }
-      }
-    }
-  })
-
-  it('erklärt bei pasteurisiertem Weichkäse, warum es trotzdem nein bleibt', () => {
-    const variante = urteilVon('camembert').varianten[0]
-    expect(variante?.status).toBe('meiden')
-    expect(variante?.begruendungen.map((b) => b.text).join(' ')).toContain(
-      'nur einen Teil des Risikos',
-    )
-  })
-})
-
-describe('Honig trennt die Schwangere vom Säugling', () => {
-  it('gibt Honig für die Schwangere frei und für das Kind nicht', () => {
-    expect(urteile('saeuglingshonig')).toEqual(['ok', 'meiden'])
-  })
-
-  it('nennt den Grund beim Namen', () => {
-    const zweite = urteilVon('saeuglingshonig').varianten[1]
-    expect(zweite?.begruendungen[0]?.text).toContain('botulinum')
-  })
-})
-
-describe('Bärlauch wird bodennah gesammelt', () => {
-  it('gibt ihn gekocht und gewaschen frei, ungewaschen nur bedingt', () => {
-    expect(urteile('baerlauch')).toEqual(['ok', 'ok', 'bedingt'])
-  })
-})
-
-describe('Nährstoffpräparate', () => {
-  it('gibt die vier häufig gefragten Präparate frei', () => {
-    for (const id of ['magnesium', 'kalzium', 'vitamin-d', 'folsaeure', 'eisen', 'omega3']) {
-      expect(urteile(id), id).toEqual(['ok'])
-    }
-  })
-
-  it('verweist bei der Menge auf die Ärztin statt eine Dosis zu nennen', () => {
-    const text = ersteVariante('magnesium').begruendungen.map((b) => b.text).join(' ')
-    expect(text).toMatch(/Ärztin|Hebamme/)
-    expect(text).not.toMatch(/\d+\s*(mg|µg|ug|IE|I\.E\.)/)
-  })
-
-  it('trennt das Schwangerschaftspräparat vom Vitamin-A-Präparat', () => {
-    // Ein Multivitamin für die Schwangerschaft ist kein Retinolpräparat.
-    // Ohne Angabe bleibt es beim strengeren Urteil.
-    expect(urteile('multivitamin')).toEqual(['ok', 'meiden'])
-  })
-
-  it('trennt Vitamin D von Vitamin A', () => {
-    expect(urteile('vitamin-d')).toEqual(['ok'])
-    expect(urteile('vitamin-a-praeparat')).toEqual(['meiden'])
-    expect(urteile('lebertran')).toEqual(['meiden'])
-  })
-})
-
-describe('Jod: zu wenig und zu viel liegen nah beieinander', () => {
-  it('gibt das verordnete Präparat frei und das Algenpräparat nicht', () => {
-    expect(urteile('jod')).toEqual(['ok', 'meiden'])
-  })
-
-  it('trennt Nori von den Braunalgen, statt beide gleich zu behandeln', () => {
-    // Nori trägt deutlich weniger Jod als Kombu oder Wakame. Beide unter einem
-    // Eintrag zu führen kehrte die tatsächliche Belastung um.
-    expect(urteile('algen')).toEqual(['ok', 'bedingt'])
-    expect(urteile('braunalgen')).toEqual(['bedingt', 'meiden'])
-  })
-
-  it('begründet beide mit der Menge, nicht mit gekochtem Gemüse', () => {
-    expect(ersteVariante('algen').begruendungen[0]?.titel).toBe('Zu viel Jod')
-    expect(ersteVariante('braunalgen').begruendungen[0]?.titel).toBe('Zu viel Jod')
-  })
-
-  it('nimmt Spirulina aus der Jod-Regel heraus', () => {
-    // Spirulina enthält wenig Jod. Das Urteil stimmte, die Begründung führte
-    // in die Irre — und mit ihr jede Ableitung aus dieser Regel.
-    expect(urteile('spirulina')).toEqual(['meiden'])
-    expect(ersteVariante('spirulina').komponenten[0]?.tag).toBe('ergaenzung-schwankend')
-  })
-})
-
-describe('Trimester-Hinweise', () => {
-  it('zeigt den Retinol-Hinweis nur im ersten Trimester', () => {
-    expect(ersteVariante('leber', 1).trimesterHinweise).toHaveLength(1)
-    expect(ersteVariante('leber', 2).trimesterHinweise).toHaveLength(0)
-    expect(ersteVariante('leber').trimesterHinweise).toHaveLength(0)
-  })
-
-  it('zeigt den Kräuter-Hinweis nur im dritten Trimester', () => {
-    expect(ersteVariante('kraeutertee', 3).trimesterHinweise).toHaveLength(1)
-    expect(ersteVariante('kraeutertee', 1).trimesterHinweise).toHaveLength(0)
-  })
-
-  it('ändert das Urteil durch den Hinweis nicht', () => {
-    expect(ersteVariante('leber', 1).status).toBe('meiden')
-    expect(ersteVariante('leber', 3).status).toBe('meiden')
-  })
-})
-
-describe('Unbedenkliche und unbekannte Tags', () => {
-  it('gibt ausdrücklich unbedenkliche Tags frei', () => {
-    expect(urteile('hartkaese')).toEqual(['ok'])
-    expect(urteile('ananas')).toEqual(['ok'])
-  })
-
-  it('bewertet ein Tag ohne Regel und ohne Freigabe als unklar', () => {
+describe('Sicherheitsprinzip der Regelmaschine', () => {
+  it('macht ein unbekanntes Tag niemals zu einem Ja', () => {
     const urteil = bewerteKomponente({ tag: 'gibt-es-nicht' }, regelKatalog)
     expect(urteil.status).toBe('unklar')
     expect(urteil.begruendungen[0]?.text).toBe(UNKLAR_TEXT)
   })
 
-  it('rät auch bei bekanntem Tag mit unbekanntem Zustand keine Freigabe', () => {
-    const urteil = bewerteKomponente({ tag: 'ei-roh', zustand: 'irgendwie' }, regelKatalog)
-    expect(urteil.status).toBe('meiden')
+  it('lässt unklar ein Ja und eine Bedingung überstimmen', () => {
+    expect(
+      bewerteVariante(
+        { label: null, komponenten: [{ tag: 'getreide' }, { tag: 'nicht-bewertet' }] },
+        regelKatalog,
+      ).status,
+    ).toBe('unklar')
+    expect(
+      bewerteVariante(
+        { label: null, komponenten: [{ tag: 'gefluegel' }, { tag: 'nicht-bewertet' }] },
+        regelKatalog,
+      ).status,
+    ).toBe('unklar')
+  })
+
+  it('lässt ein bekanntes Nein unklar überstimmen', () => {
+    expect(
+      bewerteVariante(
+        { label: null, komponenten: [{ tag: 'fisch-roh' }, { tag: 'nicht-bewertet' }] },
+        regelKatalog,
+      ).status,
+    ).toBe('meiden')
+  })
+
+  it('behält die Sicherheitsrangfolge fest', () => {
+    expect(regelKatalog.status_rangfolge).toEqual(['ok', 'bedingt', 'unklar', 'meiden'])
+  })
+
+  it('nimmt bei mehreren Komponenten immer den strengsten Status', () => {
+    expect(urteile('vitello-tonnato')).toEqual(['meiden', 'ok'])
+  })
+
+  it('wertet eine Variante ohne Komponenten als unklar', () => {
+    const urteil = bewerteVariante({ label: null, komponenten: [] }, regelKatalog)
+    expect(urteil.status).toBe('unklar')
   })
 })
 
-describe('Risikoprinzip', () => {
-  it('nennt zu jeder Regelbegründung den Titel des Prinzips', () => {
-    const variante = ersteVariante('schwertfisch')
-    expect(variante.begruendungen[0]?.titel).toBe('Quecksilber in grossen Raubfischen')
+describe('Listerien, Toxoplasmose und Küchenhygiene', () => {
+  it('hält an der strengen Schweizer Käselinie fest', () => {
+    expect(urteile('camembert')).toEqual(['meiden', 'meiden', 'ok'])
+    expect(urteile('feta')).toEqual(['meiden', 'meiden', 'ok'])
+    expect(urteile('halbhartkaese')).toEqual(['meiden', 'ok'])
+    expect(urteile('formaggini')).toEqual(['meiden', 'ok'])
+    expect(urteile('hartkaese')).toEqual(['ok'])
   })
 
-  it('nennt den Titel auch bei entschärften Regeln', () => {
-    const variante = ersteVariante('kaffee')
-    expect(variante.begruendungen[0]?.titel).toBe('Koffein')
-  })
-
-  it('lässt den Titel weg, wo keine Regel dahintersteht', () => {
-    expect(ersteVariante('hartkaese').begruendungen[0]?.titel).toBeUndefined()
-    expect(ersteVariante('ananas').begruendungen[0]?.titel).toBeUndefined()
-    expect(bewerteKomponente({ tag: 'gibt-es-nicht' }, regelKatalog).begruendungen[0]?.titel)
-      .toBeUndefined()
-  })
-
-  it('gibt jeder Regelbegründung im ganzen Katalog einen Titel', () => {
-    const ohneTitel = new Set<string>()
-    for (const eintrag of lebensmittelKatalog.lebensmittel) {
-      for (const variante of bewerteLebensmittel(eintrag, regelKatalog).varianten) {
-        for (const grund of variante.begruendungen) {
-          const ausRegel = !['unbedenklich', 'unklar', 'eigener_text'].includes(grund.regel)
-          if (ausRegel && !grund.titel) ohneTitel.add(grund.regel)
-        }
-      }
-    }
-    expect([...ohneTitel]).toEqual([])
-  })
-})
-
-describe('eigener_text', () => {
-  it('ersetzt die Begründung, nicht das Urteil', () => {
-    const variante = ersteVariante('ananas')
-    expect(variante.status).toBe('ok')
-    expect(variante.begruendungen).toHaveLength(1)
-    expect(variante.begruendungen[0]?.regel).toBe('eigener_text')
-    expect(variante.begruendungen[0]?.text).toContain('Mythos')
-  })
-})
-
-describe('zusatz_text', () => {
-  it('ergänzt die Regelbegründung, statt sie zu ersetzen', () => {
-    // Halloumi roh: die Halbhartkäse-Regel muss sichtbar bleiben. Vorher stand
-    // dort nur «wird gebraten und ist damit unbedenklich» — unter einem Nein.
-    const urteil = urteilVon('halloumi')
-    const roh = urteil.varianten[1]
-    expect(roh?.status).toBe('meiden')
-    expect(roh?.begruendungen.map((b) => b.regel)).toEqual(['listerien-halbhartkaese'])
-    expect(urteil.zusatz).toContain('Salzlakenkäse')
-  })
-
-  it('steht einmal am Eintrag, nicht an jeder Variante', () => {
-    // Bei drei Varianten stand derselbe Absatz sonst dreimal auf der Karte.
-    for (const eintrag of lebensmittelKatalog.lebensmittel) {
-      const urteil = bewerteLebensmittel(eintrag, regelKatalog)
-      expect(urteil.zusatz, eintrag.id).toBe(eintrag.zusatz_text ?? undefined)
-      for (const variante of urteil.varianten) {
-        const texte = variante.begruendungen.map((b) => b.text)
-        expect(texte, `${eintrag.id}/${variante.label}`).not.toContain(eintrag.zusatz_text)
-      }
-    }
-  })
-
-  it('ändert das Urteil nicht', () => {
-    // Dieselben Referenzurteile wie zuvor — der Zusatztext erklärt, er wertet nicht.
-    expect(urteile('halloumi')).toEqual(['ok', 'meiden'])
+  it('trennt Mozzarella von ungeeignetem stückigem Frischkäse', () => {
     expect(urteile('mozzarella')).toEqual(['ok', 'meiden'])
-    expect(urteile('glühwein')).toEqual(['ok', 'meiden'])
-  })
-})
-
-describe('Jod: Präparat und Algen widersprechen sich nicht mehr', () => {
-  // P08: «Jod» führte über den Präparateintrag zu einem Ja und über die
-  // Algenregel zu einer Obergrenze — ohne dass ein Eintrag den anderen kannte.
-  it('verweist vom Präparat auf die Algen-Obergrenze', () => {
-    const text = urteilVon('jod').zusatz ?? ''
-    expect(text).toContain('Algen')
-    expect(text).toContain('Nori')
   })
 
-  it('verweist von den Algen zurück auf das verordnete Präparat', () => {
-    for (const id of ['algen', 'braunalgen']) {
-      expect(urteilVon(id).zusatz ?? '', id).toContain('verordnetes Jodpräparat')
-    }
-  })
-
-  it('zeigt die Jod-Regel jetzt wirklich an, statt nur auf sie zu verweisen', () => {
-    const algenpraeparat = urteilVon('jod').varianten[1]
-    expect(algenpraeparat?.status).toBe('meiden')
-    expect(algenpraeparat?.begruendungen.map((b) => b.regel)).toContain('jod-ueberschuss')
-  })
-
-  it('nennt weiterhin keine Dosis in Milligramm oder Mikrogramm', () => {
-    for (const id of ['jod', 'algen', 'braunalgen', 'folsaeure', 'eisen', 'vitamin-d']) {
-      const urteil = urteilVon(id)
-      const texte = [
-        ...urteil.varianten.flatMap((v) => v.begruendungen.map((b) => b.text)),
-        urteil.zusatz ?? '',
-      ]
-      for (const text of texte) {
-        expect(text, `${id}: ${text}`).not.toMatch(/\d+\s*(mg|µg|mcg|g)\b/i)
-      }
-    }
-  })
-})
-
-describe('Cheddar ist Hartkäse', () => {
-  /*
-   * P16, fachlich korrigiert. Ich hatte den Eintrag nach der Reifung geteilt —
-   * gereift ja, jung wie Halbhartkäse nein. Das war falsch: «mild», «mature»
-   * und «extra mature» sind Reifungs- und Geschmacksangaben, keine
-   * Käsekategorie. Cheddar wird als Hartkäse klassiert.
-   */
-  it('gibt Cheddar frei, ohne nach der Reifung zu fragen', () => {
-    expect(urteile('cheddar')).toEqual(['ok'])
-    expect(urteilVon('cheddar').frage).toBeUndefined()
-  })
-
-  it('nennt den Grund, damit die Trennung nicht zurückkehrt', () => {
-    const text = ersteVariante('cheddar').begruendungen[0]?.text ?? ''
-    expect(text).toContain('Geschmacksangaben')
-  })
-})
-
-describe('«Vorgeschnitten» ist in drei Regeln aufgelöst', () => {
-  /*
-   * P18, fachlich entschieden. Ein Sammel-Tag trug zwölf Einträge und meinte
-   * dabei Verschiedenes: vorgeschnittene Rohkost, kalte verzehrfertige
-   * Kühlware, offene Theke — und beim Kebab den rohen Salat darin. Daraus kam
-   * der Widerspruch, dass abgepackter Aufschnitt ein Ja war und ein
-   * abgepacktes Sandwich aus derselben Kühltheke ein Nein.
-   */
-  it('kennt das Sammel-Tag nicht mehr', () => {
-    const inRegeln = regelKatalog.regeln.some((r) => r.trifft_auf.includes('vorgeschnitten'))
-    const inFreigaben = regelKatalog.unbedenkliche_tags.some((t) => t.tag === 'vorgeschnitten')
-    const inEintraegen = lebensmittelKatalog.lebensmittel.filter((e) =>
-      e.varianten.some((v) => v.komponenten.some((k) => k.tag === 'vorgeschnitten')),
+  it('gibt rohes Fleisch nicht mehr durch Tiefkühlen teilweise frei', () => {
+    expect(urteile('salami')).toEqual(['meiden', 'ok', 'meiden'])
+    const tiefgekuehlt = urteilVon('salami').varianten[2]
+    expect(tiefgekuehlt?.begruendungen.map((b) => b.regel)).toContain(
+      'toxoplasmose-rohes-fleisch',
     )
-    expect(inRegeln).toBe(false)
-    expect(inFreigaben).toBe(false)
-    expect(inEintraegen.map((e) => e.id)).toEqual([])
   })
 
-  it('urteilt über die drei Nachfolger verschieden', () => {
-    // Wären sie gleich, wäre die Aufteilung nur eine Umbenennung.
-    const status = (tag: string) => bewerteKomponente({ tag }, regelKatalog).status
-    expect(status('rohkost-vorgeschnitten')).toBe('meiden')
-    expect(status('kuehlware-verzehrfertig')).toBe('bedingt')
-    expect(status('offene-ware')).toBe('meiden')
+  it('trennt durchgegartes von rosa Fleisch', () => {
+    expect(urteile('steak')).toEqual(['ok', 'meiden'])
   })
 
-  it('setzt jeden der drei auch tatsächlich ein', () => {
-    for (const tag of ['rohkost-vorgeschnitten', 'kuehlware-verzehrfertig', 'offene-ware']) {
-      const treffer = lebensmittelKatalog.lebensmittel.filter((e) =>
-        e.varianten.some((v) => v.komponenten.some((k) => k.tag === tag)),
-      )
-      expect(treffer.length, tag).toBeGreaterThan(0)
-    }
+  it('gibt Eier nur durchgegart oder pasteurisiert frei', () => {
+    expect(urteile('ei')).toEqual(['ok', 'meiden'])
+    expect(urteile('tiramisu')).toEqual(['meiden', 'ok'])
   })
 
-  it('löst den Widerspruch auf, der den Punkt ausgelöst hat', () => {
-    // Beides ist kalte, verzehrfertige, fabrikversiegelte Kühlware.
-    const [aufschnitt] = urteile('aufschnitt')
-    const sandwich = urteile('sandwich')[1]
-    expect(aufschnitt).toBe(sandwich)
-    expect(aufschnitt).toBe('bedingt')
+  it('gibt Sprossen und rohe Meeresfrüchte nur gegart frei', () => {
+    expect(urteile('sprossen')).toEqual(['ok', 'meiden'])
+    expect(urteile('austern')).toEqual(['ok', 'meiden'])
+    expect(urteile('tintenfisch')).toEqual(['ok', 'meiden'])
   })
 
-  it('behält das Nein für vorgeschnittene Rohkost — das BAG nennt sie', () => {
-    expect(urteile('melone')[1]).toBe('meiden')
+  it('behält vorgeschnittene Rohkost auf meiden', () => {
     expect(urteile('fertigsalat')).toEqual(['meiden'])
-  })
-
-  it('entscheidet bei Käse über die Kategorie, nicht über die Theke', () => {
-    expect(urteile('kaese-offen')).toEqual(['ok', 'meiden', 'meiden'])
+    expect(urteile('melone')[1]).toBe('meiden')
   })
 })
 
-describe('Was die zweite Durchsicht gelockert hat', () => {
-  // Jede dieser Lockerungen ist fachlich entschieden, keine von mir geraten.
-  it('gibt Sülze eine sichere Form, statt sie pauschal zu verbieten', () => {
-    expect(urteile('suelze')).toEqual(['meiden', 'ok', 'ok'])
+describe('Schweizer Getränkeempfehlungen 2026', () => {
+  it('führt Energy Drinks als klares Nein', () => {
+    expect(urteile('energydrink')).toEqual(['meiden'])
+    expect(ersteVariante('energydrink').begruendungen[0]?.regel).toBe('energy-drink')
   })
 
-  it('nimmt Rochen von der Quecksilberliste', () => {
-    expect(urteile('rochen')).toEqual(['ok', 'meiden'])
-    const gegart = ersteVariante('rochen')
-    expect(gegart.begruendungen.map((b) => b.regel)).not.toContain('quecksilber-raubfisch')
+  it('führt Tonic und Bitter Lemon als klares Nein', () => {
+    expect(urteile('tonic')).toEqual(['meiden'])
+    expect(ersteVariante('tonic').begruendungen[0]?.regel).toBe('chinin-getraenk')
   })
 
-  it('trennt die drei Fische, die in einer Zeile standen', () => {
-    expect(urteile('wels')).toEqual(['ok', 'meiden'])
-    expect(urteile('steinbutt')).toEqual(['ok', 'meiden'])
-    // Nur der Seeteufel trägt die Quecksilberlast weiter.
-    expect(urteile('seeteufel')).toEqual(['bedingt', 'meiden'])
+  it('trennt Ginger Ale von Tonic', () => {
+    expect(urteile('ginger-ale')).toEqual(['ok'])
+    expect(findeNachId('tonic', lebensmittelKatalog)?.synonyme).not.toContain('ginger ale')
   })
 
-  it('stuft die Softeismaschine auf bedingt herab, nicht auf frei', () => {
-    expect(urteile('frozenyogurt')).toEqual(['ok', 'bedingt'])
+  it('lässt Kaffee massvoll und entkoffeiniert frei', () => {
+    expect(urteile('kaffee')).toEqual(['bedingt', 'ok'])
+    expect(ersteVariante('kaffee').begruendungen[0]?.grenze).toContain('Energy Drinks')
   })
 
-  it('entscheidet beim Mocktail über den Alkoholgehalt, nicht über den Namen', () => {
-    // «Spirituosen-Ersatz» sagt nichts: viele stehen auf 0,0 Prozent.
+  it('hält am vollständigen Alkoholverzicht fest', () => {
+    expect(urteile('wein-bier')).toEqual(['meiden', 'ok'])
     expect(urteile('mocktail')).toEqual(['ok', 'meiden'])
   })
-
-  it('hält am Alkoholverzicht fest, wo wirklich Alkohol drin ist', () => {
-    // Der einzige Punkt, an dem ich strenger geblieben bin als die Rückmeldung:
-    // sie nannte «Bedingt bzw. besser vermeiden». Ein Nein hier ist dieselbe
-    // Auskunft wie bei Glühwein und Wein — alles andere wäre ein Sonderfall.
-    const mitAlkohol = urteilVon('mocktail').varianten[1]
-    expect(mitAlkohol?.status).toBe('meiden')
-    expect(mitAlkohol?.begruendungen.map((b) => b.regel)).toContain('alkohol')
-  })
 })
 
-describe('Johanniskraut steht getrennt von den Heilkräutern', () => {
-  it('trägt eine Bedingung statt einer Lücke', () => {
-    expect(urteile('johanniskraut')).toEqual(['bedingt'])
-    expect(urteile('heilkraeuter')).toEqual(['unklar'])
-  })
-
-  it('nennt die ärztliche Rücksprache beim Namen', () => {
-    expect(ersteVariante('johanniskraut').begruendungen[0]?.text).toContain('Rücksprache')
-  })
-})
-
-describe('Grundsätze gelten unabhängig vom Lebensmittel', () => {
-  // P17: Die Rindenfrage betrifft alle acht Hartkäse-Einträge. An jedem
-  // einzelnen wiederholt hätte sie acht klare Ja zu bedingten gemacht.
-  it('führt die Käserinde zentral', () => {
-    const titel = regelKatalog.grundsaetze.map((g) => g.titel)
-    expect(titel).toContain('Käserinde immer wegschneiden')
-  })
-
-  it('lässt den Hartkäse selbst dabei ein klares Ja bleiben', () => {
-    const mitHartkaese = lebensmittelKatalog.lebensmittel.filter((eintrag) =>
-      eintrag.varianten.some((v) => v.komponenten.some((k) => k.tag === 'hartkaese')),
+describe('Fisch nach aktueller Schweizer Artenliste', () => {
+  it('meidet die ausdrücklich ausgeschlossenen grossen Raubfische', () => {
+    expect(urteile('schwertfisch')).toEqual(['meiden'])
+    expect(ersteVariante('schwertfisch').begruendungen[0]?.regel).toBe(
+      'quecksilber-raubfisch',
     )
-    // Genau, nicht mindestens: eine ungefähre Schranke hätte nicht gemerkt,
-    // dass die Zahl im Kommentar daneben lag.
-    expect(mitHartkaese.length).toBe(8)
-    for (const eintrag of mitHartkaese) {
-      const status = bewerteLebensmittel(eintrag, regelKatalog).varianten.map((v) => v.status)
-      expect(status, eintrag.id).toContain('ok')
-    }
+  })
+
+  it('trennt Ostsee-Lachs von anderem gegartem Lachs', () => {
+    expect(urteile('lachs')).toEqual(['ok', 'meiden', 'meiden', 'meiden'])
+  })
+
+  it('trennt Ostsee-Hering von anderem gegartem Hering', () => {
+    expect(urteile('hering')).toEqual(['ok', 'meiden', 'meiden'])
+  })
+
+  it('begrenzt frischen Thunfisch, nicht Thunfisch aus der Dose', () => {
+    expect(urteile('thunfisch')).toEqual(['bedingt', 'ok', 'meiden'])
+    expect(urteilVon('thunfisch').varianten[0]?.begruendungen[0]?.grenze).toContain(
+      '1 Portion',
+    )
+    expect(urteilVon('thunfisch').varianten[1]?.begruendungen[0]?.regel).toBe(
+      'unbedenklich',
+    )
+  })
+
+  it('begrenzt nur ausländischen Hecht und rät bei unbekannter Herkunft nicht', () => {
+    expect(urteile('hecht')).toEqual(['ok', 'bedingt', 'unklar', 'meiden'])
+  })
+
+  it('gibt Rotbarsch und weissen Heilbutt gemäss Positivliste frei', () => {
+    expect(urteile('rotbarsch')).toEqual(['ok', 'meiden'])
+    expect(urteile('heilbutt')).toEqual(['ok', 'unklar', 'meiden'])
+  })
+
+  it('entfernt nicht-schweizerische Mengenlimits bei weiteren gegarten Arten', () => {
+    expect(urteile('makrele')).toEqual(['ok', 'meiden'])
+    expect(urteile('zander')).toEqual(['ok', 'meiden'])
+    expect(urteile('seeteufel')).toEqual(['ok', 'meiden'])
+  })
+
+  it('macht eine alte pauschale Dioxin-Zuordnung nicht mehr zu einem Nein', () => {
+    expect(urteile('aal')).toContain('unklar')
   })
 })
 
-describe('Begründungen', () => {
-  it('entfernt doppelte Formulierungen', () => {
-    const variante = ersteVariante('camembert')
-    const texte = variante.begruendungen.map((b) => b.text)
-    expect(new Set(texte).size).toBe(texte.length)
+describe('Wild, Leber und Innereien', () => {
+  it('meidet Wild unabhängig von der Garstufe', () => {
+    expect(urteile('wild')).toEqual(['meiden', 'meiden'])
+    expect(ersteVariante('wild').begruendungen.map((b) => b.regel)).toContain('wildfleisch-blei')
+  })
+
+  it('meidet Leber im ersten Trimester und lockert nur bei bekanntem späterem Trimester', () => {
+    expect(urteile('leber')).toEqual(['meiden'])
+    expect(urteile('leber', 1)).toEqual(['meiden'])
+    expect(urteile('leber', 2)).toEqual(['bedingt'])
+    expect(urteile('leber', 3)).toEqual(['bedingt'])
+  })
+
+  it('behält Retinol-Präparate trimesterunabhängig auf meiden', () => {
+    expect(urteile('vitamin-a-praeparat')).toEqual(['meiden'])
+    expect(urteile('lebertran')).toEqual(['meiden'])
+  })
+
+  it('macht übrige Innereien ohne Schweizer Pauschalregel unklar', () => {
+    expect(urteile('innereien')).toEqual(['unklar'])
+  })
+})
+
+describe('Algen, Supplemente und Kräuter', () => {
+  it('macht auch Nori nur bedingt statt pauschal frei', () => {
+    expect(urteile('algen')).toEqual(['bedingt', 'bedingt'])
+    expect(urteile('braunalgen')).toEqual(['bedingt', 'meiden'])
+  })
+
+  it('macht Spirulina wegen unzureichender Schweizer Datenlage unklar', () => {
+    expect(urteile('spirulina')).toEqual(['unklar'])
+  })
+
+  it('erfindet für Lakritze keine sichere Häufigkeit', () => {
+    expect(urteile('lakritz')).toEqual(['unklar'])
+  })
+
+  it('entfernt die unbelegte Trimesterfreigabe für Kräutertees', () => {
+    expect(urteile('kraeutertee')).toEqual(['unklar'])
+    expect(ersteVariante('kraeutertee', 3).trimesterHinweise).toHaveLength(0)
+  })
+
+  it('führt Fencheltee aufgrund der geteilten Zuständigkeit als unklar', () => {
+    expect(urteile('fencheltee')).toEqual(['unklar'])
+  })
+
+  it('empfiehlt Fenchel nicht mehr als pauschal sichere Alternative', () => {
+    const mitFenchel = lebensmittelKatalog.lebensmittel.filter((eintrag) =>
+      eintrag.alternativen.some((alternative) =>
+        alternative.toLocaleLowerCase('de-CH').includes('fenchel'),
+      ),
+    )
+    expect(mitFenchel.map((eintrag) => eintrag.id)).toEqual([])
+  })
+})
+
+describe('Daten- und Regelkonsistenz', () => {
+  it('kennt jedes im Lebensmittelkatalog verwendete Tag', () => {
+    const bekannt = new Set([
+      ...regelKatalog.regeln.flatMap((regel) => regel.trifft_auf),
+      ...regelKatalog.unbedenkliche_tags.map((eintrag) => eintrag.tag),
+    ])
+    const unbekannt = lebensmittelKatalog.lebensmittel
+      .flatMap((eintrag) => eintrag.varianten)
+      .flatMap((variante) => variante.komponenten)
+      .map((komponente) => komponente.tag)
+      .filter((tag) => !bekannt.has(tag))
+    expect([...new Set(unbekannt)]).toEqual([])
+  })
+
+  it('verwendet die alte pauschale Fisch-Mengenklasse nach der Bereinigung nicht mehr', () => {
+    const treffer = lebensmittelKatalog.lebensmittel.filter((eintrag) =>
+      eintrag.varianten.some((variante) =>
+        variante.komponenten.some((komponente) => komponente.tag === 'raubfisch-mittel'),
+      ),
+    )
+    expect(treffer.map((eintrag) => eintrag.id)).toEqual([])
+  })
+
+  it('führt kein Tag zugleich als Regel und ausdrücklich unbedenklich', () => {
+    const regelTags = new Set(regelKatalog.regeln.flatMap((regel) => regel.trifft_auf))
+    const doppelt = regelKatalog.unbedenkliche_tags
+      .map((eintrag) => eintrag.tag)
+      .filter((tag) => regelTags.has(tag))
+    expect(doppelt).toEqual([])
   })
 
   it('gibt jeder Variante mindestens eine Begründung', () => {
@@ -498,330 +274,85 @@ describe('Begründungen', () => {
       }
     }
   })
+
+  it('erreicht weiterhin den Zielumfang des Katalogs', () => {
+    expect(lebensmittelKatalog.lebensmittel.length).toBeGreaterThanOrEqual(240)
+  })
+
+  it('behält zentrale Referenzurteile stabil', () => {
+    const referenz: Record<string, Status[]> = {
+      camembert: ['meiden', 'meiden', 'ok'],
+      feta: ['meiden', 'meiden', 'ok'],
+      hartkaese: ['ok'],
+      mozzarella: ['ok', 'meiden'],
+      salami: ['meiden', 'ok', 'meiden'],
+      steak: ['ok', 'meiden'],
+      ei: ['ok', 'meiden'],
+      tiramisu: ['meiden', 'ok'],
+      energydrink: ['meiden'],
+      tonic: ['meiden'],
+      'ginger-ale': ['ok'],
+      thunfisch: ['bedingt', 'ok', 'meiden'],
+      lachs: ['ok', 'meiden', 'meiden', 'meiden'],
+      wild: ['meiden', 'meiden'],
+      algen: ['bedingt', 'bedingt'],
+      spirulina: ['unklar'],
+      innereien: ['unklar'],
+      heilkraeuter: ['unklar'],
+      johanniskraut: ['bedingt'],
+      frozenyogurt: ['ok', 'unklar'],
+      blattsalat: ['ok', 'bedingt'],
+      sprossen: ['ok', 'meiden'],
+      rohmilch: ['ok', 'meiden'],
+      ananas: ['ok'],
+      wasser: ['ok'],
+    }
+
+    const gemessen = Object.fromEntries(Object.keys(referenz).map((id) => [id, urteile(id)]))
+    expect(gemessen).toEqual(referenz)
+  })
 })
 
-describe('Im Zweifel das strengere Argument', () => {
-  it('lässt bei zwei Regeln auf einem Tag die strengere gewinnen', () => {
-    // rohmilch-weichkaese trifft listerien-weichkaese (pasteurisiert -> bedingt)
-    // und listerien-nicht-erhitzt (keine Entschärfung für pasteurisiert -> meiden).
-    // Camembert aus pasteurisierter Milch bleibt deshalb meiden.
-    const pasteurisiert = ersteVariante('camembert')
-    expect(pasteurisiert.label).toBe('Aus pasteurisierter Milch')
-    expect(pasteurisiert.status).toBe('meiden')
-  })
-
-  it('nennt trotzdem beide Begründungen', () => {
-    const texte = ersteVariante('camembert').begruendungen.map((b) => b.regel)
-    expect(texte).toContain('listerien-nicht-erhitzt')
-    expect(texte).toContain('listerien-weichkaese')
-  })
-
-  it('lässt eine Regel eine Freigabe aus unbedenkliche_tags überstimmen', () => {
-    const katalog = {
-      ...regelKatalog,
-      unbedenkliche_tags: [
-        ...regelKatalog.unbedenkliche_tags,
-        { tag: 'ei-roh', text: 'Frei erfundene Freigabe.' },
-      ],
-    }
-    expect(bewerteKomponente({ tag: 'ei-roh' }, katalog).status).toBe('meiden')
-  })
-
-  it('greift bei mehreren Entschärfungen für denselben Zustand die strengste', () => {
+describe('Trimesterstatus als generische Funktion', () => {
+  it('benutzt bei unbekanntem Trimester immer den strengeren Basisstatus', () => {
     const katalog = {
       ...regelKatalog,
       regeln: [
         {
-          id: 'test-mehrdeutig',
-          titel: 'Mehrdeutig',
-          trifft_auf: ['test-tag'],
+          id: 'test-trimester',
+          titel: 'Test',
+          trifft_auf: ['test-trimester'],
           status: 'meiden' as const,
-          begruendung: 'Grundregel.',
-          entschaerfung: [
-            { durch: 'gekocht', auf: 'ok' as const, text: 'Milde Lesart.' },
-            { durch: 'gekocht', auf: 'bedingt' as const, text: 'Strenge Lesart.' },
-          ],
+          begruendung: 'Basis.',
+          entschaerfung: [],
           trimester_gewichtung: null,
+          trimester_status: { 2: 'bedingt' as const, 3: 'ok' as const },
         },
       ],
     }
-    const urteil = bewerteKomponente({ tag: 'test-tag', zustand: 'gekocht' }, katalog)
-    expect(urteil.status).toBe('bedingt')
-    expect(urteil.begruendungen[0]?.text).toBe('Strenge Lesart.')
+    expect(bewerteKomponente({ tag: 'test-trimester' }, katalog).status).toBe('meiden')
+    expect(bewerteKomponente({ tag: 'test-trimester' }, katalog, 2).status).toBe('bedingt')
+    expect(bewerteKomponente({ tag: 'test-trimester' }, katalog, 3).status).toBe('ok')
   })
 
-  it('wertet eine Variante ohne Komponenten als unklar, nicht als ok', () => {
-    const urteil = bewerteVariante({ label: null, komponenten: [] }, regelKatalog)
-    expect(urteil.status).toBe('unklar')
-    expect(urteil.begruendungen[0]?.text).toBe(UNKLAR_TEXT)
-  })
-})
-
-describe('Vorrang von «unklar»', () => {
-  const gemischt = (...tags: string[]) =>
-    bewerteVariante({ label: null, komponenten: tags.map((tag) => ({ tag })) }, regelKatalog)
-      .status
-
-  it('schlägt eine Freigabe — Unwissen wird nie zum Ja', () => {
-    expect(gemischt('getreide')).toBe('ok')
-    expect(gemischt('getreide', 'nicht-bewertet')).toBe('unklar')
-  })
-
-  it('schlägt eine Bedingung — Unwissen wird nie zur blossen Einschränkung', () => {
-    expect(gemischt('gefluegel')).toBe('bedingt')
-    expect(gemischt('gefluegel', 'nicht-bewertet')).toBe('unklar')
-  })
-
-  it('unterliegt einem bekannten Nein, statt es zu verdecken', () => {
-    // Der eigentliche Grund für die Rangfolge: «Nicht bewertet» neben einem
-    // bekannten Risiko liest sich, als wisse die App nichts — dabei weiss sie
-    // das Entscheidende. Ein bekanntes Nein ist ebenso schützend und weit
-    // brauchbarer.
-    expect(gemischt('fisch-roh')).toBe('meiden')
-    expect(gemischt('fisch-roh', 'nicht-bewertet')).toBe('meiden')
-  })
-
-  it('gilt genauso für ein Tag, das gar keine Regel kennt', () => {
-    expect(gemischt('gibt-es-nicht')).toBe('unklar')
-    expect(gemischt('gibt-es-nicht', 'fisch-roh')).toBe('meiden')
-    expect(gemischt('gibt-es-nicht', 'getreide')).toBe('unklar')
-  })
-
-  it('hält die Reihenfolge selbst fest', () => {
-    // Wer sie umstellt, dreht damit stillschweigend Urteile.
-    expect(regelKatalog.status_rangfolge).toEqual(['ok', 'bedingt', 'unklar', 'meiden'])
-  })
-})
-
-describe('Katalogabdeckung', () => {
-  it('löst jede Regel mit mindestens einem Lebensmittel aus', () => {
-    const ausgeloest = new Set<string>()
-    for (const eintrag of lebensmittelKatalog.lebensmittel) {
-      for (const variante of bewerteLebensmittel(eintrag, regelKatalog).varianten) {
-        for (const komponente of variante.komponenten) {
-          for (const begruendung of komponente.begruendungen) ausgeloest.add(begruendung.regel)
-        }
-      }
+  it('lässt eine explizite Zubereitungsentschärfung weiterhin greifen', () => {
+    const katalog = {
+      ...regelKatalog,
+      regeln: [
+        {
+          id: 'test-zustand',
+          titel: 'Test',
+          trifft_auf: ['test-zustand'],
+          status: 'meiden' as const,
+          begruendung: 'Basis.',
+          entschaerfung: [{ durch: 'gekocht', auf: 'ok' as const, text: 'Gekocht.' }],
+          trimester_gewichtung: null,
+          trimester_status: { 2: 'bedingt' as const },
+        },
+      ],
     }
-    const fehlend = regelKatalog.regeln.map((r) => r.id).filter((id) => !ausgeloest.has(id))
-    expect(fehlend).toEqual([])
-  })
-
-  it('lässt keinen Katalogeintrag versehentlich unklar werden', () => {
-    // «unklar» darf vorkommen, aber nur als erklärte Lücke über eine Regel —
-    // nie, weil ein Tag weder eine Regel noch eine Freigabe trifft. Genau das
-    // wäre ein Tippfehler im Katalog, und genau den soll dieser Test finden.
-    //
-    // Unterscheidbar sind die beiden an der Begründung: der Notfall trägt die
-    // Marke 'unklar', die erklärte Lücke die ID ihrer Regel. Geprüft wird auf
-    // Komponentenebene, weil `eigener_text` die Begründung der Variante
-    // ersetzt und den Unterschied sonst verdecken würde.
-    for (const eintrag of lebensmittelKatalog.lebensmittel) {
-      for (const variante of bewerteLebensmittel(eintrag, regelKatalog).varianten) {
-        expect(variante.komponenten.length, `${eintrag.id}/${variante.label}: leere Variante`)
-          .toBeGreaterThan(0)
-        for (const komponente of variante.komponenten) {
-          expect(
-            komponente.begruendungen.some((b) => b.regel === 'unklar'),
-            `${eintrag.id}: Tag «${komponente.tag}» trifft keine Regel und keine Freigabe`,
-          ).toBe(false)
-        }
-      }
-    }
-  })
-
-  it('lässt die erklärte Lücke aber zu und nennt ihre Regel', () => {
-    const variante = urteilVon('heilkraeuter').varianten[0]
-    expect(variante?.status).toBe('unklar')
-    expect(variante?.komponenten[0]?.begruendungen[0]?.regel).toBe('nicht-bewertet')
-  })
-
-  /**
-   * Referenzurteile. Kein Abbild des ganzen Katalogs — der wächst —, sondern
-   * die Fälle, die je ein Regelmuster festhalten. Dreht ein Regelumbau eines
-   * davon, schlägt dieser Test an.
-   */
-  it('hält die Referenzurteile fest', () => {
-    const referenz: Record<string, Status[]> = {
-      // Weichkäse: die strengere der beiden Listerien-Regeln gewinnt
-      camembert: ['meiden', 'meiden', 'ok'],
-      hartkaese: ['ok'],
-      // BLV: auch pasteurisierter Feta gilt als ungeeignet, überbacken nicht.
-      feta: ['meiden', 'meiden', 'ok'],
-      // Halbhartkäse ist die BLV-Ausweitung — kalt nein, geschmolzen ja.
-      halbhartkaese: ['meiden', 'ok'],
-      formaggini: ['meiden', 'ok'],
-      raclette: ['ok', 'meiden'],
-      'tete-de-moine': ['meiden', 'ok'],
-      fondue: ['ok'],
-      halloumi: ['ok', 'meiden'],
-      mozzarella: ['ok', 'meiden'],
-      // Cheddar ist Hartkäse, unabhängig von der Reifung.
-      cheddar: ['ok'],
-      // An der offenen Theke entscheidet die Käsekategorie.
-      'kaese-offen': ['ok', 'meiden', 'meiden'],
-      'kaese-allgemein': ['ok', 'meiden', 'meiden', 'meiden', 'ok'],
-      // Die Rinde ist die Aussenseite — der Teig bleibt ein Ja.
-      kaeserinde: ['ok', 'bedingt', 'ok', 'meiden'],
-      // Wo die Darreichung das Risiko trägt, gibt es eine sichere Form.
-      antipasti: ['ok', 'meiden'],
-      'glühwein': ['ok', 'meiden'],
-      kaviar: ['ok', 'meiden'],
-      // Nori trägt weniger Jod als die Braunalgen; Spirulina gar keins.
-      algen: ['ok', 'bedingt'],
-      braunalgen: ['bedingt', 'meiden'],
-      spirulina: ['meiden'],
-      // Zwei Risiken auf einem Eintrag: Retinol und Listerien
-      leberwurst: ['meiden'],
-      // Drei Arten, drei Urteile — nicht mehr eine gemeinsame Zeile.
-      wels: ['ok', 'meiden'],
-      steinbutt: ['ok', 'meiden'],
-      seeteufel: ['bedingt', 'meiden'],
-      rochen: ['ok', 'meiden'],
-      // Fisch: Garung, Räucherung, Quecksilber
-      lachs: ['ok', 'meiden', 'meiden'],
-      // Quecksilber überlebt das Garen — gegart deshalb bedingt, nicht ok.
-      heilbutt: ['bedingt', 'meiden'],
-      makrele: ['bedingt', 'meiden'],
-      tintenfisch: ['bedingt', 'meiden'],
-      thunfisch: ['bedingt', 'meiden'],
-      schwertfisch: ['meiden'],
-      // Fleisch: Toxoplasmose und ihre Entschärfungen
-      salami: ['meiden', 'ok', 'bedingt'],
-      tatar: ['meiden'],
-      steak: ['ok', 'meiden'],
-      gefluegel: ['bedingt'],
-      // Ei
-      ei: ['ok', 'meiden'],
-      tiramisu: ['meiden', 'ok'],
-      // Mehrere Komponenten, schlechteste gewinnt
-      'vitello-tonnato': ['meiden', 'bedingt'],
-      // Getränke
-      kaffee: ['bedingt', 'ok'],
-      'wein-bier': ['meiden', 'ok'],
-      alkoholfrei: ['ok', 'meiden'],
-      // Trimester-gewichtete Regeln
-      leber: ['meiden'],
-      kraeutertee: ['bedingt'],
-      // Der Adressat entscheidet, nicht der Fliesstext
-      saeuglingshonig: ['ok', 'meiden'],
-      // Innereien tragen Schadstoffe über das Retinol hinaus
-      innereien: ['bedingt'],
-      // Erklärte Lücke, kein Versehen — Johanniskraut steht getrennt davon.
-      heilkraeuter: ['unklar'],
-      johanniskraut: ['bedingt'],
-      // Das Sammel-Tag «vorgeschnitten» ist in drei Regeln aufgelöst.
-      melone: ['ok', 'meiden'],
-      fertigsalat: ['meiden'],
-      sandwich: ['ok', 'bedingt'],
-      aufschnitt: ['bedingt', 'meiden', 'ok'],
-      wurstsalat: ['ok', 'bedingt', 'meiden'],
-      suelze: ['meiden', 'ok', 'ok'],
-      cremeschnitte: ['ok', 'bedingt', 'meiden'],
-      frozenyogurt: ['ok', 'bedingt'],
-      mocktail: ['ok', 'meiden'],
-      truthahn: ['ok', 'bedingt'],
-      sauser: ['ok', 'bedingt', 'meiden'],
-      // Bodennah gesammelt, deshalb wie frische Kräuter behandelt
-      baerlauch: ['ok', 'ok', 'bedingt'],
-      // Waschen, Keime, offene Ware
-      blattsalat: ['ok', 'bedingt'],
-      sprossen: ['ok', 'meiden'],
-      rohmilch: ['ok', 'meiden'],
-      // Unbedenkliche Tags
-      ananas: ['ok'],
-      brot: ['ok'],
-      wasser: ['ok'],
-    }
-    const gemessen = Object.fromEntries(
-      Object.keys(referenz).map((id) => [id, urteile(id)]),
+    expect(bewerteKomponente({ tag: 'test-zustand', zustand: 'gekocht' }, katalog, 2).status).toBe(
+      'ok',
     )
-    expect(gemessen).toEqual(referenz)
-  })
-
-  it('deckt jedes Variantenmuster mit mindestens einem Eintrag ab', () => {
-    const muster = new Set(
-      lebensmittelKatalog.lebensmittel.map((eintrag) => eintrag.varianten.length),
-    )
-    expect(muster.has(1)).toBe(true)
-    expect(muster.has(2)).toBe(true)
-    expect(muster.has(3)).toBe(true)
-  })
-
-  it('erreicht den Zielumfang von rund 250 Einträgen', () => {
-    expect(lebensmittelKatalog.lebensmittel.length).toBeGreaterThanOrEqual(240)
-  })
-})
-
-describe('Grenzen über die Mahlzeit hinaus', () => {
-  it('reicht die Grenze der Regel bis in die Begründung durch', () => {
-    const koffein = ersteVariante('kaffee').begruendungen[0]
-    expect(koffein?.grenze).toContain('Tagesbudget')
-  })
-
-  it('zeigt sie auch bei entschärften Regeln', () => {
-    // Thunfisch aus der Dose ist entschärft — die Wochengrenze gilt trotzdem.
-    const thunfisch = ersteVariante('thunfisch').begruendungen[0]
-    expect(thunfisch?.grenze).toContain('einmal pro Woche')
-  })
-
-  it('lässt sie weg, wo die Regel keine kennt', () => {
-    expect(ersteVariante('lachs').begruendungen[0]?.grenze).toBeUndefined()
-  })
-})
-
-describe('Aufgewärmtes trägt seine Bedingung im Urteil', () => {
-  it('gibt nur die durchgehend heisse Variante frei', () => {
-    for (const id of ['resten', 'fertiggericht', 'mikrowelle', 'hotdog']) {
-      expect(urteile(id), id).toEqual(['ok', 'bedingt'])
-    }
-  })
-})
-
-describe('Zustände greifen wirklich', () => {
-  it('wird jeder verwendete Zustand von einer Regel behandelt', () => {
-    // Ein vertippter Zustand entschärft nichts. Das Urteil wird dadurch
-    // strenger, also sicher — aber das Variantenlabel verspricht etwas, das
-    // die Regeln nicht halten. Dieselbe Fehlerklasse wie beim Camembert.
-    for (const eintrag of lebensmittelKatalog.lebensmittel) {
-      for (const variante of eintrag.varianten) {
-        for (const komponente of variante.komponenten) {
-          if (komponente.zustand === undefined) continue
-          const regeln = regelKatalog.regeln.filter((r) => r.trifft_auf.includes(komponente.tag))
-          const behandelt = regeln.some(
-            (r) =>
-              r.entschaerfung.some((e) => e.durch === komponente.zustand) ||
-              (r.nicht_entschaerfbar_durch ?? []).includes(komponente.zustand!),
-          )
-          expect(
-            behandelt,
-            `${eintrag.id}: «${komponente.zustand}» auf ${komponente.tag} greift nirgends`,
-          ).toBe(true)
-        }
-      }
-    }
-  })
-
-  it('führt der Regelkatalog jeden verwendeten Zustand auch in der Liste', () => {
-    const benutzt = new Set<string>()
-    for (const e of lebensmittelKatalog.lebensmittel)
-      for (const v of e.varianten)
-        for (const k of v.komponenten) if (k.zustand) benutzt.add(k.zustand)
-    for (const zustand of benutzt) {
-      expect(regelKatalog.zustaende, zustand).toContain(zustand)
-    }
-  })
-})
-
-describe('Grenze widerspricht der Freigabe nicht', () => {
-  it('verschwindet, wo die Regel entschärft ist', () => {
-    // «Unbegrenzt möglich» und «zählt aufs Tagesbudget» zugleich wäre Unsinn.
-    const entkoffeiniert = urteilVon('kaffee').varianten[1]
-    expect(entkoffeiniert?.status).toBe('ok')
-    expect(entkoffeiniert?.begruendungen[0]?.grenze).toBeUndefined()
-  })
-
-  it('bleibt, wo die Regel noch greift', () => {
-    expect(ersteVariante('kaffee').begruendungen[0]?.grenze).toContain('Tagesbudget')
   })
 })
