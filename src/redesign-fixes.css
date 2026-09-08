@@ -9,3 +9,144 @@
 .sheet__titel {
   font-weight: 600;
 }
+
+/* Nur die Such-Lasche kehrt zur früheren Hierarchie zurück. */
+.kopfzeile--suche {
+  gap: 0.75rem;
+  padding-top: calc(1.25rem + env(safe-area-inset-top));
+  padding-bottom: 0.5rem;
+}
+
+.kopfzeile--suche .kopfzeile__suche-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.kopfzeile--suche .stand {
+  min-height: 2.625rem;
+  padding: 0.25rem 0.875rem 0.6875rem;
+  background: var(--karte);
+  box-shadow: var(--schatten);
+}
+
+.kopfzeile--suche .stand::after {
+  inset: auto 0.875rem 0.4375rem;
+  height: 3px;
+}
+
+.kopfzeile--suche .stand__woche {
+  font-size: 0.9375rem;
+}
+
+.kopfzeile--suche .stand__rest {
+  font-size: 0.8125rem;
+}
+
+.kopfzeile--suche .kopfzeile__titel {
+  font-size: clamp(1.75rem, 8.4vw, 2.125rem);
+}
+
+.inhalt--suche {
+  padding-top: var(--spur);
+}
+
+.inhalt--suche .hero {
+  margin: 0 0 1.25rem;
+  padding: 1.5rem 1.25rem;
+  background: var(--glas);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  border-top: 1px solid var(--glas-kante);
+}
+
+.inhalt--suche .hero__titel {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.5rem, 7.6vw, 2rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+}
+
+.inhalt--suche .hero__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-zweitrangig);
+}
+
+.inhalt--suche .suchleiste {
+  margin: 0 calc(-1 * var(--spur)) 0.25rem;
+  padding: calc(0.75rem + env(safe-area-inset-top)) var(--spur) 0.85rem;
+  border-radius: 0 0 var(--radius-klein) var(--radius-klein);
+}
+
+.inhalt--suche .feldtitel {
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.006em;
+  text-transform: none;
+}
+
+.inhalt--suche .suchfeld {
+  padding-block: 1rem;
+  box-shadow: var(--schatten), inset 0 0 0 1px var(--linie);
+}
+
+.inhalt--suche .suchfeld:focus {
+  box-shadow: var(--schatten), inset 0 0 0 2px var(--akzent);
+}
+
+/* Treffer auf der Such-Lasche wieder als einzelne Karten; Liste/Scannen bleiben unverändert. */
+.inhalt--suche .treffer-liste {
+  gap: 0.5rem;
+  margin-top: 0.875rem;
+  overflow: visible;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.inhalt--suche .treffer-liste li + li {
+  border-top: 0;
+}
+
+.inhalt--suche .treffer {
+  min-height: 60px;
+  padding: 0.8rem 0.85rem 0.8rem 1rem;
+  background: var(--karte);
+  border-radius: var(--radius-klein);
+  box-shadow: var(--schatten);
+}
+
+.inhalt--suche .treffer__unten {
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.inhalt--suche .marke--klein {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-pille);
+}
+
+.inhalt--suche .marke--klein[data-status='ok'] { background: var(--flaeche-ok) !important; }
+.inhalt--suche .marke--klein[data-status='bedingt'] { background: var(--flaeche-bedingt) !important; }
+.inhalt--suche .marke--klein[data-status='meiden'] { background: var(--flaeche-meiden) !important; }
+.inhalt--suche .marke--klein[data-status='unklar'] { background: var(--flaeche-unklar) !important; }
+
+.inhalt--suche .marke--klein[data-status='ok']::before,
+.inhalt--suche .marke--klein[data-status='bedingt']::before,
+.inhalt--suche .marke--klein[data-status='meiden']::before,
+.inhalt--suche .marke--klein[data-status='unklar']::before {
+  content: none;
+}
+
+.inhalt--suche .marke--klein[data-status='gemischt'] {
+  padding-inline: 0;
+  background: none !important;
+}
