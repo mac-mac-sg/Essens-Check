@@ -1,0 +1,14 @@
+{
+  "version": "0.1",
+  "stand": "2026-08-31",
+  "quelle": "https://ogd.swissmedic.cloud/ogd-arzneimittel/Daten/OGD.zip",
+  "mapping_version": "0.1",
+  "statistik": {
+    "praeparate_ham_aktiv": 0,
+    "sequenzen_ham_aktiv": 0,
+    "produkte_mit_pilotwirkstoff": 0,
+    "vollstaendig_gemappt": 0,
+    "unvollstaendige_kombinationen": 0
+  },
+  "produkte": []
+}
