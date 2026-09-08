@@ -54,6 +54,32 @@ function fuegeAnkerHinzu(
   }
 }
 
+/**
+ * Hersteller hängen Variantenfarben oft als letztes Wort an einen Markennamen
+ * («Rivella Rot», «... Blue»). Als Lebensmittelbegriff ist dieses Wort wertlos
+ * und kann falsche Treffer erzeugen — «Rot» traf etwa «Rotbusch»/Rooibos.
+ *
+ * Nur die *nachgestellte* Farbe wird entfernt. Ein Markenname wie «Red Bull»
+ * bleibt deshalb vollständig erhalten und kann weiterhin über sein explizites
+ * Katalogsynonym erkannt werden.
+ */
+const PRODUKTNAME_ENDVARIANTEN = new Set([
+  'rot', 'red', 'rouge',
+  'blau', 'blue', 'bleu',
+  'grun', 'green', 'vert',
+  'gelb', 'yellow', 'jaune',
+  'schwarz', 'black', 'noir',
+  'weiss', 'white', 'blanc',
+])
+
+function produktnameOhneEndvariante(text: string): string {
+  const teile = text.trim().split(/\s+/)
+  if (teile.length < 2) return text
+  const letztes = normalisiere(teile[teile.length - 1] ?? '').replace(/[^a-z]/g, '')
+  if (!PRODUKTNAME_ENDVARIANTEN.has(letztes)) return text
+  return teile.slice(0, -1).join(' ')
+}
+
 function zutatenTeile(produkt: Produkt): string[] {
   const teile = new Set<string>()
   for (const tag of produkt.zutaten) {
@@ -118,7 +144,13 @@ export function ordneProduktZu(
   regeln: RegelKatalog,
 ): ProduktZuordnung {
   const kandidaten = new Map<string, KandidatIntern>()
-  fuegeAnkerHinzu(kandidaten, produkt.name, 5, 'Produktname', katalog)
+  fuegeAnkerHinzu(
+    kandidaten,
+    produktnameOhneEndvariante(produkt.name),
+    5,
+    'Produktname',
+    katalog,
+  )
   fuegeAnkerHinzu(kandidaten, produkt.generischerName, 4, 'Bezeichnung', katalog)
   fuegeAnkerHinzu(
     kandidaten,
