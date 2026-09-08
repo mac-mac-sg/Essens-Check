@@ -1,6 +1,6 @@
 import { NICHTS_GEFUNDEN } from './ampel'
 import { MAX_TREFFER } from './engine/suchen'
-import { Hero, Hinweiskacheln } from './Hero'
+import { Hero } from './Hero'
 import { Trefferliste } from './Trefferliste'
 import { Verlauf } from './Verlauf'
 import type { Lebensmittel } from './typen'
@@ -29,9 +29,11 @@ export function Suchansicht({
 
   return (
     <>
+      {!gesucht && <Hero />}
+
       <div className="suchleiste">
         <label className="feldtitel" htmlFor="suche">
-          Lebensmittel prüfen
+          Lebensmittel eingeben
         </label>
         <div className="suchfeld-huelle">
           <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -78,13 +80,7 @@ export function Suchansicht({
         </div>
       </div>
 
-      {!gesucht && (
-        <>
-          <Hero />
-          <Verlauf ids={verlauf} onOeffnen={onOeffnen} onLeeren={onVerlaufLeeren} />
-          <Hinweiskacheln />
-        </>
-      )}
+      {!gesucht && <Verlauf ids={verlauf} onOeffnen={onOeffnen} onLeeren={onVerlaufLeeren} />}
 
       {gesucht && treffer.length > 0 && (
         <>
