@@ -4,14 +4,22 @@ import { bewerteMedikament } from './medikamente/bewerten'
 import { findeMedikament, medikamentKatalog } from './medikamente/daten'
 import { medikamentProduktSnapshot } from './medikamente/produkte'
 import { bereiteProduktBewertungVor } from './medikamente/suche'
-import { MEDIKAMENT_STATUS_META, type MedikamentProfil } from './medikamente/typen'
+import { MEDIKAMENT_STATUS_META, type MedikamentProfil, type MedikamentStatus } from './medikamente/typen'
 import type { SwissmedicProdukt } from './medikamente/swissmedic'
+import { ResultHero, type ResultTone } from './ResultHero'
 
 type Perspektive = 'einnehmen' | 'bereits-eingenommen'
 
 function formatiereDatum(iso: string): string {
   const [jahr, monat, tag] = iso.split('-')
   return jahr && monat && tag ? `${tag}.${monat}.${jahr}` : iso
+}
+
+function toneFuer(status: MedikamentStatus): ResultTone {
+  if (status === 'geeignet') return 'ok'
+  if (status === 'nicht_empfohlen') return 'meiden'
+  if (status === 'nicht_bewertet') return 'unklar'
+  return 'bedingt'
 }
 
 function Produktdaten({ produkt }: { produkt: SwissmedicProdukt }) {
@@ -94,19 +102,14 @@ export function MedikamentDetail({
     [produkt],
   )
   const direktesMedikament = medikamentId ? findeMedikament(medikamentId) : null
-  const medikament =
-    vorbereitet?.art === 'bereit' ? vorbereitet.medikament : direktesMedikament
-  const profile =
-    vorbereitet?.art === 'bereit'
-      ? vorbereitet.profile
-      : direktesMedikament?.profile ?? []
+  const medikament = vorbereitet?.art === 'bereit' ? vorbereitet.medikament : direktesMedikament
+  const profile = vorbereitet?.art === 'bereit' ? vorbereitet.profile : direktesMedikament?.profile ?? []
 
   if (produkt && vorbereitet?.art === 'gesperrt') {
     const unbekannte = produkt.wirkstoffe.filter((wirkstoff) => !wirkstoff.medikament_id)
     return (
       <article className="med-detail">
         <Produktdaten produkt={produkt} />
-
         <div className="med-detail__sperre" role="status">
           <p className="med-detail__sperre-titel">
             {vorbereitet.grund === 'unvollstaendig'
@@ -127,24 +130,15 @@ export function MedikamentDetail({
                   : 'Die Produktdaten lassen sich nicht sicher auf den lokalen Medikamentenkatalog abbilden.'}
           </p>
           {unbekannte.length > 0 && (
-            <p className="med-detail__unbekannt">
-              Noch nicht bewertet: {unbekannte.map((wirkstoff) => wirkstoff.name).join(', ')}
-            </p>
+            <p className="med-detail__unbekannt">Noch nicht bewertet: {unbekannte.map((wirkstoff) => wirkstoff.name).join(', ')}</p>
           )}
         </div>
-
-        <section className="entscheidungsgrad" data-grad="offen">
-          <span>Entscheidungsgrad</span>
-          <strong>Keine belastbare Gesamtbewertung</strong>
-          <small>Produktdaten allein erzeugen kein medizinisches Urteil.</small>
-        </section>
 
         {vorbereitet.grund === 'kombination' && vorbereitet.medikamente.length > 0 && (
           <div className="med-detail__einzelwirkstoffe">
             <p className="med-detail__klaerung-titel">Einzelwirkstoffe ansehen</p>
             <p className="med-detail__klaerung-text">
-              Diese Ansichten gelten nur für den jeweiligen Wirkstoff, nicht als Freigabe des
-              Kombinationspräparats.
+              Diese Ansichten gelten nur für den jeweiligen Wirkstoff, nicht als Freigabe des Kombinationspräparats.
             </p>
             {vorbereitet.medikamente.map((eintrag) => (
               <button key={eintrag.id} type="button" onClick={() => onWirkstoffOeffnen(eintrag.id)}>
@@ -166,10 +160,6 @@ export function MedikamentDetail({
           <p className="med-detail__sperre-titel">Keine belastbare Zuordnung</p>
           <p>Für diesen Eintrag ist kein kuratierter Wirkstoff hinterlegt.</p>
         </div>
-        <section className="entscheidungsgrad" data-grad="offen">
-          <span>Entscheidungsgrad</span>
-          <strong>Keine belastbare Einordnung</strong>
-        </section>
         <p className="med-detail__sicherheit">{medikamentKatalog.sicherheitshinweis}</p>
       </article>
     )
@@ -192,9 +182,7 @@ export function MedikamentDetail({
         </div>
       )}
 
-      {profile.length > 1 && !profilId && (
-        <Profilwahl profile={profile} onWaehlen={setProfilId} />
-      )}
+      {profile.length > 1 && !profilId && <Profilwahl profile={profile} onWaehlen={setProfilId} />}
 
       {profile.length > 1 && profilId && (
         <button className="med-detail__profil-aendern" type="button" onClick={() => setProfilId(null)}>
@@ -214,43 +202,32 @@ export function MedikamentDetail({
 
       {urteil?.status && (() => {
         const grad = entscheidungsgradMedikament(urteil.status)
+        const context = [
+          sswAnzeige ? `SSW ${sswAnzeige}` : null,
+          urteil.profil?.label ?? null,
+        ].filter((wert): wert is string => Boolean(wert))
         return (
           <>
-            <div className="med-detail__kontext kontextleiste">
-              {sswAnzeige && <span>SSW {sswAnzeige}</span>}
-              {urteil.profil && <span>{urteil.profil.label}</span>}
-            </div>
+            <ResultHero
+              subject={produkt?.name ?? medikament.wirkstoff}
+              status={MEDIKAMENT_STATUS_META[urteil.status].label}
+              tone={toneFuer(urteil.status)}
+              grad={grad.label}
+              gradText={grad.erklaerung}
+              context={context}
+            />
 
             <div className="med-detail__perspektive" role="group" aria-label="Fragestellung">
-              <button
-                type="button"
-                aria-pressed={perspektive === 'einnehmen'}
-                onClick={() => setPerspektive('einnehmen')}
-              >
+              <button type="button" aria-pressed={perspektive === 'einnehmen'} onClick={() => setPerspektive('einnehmen')}>
                 Kann ich es einnehmen?
               </button>
-              <button
-                type="button"
-                aria-pressed={perspektive === 'bereits-eingenommen'}
-                onClick={() => setPerspektive('bereits-eingenommen')}
-              >
+              <button type="button" aria-pressed={perspektive === 'bereits-eingenommen'} onClick={() => setPerspektive('bereits-eingenommen')}>
                 Bereits eingenommen
               </button>
             </div>
 
             {perspektive === 'einnehmen' ? (
               <div className="med-detail__bewertung">
-                <div className="med-status" data-status={urteil.status}>
-                  <span>Einordnung</span>
-                  <strong>{MEDIKAMENT_STATUS_META[urteil.status].label}</strong>
-                </div>
-
-                <section className="entscheidungsgrad" data-grad={grad.grad}>
-                  <span>Entscheidungsgrad</span>
-                  <strong>{grad.label}</strong>
-                  <small>{grad.erklaerung}</small>
-                </section>
-
                 <section className="detailblock">
                   <h3>Warum?</h3>
                   <p className="med-detail__haupttext">{urteil.text}</p>
@@ -260,9 +237,7 @@ export function MedikamentDetail({
                   <section className="detailblock detailblock--worauf">
                     <h3>Worauf kommt es an?</h3>
                     <ul className="med-detail__hinweise">
-                      {[...new Set(urteil.hinweise)].map((hinweis) => (
-                        <li key={hinweis}>{hinweis}</li>
-                      ))}
+                      {[...new Set(urteil.hinweise)].map((hinweis) => <li key={hinweis}>{hinweis}</li>)}
                     </ul>
                   </section>
                 )}
@@ -283,17 +258,11 @@ export function MedikamentDetail({
                 <ul>
                   {urteil.quellen.map((quelle) => (
                     <li key={quelle.id}>
-                      <a href={quelle.url} target="_blank" rel="noreferrer">
-                        {quelle.titel}
-                      </a>
+                      <a href={quelle.url} target="_blank" rel="noreferrer">{quelle.titel}</a>
                     </li>
                   ))}
                 </ul>
-                {produkt && (
-                  <small>
-                    Produktdaten: Swissmedic-Snapshot, Stand {formatiereDatum(medikamentProduktSnapshot.stand)}.
-                  </small>
-                )}
+                {produkt && <small>Produktdaten: Swissmedic-Snapshot, Stand {formatiereDatum(medikamentProduktSnapshot.stand)}.</small>}
               </div>
             )}
           </>
