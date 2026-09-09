@@ -87,9 +87,7 @@ export function Scanner({
         Produkt scannen
       </h2>
       <p className="scanner__meldung">
-        Lebensmittel werden über Open Food Facts zugeordnet. Schweizer Medikamentenpackungen
-        mit eindeutig erkennbarem 7680-GTIN werden zuerst lokal gegen den Swissmedic-Snapshot
-        geprüft. Das medizinische Urteil stammt nie aus dem Barcode selbst.
+        Strichcode von Lebensmittel oder Medikament in den Rahmen halten.
       </p>
 
       {zustand === 'nicht-unterstuetzt' ? (
@@ -103,17 +101,10 @@ export function Scanner({
           erneut versuchen.
         </p>
       ) : (
-        <>
-          <div className="scanner__bild">
-            <video ref={videoRef} playsInline muted aria-label="Kamerabild" />
-            <div className="scanner__rahmen" aria-hidden="true" />
-          </div>
-          <p className="scanner__meldung">
-            {zustand === 'startet'
-              ? 'Kamera wird gestartet …'
-              : 'Strichcode von Lebensmittel oder Medikament in den Rahmen halten.'}
-          </p>
-        </>
+        <div className="scanner__bild">
+          <video ref={videoRef} playsInline muted aria-label="Kamerabild" />
+          <div className="scanner__rahmen" aria-hidden="true" />
+        </div>
       )}
 
       <button className="zurueck zurueck--flaeche" type="button" onClick={onAbbruch}>
