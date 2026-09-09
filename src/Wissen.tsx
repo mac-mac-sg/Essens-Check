@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { FavoritKnopf } from './FavoritKnopf'
 import { ResultHero, type ResultTone } from './ResultHero'
 import { Sheet } from './Sheet'
 
 export type WissensBereich = 'ernaehrung' | 'unterwegs'
 
-type Wissensartikel = {
+export type Wissensartikel = {
   id: string
   titel: string
   kicker: string
@@ -363,6 +364,33 @@ const EINORDNUNGEN: Record<string, WissensEinordnung> = {
   'tropen-muecken': { kicker: 'Reisen', status: 'Risikogebiete meiden', tone: 'meiden', grad: 'Aktuelle Risikolage entscheidend' },
 }
 
+export function findeWissensartikel(id: string): Wissensartikel | undefined {
+  return [...ARTIKEL, ...UNTERWEGS].find((artikel) => artikel.id === id)
+}
+
+export function wissensbereichFuer(id: string): WissensBereich | undefined {
+  if (ARTIKEL.some((artikel) => artikel.id === id)) return 'ernaehrung'
+  if (UNTERWEGS.some((artikel) => artikel.id === id)) return 'unterwegs'
+  return undefined
+}
+
+const FOKUS_IDS: Record<1 | 2 | 3, string[]> = {
+  1: ['folsaeure', 'infektionen', 'ausgewogen', 'vitamin-d', 'koffein'],
+  2: ['eisen', 'jod', 'fisch-omega-3', 'jogging', 'reiseplanung-fliegen', 'sonne-hitze'],
+  3: ['ausgewogen', 'jod', 'spinning', 'essen-wasser-reise', 'sonne-hitze', 'reiseplanung-fliegen'],
+}
+
+export function wissensFokusFuer(ssw?: number, trimester?: number): Wissensartikel[] {
+  const trimesterSicher = trimester === 1 || trimester === 2 || trimester === 3 ? trimester : 2
+  const ids = FOKUS_IDS[trimesterSicher]
+  const versatz = Number.isFinite(ssw) ? Math.abs(Math.trunc(ssw ?? 0)) % ids.length : 0
+  const rotiert = [...ids.slice(versatz), ...ids.slice(0, versatz)].slice(0, 3)
+  return rotiert.flatMap((id) => {
+    const artikel = findeWissensartikel(id)
+    return artikel ? [artikel] : []
+  })
+}
+
 function einordnungFuer(artikel: Wissensartikel): WissensEinordnung {
   return EINORDNUNGEN[artikel.id] ?? {
     kicker: artikel.kicker,
@@ -421,7 +449,15 @@ function Illustration({ art }: { art: SymbolArt }) {
   )
 }
 
-function ArtikelDetail({ artikel }: { artikel: Wissensartikel }) {
+function ArtikelDetail({
+  artikel,
+  favorit,
+  onFavorit,
+}: {
+  artikel: Wissensartikel
+  favorit: boolean
+  onFavorit?: () => void
+}) {
   const meta = einordnungFuer(artikel)
 
   return (
@@ -433,6 +469,8 @@ function ArtikelDetail({ artikel }: { artikel: Wissensartikel }) {
         grad={meta.grad}
         context={[meta.kicker]}
       />
+
+      {onFavorit && <FavoritKnopf aktiv={favorit} onUmschalten={onFavorit} />}
 
       <p className="wissen-detail__lead">{artikel.kurz}</p>
 
@@ -451,9 +489,36 @@ function ArtikelDetail({ artikel }: { artikel: Wissensartikel }) {
   )
 }
 
-export function Wissensbereich({ bereich }: { bereich: WissensBereich }) {
+export function Wissensbereich({
+  bereich,
+  startId,
+  startToken,
+  onGeoeffnet,
+  istFavorit,
+  onFavorit,
+}: {
+  bereich: WissensBereich
+  startId?: string
+  startToken?: number
+  onGeoeffnet?: (id: string) => void
+  istFavorit?: (id: string) => boolean
+  onFavorit?: (id: string) => void
+}) {
   const [artikelOffen, setArtikelOffen] = useState<Wissensartikel | null>(null)
   const artikel = bereich === 'ernaehrung' ? ARTIKEL : UNTERWEGS
+
+  useEffect(() => {
+    if (!startId) return
+    const start = artikel.find((eintrag) => eintrag.id === startId)
+    if (!start) return
+    setArtikelOffen(start)
+    onGeoeffnet?.(start.id)
+  }, [bereich, startId, startToken])
+
+  const oeffnen = (eintrag: Wissensartikel) => {
+    setArtikelOffen(eintrag)
+    onGeoeffnet?.(eintrag.id)
+  }
 
   return (
     <>
@@ -482,8 +547,9 @@ export function Wissensbereich({ bereich }: { bereich: WissensBereich }) {
               <button
                 key={eintrag.id}
                 className="wissen-karte"
+                data-wissen-artikel={eintrag.id}
                 type="button"
-                onClick={() => setArtikelOffen(eintrag)}
+                onClick={() => oeffnen(eintrag)}
               >
                 <Illustration art={eintrag.symbol} />
                 <span className="wissen-karte__kicker">{meta.kicker}</span>
@@ -502,7 +568,11 @@ export function Wissensbereich({ bereich }: { bereich: WissensBereich }) {
 
       {artikelOffen && (
         <Sheet titel={artikelOffen.titel} onSchliessen={() => setArtikelOffen(null)}>
-          <ArtikelDetail artikel={artikelOffen} />
+          <ArtikelDetail
+            artikel={artikelOffen}
+            favorit={istFavorit?.(artikelOffen.id) ?? false}
+            {...(onFavorit ? { onFavorit: () => onFavorit(artikelOffen.id) } : {})}
+          />
         </Sheet>
       )}
     </>
