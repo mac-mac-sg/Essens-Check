@@ -1,0 +1,694 @@
+/* UI/UX-Modernisierung: stärkere Hierarchie, weniger Boxen, mehr gezielte Bewegung. */
+
+:root {
+  --radius-modern: 20px;
+}
+
+/* -------------------- Persönlicher Start -------------------- */
+.kopfzeile--suche {
+  gap: 0.9rem;
+  padding-bottom: 0.35rem;
+}
+
+.kopfzeile--suche .stand--hero {
+  width: 100%;
+  min-height: 76px;
+  padding: 0.85rem 1rem 1.15rem;
+  border-radius: var(--radius-modern);
+  background: linear-gradient(145deg, var(--karte), var(--flaeche-still));
+  box-shadow: var(--schatten);
+}
+
+.kopfzeile--suche .stand__kopf {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 0.55rem;
+  width: 100%;
+}
+
+.kopfzeile--suche .stand__woche {
+  font-size: 1.22rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.kopfzeile--suche .stand__trimester {
+  font-size: 0.82rem;
+  color: var(--text-gedaempft);
+}
+
+.kopfzeile--suche .stand__rechts {
+  justify-self: end;
+}
+
+.kopfzeile--suche .stand__rest {
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.kopfzeile--suche .stand__fortschritt {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.62rem;
+  height: 4px;
+  overflow: hidden;
+  background: var(--stand-spur);
+  border-radius: var(--radius-pille);
+}
+
+.kopfzeile--suche .stand__fortschritt > span {
+  display: block;
+  height: 100%;
+  background: var(--stand-balken);
+  border-radius: inherit;
+  transform-origin: left;
+  animation: fortschrittEin 700ms var(--ease-out) both;
+}
+
+.stand__woche,
+.stand__rest,
+.wissen-editorial__ssw {
+  font-variant-numeric: tabular-nums;
+}
+
+.hero {
+  margin: 0.55rem 0 0.85rem;
+  padding: 0;
+}
+
+.hero__titel {
+  margin: 0;
+  font-size: clamp(1.45rem, 6.4vw, 1.8rem);
+  font-weight: 760;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+.hero__text {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-gedaempft);
+}
+
+/* -------------------- Gleitender Bereichsschalter -------------------- */
+.suchbereich {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  padding: 4px;
+  margin-bottom: 0.8rem;
+  background: var(--flaeche-still);
+  border-radius: 16px;
+}
+
+.suchbereich__indikator {
+  position: absolute;
+  z-index: -1;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 3);
+  background: var(--karte);
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(9, 48, 58, 0.08), 0 0 0 1px var(--linie);
+  transition: transform 260ms var(--ease-out);
+}
+
+.suchbereich[data-aktiv='medikamente'] .suchbereich__indikator {
+  transform: translateX(100%);
+}
+
+.suchbereich[data-aktiv='alltag'] .suchbereich__indikator {
+  transform: translateX(200%);
+}
+
+.suchbereich > button {
+  position: relative;
+  min-height: 44px;
+  padding: 0.45rem 0.35rem;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 620;
+  color: var(--text-gedaempft);
+  background: transparent !important;
+  border: 0;
+  border-radius: 12px;
+  transition: color 180ms ease, transform 140ms var(--ease-out);
+}
+
+.suchbereich > button[aria-pressed='true'] {
+  color: var(--text);
+  font-weight: 720;
+}
+
+/* -------------------- Spotlight-Suche -------------------- */
+.feldtitel--versteckt {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.suchleiste--spotlight,
+.med-suche__suchleiste {
+  margin: 0.7rem 0 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.suchleiste--spotlight .suchfeld-huelle,
+.med-suche__suchleiste .suchfeld-huelle {
+  min-height: 58px;
+  padding-inline: 0.9rem;
+  background: var(--karte);
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px var(--linie), var(--schatten);
+  transition: transform 180ms var(--ease-out), box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.suchleiste--spotlight:focus-within .suchfeld-huelle,
+.med-suche__suchleiste:focus-within .suchfeld-huelle {
+  transform: translateY(-2px) scale(1.005);
+  box-shadow: 0 0 0 2px var(--akzent), 0 12px 28px rgba(9, 48, 58, 0.12);
+}
+
+.suchleiste--spotlight .suchfeld,
+.med-suche__suchleiste .suchfeld {
+  min-height: 56px;
+  padding-block: 0.9rem;
+  font-size: 1rem;
+  box-shadow: none !important;
+}
+
+.such-meta {
+  margin: 0.55rem 0 1rem;
+  padding-inline: 0.15rem;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--text-gedaempft);
+}
+
+/* -------------------- Gemeinsamer Result Hero -------------------- */
+.karte--ergebnis {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.result-hero {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1.35rem;
+  padding: 1.05rem 1.1rem 1.1rem;
+  border-radius: var(--radius-modern);
+  animation: resultEin 360ms var(--ease-out) both;
+}
+
+.result-hero[data-tone='ok'] { color: var(--farbe-ok); background: var(--flaeche-ok); }
+.result-hero[data-tone='bedingt'] { color: var(--farbe-bedingt); background: var(--flaeche-bedingt); }
+.result-hero[data-tone='meiden'] { color: var(--farbe-meiden); background: var(--flaeche-meiden); }
+.result-hero[data-tone='unklar'] { color: var(--farbe-unklar); background: var(--flaeche-unklar); }
+
+.result-hero__kopf {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.result-hero__subject {
+  margin: 0;
+  max-width: 70%;
+  font-size: 0.9rem;
+  font-weight: 680;
+  line-height: 1.3;
+  color: currentColor;
+  opacity: 0.88;
+}
+
+.result-hero__kontext {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.3rem;
+}
+
+.result-hero__kontext > span {
+  padding: 0.2rem 0.48rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: currentColor;
+  background: rgba(255, 255, 255, 0.34);
+  border-radius: var(--radius-pille);
+  white-space: nowrap;
+}
+
+:root[data-schema='dunkel'] .result-hero__kontext > span {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.result-hero__status {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: clamp(1.85rem, 8vw, 2.35rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.result-hero__grad {
+  display: grid;
+  gap: 0.12rem;
+  margin-top: 0.7rem;
+  color: currentColor;
+}
+
+.result-hero__grad > span {
+  font-size: 0.82rem;
+  font-weight: 740;
+}
+
+.result-hero__grad > small {
+  max-width: 34rem;
+  font-size: 0.75rem;
+  line-height: 1.42;
+  opacity: 0.8;
+}
+
+/* Weniger Boxen unter dem Ergebnis */
+.detailblock {
+  margin-top: 1.45rem;
+}
+
+.detailblock > h3,
+.wissen-detail__titel {
+  margin: 0 0 0.65rem;
+  font-size: 1.02rem;
+  font-weight: 720;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  text-transform: none;
+  color: var(--text);
+}
+
+.detailblock--worauf,
+.detailblock--quellen {
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--linie);
+}
+
+.ssw-hinweis {
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  background: transparent;
+  border-left: 3px solid var(--farbe-bedingt);
+  border-radius: 0;
+}
+
+.med-detail__produktdaten,
+.med-detail__wirkstoffkopf {
+  margin-bottom: 1rem;
+  padding: 0 0 0.9rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--linie);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.med-detail__quellen,
+.med-detail__sicherheit {
+  margin-top: 1.3rem;
+  padding-top: 1rem;
+  background: transparent;
+  border-top: 1px solid var(--linie);
+}
+
+/* -------------------- Flachere Listen statt Kartenstapel -------------------- */
+.alltag-karten {
+  gap: 0;
+  margin-top: 1rem;
+  border-top: 1px solid var(--linie);
+}
+
+.alltag-karte {
+  gap: 0.38rem;
+  padding: 1rem 0.15rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--linie);
+  border-radius: 0;
+  box-shadow: none;
+  transition: background-color 150ms ease, transform 140ms var(--ease-out);
+}
+
+.alltag-karte:hover {
+  background: color-mix(in srgb, var(--flaeche-still) 55%, transparent);
+}
+
+.alltag-karte__mehr {
+  margin-top: 0.1rem;
+}
+
+.med-trefferliste {
+  overflow: hidden;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.med-treffer {
+  border-radius: 0;
+  box-shadow: none;
+  transition: background-color 150ms ease, transform 140ms var(--ease-out);
+}
+
+.med-trefferliste li + li {
+  border-top: 1px solid var(--linie);
+}
+
+/* -------------------- Scanner als Signature Feature -------------------- */
+.navi__ziel[data-ziel='scanner'] {
+  position: relative;
+  z-index: 2;
+  margin-top: -0.65rem;
+  min-height: 58px;
+  color: #fff;
+  background: var(--marke-flaeche);
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(7, 95, 116, 0.24);
+  transition: transform 180ms var(--ease-out), box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.navi__ziel[data-ziel='scanner'][data-aktiv] {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(7, 95, 116, 0.32);
+}
+
+.navi__ziel[data-ziel='scanner']:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.scanner__bild {
+  overflow: hidden;
+  border-radius: var(--radius-modern);
+  box-shadow: var(--schatten);
+}
+
+.scanner__rahmen::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 14%;
+  height: 2px;
+  background: var(--akzent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--akzent) 70%, transparent);
+  animation: scanLinie 2.1s ease-in-out infinite alternate;
+}
+
+/* -------------------- Wissen als Editorial Feed -------------------- */
+.wissen-editorial {
+  margin-bottom: 1.65rem;
+}
+
+.wissen-editorial__kopf {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.wissen-editorial__kicker,
+.wissen-feature__kicker {
+  margin: 0 0 0.25rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--akzent);
+}
+
+.wissen-editorial__kopf h2 {
+  margin: 0;
+  font-size: clamp(1.55rem, 7vw, 1.95rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.wissen-editorial__ssw {
+  flex: 0 0 auto;
+  padding: 0.32rem 0.62rem;
+  font-size: 0.75rem;
+  font-weight: 720;
+  color: var(--akzent);
+  background: var(--flaeche-still);
+  border-radius: var(--radius-pille);
+}
+
+.wissen-feature {
+  margin-top: 1rem;
+  padding: 1.15rem;
+  background: linear-gradient(145deg, var(--karte), var(--flaeche-still));
+  border-radius: var(--radius-modern);
+  box-shadow: var(--schatten);
+}
+
+.wissen-feature h3 {
+  margin: 0;
+  max-width: 30rem;
+  font-size: 1.28rem;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+.wissen-feature > p:not(.wissen-feature__kicker) {
+  margin: 0.55rem 0 0;
+  max-width: 34rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-zweitrangig);
+}
+
+.wissen-feature button {
+  margin-top: 0.85rem;
+  padding: 0;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--akzent);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.wissen-chips {
+  display: flex;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.wissen-chips::-webkit-scrollbar { display: none; }
+
+.wissen-chips button {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 0.45rem 0.75rem;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--text-zweitrangig);
+  background: var(--flaeche-still);
+  border: 0;
+  border-radius: var(--radius-pille);
+  cursor: pointer;
+}
+
+.wissen-start {
+  display: none;
+}
+
+.wissen-bereiche {
+  display: flex;
+  gap: 0.45rem;
+  margin-bottom: 1.3rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.wissen-bereiche::-webkit-scrollbar { display: none; }
+
+.wissen-bereich,
+.wissen-bereich:nth-child(3) {
+  flex: 0 0 auto;
+  min-height: 48px;
+  padding: 0.45rem 0.7rem;
+  background: transparent;
+  border-radius: var(--radius-pille);
+  box-shadow: none;
+}
+
+.wissen-bereich .wissen-symbol {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 10px;
+}
+
+.wissen-bereich__text span {
+  display: none;
+}
+
+.wissen-bereich[data-aktiv] {
+  background: var(--flaeche-still);
+  box-shadow: none;
+}
+
+.wissen-karten {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--linie);
+}
+
+.wissen-karte {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  grid-template-areas:
+    'icon kicker more'
+    'icon title more'
+    'icon text more';
+  column-gap: 0.8rem;
+  row-gap: 0.14rem;
+  min-height: 0;
+  padding: 1rem 0.1rem;
+  background: transparent;
+  border-radius: 0;
+  border-bottom: 1px solid var(--linie);
+  box-shadow: none;
+}
+
+.wissen-karte .wissen-symbol {
+  grid-area: icon;
+  margin: 0;
+  align-self: start;
+}
+
+.wissen-karte__kicker { grid-area: kicker; margin: 0; }
+.wissen-karte > strong { grid-area: title; }
+.wissen-karte__kurz { grid-area: text; margin-top: 0.15rem; }
+.wissen-karte__mehr {
+  grid-area: more;
+  align-self: center;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+.wissen-karte__mehr span { font-size: 1.35rem; }
+
+/* -------------------- Microinteractions -------------------- */
+button,
+.treffer,
+.kategorie,
+.alltag-karte,
+.wissen-karte {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.treffer,
+.kategorie,
+.alltag-karte,
+.wissen-karte,
+.wissen-chips button,
+.wissen-feature button,
+.suchbereich > button {
+  transition: transform 140ms var(--ease-out), background-color 150ms ease, color 150ms ease, opacity 150ms ease;
+}
+
+.treffer:active,
+.kategorie:active,
+.alltag-karte:active,
+.wissen-karte:active,
+.wissen-chips button:active {
+  transform: scale(0.985);
+}
+
+.sheet__inhalt > *:first-child {
+  animation: inhaltEin 300ms var(--ease-out) both;
+}
+
+/* -------------------- Typografie -------------------- */
+.kopfzeile__titel,
+.result-hero__status,
+.hero__titel,
+.wissen-editorial__kopf h2,
+.wissen-feature h3 {
+  text-wrap: balance;
+}
+
+.grund__prinzip,
+.med-detail__klaerung-titel,
+.med-detail__eingenommen-titel {
+  letter-spacing: -0.005em;
+}
+
+@keyframes fortschrittEin {
+  from { transform: scaleX(0); opacity: 0.45; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes resultEin {
+  from { opacity: 0; transform: translateY(8px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes inhaltEin {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scanLinie {
+  from { transform: translateY(0); opacity: 0.55; }
+  to { transform: translateY(220px); opacity: 1; }
+}
+
+@media (max-width: 430px) {
+  .result-hero__kopf {
+    display: block;
+  }
+
+  .result-hero__subject {
+    max-width: none;
+  }
+
+  .result-hero__kontext {
+    justify-content: flex-start;
+    margin-top: 0.45rem;
+  }
+
+  .wissen-editorial__kopf {
+    display: block;
+  }
+
+  .wissen-editorial__ssw {
+    display: inline-flex;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kopfzeile--suche .stand__fortschritt > span,
+  .result-hero,
+  .sheet__inhalt > *:first-child,
+  .scanner__rahmen::after {
+    animation: none !important;
+  }
+}
