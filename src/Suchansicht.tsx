@@ -1,4 +1,3 @@
-import { Alltagssuche } from './Alltagssuche'
 import { NICHTS_GEFUNDEN } from './ampel'
 import { MAX_TREFFER } from './engine/suchen'
 import { Hero } from './Hero'
@@ -33,13 +32,6 @@ function Bereichsschalter({
       >
         Medikamente
       </button>
-      <button
-        type="button"
-        aria-pressed={aktiv === 'alltag'}
-        onClick={() => onWechsel('alltag')}
-      >
-        Alltag
-      </button>
     </div>
   )
 }
@@ -73,27 +65,23 @@ export function Suchansicht({
   onMedikamentWirkstoffOeffnen: (id: string) => void
   onAlltagOeffnen: (id: string) => void
 }) {
+  void onAlltagOeffnen
   const sichtbar = treffer.slice(0, MAX_TREFFER)
   const weitere = treffer.length - sichtbar.length
   const nochLeer = begriff.trim().length < 2
+  const sichtbarerBereich = bereich === 'alltag' ? 'lebensmittel' : bereich
 
   return (
     <>
-      {nochLeer && <Hero bereich={bereich} />}
-      <Bereichsschalter aktiv={bereich} onWechsel={onBereichWechsel} />
+      {nochLeer && <Hero bereich={sichtbarerBereich} />}
+      <Bereichsschalter aktiv={sichtbarerBereich} onWechsel={onBereichWechsel} />
 
-      {bereich === 'medikamente' ? (
+      {sichtbarerBereich === 'medikamente' ? (
         <Medikamentensuche
           begriff={begriff}
           setBegriff={setBegriff}
           onProduktOeffnen={onMedikamentProduktOeffnen}
           onWirkstoffOeffnen={onMedikamentWirkstoffOeffnen}
-        />
-      ) : bereich === 'alltag' ? (
-        <Alltagssuche
-          begriff={begriff}
-          setBegriff={setBegriff}
-          onOeffnen={onAlltagOeffnen}
         />
       ) : (
         <>
