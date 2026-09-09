@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { AlltagsWissen } from './AlltagsWissen'
-import { Wissensbereich } from './Wissen'
+import { Wissensbereich, type WissensBereich } from './Wissen'
 
-type Wissensthema = 'ernaehrung' | 'unterwegs' | 'alltag'
+type Wissensthema = WissensBereich | 'alltag'
 
 function ThemaIcon({ thema }: { thema: Wissensthema }) {
   if (thema === 'ernaehrung') {
@@ -31,24 +31,15 @@ function ThemaIcon({ thema }: { thema: Wissensthema }) {
 }
 
 export function WissensThemen({
-  onPruefen,
   ssw,
   sswAnzeige,
   trimester,
 }: {
-  onPruefen: (begriff: string) => void
   ssw?: number
   sswAnzeige?: string
   trimester?: number
 }) {
   const [thema, setThema] = useState<Wissensthema>('ernaehrung')
-
-  useEffect(() => {
-    if (thema !== 'unterwegs') return
-    const rahmen = document.querySelector<HTMLElement>('.wissen-themen__standard')
-    const zweiterBereich = rahmen?.querySelectorAll<HTMLButtonElement>('.wissen-bereich')[1]
-    zweiterBereich?.click()
-  }, [thema])
 
   return (
     <section className="wissen-themen" aria-label="Wissensthemen">
@@ -96,9 +87,7 @@ export function WissensThemen({
             {...(trimester ? { trimester } : {})}
           />
         ) : (
-          <div className="wissen-themen__standard">
-            <Wissensbereich key={thema} onPruefen={onPruefen} />
-          </div>
+          <Wissensbereich bereich={thema} />
         )}
       </div>
     </section>
