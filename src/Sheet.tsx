@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from 'react'
 
 const WEG_AB_PIXELN = 96
 const WEG_AB_TEMPO = 0.5
@@ -13,17 +13,20 @@ export function Sheet({
   children,
   onSchliessen,
   fussKnopf,
+  variante = 'standard',
 }: {
   titel: string
   children: ReactNode
   onSchliessen: () => void
   fussKnopf?: string
+  variante?: 'standard' | 'vollbild'
 }) {
   const blatt = useRef<HTMLDivElement>(null)
   const schleier = useRef<HTMLDivElement>(null)
   const zug = useRef<{ start: number; zeit: number; hoehe: number } | null>(null)
   const [geht, setGeht] = useState(false)
   const vorher = useRef<HTMLElement | null>(null)
+  const titelId = useId()
   if (vorher.current === null && typeof document !== 'undefined') {
     vorher.current = document.activeElement as HTMLElement | null
   }
@@ -119,9 +122,10 @@ export function Sheet({
         className="sheet"
         ref={blatt}
         data-geht={geht || undefined}
+        data-variante={variante}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="sheet-titel"
+        aria-labelledby={titelId}
         tabIndex={-1}
       >
         <div
@@ -135,7 +139,7 @@ export function Sheet({
         </div>
 
         <div className="sheet__kopf">
-          <h2 className="sheet__titel" id="sheet-titel">{titel}</h2>
+          <h2 className="sheet__titel" id={titelId}>{titel}</h2>
           <button className="sheet__zu" type="button" aria-label="Schliessen" onClick={schliessen}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
