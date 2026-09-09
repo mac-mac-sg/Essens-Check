@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:offline": "node scripts/offline-test.mjs",
+    "security:check": "npm audit --audit-level=high",
     "pruefstand": "vite-node scripts/pruefstand.ts --",
     "karte": "vite-node scripts/karte.ts --",
     "hebammenliste": "vite-node scripts/hebammenliste.ts",
