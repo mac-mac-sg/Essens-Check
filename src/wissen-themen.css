@@ -60,22 +60,22 @@
   letter-spacing: -0.01em;
 }
 
-/* Die alte interne Zwei-Themen-Navigation bleibt nur als Zustandsmechanik bestehen. */
-.wissen-themen__standard > .wissen-bereiche {
-  display: none !important;
-}
-
 .wissen-themen__inhalt {
   scroll-margin-top: 1rem;
 }
 
-.wissen-themen__standard .wissen-abschnitt,
+.wissen-themen__inhalt .wissen-abschnitt,
 .wissen-alltag {
   margin-top: 0;
 }
 
 .wissen-alltag .wissen-abschnitt__kopf {
   margin-top: 0;
+}
+
+/* Alltag nutzt exakt dieselbe Kartenhierarchie wie Ernährung und Unterwegs. */
+.wissen-alltag__karte .wissen-symbol {
+  align-self: start;
 }
 
 @media (max-width: 360px) {
