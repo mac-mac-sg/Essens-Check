@@ -1,0 +1,140 @@
+{
+  "stand": "2026-09-09",
+  "quellen": [
+    {"id":"embryotox-doxylamin","typ":"teratologie","titel":"Embryotox – Doxylamin","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/doxylamin","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-meclozin","typ":"teratologie","titel":"Embryotox – Meclozin","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/meclozin","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-dimenhydrinat","typ":"teratologie","titel":"Embryotox – Dimenhydrinat","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/dimenhydrinat","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-ondansetron","typ":"teratologie","titel":"Embryotox – Ondansetron","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/ondansetron","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-pantoprazol","typ":"teratologie","titel":"Embryotox – Pantoprazol","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/pantoprazol","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-macrogol","typ":"teratologie","titel":"Embryotox – Macrogol","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/macrogol","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-lactulose","typ":"teratologie","titel":"Embryotox – Lactulose","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/lactulose","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-bisacodyl","typ":"teratologie","titel":"Embryotox – Bisacodyl","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/bisacodyl","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-salbutamol","typ":"teratologie","titel":"Embryotox – Salbutamol","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/salbutamol","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-budesonid","typ":"teratologie","titel":"Embryotox – Budesonid","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/budesonid","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-cefuroxim","typ":"teratologie","titel":"Embryotox – Cefuroxim","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/cefuroxim","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-penicillin-v","typ":"teratologie","titel":"Embryotox – Penicillin V","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/penicillin-v","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-azithromycin","typ":"teratologie","titel":"Embryotox – Azithromycin","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/azithromycin","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-fosfomycin","typ":"teratologie","titel":"Embryotox – Fosfomycin","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/fosfomycin","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-nitrofurantoin","typ":"teratologie","titel":"Embryotox – Nitrofurantoin","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/nitrofurantoin","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-clotrimazol","typ":"teratologie","titel":"Embryotox – Clotrimazol","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/clotrimazol","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-metronidazol","typ":"teratologie","titel":"Embryotox – Metronidazol","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/metronidazol","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-aciclovir","typ":"teratologie","titel":"Embryotox – Aciclovir","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/aciclovir","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-sumatriptan","typ":"teratologie","titel":"Embryotox – Sumatriptan","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/sumatriptan","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"},
+    {"id":"embryotox-levothyroxin","typ":"teratologie","titel":"Embryotox – Thyroxin / Levothyroxin","url":"https://www.embryotox.de/arzneimittel/details/ansicht/medikament/thyroxin","abgerufen_am":"2026-09-09","rolle":"schwangerschaftsbewertung"}
+  ],
+  "medikamente": [
+    {
+      "id":"doxylamin","wirkstoff":"Doxylamin","synonyme":[],"gruppe":"Übelkeit und Erbrechen","verschreibungspflichtig":null,
+      "allgemeiner_hinweis":"Bei Schwangerschaftsübelkeit wird Doxylamin typischerweise in Kombination mit Pyridoxin eingesetzt. Die sedierende Wirkung beachten.",
+      "profile":[{"id":"oral","label":"Orale Anwendung","beschreibung":"Behandlung von Schwangerschaftsübelkeit und -erbrechen; kurzfristig auch bei Schlafstörungen.","darreichungswege":["oral"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Doxylamin gehört zusammen mit Pyridoxin zu den Mitteln der Wahl bei Schwangerschaftsübelkeit und -erbrechen und kann während der Schwangerschaft eingesetzt werden.","bereits_eingenommen":"Bei üblicher Anwendung nennt die hinterlegte Quelle keine besonderen Massnahmen allein aufgrund der Einnahme.","hinweise":["Kann deutlich müde machen.","Bei Schlafstörungen nur kurzfristig anwenden."]}]}],
+      "quellen":["embryotox-doxylamin"]
+    },
+    {
+      "id":"meclozin","wirkstoff":"Meclozin","synonyme":["Meclizin"],"gruppe":"Übelkeit, Erbrechen und Reisekrankheit","verschreibungspflichtig":null,
+      "allgemeiner_hinweis":"Kann müde machen. Verfügbarkeit und Produktzusammensetzung können je nach Präparat variieren.",
+      "profile":[{"id":"oral","label":"Orale Anwendung","beschreibung":"Anwendung gegen Übelkeit, Erbrechen oder Reisekrankheit.","darreichungswege":["oral"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Meclozin kann während der gesamten Schwangerschaft eingenommen werden und gehört zu den Mitteln der Wahl bei Schwangerschaftsübelkeit und -erbrechen.","bereits_eingenommen":"Bei üblicher Anwendung nennt die hinterlegte Quelle keine besonderen Massnahmen allein aufgrund der Einnahme.","hinweise":["Sedierende Wirkung beachten."]}]}],
+      "quellen":["embryotox-meclozin"]
+    },
+    {
+      "id":"dimenhydrinat","wirkstoff":"Dimenhydrinat","synonyme":[],"gruppe":"Übelkeit, Erbrechen und Reisekrankheit","verschreibungspflichtig":null,
+      "allgemeiner_hinweis":"Doxylamin/Pyridoxin oder Meclozin sind bei Schwangerschaftsübelkeit bevorzugte Optionen.",
+      "profile":[{"id":"antiemetisch","label":"Anwendung gegen Übelkeit und Erbrechen","beschreibung":"Kurzfristige orale, rektale oder parenterale Anwendung.","darreichungswege":["oral","rektal","intramuskulär","intravenös"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"mit_einschraenkung","text":"Dimenhydrinat darf bei Übelkeit und Erbrechen in der Schwangerschaft angewendet werden. Bei vorzeitigen Wehen sollte es möglichst nicht eingesetzt werden.","bereits_eingenommen":"Eine übliche Einnahme erfordert nach der hinterlegten Quelle keine besonderen Massnahmen. Bei vorzeitigen Wehen oder Anwendung kurz vor der Geburt ärztlich rückfragen.","hinweise":["Kann müde machen.","Bei vorzeitigen Wehen möglichst vermeiden."]}]}],
+      "quellen":["embryotox-dimenhydrinat"]
+    },
+    {
+      "id":"ondansetron","wirkstoff":"Ondansetron","synonyme":[],"gruppe":"Übelkeit und Erbrechen","verschreibungspflichtig":true,
+      "allgemeiner_hinweis":"Nicht Mittel der ersten Wahl bei Schwangerschaftsübelkeit; Einsatz nach individueller Nutzen-Risiko-Abwägung.",
+      "profile":[{"id":"antiemetisch","label":"Antiemetische Anwendung","beschreibung":"Bei schwererer oder anhaltender Übelkeit, wenn bevorzugte Antiemetika nicht ausreichend wirken.","darreichungswege":["oral","intravenös"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":13,"status":"nur_nach_ruecksprache","text":"Ondansetron kann eingesetzt werden, wenn primär empfohlene Antiemetika nicht wirksam sind. Nach Exposition im 1. Trimenon kann eine weiterführende Ultraschalldiagnostik angeboten werden.","bereits_eingenommen":"Nicht eigenständig weiterbehandeln oder absetzen. Eine Einnahme im 1. Trimenon mit der behandelnden Fachperson besprechen; eine weiterführende Ultraschalldiagnostik kann angeboten werden.","hinweise":["Doxylamin, Meclozin oder Dimenhydrinat werden zunächst bevorzugt.","Hohe intravenöse Einzeldosen über 8 mg sind bei Risiko für QT-Verlängerung kontraindiziert."]},{"von_ssw":14,"bis_ssw":42,"status":"nur_nach_ruecksprache","text":"Ondansetron kann nach individueller Nutzen-Risiko-Abwägung eingesetzt werden, wenn bevorzugte Antiemetika nicht ausreichend wirken.","bereits_eingenommen":"Bei verordneter Anwendung nicht eigenständig verändern. Bei Unsicherheit die behandelnde Fachperson kontaktieren.","hinweise":["Nicht Mittel der ersten Wahl.","Hohe intravenöse Einzeldosen über 8 mg sind bei Risiko für QT-Verlängerung kontraindiziert."]}]}],
+      "quellen":["embryotox-ondansetron"]
+    },
+    {
+      "id":"pantoprazol","wirkstoff":"Pantoprazol","synonyme":[],"gruppe":"Sodbrennen und Reflux","verschreibungspflichtig":null,
+      "profile":[{"id":"systemisch","label":"Systemische Anwendung","beschreibung":"Therapie von Reflux, säurebedingten Beschwerden oder Gastritisprophylaxe.","darreichungswege":["oral","intravenös"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Pantoprazol kann bei entsprechender Indikation während der Schwangerschaft eingesetzt werden.","bereits_eingenommen":"Bei üblicher Anwendung nennt die hinterlegte Quelle keine besonderen Massnahmen aufgrund der Einnahme.","hinweise":[]}]}],
+      "quellen":["embryotox-pantoprazol"]
+    },
+    {
+      "id":"macrogol","wirkstoff":"Macrogol","synonyme":["Polyethylenglykol","PEG","Macrogol 3350","Macrogol 4000"],"gruppe":"Verstopfung","verschreibungspflichtig":false,
+      "profile":[{"id":"oral","label":"Orale Anwendung","beschreibung":"Osmotisches Abführmittel bei Verstopfung.","darreichungswege":["oral"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Macrogol kann in allen Stadien der Schwangerschaft eingesetzt werden.","bereits_eingenommen":"Nach üblicher Anwendung sind laut hinterlegter Quelle keine besonderen Massnahmen erforderlich.","hinweise":[]}]}],
+      "quellen":["embryotox-macrogol"]
+    },
+    {
+      "id":"lactulose","wirkstoff":"Lactulose","synonyme":[],"gruppe":"Verstopfung","verschreibungspflichtig":false,
+      "profile":[{"id":"oral","label":"Orale Anwendung","beschreibung":"Osmotisches Abführmittel bei Verstopfung.","darreichungswege":["oral"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Lactulose kann in allen Stadien der Schwangerschaft eingesetzt werden.","bereits_eingenommen":"Nach üblicher Anwendung sind laut hinterlegter Quelle keine besonderen Massnahmen erforderlich.","hinweise":[]}]}],
+      "quellen":["embryotox-lactulose"]
+    },
+    {
+      "id":"bisacodyl","wirkstoff":"Bisacodyl","synonyme":[],"gruppe":"Verstopfung","verschreibungspflichtig":false,
+      "allgemeiner_hinweis":"Für eine medikamentöse Behandlung werden Lactulose und Macrogol bevorzugt.",
+      "profile":[{"id":"kurzfristig","label":"Kurzfristige Anwendung","beschreibung":"Stimulierung der Darmtätigkeit bei Verstopfung.","darreichungswege":["oral","rektal"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"mit_einschraenkung","text":"Bisacodyl ist kurzfristig akzeptabel, wenn bevorzugte Mittel wie Lactulose oder Macrogol nicht ausreichend wirken.","bereits_eingenommen":"Eine kurzfristige übliche Anwendung erfordert nach der hinterlegten Quelle keine besonderen Massnahmen.","hinweise":["Nur kurzfristig verwenden.","Lactulose und Macrogol werden bevorzugt."]}]}],
+      "quellen":["embryotox-bisacodyl"]
+    },
+    {
+      "id":"salbutamol","wirkstoff":"Salbutamol","synonyme":["Albuterol"],"gruppe":"Asthma und Atemwege","verschreibungspflichtig":null,
+      "allgemeiner_hinweis":"Diese Bewertung gilt für die inhalative Bedarfsbehandlung bei Asthma.",
+      "profile":[{"id":"inhalativ","label":"Inhalative Anwendung","beschreibung":"Kurzwirksames inhalatives Beta-2-Sympathomimetikum als Bedarfsmedikation.","darreichungswege":["inhalativ"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Inhalatives Salbutamol ist während der gesamten Schwangerschaft Mittel der Wahl unter den kurzwirksamen Beta-2-Sympathomimetika.","bereits_eingenommen":"Bei indikationsgerechter inhalativer Anwendung nennt die hinterlegte Quelle keine besonderen Massnahmen allein aufgrund der Anwendung.","hinweise":["Eine gute Asthmakontrolle ist in der Schwangerschaft wichtig."]}]}],
+      "quellen":["embryotox-salbutamol"]
+    },
+    {
+      "id":"budesonid","wirkstoff":"Budesonid","synonyme":[],"gruppe":"Asthma, Allergie und chronisch entzündliche Darmerkrankungen","verschreibungspflichtig":null,
+      "allgemeiner_hinweis":"Der Anwendungsweg ist wichtig; die App unterscheidet Atemwege von oraler/rektaler Therapie.",
+      "profile":[{"id":"inhalativ-nasal","label":"Inhalativ oder nasal","beschreibung":"Asthmatherapie oder Nasenspray bei allergischer Rhinitis.","darreichungswege":["inhalativ","nasal"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Budesonid kann inhalativ im Asthmatherapie-Stufenplan und nasal bei allergischer Rhinitis während der gesamten Schwangerschaft eingesetzt werden.","bereits_eingenommen":"Bei indikationsgerechter Anwendung sind laut hinterlegter Quelle keine besonderen Massnahmen erforderlich.","hinweise":["Eine bestehende Asthmatherapie nicht eigenständig absetzen."]}]},{"id":"oral-rektal","label":"Oral oder rektal","beschreibung":"Behandlung chronisch entzündlicher Darmerkrankungen.","darreichungswege":["oral","rektal"],"voraussetzung":"Nur bei entsprechender medizinischer Indikation.","ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Budesonid kann bei entsprechender Indikation auch oral oder rektal während der Schwangerschaft eingesetzt werden.","bereits_eingenommen":"Eine verordnete Therapie nicht eigenständig verändern. Laut hinterlegter Quelle sind keine besonderen Massnahmen allein aufgrund der Anwendung erforderlich.","hinweise":[]}]}],
+      "quellen":["embryotox-budesonid"]
+    },
+    {
+      "id":"cefuroxim","wirkstoff":"Cefuroxim","synonyme":["Cefuroximaxetil"],"gruppe":"Bakterielle Infektionen","verschreibungspflichtig":true,
+      "profile":[{"id":"systemisch","label":"Systemische Anwendung","beschreibung":"Orale oder parenterale Antibiotikatherapie bei passendem Keimspektrum.","darreichungswege":["oral","intravenös","intramuskulär"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Cefuroxim kann bei entsprechendem Keimspektrum in allen Phasen der Schwangerschaft eingesetzt werden.","bereits_eingenommen":"Eine verordnete Antibiotikatherapie nicht eigenständig abbrechen. Laut hinterlegter Quelle sind keine besonderen Massnahmen allein aufgrund der Anwendung erforderlich.","hinweise":["Antibiotika nur bei entsprechender Indikation anwenden."]}]}],
+      "quellen":["embryotox-cefuroxim"]
+    },
+    {
+      "id":"penicillin-v","wirkstoff":"Penicillin V","synonyme":["Phenoxymethylpenicillin"],"gruppe":"Bakterielle Infektionen","verschreibungspflichtig":true,
+      "profile":[{"id":"oral","label":"Orale Anwendung","beschreibung":"Antibiotikatherapie bei empfindlichen bakteriellen Erregern.","darreichungswege":["oral"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Penicillin V gehört zu den Antibiotika der Wahl in der Schwangerschaft.","bereits_eingenommen":"Eine verordnete Antibiotikatherapie nicht eigenständig abbrechen. Laut hinterlegter Quelle sind keine besonderen Massnahmen allein aufgrund der Anwendung erforderlich.","hinweise":["Antibiotika nur bei entsprechender Indikation anwenden."]}]}],
+      "quellen":["embryotox-penicillin-v"]
+    },
+    {
+      "id":"azithromycin","wirkstoff":"Azithromycin","synonyme":[],"gruppe":"Bakterielle Infektionen","verschreibungspflichtig":true,
+      "allgemeiner_hinweis":"Penicilline und Cephalosporine sind bei passender Indikation besser etablierte Alternativen.",
+      "profile":[{"id":"systemisch","label":"Systemische Anwendung","beschreibung":"Orale oder intravenöse Antibiotikatherapie.","darreichungswege":["oral","intravenös"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"mit_einschraenkung","text":"Azithromycin kann bei entsprechender Indikation in allen Phasen der Schwangerschaft eingesetzt werden; Penicilline und Cephalosporine sind besser etablierte Alternativen.","bereits_eingenommen":"Eine verordnete Antibiotikatherapie nicht eigenständig abbrechen. Die hinterlegte Quelle nennt keine besonderen Massnahmen allein aufgrund der Anwendung.","hinweise":["Nur bei klarer Indikation anwenden."]}]}],
+      "quellen":["embryotox-azithromycin"]
+    },
+    {
+      "id":"fosfomycin","wirkstoff":"Fosfomycin","synonyme":["Fosfomycin-Trometamol"],"gruppe":"Harnwegsinfektionen","verschreibungspflichtig":true,
+      "profile":[{"id":"oral-einmalgabe","label":"Orale Einmalgabe","beschreibung":"Fosfomycin-Trometamol bei unkompliziertem Harnwegsinfekt.","darreichungswege":["oral"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Die orale Einmalgabe von Fosfomycin-Trometamol bei unkompliziertem Harnwegsinfekt ist während der Schwangerschaft möglich.","bereits_eingenommen":"Bei verordneter oraler Einmalgabe nennt die hinterlegte Quelle keine besonderen Massnahmen allein aufgrund der Anwendung.","hinweise":["Harnwegsinfektionen in der Schwangerschaft ärztlich abklären lassen."]}]},{"id":"intravenoes","label":"Intravenöse Anwendung","beschreibung":"Mehrtagestherapie schwerer bakterieller Infektionen.","darreichungswege":["intravenös"],"voraussetzung":"Nur nach ärztlicher Prüfung besser geeigneter Alternativen.","ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"nur_nach_ruecksprache","text":"Intravenöses Fosfomycin sollte in der Schwangerschaft nur nach Prüfung besser geeigneter Alternativen eingesetzt werden.","bereits_eingenommen":"Eine verordnete intravenöse Therapie nicht eigenständig verändern; die weitere Behandlung mit dem Behandlungsteam abstimmen.","hinweise":[]}]}],
+      "quellen":["embryotox-fosfomycin"]
+    },
+    {
+      "id":"nitrofurantoin","wirkstoff":"Nitrofurantoin","synonyme":[],"gruppe":"Harnwegsinfektionen","verschreibungspflichtig":true,
+      "allgemeiner_hinweis":"Antibiotikum der zweiten Wahl; am Ende der Schwangerschaft möglichst vermeiden.",
+      "profile":[{"id":"oral","label":"Orale Anwendung","beschreibung":"Behandlung einer unkomplizierten Zystitis oder ausgewählter Harnwegsinfektionen.","darreichungswege":["oral"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"mit_einschraenkung","text":"Nitrofurantoin ist in der Schwangerschaft ein Antibiotikum der zweiten Wahl. Besser untersuchte und verträglichere Alternativen sollen zuerst geprüft werden; am Ende der Schwangerschaft möglichst vermeiden.","bereits_eingenommen":"Eine verordnete Therapie nicht eigenständig abbrechen. Bei Anwendung gegen Ende der Schwangerschaft die weitere Behandlung ärztlich abstimmen.","hinweise":["Am Ende der Schwangerschaft möglichst vermeiden.","Bei Glucose-6-phosphat-Dehydrogenase-Mangel ist besondere Vorsicht nötig."]}]}],
+      "quellen":["embryotox-nitrofurantoin"]
+    },
+    {
+      "id":"clotrimazol","wirkstoff":"Clotrimazol","synonyme":[],"gruppe":"Pilzinfektionen","verschreibungspflichtig":null,
+      "allgemeiner_hinweis":"Diese Bewertung gilt für lokale Anwendung auf Haut oder vaginal.",
+      "profile":[{"id":"lokal-vaginal","label":"Lokal oder vaginal","beschreibung":"Behandlung oberflächlicher Haut- oder Vaginalmykosen.","darreichungswege":["dermal","vaginal"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Clotrimazol ist Mittel der Wahl bei Vaginalmykosen und dermalen Pilzinfektionen in der Schwangerschaft.","bereits_eingenommen":"Bei lokaler oder vaginaler Anwendung nennt die hinterlegte Quelle keine besonderen Massnahmen aufgrund der Anwendung.","hinweise":[]}]}],
+      "quellen":["embryotox-clotrimazol"]
+    },
+    {
+      "id":"metronidazol","wirkstoff":"Metronidazol","synonyme":[],"gruppe":"Bakterielle und vaginale Infektionen","verschreibungspflichtig":true,
+      "allgemeiner_hinweis":"Die Indikation soll kritisch geprüft werden; je nach Infektion sind Penicilline oder Cephalosporine besser geeignete Alternativen.",
+      "profile":[{"id":"systemisch-lokal","label":"Systemisch oder lokal","beschreibung":"Orale, intravenöse oder vaginale Anwendung bei geeigneter Indikation.","darreichungswege":["oral","intravenös","vaginal"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"mit_einschraenkung","text":"Metronidazol kann bei kritisch geprüfter Indikation in der gesamten Schwangerschaft eingesetzt werden.","bereits_eingenommen":"Eine verordnete Therapie nicht eigenständig abbrechen. Die hinterlegte Quelle nennt keine besonderen Massnahmen allein aufgrund der Anwendung.","hinweise":["Indikation kritisch prüfen."]}]}],
+      "quellen":["embryotox-metronidazol"]
+    },
+    {
+      "id":"aciclovir","wirkstoff":"Aciclovir","synonyme":["Acyclovir"],"gruppe":"Herpesinfektionen","verschreibungspflichtig":null,
+      "profile":[{"id":"lokal-systemisch","label":"Lokal oder systemisch","beschreibung":"Behandlung von Herpes-simplex- oder Varizella-Zoster-Infektionen.","darreichungswege":["dermal","ophthalmisch","oral","intravenös"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Aciclovir darf bei entsprechender Indikation während der gesamten Schwangerschaft lokal und systemisch verwendet werden.","bereits_eingenommen":"Bei indikationsgerechter Anwendung nennt die hinterlegte Quelle keine besonderen Massnahmen allein aufgrund der Anwendung.","hinweise":[]}]}],
+      "quellen":["embryotox-aciclovir"]
+    },
+    {
+      "id":"sumatriptan","wirkstoff":"Sumatriptan","synonyme":[],"gruppe":"Migräne","verschreibungspflichtig":null,
+      "allgemeiner_hinweis":"Für die Akutbehandlung einer Migräneattacke; nicht als allgemeines Schmerzmittel zu verstehen.",
+      "profile":[{"id":"akuttherapie","label":"Akuttherapie der Migräne","beschreibung":"Orale, nasale oder subkutane Anwendung bei akuter Migräneattacke.","darreichungswege":["oral","nasal","subkutan"],"ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Sumatriptan ist zur Behandlung einer akuten Migräneattacke während der gesamten Schwangerschaft akzeptabel und unter den Triptanen Mittel der Wahl.","bereits_eingenommen":"Bei üblicher Anwendung nennt die hinterlegte Quelle keine besonderen Massnahmen allein aufgrund der Einnahme.","hinweise":["Gilt für die Akuttherapie einer Migräneattacke."]}]}],
+      "quellen":["embryotox-sumatriptan"]
+    },
+    {
+      "id":"levothyroxin","wirkstoff":"Levothyroxin","synonyme":["L-Thyroxin","Thyroxin","T4"],"gruppe":"Schilddrüse","verschreibungspflichtig":true,
+      "allgemeiner_hinweis":"Eine bestehende Substitution nicht eigenständig verändern. Der Bedarf steigt in der Schwangerschaft häufig und soll anhand der Schilddrüsenwerte angepasst werden.",
+      "profile":[{"id":"substitution","label":"Schilddrüsenhormon-Substitution","beschreibung":"Behandlung einer Hypothyreose mit individuell eingestellter Dosis.","darreichungswege":["oral"],"voraussetzung":"Ärztlich diagnostizierte Hypothyreose und Verlaufskontrollen.","ssw_fenster":[{"von_ssw":0,"bis_ssw":42,"status":"geeignet","text":"Levothyroxin ist Mittel der Wahl zur Behandlung einer Hypothyreose in der Schwangerschaft. Die Dosis muss häufig anhand der Schilddrüsenwerte angepasst werden.","bereits_eingenommen":"Eine verordnete Levothyroxin-Therapie weiterführen und nicht eigenständig verändern. Frühzeitig TSH kontrollieren und Dosis mit der behandelnden Fachperson abstimmen.","hinweise":["Schilddrüsenwerte regelmässig kontrollieren.","Nicht eigenständig absetzen oder dosieren."]}]}],
+      "quellen":["embryotox-levothyroxin"]
+    }
+  ]
+}
