@@ -1,13 +1,14 @@
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import medikamenteJson from '../daten/medikamente.json'
+import erweiterungJson from '../daten/medikamente-erweiterung.json'
 import mappingJson from '../daten/medikament-wirkstoff-mapping.json'
 import {
   baueSwissmedicSnapshot,
   type SwissmedicMappingKatalog,
   type SwissmedicXmlQuellen,
 } from '../src/medikamente/swissmedic'
-import type { MedikamentKatalog } from '../src/medikamente/typen'
+import type { MedikamentKatalog, MedikamentQuelle } from '../src/medikamente/typen'
 
 const QUELLDATEIEN = {
   praeparate: ['Praeparate.XML', 'Praeparate.xml'],
@@ -24,6 +25,12 @@ const QUELLDATEIEN = {
 } as const
 
 type QuellenKey = keyof typeof QUELLDATEIEN
+
+type MedikamentErweiterung = {
+  stand: string
+  quellen: MedikamentQuelle[]
+  medikamente: MedikamentKatalog['medikamente']
+}
 
 async function dateiIndex(verzeichnis: string): Promise<Map<string, string>> {
   const result = new Map<string, string>()
@@ -80,6 +87,18 @@ async function leseQuellen(verzeichnis: string): Promise<SwissmedicXmlQuellen> {
   return result
 }
 
+function fachkatalog(): MedikamentKatalog {
+  const basis = medikamenteJson as MedikamentKatalog
+  const erweiterung = erweiterungJson as MedikamentErweiterung
+  return {
+    ...basis,
+    version: '0.2',
+    stand: erweiterung.stand,
+    quellen: [...basis.quellen, ...erweiterung.quellen],
+    medikamente: [...basis.medikamente, ...erweiterung.medikamente],
+  }
+}
+
 async function main() {
   const [, , quellArg, zielArg] = process.argv
   if (!quellArg) {
@@ -94,7 +113,7 @@ async function main() {
   const snapshot = baueSwissmedicSnapshot(
     quellen,
     mappingJson as SwissmedicMappingKatalog,
-    medikamenteJson as MedikamentKatalog,
+    fachkatalog(),
   )
 
   await mkdir(dirname(ziel), { recursive: true })
@@ -104,7 +123,7 @@ async function main() {
   console.log(`Swissmedic-Snapshot ${snapshot.stand}`)
   console.log(`Aktive HAM-Präparate: ${statistik.praeparate_ham_aktiv}`)
   console.log(`Aktive HAM-Sequenzen: ${statistik.sequenzen_ham_aktiv}`)
-  console.log(`Produkte mit Pilotwirkstoff: ${statistik.produkte_mit_pilotwirkstoff}`)
+  console.log(`Produkte mit kuratiertem Wirkstoff: ${statistik.produkte_mit_pilotwirkstoff}`)
   console.log(`Vollständig gemappt: ${statistik.vollstaendig_gemappt}`)
   console.log(`Unvollständige Kombinationen: ${statistik.unvollstaendige_kombinationen}`)
   console.log(`Geschrieben: ${ziel}`)
