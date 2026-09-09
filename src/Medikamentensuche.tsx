@@ -14,11 +14,7 @@ function WirkstoffZeile({
 }) {
   return (
     <li>
-      <button
-        className="med-treffer"
-        type="button"
-        onClick={() => onOeffnen(medikament.id)}
-      >
+      <button className="med-treffer" type="button" onClick={() => onOeffnen(medikament.id)}>
         <span className="med-treffer__haupt">
           <span className="med-treffer__art">Wirkstoff</span>
           <span className="med-treffer__name">{medikament.wirkstoff}</span>
@@ -78,25 +74,20 @@ export function Medikamentensuche({
 
   return (
     <section className="med-suche" aria-label="Medikamente prüfen">
-      <div className="suchleiste med-suche__suchleiste">
-        <label className="feldtitel" htmlFor="medikament-suche">
-          Medikament oder Wirkstoff eingeben
+      <div className="suchleiste suchleiste--spotlight med-suche__suchleiste">
+        <label className="feldtitel feldtitel--versteckt" htmlFor="medikament-suche">
+          Medikament oder Wirkstoff suchen
         </label>
         <div className="suchfeld-huelle">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="2" />
-            <path
-              d="M13.5 13.5 L17 17"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
+            <path d="M13.5 13.5 L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
           <input
             id="medikament-suche"
             className="suchfeld"
             type="search"
-            placeholder="Dafalgan, Algifor, Paracetamol …"
+            placeholder="Medikament oder Wirkstoff suchen …"
             value={begriff}
             onChange={(ereignis) => setBegriff(ereignis.target.value)}
             autoFocus
@@ -115,12 +106,7 @@ export function Medikamentensuche({
               }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path
-                  d="M4 4 L12 12 M12 4 L4 12"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
+                <path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </button>
           )}
@@ -128,17 +114,9 @@ export function Medikamentensuche({
       </div>
 
       {!gesucht && (
-        <div className="med-suche__intro">
-          <p className="med-suche__intro-titel">Schweizer Präparat oder Wirkstoff suchen</p>
-          <p>
-            Aktuell sind {medikamentKatalog.medikamente.length} Wirkstoffe fachlich kuratiert.
-            Schweizer Produktdaten: Swissmedic, Stand {medikamentProduktSnapshot.stand.split('-').reverse().join('.')}.
-          </p>
-          <p>
-            Swissmedic identifiziert das Präparat. Die Schwangerschaftsbewertung stammt aus dem
-            separaten kuratierten Wirkstoffkatalog.
-          </p>
-        </div>
+        <p className="such-meta">
+          {medikamentKatalog.medikamente.length} kuratierte Wirkstoffe · Swissmedic-Produktdaten Stand {medikamentProduktSnapshot.stand.split('-').reverse().join('.')}
+        </p>
       )}
 
       {gesucht && wirkstoffe.length > 0 && (
@@ -146,11 +124,7 @@ export function Medikamentensuche({
           <h2 className="med-suche__ueberschrift">Wirkstoffe</h2>
           <ul className="med-trefferliste">
             {wirkstoffe.map((medikament) => (
-              <WirkstoffZeile
-                key={medikament.id}
-                medikament={medikament}
-                onOeffnen={onWirkstoffOeffnen}
-              />
+              <WirkstoffZeile key={medikament.id} medikament={medikament} onOeffnen={onWirkstoffOeffnen} />
             ))}
           </ul>
         </div>
