@@ -28,7 +28,7 @@ export default defineConfig({
       },
       manifest: {
         name: 'Darf ich das? — Schwangerschafts-Checker',
-        short_name: 'Darf ich das?',
+        short_name: 'darf ich?',
         description:
           'Nachschlagewerk für die Schwangerschaft: Lebensmittel und ausgewählte Medikamente sicher einordnen.',
         lang: 'de-CH',
