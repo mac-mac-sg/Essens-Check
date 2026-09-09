@@ -6,11 +6,10 @@ export function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-titel">
       <h2 className="hero__titel" id="hero-titel">
-        Ein Lebensmittel, eine klare Antwort.
+        Schnell prüfen. Sicher entscheiden.
       </h2>
       <p className="hero__text">
-        Eingeben oder scannen — und die Auskunft steht da: mit der Zubereitung, unter der
-        sie gilt, und dem Risiko, aus dem sie folgt.
+        Einfach eingeben oder scannen und direkt die passende Auskunft erhalten.
       </p>
     </section>
   )
