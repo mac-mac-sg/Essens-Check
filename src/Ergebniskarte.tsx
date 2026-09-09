@@ -1,6 +1,7 @@
 import { AMPEL } from './ampel'
 import { entscheidungsgradLebensmittel } from './entscheidungsgrad'
 import type { Urteil, VariantenUrteil } from './engine/bewerten'
+import { ResultHero, type ResultTone } from './ResultHero'
 
 function Begruendungen({ urteil }: { urteil: VariantenUrteil }) {
   return (
@@ -37,35 +38,24 @@ export function Ergebniskarte({
   const statusUnterschiedlich = new Set(urteil.varianten.map((variante) => variante.status)).size > 1
   const grad = entscheidungsgradLebensmittel(erste?.status ?? 'unklar', statusUnterschiedlich)
   const worauf = [urteil.frage, urteil.zusatz].filter((text): text is string => Boolean(text))
+  const status = einzeln && erste ? AMPEL[erste.status].wort : 'Kommt drauf an'
+  const tone: ResultTone = einzeln && erste ? erste.status : 'unklar'
+  const context = [
+    sswAnzeige ? `SSW ${sswAnzeige}` : null,
+    trimester ? `${trimester}. Trimester` : null,
+  ].filter((wert): wert is string => Boolean(wert))
 
   return (
     <article className="karte karte--ergebnis" aria-labelledby="ergebnis-titel">
-      <h2 className="titel" id="ergebnis-titel">{urteil.name}</h2>
-
-      {(sswAnzeige || trimester) && (
-        <div className="kontextleiste" aria-label="Persönlicher Schwangerschaftskontext">
-          {sswAnzeige && <span>SSW {sswAnzeige}</span>}
-          {trimester && <span>{trimester}. Trimester</span>}
-        </div>
-      )}
-
-      {einzeln && erste ? (
-        <section className="entscheidung" data-status={erste.status} aria-label="Entscheidung">
-          <span className="entscheidung__label">Antwort</span>
-          <strong className="entscheidung__wort">{AMPEL[erste.status].wort}</strong>
-        </section>
-      ) : (
-        <section className="entscheidung entscheidung--gemischt" aria-label="Entscheidung">
-          <span className="entscheidung__label">Antwort</span>
-          <strong className="entscheidung__wort">Kommt drauf an</strong>
-        </section>
-      )}
-
-      <section className="entscheidungsgrad" data-grad={grad.grad}>
-        <span>Entscheidungsgrad</span>
-        <strong>{grad.label}</strong>
-        <small>{grad.erklaerung}</small>
-      </section>
+      <ResultHero
+        subject={urteil.name}
+        status={status}
+        tone={tone}
+        grad={grad.label}
+        gradText={grad.erklaerung}
+        context={context}
+        headingId="ergebnis-titel"
+      />
 
       {trimesterHinweise.length > 0 && (
         <section className="ssw-hinweis" aria-label="Hinweis für die aktuelle Schwangerschaftswoche">
