@@ -90,7 +90,6 @@ export function Medikamentensuche({
             placeholder="Medikament oder Wirkstoff suchen …"
             value={begriff}
             onChange={(ereignis) => setBegriff(ereignis.target.value)}
-            autoFocus
             autoComplete="off"
             autoCorrect="off"
             spellCheck={false}
