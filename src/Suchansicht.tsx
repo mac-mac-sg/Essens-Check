@@ -3,10 +3,9 @@ import { MAX_TREFFER } from './engine/suchen'
 import { Hero } from './Hero'
 import { Medikamentensuche } from './Medikamentensuche'
 import { Trefferliste } from './Trefferliste'
-import { Verlauf } from './Verlauf'
 import type { Lebensmittel } from './typen'
 
-export type Suchbereich = 'lebensmittel' | 'medikamente' | 'alltag'
+export type Suchbereich = 'lebensmittel' | 'medikamente'
 
 function Bereichsschalter({
   aktiv,
@@ -44,12 +43,9 @@ export function Suchansicht({
   treffer,
   teilwort,
   gesucht,
-  verlauf,
   onOeffnen,
-  onVerlaufLeeren,
   onMedikamentProduktOeffnen,
   onMedikamentWirkstoffOeffnen,
-  onAlltagOeffnen,
 }: {
   bereich: Suchbereich
   onBereichWechsel: (bereich: Suchbereich) => void
@@ -58,25 +54,20 @@ export function Suchansicht({
   treffer: Lebensmittel[]
   teilwort: Lebensmittel[]
   gesucht: boolean
-  verlauf: readonly string[]
   onOeffnen: (id: string) => void
-  onVerlaufLeeren: () => void
   onMedikamentProduktOeffnen: (id: string) => void
   onMedikamentWirkstoffOeffnen: (id: string) => void
-  onAlltagOeffnen: (id: string) => void
 }) {
-  void onAlltagOeffnen
   const sichtbar = treffer.slice(0, MAX_TREFFER)
   const weitere = treffer.length - sichtbar.length
   const nochLeer = begriff.trim().length < 2
-  const sichtbarerBereich = bereich === 'alltag' ? 'lebensmittel' : bereich
 
   return (
     <>
-      {nochLeer && <Hero bereich={sichtbarerBereich} />}
-      <Bereichsschalter aktiv={sichtbarerBereich} onWechsel={onBereichWechsel} />
+      {nochLeer && <Hero bereich={bereich} />}
+      <Bereichsschalter aktiv={bereich} onWechsel={onBereichWechsel} />
 
-      {sichtbarerBereich === 'medikamente' ? (
+      {bereich === 'medikamente' ? (
         <Medikamentensuche
           begriff={begriff}
           setBegriff={setBegriff}
@@ -132,8 +123,6 @@ export function Suchansicht({
               )}
             </div>
           </div>
-
-          {!gesucht && <Verlauf ids={verlauf} onOeffnen={onOeffnen} onLeeren={onVerlaufLeeren} />}
 
           {gesucht && treffer.length > 0 && (
             <>
