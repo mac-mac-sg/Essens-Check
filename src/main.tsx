@@ -9,6 +9,7 @@ import './scanner.css'
 import './medikamente.css'
 import './erweiterungen.css'
 import './modernisierung.css'
+import './feinschliff.css'
 
 const wurzel = document.getElementById('root')
 if (!wurzel) throw new Error('Wurzelelement #root fehlt')
