@@ -1,5 +1,6 @@
 import medikamenteJson from '@daten/medikamente.json'
-import type { MedikamentKatalog, MedikamentStatus } from './typen'
+import erweiterungJson from '@daten/medikamente-erweiterung.json'
+import type { MedikamentKatalog, MedikamentQuelle, MedikamentStatus } from './typen'
 
 const STATUS: MedikamentStatus[] = [
   'geeignet',
@@ -8,6 +9,12 @@ const STATUS: MedikamentStatus[] = [
   'nicht_empfohlen',
   'nicht_bewertet',
 ]
+
+type MedikamentErweiterung = {
+  stand: string
+  quellen: MedikamentQuelle[]
+  medikamente: MedikamentKatalog['medikamente']
+}
 
 function eindeutig(werte: string[], art: string) {
   const doppelt = werte.filter((wert, index) => werte.indexOf(wert) !== index)
@@ -57,7 +64,17 @@ function validiere(katalog: MedikamentKatalog): MedikamentKatalog {
   return katalog
 }
 
-export const medikamentKatalog = validiere(medikamenteJson as MedikamentKatalog)
+const basis = medikamenteJson as MedikamentKatalog
+const erweiterung = erweiterungJson as MedikamentErweiterung
+
+export const medikamentKatalog = validiere({
+  ...basis,
+  version: '0.2',
+  stand: erweiterung.stand,
+  hinweis: 'Kuratierter Schwangerschaftskatalog auf Wirkstoffebene. Schweizer Produktdaten dienen der Identifikation; die medizinische Einordnung stammt aus den hinterlegten Schwangerschaftsquellen.',
+  quellen: [...basis.quellen, ...erweiterung.quellen],
+  medikamente: [...basis.medikamente, ...erweiterung.medikamente],
+})
 
 export function findeMedikament(id: string) {
   return medikamentKatalog.medikamente.find((medikament) => medikament.id === id) ?? null
