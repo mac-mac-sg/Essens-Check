@@ -1,0 +1,446 @@
+/* Gemeinsame Erweiterungen für Entscheidungsgrad, Alltag, SSW und Scanner. */
+
+.suchbereich {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.kontextleiste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.9rem;
+}
+
+.kontextleiste > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-zweitrangig);
+  background: var(--flaeche-still);
+  border-radius: var(--radius-pille);
+}
+
+.entscheidung--gemischt {
+  color: var(--text);
+  background: var(--flaeche-still);
+}
+
+.entscheidungsgrad {
+  display: grid;
+  gap: 0.18rem;
+  margin: 0.75rem 0 1.25rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--linie);
+  border-radius: var(--radius-klein);
+  background: var(--karte);
+}
+
+.entscheidungsgrad > span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-gedaempft);
+}
+
+.entscheidungsgrad > strong {
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.entscheidungsgrad > small {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text-gedaempft);
+}
+
+.entscheidungsgrad[data-grad='klar'] {
+  border-left: 3px solid var(--farbe-ok);
+}
+
+.entscheidungsgrad[data-grad='bedingt'] {
+  border-left: 3px solid var(--farbe-bedingt);
+}
+
+.entscheidungsgrad[data-grad='offen'] {
+  border-left: 3px solid var(--farbe-unklar);
+}
+
+.ssw-hinweis {
+  margin: 0 0 1.25rem;
+  padding: 0.9rem 1rem;
+  background: var(--flaeche-bedingt);
+  border-radius: var(--radius-klein);
+}
+
+.ssw-hinweis > strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.875rem;
+}
+
+.ssw-hinweis p {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.detailblock {
+  margin-top: 1.2rem;
+}
+
+.detailblock > h3 {
+  margin: 0 0 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--text-gedaempft);
+}
+
+.detailblock > p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.detailblock > p + p {
+  margin-top: 0.65rem;
+}
+
+.detailblock > ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  line-height: 1.6;
+}
+
+.detailblock--worauf {
+  padding-top: 1rem;
+  border-top: 1px solid var(--linie);
+}
+
+.detailblock--quellen {
+  padding-top: 1rem;
+  border-top: 1px solid var(--linie);
+}
+
+/* Alltag */
+.alltag-suche__intro {
+  margin-bottom: 1.25rem;
+}
+
+.alltag-suche__kicker,
+.wissen-situativ__kicker {
+  margin: 0 0 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-gedaempft);
+}
+
+.alltag-suche__intro h2,
+.wissen-situativ h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.021em;
+}
+
+.alltag-suche__intro > p:last-child,
+.wissen-situativ__text {
+  margin: 0.55rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text-zweitrangig);
+}
+
+.alltag-karten {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.alltag-karte {
+  display: grid;
+  gap: 0.45rem;
+  width: 100%;
+  padding: 1rem;
+  text-align: left;
+  font: inherit;
+  color: var(--text);
+  background: var(--karte);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius-klein);
+  box-shadow: var(--schatten);
+  cursor: pointer;
+}
+
+.alltag-karte:active {
+  transform: scale(0.99);
+}
+
+.alltag-karte__kopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.alltag-karte__gruppe {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+}
+
+.alltag-karte > strong {
+  font-size: 1.05rem;
+}
+
+.alltag-karte__kurz {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-zweitrangig);
+}
+
+.alltag-karte__mehr {
+  margin-top: 0.15rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--akzent);
+}
+
+.alltag-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-pille);
+  font-weight: 700;
+}
+
+.alltag-status--klein {
+  padding: 0.25rem 0.55rem;
+  font-size: 0.72rem;
+}
+
+.alltag-status[data-status='moeglich'] {
+  color: var(--farbe-ok);
+  background: var(--flaeche-ok);
+}
+
+.alltag-status[data-status='mit_vorsicht'],
+.alltag-status[data-status='ruecksprache'] {
+  color: var(--farbe-bedingt);
+  background: var(--flaeche-bedingt);
+}
+
+.alltag-status[data-status='meiden'] {
+  color: var(--farbe-meiden);
+  background: var(--flaeche-meiden);
+}
+
+.alltag-status[data-status='nicht_bewertet'] {
+  color: var(--farbe-unklar);
+  background: var(--flaeche-unklar);
+}
+
+.alltag-entscheidung {
+  display: grid;
+  gap: 0.2rem;
+  margin-bottom: 0.7rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-klein);
+}
+
+.alltag-entscheidung__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.alltag-entscheidung > strong {
+  font-size: 1.35rem;
+}
+
+.alltag-entscheidung[data-status='moeglich'] {
+  color: var(--farbe-ok);
+  background: var(--flaeche-ok);
+}
+
+.alltag-entscheidung[data-status='mit_vorsicht'],
+.alltag-entscheidung[data-status='ruecksprache'] {
+  color: var(--farbe-bedingt);
+  background: var(--flaeche-bedingt);
+}
+
+.alltag-entscheidung[data-status='meiden'] {
+  color: var(--farbe-meiden);
+  background: var(--flaeche-meiden);
+}
+
+.alltag-entscheidung[data-status='nicht_bewertet'] {
+  color: var(--farbe-unklar);
+  background: var(--flaeche-unklar);
+}
+
+.alltag-detail__lead {
+  margin: 0.4rem 0 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-zweitrangig);
+}
+
+/* Situativer Wissenseinstieg */
+.wissen-situativ {
+  margin-bottom: 1.4rem;
+  padding: 1rem;
+  background: var(--karte);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+}
+
+.wissen-situativ__kopf {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.wissen-situativ__ssw {
+  flex: 0 0 auto;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--akzent);
+  background: var(--flaeche-still);
+  border-radius: var(--radius-pille);
+}
+
+.wissen-situativ__aktionen {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.wissen-situativ__aktionen button {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.8rem;
+  text-align: left;
+  font: inherit;
+  color: var(--text);
+  background: var(--flaeche-still);
+  border: none;
+  border-radius: var(--radius-klein);
+  cursor: pointer;
+}
+
+.wissen-situativ__aktionen button strong {
+  font-size: 0.875rem;
+}
+
+.wissen-situativ__aktionen button span {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text-gedaempft);
+}
+
+/* Verpackungsmerkmale im Scanner */
+.scan-merkmale {
+  margin: 0.8rem 0;
+  padding: 0.9rem;
+  background: var(--flaeche-still);
+  border-radius: var(--radius-klein);
+}
+
+.scan-merkmale__kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+}
+
+.scan-merkmale__kopf h3 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.scan-merkmale__kopf > span {
+  font-size: 0.72rem;
+  color: var(--text-gedaempft);
+}
+
+.scan-merkmale__liste {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.scan-merkmal {
+  display: grid;
+  gap: 0.12rem;
+  padding: 0.7rem 0.75rem;
+  background: var(--karte);
+  border-left: 3px solid var(--linie);
+  border-radius: var(--radius-klein);
+}
+
+.scan-merkmal[data-art='vorsicht'] {
+  border-left-color: var(--farbe-bedingt);
+}
+
+.scan-merkmal[data-art='entlastend'] {
+  border-left-color: var(--farbe-ok);
+}
+
+.scan-merkmal > span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-gedaempft);
+}
+
+.scan-merkmal > strong {
+  font-size: 0.875rem;
+}
+
+.scan-merkmal > small,
+.scan-merkmale__hinweis {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-gedaempft);
+}
+
+.scan-merkmale__hinweis {
+  margin: 0.7rem 0 0;
+}
+
+.scan-medikament-offen {
+  padding-top: 0.5rem;
+}
+
+@media (max-width: 430px) {
+  .wissen-situativ__kopf {
+    display: block;
+  }
+
+  .wissen-situativ__ssw {
+    display: inline-flex;
+    margin-top: 0.55rem;
+  }
+
+  .wissen-situativ__aktionen {
+    grid-template-columns: 1fr;
+  }
+
+  .alltag-karte__kopf {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
