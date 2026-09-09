@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Blockpause } from './Blockpause'
 import type { Schema, Wunsch } from './farbschema'
 
 function formatDatum(datum: string | null): string {
@@ -38,6 +40,23 @@ export function Einstellungen({
   onWunsch: (wunsch: Wunsch) => void
   onTerminAendern: () => void
 }) {
+  const [blockpauseOffen, setBlockpauseOffen] = useState(false)
+
+  if (blockpauseOffen) {
+    return (
+      <div className="einstellungen einstellungen--blockpause">
+        <button
+          className="einstellungen__easteregg-zurueck"
+          type="button"
+          onClick={() => setBlockpauseOffen(false)}
+        >
+          ‹ Einstellungen
+        </button>
+        <Blockpause />
+      </div>
+    )
+  }
+
   return (
     <div className="einstellungen">
       {installierbar && (
@@ -224,6 +243,18 @@ export function Einstellungen({
           </p>
         </div>
       </section>
+
+      <div className="einstellungen__easteregg-zeile">
+        <button
+          className="einstellungen__easteregg"
+          type="button"
+          aria-label="Wartezimmer-Modus öffnen"
+          title="Wartezimmer-Modus"
+          onClick={() => setBlockpauseOffen(true)}
+        >
+          😁
+        </button>
+      </div>
     </div>
   )
 }
