@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { ResultHero, type ResultTone } from './ResultHero'
 import { Sheet } from './Sheet'
 
-type Bereich = 'ernaehrung' | 'unterwegs'
+export type WissensBereich = 'ernaehrung' | 'unterwegs'
 
 type Wissensartikel = {
   id: string
@@ -11,6 +12,13 @@ type Wissensartikel = {
   punkte: string[]
   quelle: string
   symbol: SymbolArt
+}
+
+type WissensEinordnung = {
+  kicker: string
+  status: string
+  tone: ResultTone
+  grad: string
 }
 
 type SymbolArt =
@@ -330,6 +338,40 @@ const UNTERWEGS: Wissensartikel[] = [
   },
 ]
 
+const EINORDNUNGEN: Record<string, WissensEinordnung> = {
+  folsaeure: { kicker: 'Nährstoff', status: 'Empfohlen', tone: 'ok', grad: 'Klare Empfehlung' },
+  'vitamin-d': { kicker: 'Nährstoff', status: 'Empfohlen', tone: 'ok', grad: 'Klare Empfehlung' },
+  eisen: { kicker: 'Nährstoff', status: 'Bedarf individuell prüfen', tone: 'bedingt', grad: 'Versorgung abhängig vom Bedarf' },
+  jod: { kicker: 'Nährstoff', status: 'Auf Versorgung achten', tone: 'bedingt', grad: 'Individuelle Ergänzung möglich' },
+  koffein: { kicker: 'Genussmittel', status: 'Begrenzen', tone: 'bedingt', grad: 'Menge entscheidend' },
+  'fisch-omega-3': { kicker: 'Ernährung', status: 'Empfohlen mit Auswahl', tone: 'bedingt', grad: 'Art und Zubereitung entscheidend' },
+  infektionen: { kicker: 'Infektionsschutz', status: 'Risikolebensmittel meiden', tone: 'meiden', grad: 'Klare Vorsichtsmassnahmen' },
+  ausgewogen: { kicker: 'Ernährung', status: 'Empfohlen', tone: 'ok', grad: 'Grundlage der Ernährung' },
+  'wandern-bewegung': { kicker: 'Berg & Bewegung', status: 'Mit Anpassung möglich', tone: 'bedingt', grad: 'Höhe, Belastung und Gelände entscheidend' },
+  mountainbiking: { kicker: 'Sturzrisiko', status: 'Besser nicht', tone: 'meiden', grad: 'Klare Einschränkung' },
+  jogging: { kicker: 'Ausdauer', status: 'Bei Gewohnheit möglich', tone: 'bedingt', grad: 'Belastung und Erfahrung entscheidend' },
+  skifahren: { kicker: 'Sturzrisiko', status: 'Besser nicht', tone: 'meiden', grad: 'Klare Einschränkung' },
+  langlaufen: { kicker: 'Ausdauer', status: 'Mit Anpassung möglich', tone: 'bedingt', grad: 'Gelände und Sturzrisiko entscheidend' },
+  schlitteln: { kicker: 'Sturzrisiko', status: 'Besser nicht', tone: 'meiden', grad: 'Klare Einschränkung' },
+  spinning: { kicker: 'Ausdauer', status: 'Mit Anpassung möglich', tone: 'bedingt', grad: 'Intensität und Wohlbefinden entscheidend' },
+  bodypump: { kicker: 'Krafttraining', status: 'Mit Anpassung möglich', tone: 'bedingt', grad: 'Gewicht, Technik und Position entscheidend' },
+  volleyball: { kicker: 'Mannschaftssport', status: 'Besser nicht', tone: 'meiden', grad: 'Kollisionsrisiko entscheidend' },
+  'sonne-hitze': { kicker: 'Hitze & UV', status: 'Mit Schutzmassnahmen möglich', tone: 'bedingt', grad: 'Schutz und Belastung entscheidend' },
+  zecken: { kicker: 'Natur', status: 'Schutz empfohlen', tone: 'bedingt', grad: 'Schutz und Kontrolle wichtig' },
+  'essen-wasser-reise': { kicker: 'Reisehygiene', status: 'Hygiene konsequent beachten', tone: 'bedingt', grad: 'Hygiene entscheidend' },
+  'reiseplanung-fliegen': { kicker: 'Reisen', status: 'Mit Planung möglich', tone: 'bedingt', grad: 'Reiseziel und Dauer entscheidend' },
+  'tropen-muecken': { kicker: 'Reisen', status: 'Risikogebiete meiden', tone: 'meiden', grad: 'Aktuelle Risikolage entscheidend' },
+}
+
+function einordnungFuer(artikel: Wissensartikel): WissensEinordnung {
+  return EINORDNUNGEN[artikel.id] ?? {
+    kicker: artikel.kicker,
+    status: 'Orientierung',
+    tone: 'unklar',
+    grad: 'Einordnung im Detail',
+  }
+}
+
 function Illustration({ art }: { art: SymbolArt }) {
   const inhalt = (() => {
     switch (art) {
@@ -380,69 +422,41 @@ function Illustration({ art }: { art: SymbolArt }) {
 }
 
 function ArtikelDetail({ artikel }: { artikel: Wissensartikel }) {
+  const meta = einordnungFuer(artikel)
+
   return (
     <article className="wissen-detail">
-      <div className="wissen-detail__intro">
-        <Illustration art={artikel.symbol} />
-        <div>
-          <p className="wissen-detail__kicker">{artikel.kicker}</p>
-          <p className="wissen-detail__lead">{artikel.kurz}</p>
-        </div>
-      </div>
-      <ul className="wissen-detail__punkte">
-        {artikel.punkte.map((punkt) => <li key={punkt}>{punkt}</li>)}
-      </ul>
-      <p className="wissen-quelle">{artikel.quelle}</p>
+      <ResultHero
+        subject={artikel.titel}
+        status={meta.status}
+        tone={meta.tone}
+        grad={meta.grad}
+        context={[meta.kicker]}
+      />
+
+      <p className="wissen-detail__lead">{artikel.kurz}</p>
+
+      <section className="detailblock detailblock--worauf">
+        <h3>Worauf kommt es an?</h3>
+        <ul className="wissen-detail__punkte">
+          {artikel.punkte.map((punkt) => <li key={punkt}>{punkt}</li>)}
+        </ul>
+      </section>
+
+      <section className="detailblock detailblock--quellen">
+        <h3>Quelle</h3>
+        <p className="wissen-quelle">{artikel.quelle}</p>
+      </section>
     </article>
   )
 }
 
-export function Wissensbereich({ onPruefen }: { onPruefen: (begriff: string) => void }) {
-  void onPruefen
-  const [bereich, setBereich] = useState<Bereich>('ernaehrung')
+export function Wissensbereich({ bereich }: { bereich: WissensBereich }) {
   const [artikelOffen, setArtikelOffen] = useState<Wissensartikel | null>(null)
-
   const artikel = bereich === 'ernaehrung' ? ARTIKEL : UNTERWEGS
 
   return (
     <>
-      <section className="wissen-start" aria-labelledby="wissen-titel">
-        <p className="wissen-start__kicker">Good to know</p>
-        <h2 className="wissen-start__titel" id="wissen-titel">Wissen für den Alltag</h2>
-        <p className="wissen-start__text">
-          Ernährung verstehen und bei Sport, Ausflügen oder Reisen schnell die wichtigsten Punkte nachschlagen.
-        </p>
-      </section>
-
-      <div className="wissen-bereiche" role="group" aria-label="Wissensbereich wählen">
-        <button
-          type="button"
-          className="wissen-bereich"
-          data-aktiv={bereich === 'ernaehrung' || undefined}
-          aria-pressed={bereich === 'ernaehrung'}
-          onClick={() => setBereich('ernaehrung')}
-        >
-          <Illustration art="blatt" />
-          <span className="wissen-bereich__text">
-            <strong>Ernährung</strong>
-            <span>{ARTIKEL.length} kompakte Themen</span>
-          </span>
-        </button>
-        <button
-          type="button"
-          className="wissen-bereich"
-          data-aktiv={bereich === 'unterwegs' || undefined}
-          aria-pressed={bereich === 'unterwegs'}
-          onClick={() => setBereich('unterwegs')}
-        >
-          <Illustration art="sonne" />
-          <span className="wissen-bereich__text">
-            <strong>Unterwegs & Aktiv</strong>
-            <span>{UNTERWEGS.length} praktische Themen</span>
-          </span>
-        </button>
-      </div>
-
       <section
         className="wissen-abschnitt"
         aria-labelledby={bereich === 'ernaehrung' ? 'wissen-ernaehrung' : 'wissen-unterwegs'}
@@ -460,21 +474,25 @@ export function Wissensbereich({ onPruefen }: { onPruefen: (begriff: string) => 
             </>
           )}
         </div>
+
         <div className="wissen-karten">
-          {artikel.map((eintrag) => (
-            <button
-              key={eintrag.id}
-              className="wissen-karte"
-              type="button"
-              onClick={() => setArtikelOffen(eintrag)}
-            >
-              <Illustration art={eintrag.symbol} />
-              <span className="wissen-karte__kicker">{eintrag.kicker}</span>
-              <strong>{eintrag.titel}</strong>
-              <span className="wissen-karte__kurz">{eintrag.kurz}</span>
-              <span className="wissen-karte__mehr">Mehr erfahren <span aria-hidden="true">›</span></span>
-            </button>
-          ))}
+          {artikel.map((eintrag) => {
+            const meta = einordnungFuer(eintrag)
+            return (
+              <button
+                key={eintrag.id}
+                className="wissen-karte"
+                type="button"
+                onClick={() => setArtikelOffen(eintrag)}
+              >
+                <Illustration art={eintrag.symbol} />
+                <span className="wissen-karte__kicker">{meta.kicker}</span>
+                <strong>{eintrag.titel}</strong>
+                <span className="wissen-karte__kurz">{eintrag.kurz}</span>
+                <span className="wissen-karte__mehr">Mehr erfahren <span aria-hidden="true">›</span></span>
+              </button>
+            )
+          })}
         </div>
       </section>
 
