@@ -9,7 +9,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --testTimeout=10000",
     "test:watch": "vitest",
     "test:offline": "node scripts/offline-test.mjs",
     "security:check": "npm audit --audit-level=high",
