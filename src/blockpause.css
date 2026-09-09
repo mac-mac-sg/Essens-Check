@@ -31,44 +31,63 @@
   transform: scale(0.94);
 }
 
+/*
+ * Das Spiel bekommt ein eigenes Vollbild-Sheet. So wird es nicht in das bereits
+ * geöffnete Einstellungs-Sheet hineingepresst und kann den verfügbaren Viewport
+ * für Spielfeld und Touch-Steuerung nutzen.
+ */
+.sheet[data-variante='vollbild'] {
+  height: 100dvh;
+  max-height: 100dvh;
+  border-radius: 0;
+}
+
+.sheet[data-variante='vollbild'] .sheet__inhalt {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-top: 0.7rem;
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
+
 .blockpause {
   width: min(100%, 31rem);
   margin: 0 auto;
-  padding: 0 0 1rem;
+  padding: 0;
 }
 
 .blockpause__kopf {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.65rem;
 }
 
+/* Der Vollbild-Sheet trägt den Titel bereits. */
 .blockpause__kopf h2 {
-  margin: 0.05rem 0 0;
-  font-size: 1.45rem;
-  line-height: 1.15;
+  display: none;
 }
 
 .blockpause__kicker {
   margin: 0;
   color: var(--text-gedaempft);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .blockpause__pause {
-  min-height: 2.35rem;
-  padding: 0.4rem 0.8rem;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.75rem;
   border: 0;
   border-radius: var(--radius-pille);
   background: var(--flaeche-still);
   color: var(--text-zweitrangig);
   font: inherit;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
 }
@@ -81,39 +100,44 @@
 .blockpause__werte {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.55rem;
-  margin-bottom: 0.85rem;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
 }
 
 .blockpause__werte span {
   display: grid;
-  gap: 0.05rem;
-  padding: 0.58rem 0.5rem;
+  gap: 0.03rem;
+  padding: 0.48rem 0.45rem;
   border-radius: var(--radius-klein);
   background: var(--flaeche-still);
   text-align: center;
 }
 
 .blockpause__werte b {
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.1;
 }
 
 .blockpause__werte small {
   color: var(--text-gedaempft);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
 }
 
 .blockpause__spiel {
   display: grid;
-  gap: 0.8rem;
+  gap: 0.65rem;
 }
 
 .blockpause__brett {
   position: relative;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  width: min(100%, 20rem);
+  /*
+   * 10 × 20 Felder: Die Breite wird aus der verfügbaren Höhe abgeleitet.
+   * Dadurch bleiben Spielfeld, Steuerung und Statistiken auch auf kleinen
+   * Smartphone-Viewports gleichzeitig erreichbar.
+   */
+  width: min(100%, 18rem, max(10rem, calc((100dvh - 20.5rem) / 2)));
   aspect-ratio: 1 / 2;
   margin: 0 auto;
   overflow: hidden;
@@ -178,21 +202,21 @@
 .blockpause__steuerung {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0.45rem;
+  gap: 0.4rem;
   width: min(100%, 22rem);
   margin: 0 auto;
 }
 
 .blockpause__steuerung button {
   min-width: 0;
-  min-height: 3.1rem;
+  min-height: 2.9rem;
   padding: 0;
   border: 0;
-  border-radius: 16px;
+  border-radius: 14px;
   background: var(--flaeche-still);
   color: var(--text);
   font: inherit;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 800;
   cursor: pointer;
   user-select: none;
@@ -210,19 +234,47 @@
 }
 
 .blockpause__hilfe {
-  margin: 0.75rem auto 0;
+  margin: 0.55rem auto 0;
   color: var(--text-gedaempft);
-  font-size: 0.72rem;
-  line-height: 1.4;
+  font-size: 0.7rem;
+  line-height: 1.35;
   text-align: center;
 }
 
 @media (max-width: 390px) {
+  .blockpause__steuerung button {
+    min-height: 2.75rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .sheet[data-variante='vollbild'] .sheet__inhalt {
+    padding-top: 0.45rem;
+  }
+
+  .blockpause__kopf,
+  .blockpause__werte {
+    margin-bottom: 0.45rem;
+  }
+
+  .blockpause__werte span {
+    padding-block: 0.35rem;
+  }
+
   .blockpause__brett {
-    width: min(100%, 17rem);
+    width: min(100%, 15rem, max(9rem, calc((100dvh - 18rem) / 2)));
+    border-radius: 14px;
+  }
+
+  .blockpause__spiel {
+    gap: 0.45rem;
   }
 
   .blockpause__steuerung button {
-    min-height: 2.85rem;
+    min-height: 2.55rem;
+  }
+
+  .blockpause__hilfe {
+    display: none;
   }
 }
