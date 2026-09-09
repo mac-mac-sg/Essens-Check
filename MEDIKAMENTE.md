@@ -1,6 +1,6 @@
 # Medikamente in «Darf ich das?»
 
-Stand: 08.09.2026
+Stand: 09.09.2026
 
 Der Medikamentenbereich ist fachlich und technisch vom Lebensmittel-Regelwerk getrennt. Die gemeinsame Oberfläche dient nur dem schnellen Nachschlagen; Produktidentifikation und Schwangerschaftsbewertung folgen eigenen Regeln.
 
@@ -9,7 +9,7 @@ Der Medikamentenbereich ist fachlich und technisch vom Lebensmittel-Regelwerk ge
 1. **Swissmedic-Produktdaten** identifizieren Schweizer Präparate, Sequenzen, Wirkstoffe, Stärken, Arzneiformen und Packungen.
 2. Der monatlich versionierte Snapshot liegt als `daten/medikament-produkte.json` im Bundle. Zur Laufzeit erfolgt **keine Swissmedic-Netzwerkabfrage**.
 3. Ein explizites Mapping verbindet Swissmedic-Wirkstoffe mit dem kuratierten lokalen Medikamentenkatalog.
-4. Die Schwangerschaftsbewertung stammt ausschliesslich aus `daten/medikamente.json` und der Engine `src/medikamente/bewerten.ts`.
+4. Die Schwangerschaftsbewertung stammt aus `daten/medikamente.json`, `daten/medikamente-erweiterung.json` und der Engine `src/medikamente/bewerten.ts`.
 5. Produktdaten allein erzeugen nie eine medizinische Aussage.
 
 ## Sicherheitsgrenzen
@@ -18,8 +18,8 @@ Der Medikamentenbereich ist fachlich und technisch vom Lebensmittel-Regelwerk ge
 - Ein Produkt ist nur grundsätzlich automatisch bewertbar, wenn **alle** von Swissmedic deklarierten Wirkstoffe auf lokal kuratierte Wirkstoffe gemappt sind.
 - Ein bekannter Bestandteil darf ein Kombinationspräparat mit unbekanntem zweitem Wirkstoff nie freigeben.
 - Auch vollständig gemappte Kombinationspräparate erhalten **kein aus Einzelurteilen errechnetes Gesamturteil**. Einzelwirkstoffe dürfen separat angesehen werden, ausdrücklich ohne Freigabe des Gesamtprodukts.
-- Die Swissmedic-Arzneiform muss sich eindeutig einem im Wirkstoffprofil hinterlegten Darreichungsweg zuordnen lassen. Eine lokale Form, etwa ein Gel, erbt kein systemisches Tablettenurteil.
-- Wenn mehrere Anwendungsprofile möglich sind, muss die Nutzerin auswählen. Beispiel: Acetylsalicylsäure als ärztlich verordnete Low-dose-Therapie versus analgetische Anwendung.
+- Die Swissmedic-Arzneiform muss sich eindeutig einem im Wirkstoffprofil hinterlegten Darreichungsweg zuordnen lassen. Eine lokale Form erbt kein systemisches Tablettenurteil.
+- Wenn mehrere Anwendungsprofile möglich sind, muss die Nutzerin auswählen. Beispiele: Acetylsalicylsäure als Low-dose-Therapie versus analgetische Anwendung; Budesonid inhalativ/nasal versus oral/rektal; Fosfomycin oral versus intravenös.
 - Ändert sich die Bewertung im Schwangerschaftsverlauf, ist die aktuelle SSW erforderlich. Ohne hinterlegten Geburtstermin bleibt das Urteil offen.
 - «Bereits eingenommen» ist eine eigene Perspektive und wird nicht aus dem Status für eine geplante Einnahme abgeleitet.
 - Verordnete Medikamente nie eigenständig beginnen, absetzen oder in der Dosis verändern.
@@ -39,7 +39,9 @@ Zusätzlich kann die Engine **gar keinen Status** liefern, wenn zuerst Profil od
 
 ## Aktueller Umfang
 
-Der sichtbare Medikamentenbereich basiert auf zehn kuratierten Wirkstoffen:
+Der sichtbare Medikamentenbereich basiert auf **30 kuratierten Wirkstoffen**.
+
+### Bisheriger Kernkatalog
 
 - Paracetamol
 - Ibuprofen
@@ -52,21 +54,44 @@ Der sichtbare Medikamentenbereich basiert auf zehn kuratierten Wirkstoffen:
 - Metoclopramid
 - Xylometazolin
 
-Der Swissmedic-Snapshot kann wesentlich mehr Schweizer Präparate enthalten, aber nur Produkte mit Bezug zu diesen kuratierten Wirkstoffen erscheinen in der Medikamentensuche.
+### Ausbau 09.09.2026
+
+- Doxylamin
+- Meclozin
+- Dimenhydrinat
+- Ondansetron
+- Pantoprazol
+- Macrogol
+- Lactulose
+- Bisacodyl
+- Salbutamol
+- Budesonid
+- Cefuroxim
+- Penicillin V
+- Azithromycin
+- Fosfomycin
+- Nitrofurantoin
+- Clotrimazol
+- Metronidazol
+- Aciclovir
+- Sumatriptan
+- Levothyroxin
+
+Der Ausbau fokussiert bewusst häufige und schwangerschaftsrelevante Situationen: Übelkeit/Erbrechen, Reflux, Verstopfung, Asthma, bakterielle Infektionen und Harnwegsinfektionen, Vaginalmykosen, Herpes, Migräne und Schilddrüsensubstitution.
 
 ## Oberfläche
 
-Die Hauptnavigation bleibt `Suchen · Liste · Wissen · Scannen`. Innerhalb von **Suchen** gibt es den Umschalter `Lebensmittel · Medikamente`.
+Die Hauptnavigation bleibt `Suchen · Liste · Scannen · Wissen`. Innerhalb von **Suchen** gibt es den Umschalter `Lebensmittel · Medikamente`.
 
 Die Medikamentensuche findet:
 
 - lokale Wirkstoffe und Synonyme,
 - Schweizer Handelspräparate aus dem Swissmedic-Snapshot.
 
-Der Scanner bleibt vorerst ein Lebensmittel-Scanner über Open Food Facts. Medikamentenpackungen werden in dieser Phase nicht über den Barcode bewertet.
+Der bestehende Scanner kann eindeutig rückrechenbare Schweizer Medikamenten-GTINs erkennen und gegen den lokalen Swissmedic-Snapshot auflösen. Eine erkannte Packung wird nur dann medizinisch bewertet, wenn die Wirkstoff- und Anwendungszuordnung die Sicherheitsregeln erfüllt.
 
 ## Aktualisierung
 
 Swissmedic veröffentlicht die maschinenlesbaren Arzneimitteldaten monatlich. `scripts/swissmedic-aktualisieren.sh` und der zugehörige GitHub-Actions-Workflow erzeugen einen neuen Snapshot. Änderungen werden getestet und über einen separaten Update-Branch beziehungsweise Pull Request übernommen.
 
-Eine Erweiterung um neue Wirkstoffe erfordert zuerst die fachliche Kuratierung in `daten/medikamente.json` samt Tests. Ein grösserer Swissmedic-Produktbestand allein erweitert die medizinische Abdeckung nicht.
+Eine Erweiterung um neue Wirkstoffe erfordert zuerst die fachliche Kuratierung samt Tests. Ein grösserer Swissmedic-Produktbestand allein erweitert die medizinische Abdeckung nicht.
