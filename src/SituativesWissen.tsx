@@ -1,3 +1,4 @@
+import { AlltagsWissen } from './AlltagsWissen'
 import { Wissensbereich } from './Wissen'
 
 function aktiviereWissensbereich(index: number, zielId: string) {
@@ -6,6 +7,10 @@ function aktiviereWissensbereich(index: number, zielId: string) {
   window.requestAnimationFrame(() => {
     document.getElementById(zielId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   })
+}
+
+function geheZuAlltag() {
+  document.getElementById('wissen-alltag')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 function fokusFuer(trimester?: number) {
@@ -23,8 +28,8 @@ function fokusFuer(trimester?: number) {
       kicker: 'Für dich gerade relevant',
       titel: 'Belastung, Reisen und Alltag gut dosieren',
       text: 'Mit wachsendem Bauch werden Komfort, Gleichgewicht, Hitze und längere Wege im Alltag wichtiger.',
-      aktion: 'Unterwegs & Aktiv ansehen',
-      onClick: () => aktiviereWissensbereich(1, 'wissen-unterwegs'),
+      aktion: 'Alltag ansehen',
+      onClick: geheZuAlltag,
     }
   }
   return {
@@ -47,7 +52,9 @@ export function SituativesWissen({
   sswAnzeige?: string
   trimester?: number
 }) {
+  void onAlltag
   const fokus = fokusFuer(trimester)
+  const ssw = sswAnzeige ? Number.parseInt(sswAnzeige.split('+')[0] ?? '', 10) : undefined
 
   return (
     <>
@@ -71,11 +78,16 @@ export function SituativesWissen({
           <button type="button" onClick={() => aktiviereWissensbereich(0, 'wissen-ernaehrung')}>Ernährung</button>
           <button type="button" onClick={() => aktiviereWissensbereich(1, 'wissen-unterwegs')}>Sport</button>
           <button type="button" onClick={() => aktiviereWissensbereich(1, 'wissen-unterwegs')}>Reisen</button>
-          <button type="button" onClick={onAlltag}>Alltag</button>
+          <button type="button" onClick={geheZuAlltag}>Alltag</button>
         </div>
       </section>
 
       <Wissensbereich onPruefen={onPruefen} />
+      <AlltagsWissen
+        {...(Number.isFinite(ssw) ? { ssw } : {})}
+        {...(sswAnzeige ? { sswAnzeige } : {})}
+        {...(trimester ? { trimester } : {})}
+      />
     </>
   )
 }
