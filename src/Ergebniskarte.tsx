@@ -1,6 +1,7 @@
 import { AMPEL } from './ampel'
 import { entscheidungsgradLebensmittel } from './entscheidungsgrad'
 import type { Urteil, VariantenUrteil } from './engine/bewerten'
+import { FavoritKnopf } from './FavoritKnopf'
 import { ResultHero, type ResultTone } from './ResultHero'
 
 function Begruendungen({ urteil }: { urteil: VariantenUrteil }) {
@@ -21,10 +22,16 @@ export function Ergebniskarte({
   urteil,
   sswAnzeige,
   trimester,
+  favorit = false,
+  onFavorit,
+  onAlternativePruefen,
 }: {
   urteil: Urteil
   sswAnzeige?: string
   trimester?: number
+  favorit?: boolean
+  onFavorit?: () => void
+  onAlternativePruefen?: (alternative: string) => void
 }) {
   const erste = urteil.varianten[0]
   const einzeln = urteil.varianten.length === 1 && erste?.label === null
@@ -44,6 +51,7 @@ export function Ergebniskarte({
     sswAnzeige ? `SSW ${sswAnzeige}` : null,
     trimester ? `${trimester}. Trimester` : null,
   ].filter((wert): wert is string => Boolean(wert))
+  const alternativeHilfreich = urteil.varianten.some((variante) => variante.status !== 'ok')
 
   return (
     <article className="karte karte--ergebnis" aria-labelledby="ergebnis-titel">
@@ -56,6 +64,8 @@ export function Ergebniskarte({
         context={context}
         headingId="ergebnis-titel"
       />
+
+      {onFavorit && <FavoritKnopf aktiv={favorit} onUmschalten={onFavorit} />}
 
       {trimesterHinweise.length > 0 && (
         <section className="ssw-hinweis" aria-label="Hinweis für die aktuelle Schwangerschaftswoche">
@@ -97,11 +107,32 @@ export function Ergebniskarte({
         </section>
       )}
 
-      {urteil.alternativen.length > 0 && (
-        <div className="alt">
-          <p>Stattdessen</p>
-          <ul>{urteil.alternativen.map((alternative) => <li key={alternative}>{alternative}</li>)}</ul>
-        </div>
+      {alternativeHilfreich && urteil.alternativen.length > 0 && (
+        <section className="alternative-block" aria-labelledby="alternative-titel">
+          <p className="alternative-block__kicker">Alternative</p>
+          <h3 id="alternative-titel">Was passt stattdessen?</h3>
+          <div className="alternative-block__liste">
+            {urteil.alternativen.map((alternative) =>
+              onAlternativePruefen ? (
+                <button
+                  className="alternative-block__knopf"
+                  type="button"
+                  key={alternative}
+                  onClick={() => onAlternativePruefen(alternative)}
+                >
+                  <span>{alternative}</span>
+                  <span aria-hidden="true">Prüfen ›</span>
+                </button>
+              ) : (
+                <span className="alternative-block__text" key={alternative}>{alternative}</span>
+              ),
+            )}
+          </div>
+          <p className="alternative-block__hinweis">
+            Die Vorschläge stammen aus dem kuratierten Eintrag. Das konkrete Produkt trotzdem
+            erneut prüfen — Zubereitung und Zutaten können entscheidend sein.
+          </p>
+        </section>
       )}
     </article>
   )
