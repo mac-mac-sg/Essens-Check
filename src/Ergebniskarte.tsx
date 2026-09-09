@@ -1,4 +1,5 @@
 import { AMPEL } from './ampel'
+import { entscheidungsgradLebensmittel } from './entscheidungsgrad'
 import type { Urteil, VariantenUrteil } from './engine/bewerten'
 
 function Begruendungen({ urteil }: { urteil: VariantenUrteil }) {
@@ -15,14 +16,38 @@ function Begruendungen({ urteil }: { urteil: VariantenUrteil }) {
   )
 }
 
-export function Ergebniskarte({ urteil }: { urteil: Urteil }) {
+export function Ergebniskarte({
+  urteil,
+  sswAnzeige,
+  trimester,
+}: {
+  urteil: Urteil
+  sswAnzeige?: string
+  trimester?: number
+}) {
   const erste = urteil.varianten[0]
   const einzeln = urteil.varianten.length === 1 && erste?.label === null
-  const trimesterHinweise = urteil.varianten.flatMap((variante) => variante.trimesterHinweise)
+  const trimesterHinweise = [
+    ...new Map(
+      urteil.varianten
+        .flatMap((variante) => variante.trimesterHinweise)
+        .map((hinweis) => [hinweis.text, hinweis]),
+    ).values(),
+  ]
+  const statusUnterschiedlich = new Set(urteil.varianten.map((variante) => variante.status)).size > 1
+  const grad = entscheidungsgradLebensmittel(erste?.status ?? 'unklar', statusUnterschiedlich)
+  const worauf = [urteil.frage, urteil.zusatz].filter((text): text is string => Boolean(text))
 
   return (
     <article className="karte karte--ergebnis" aria-labelledby="ergebnis-titel">
       <h2 className="titel" id="ergebnis-titel">{urteil.name}</h2>
+
+      {(sswAnzeige || trimester) && (
+        <div className="kontextleiste" aria-label="Persönlicher Schwangerschaftskontext">
+          {sswAnzeige && <span>SSW {sswAnzeige}</span>}
+          {trimester && <span>{trimester}. Trimester</span>}
+        </div>
+      )}
 
       {einzeln && erste ? (
         <section className="entscheidung" data-status={erste.status} aria-label="Entscheidung">
@@ -30,33 +55,57 @@ export function Ergebniskarte({ urteil }: { urteil: Urteil }) {
           <strong className="entscheidung__wort">{AMPEL[erste.status].wort}</strong>
         </section>
       ) : (
-        <p className="frage">{urteil.frage ?? 'Je nach Zubereitung'}</p>
+        <section className="entscheidung entscheidung--gemischt" aria-label="Entscheidung">
+          <span className="entscheidung__label">Antwort</span>
+          <strong className="entscheidung__wort">Kommt drauf an</strong>
+        </section>
       )}
 
-      {trimesterHinweise.map((hinweis) => (
-        <p className="warnung" key={hinweis.regel}>{hinweis.text}</p>
-      ))}
+      <section className="entscheidungsgrad" data-grad={grad.grad}>
+        <span>Entscheidungsgrad</span>
+        <strong>{grad.label}</strong>
+        <small>{grad.erklaerung}</small>
+      </section>
+
+      {trimesterHinweise.length > 0 && (
+        <section className="ssw-hinweis" aria-label="Hinweis für die aktuelle Schwangerschaftswoche">
+          <strong>Für deine aktuelle Schwangerschaftsphase</strong>
+          {trimesterHinweise.map((hinweis) => (
+            <p key={hinweis.regel + hinweis.text}>{hinweis.text}</p>
+          ))}
+        </section>
+      )}
 
       {einzeln && erste ? (
-        <section className="begruendung-block" aria-label="Begründung">
-          <h3 className="detailtitel">Warum?</h3>
+        <section className="begruendung-block detailblock" aria-label="Begründung">
+          <h3>Warum?</h3>
           <Begruendungen urteil={erste} />
         </section>
       ) : (
-        <div className="varianten" role="list" aria-label="Bewertung nach Zubereitung">
-          {urteil.varianten.map((variante, i) => (
-            <div className="zeile" key={variante.label ?? i} data-status={variante.status} role="listitem">
-              <div className="zeile__kopf">
-                <span className="zlabel">{variante.label ?? 'Variante'}</span>
-                <span className="marke" data-status={variante.status}>{AMPEL[variante.status].kurz}</span>
+        <section className="detailblock" aria-label="Bewertung nach Zubereitung">
+          <h3>Warum?</h3>
+          <div className="varianten" role="list" aria-label="Bewertung nach Zubereitung">
+            {urteil.varianten.map((variante, i) => (
+              <div className="zeile" key={variante.label ?? i} data-status={variante.status} role="listitem">
+                <div className="zeile__kopf">
+                  <span className="zlabel">{variante.label ?? 'Variante'}</span>
+                  <span className="marke" data-status={variante.status}>{AMPEL[variante.status].kurz}</span>
+                </div>
+                <Begruendungen urteil={variante} />
               </div>
-              <Begruendungen urteil={variante} />
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </section>
       )}
 
-      {urteil.zusatz && <p className="zusatz">{urteil.zusatz}</p>}
+      {worauf.length > 0 && (
+        <section className="detailblock detailblock--worauf">
+          <h3>Worauf kommt es an?</h3>
+          <ul>
+            {worauf.map((text) => <li key={text}>{text}</li>)}
+          </ul>
+        </section>
+      )}
 
       {urteil.alternativen.length > 0 && (
         <div className="alt">
