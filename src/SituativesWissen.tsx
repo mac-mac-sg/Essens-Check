@@ -8,6 +8,34 @@ function aktiviereWissensbereich(index: number, zielId: string) {
   })
 }
 
+function fokusFuer(trimester?: number) {
+  if (trimester === 1) {
+    return {
+      kicker: 'Für dich gerade relevant',
+      titel: 'Folsäure, Ernährung und ein guter Start',
+      text: 'Im ersten Trimester stehen Versorgung, Verträglichkeit und sichere Lebensmittel besonders im Fokus.',
+      aktion: 'Ernährung ansehen',
+      onClick: () => aktiviereWissensbereich(0, 'wissen-ernaehrung'),
+    }
+  }
+  if (trimester === 3) {
+    return {
+      kicker: 'Für dich gerade relevant',
+      titel: 'Belastung, Reisen und Alltag gut dosieren',
+      text: 'Mit wachsendem Bauch werden Komfort, Gleichgewicht, Hitze und längere Wege im Alltag wichtiger.',
+      aktion: 'Unterwegs & Aktiv ansehen',
+      onClick: () => aktiviereWissensbereich(1, 'wissen-unterwegs'),
+    }
+  }
+  return {
+    kicker: 'Für dich gerade relevant',
+    titel: 'Bewegung, Energie und Alltag im Gleichgewicht',
+    text: 'Im mittleren Schwangerschaftsdrittel lassen sich viele Aktivitäten gut anpassen – solange Belastung und Risiko stimmen.',
+    aktion: 'Sport & Bewegung ansehen',
+    onClick: () => aktiviereWissensbereich(1, 'wissen-unterwegs'),
+  }
+}
+
 export function SituativesWissen({
   onPruefen,
   onAlltag,
@@ -19,41 +47,31 @@ export function SituativesWissen({
   sswAnzeige?: string
   trimester?: number
 }) {
+  const fokus = fokusFuer(trimester)
+
   return (
     <>
-      <section className="wissen-situativ" aria-labelledby="wissen-situativ-titel">
-        <div className="wissen-situativ__kopf">
+      <section className="wissen-editorial" aria-labelledby="wissen-editorial-titel">
+        <div className="wissen-editorial__kopf">
           <div>
-            <p className="wissen-situativ__kicker">Schnell zur Situation</p>
-            <h2 id="wissen-situativ-titel">Was beschäftigt dich gerade?</h2>
+            <p className="wissen-editorial__kicker">Wissen</p>
+            <h2 id="wissen-editorial-titel">Für deine Schwangerschaft</h2>
           </div>
-          {sswAnzeige && (
-            <span className="wissen-situativ__ssw">
-              SSW {sswAnzeige}{trimester ? ` · ${trimester}. Trimester` : ''}
-            </span>
-          )}
+          {sswAnzeige && <span className="wissen-editorial__ssw">SSW {sswAnzeige}</span>}
         </div>
-        <p className="wissen-situativ__text">
-          Konkrete Bewertungen in Suche und Medikamentenbereich berücksichtigen deine aktuelle
-          Schwangerschaftswoche, sobald eine Regel davon abhängt.
-        </p>
-        <div className="wissen-situativ__aktionen">
-          <button type="button" onClick={() => aktiviereWissensbereich(0, 'wissen-ernaehrung')}>
-            <strong>{trimester === 1 ? 'Folsäure & Ernährung' : 'Ernährung & Nährstoffe'}</strong>
-            <span>Was im Alltag zählt</span>
-          </button>
-          <button type="button" onClick={() => aktiviereWissensbereich(1, 'wissen-unterwegs')}>
-            <strong>Sport & Bewegung</strong>
-            <span>Belastung, Sturzrisiko, Höhe</span>
-          </button>
-          <button type="button" onClick={() => aktiviereWissensbereich(1, 'wissen-unterwegs')}>
-            <strong>Unterwegs & Reisen</strong>
-            <span>Flug, Hitze, Zecken, Tropen</span>
-          </button>
-          <button type="button" onClick={onAlltag}>
-            <strong>Alltag</strong>
-            <span>Katze, Röntgen, Sauna und mehr</span>
-          </button>
+
+        <article className="wissen-feature">
+          <p className="wissen-feature__kicker">{fokus.kicker}</p>
+          <h3>{fokus.titel}</h3>
+          <p>{fokus.text}</p>
+          <button type="button" onClick={fokus.onClick}>{fokus.aktion} <span aria-hidden="true">›</span></button>
+        </article>
+
+        <div className="wissen-chips" role="group" aria-label="Wissen nach Situation">
+          <button type="button" onClick={() => aktiviereWissensbereich(0, 'wissen-ernaehrung')}>Ernährung</button>
+          <button type="button" onClick={() => aktiviereWissensbereich(1, 'wissen-unterwegs')}>Sport</button>
+          <button type="button" onClick={() => aktiviereWissensbereich(1, 'wissen-unterwegs')}>Reisen</button>
+          <button type="button" onClick={onAlltag}>Alltag</button>
         </div>
       </section>
 
