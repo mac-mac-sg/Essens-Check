@@ -7,6 +7,7 @@ import './redesign-fixes.css'
 import './wissen.css'
 import './scanner.css'
 import './medikamente.css'
+import './erweiterungen.css'
 
 const wurzel = document.getElementById('root')
 if (!wurzel) throw new Error('Wurzelelement #root fehlt')
