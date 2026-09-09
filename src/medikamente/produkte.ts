@@ -92,6 +92,44 @@ export function findeMedikamentProdukte(
 }
 
 /**
+ * Die nationale Schweizer Arzneimittel-GTIN verwendet bei vielen Packungen
+ * den Präfix 7680. Darin folgen die fünfstellige Swissmedic-Zulassungsnummer
+ * und der dreistellige Packungscode; die letzte Stelle ist die GTIN-Prüfziffer.
+ *
+ * Hersteller dürfen auch eigene GTIN-Nummernkreise verwenden. Solche Codes
+ * lassen sich aus dem Swissmedic-OGD-Snapshot allein nicht sicher zurückrechnen
+ * und werden deshalb hier bewusst nicht geraten.
+ */
+export function istSchweizerArzneimittelGtin(gtin: string): boolean {
+  return /^7680\d{9}$/u.test(gtin)
+}
+
+function numerischerSchluessel(wert: string): string {
+  const ohneNullen = wert.replace(/^0+/u, '')
+  return ohneNullen || '0'
+}
+
+export function findeMedikamentProduktNachGtin(
+  gtin: string,
+  snapshot: SwissmedicProduktSnapshot = medikamentProduktSnapshot,
+): SwissmedicProdukt | null {
+  if (!istSchweizerArzneimittelGtin(gtin)) return null
+
+  const zulassungsnummer = numerischerSchluessel(gtin.slice(4, 9))
+  const packungscode = numerischerSchluessel(gtin.slice(9, 12))
+
+  const kandidaten = snapshot.produkte.filter(
+    (produkt) =>
+      numerischerSchluessel(produkt.zulassungsnummer) === zulassungsnummer &&
+      produkt.packungen.some(
+        (packung) => numerischerSchluessel(packung.code) === packungscode,
+      ),
+  )
+
+  return kandidaten.length === 1 ? kandidaten[0] ?? null : null
+}
+
+/**
  * Nur ein vollständig auf bereits fachlich bewertete Wirkstoffe gemapptes
  * Produkt darf später überhaupt für eine automatische Medikamentenbewertung
  * in Frage kommen. Kombinationspräparate mit einem unbekannten zweiten
