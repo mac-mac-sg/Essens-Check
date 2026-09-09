@@ -13,22 +13,13 @@ export function Alltagssuche({
   const treffer = gesucht ? sucheAlltag(begriff) : ALLTAG
 
   return (
-    <section className="alltag-suche" aria-labelledby="alltag-suche-titel">
-      <div className="alltag-suche__intro">
-        <p className="alltag-suche__kicker">Alltag in der Schwangerschaft</p>
-        <h2 id="alltag-suche-titel">Was möchtest du einordnen?</h2>
-        <p>
-          Situationen aus Freizeit, Reisen, Medizin und Zuhause — mit derselben Regel:
-          fehlende Grundlage wird nicht zu einer Freigabe.
-        </p>
-      </div>
-
-      <div className="suchleiste">
-        <label className="feldtitel" htmlFor="alltag-suche">
-          Alltagsthema eingeben
+    <section className="alltag-suche" aria-label="Alltag prüfen">
+      <div className="suchleiste suchleiste--spotlight">
+        <label className="feldtitel feldtitel--versteckt" htmlFor="alltag-suche">
+          Alltagsthema suchen
         </label>
         <div className="suchfeld-huelle">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="2" />
             <path d="M13.5 13.5 L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
@@ -36,7 +27,7 @@ export function Alltagssuche({
             id="alltag-suche"
             className="suchfeld"
             type="search"
-            placeholder="Sauna, Katze, Flug, Röntgen …"
+            placeholder="Alltagsthema suchen …"
             value={begriff}
             onChange={(ereignis) => setBegriff(ereignis.target.value)}
             autoComplete="off"
@@ -57,6 +48,8 @@ export function Alltagssuche({
           )}
         </div>
       </div>
+
+      {!gesucht && <p className="such-meta">Freizeit, Reisen, Medizin und Zuhause – belastbar eingeordnet oder bewusst offen gelassen.</p>}
 
       {treffer.length > 0 ? (
         <div className="alltag-karten">
