@@ -6,9 +6,10 @@ type Zustand = 'startet' | 'laeuft' | 'nicht-unterstuetzt' | 'kein-zugriff'
 /**
  * Liest EAN-8 und EAN-13 über die Kamera.
  *
- * Nutzt die native BarcodeDetector-Schnittstelle des Browsers statt einer
- * Bibliothek — das hält das Bundle klein. Wo sie fehlt, sagt die App das
- * offen, statt still nichts zu tun.
+ * Derselbe Scanner wird für Lebensmittel und Medikamente verwendet. Nach dem
+ * Scan entscheidet erst die lokale Zuordnung, ob der Code eindeutig zu einer
+ * kuratierten Swissmedic-Packung gehört; sonst läuft der bestehende
+ * Lebensmittelweg über Open Food Facts.
  */
 export function Scanner({
   onErkannt,
@@ -48,7 +49,6 @@ export function Scanner({
         if (!beendet) setZustand('kein-zugriff')
         return
       }
-      // Zwischen Anfrage und Antwort kann die Ansicht schon verlassen sein.
       if (beendet || !videoRef.current) {
         strom.getTracks().forEach((spur) => spur.stop())
         return
@@ -84,11 +84,12 @@ export function Scanner({
   return (
     <section className="scanner" aria-labelledby="scanner-titel">
       <h2 className="abschnitt__titel" id="scanner-titel">
-        Lebensmittel-Strichcode scannen
+        Produkt scannen
       </h2>
       <p className="scanner__meldung">
-        Der Scanner nutzt Open Food Facts und ist derzeit nur für Lebensmittel vorgesehen.
-        Medikamente bitte über die Suche nach Präparat oder Wirkstoff prüfen.
+        Lebensmittel werden über Open Food Facts zugeordnet. Schweizer Medikamentenpackungen
+        mit eindeutig erkennbarem 7680-GTIN werden zuerst lokal gegen den Swissmedic-Snapshot
+        geprüft. Das medizinische Urteil stammt nie aus dem Barcode selbst.
       </p>
 
       {zustand === 'nicht-unterstuetzt' ? (
@@ -110,7 +111,7 @@ export function Scanner({
           <p className="scanner__meldung">
             {zustand === 'startet'
               ? 'Kamera wird gestartet …'
-              : 'Strichcode in den Rahmen halten.'}
+              : 'Strichcode von Lebensmittel oder Medikament in den Rahmen halten.'}
           </p>
         </>
       )}
