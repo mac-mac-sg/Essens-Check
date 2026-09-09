@@ -1,18 +1,47 @@
 import { useEffect, useMemo, useState } from 'react'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
+import { analysiereProduktmerkmale } from './engine/produktmerkmale'
 import { holeProdukt, type Produkt } from './engine/produktsuche'
 import { ordneProduktZu, type ProduktZuordnung } from './engine/produktzuordnung'
 import { findeNachId, MAX_TREFFER, MINDESTLAENGE, suche } from './engine/suchen'
 import { Ergebniskarte } from './Ergebniskarte'
+import { istSchweizerArzneimittelGtin } from './medikamente/produkte'
 import { Trefferliste } from './Trefferliste'
 import type { Lebensmittel } from './typen'
 
-type Stand = 'laeuft' | 'urteil' | 'auswahl' | 'ohne'
+type Stand = 'laeuft' | 'urteil' | 'auswahl' | 'ohne' | 'medikament-ohne'
 
 function grundlagenText(zuordnung: ProduktZuordnung | null): string {
   if (!zuordnung || zuordnung.grundlagen.length === 0) return 'Produktname'
   return zuordnung.grundlagen.join(', ')
+}
+
+function Produktmerkmale({ produkt }: { produkt: Produkt }) {
+  const merkmale = analysiereProduktmerkmale(produkt)
+  if (merkmale.length === 0) return null
+
+  return (
+    <section className="scan-merkmale" aria-labelledby="scan-merkmale-titel">
+      <div className="scan-merkmale__kopf">
+        <h3 id="scan-merkmale-titel">Auf der Verpackung erkannt</h3>
+        <span>{merkmale.length} Merkmal{merkmale.length === 1 ? '' : 'e'}</span>
+      </div>
+      <div className="scan-merkmale__liste">
+        {merkmale.map((merkmal) => (
+          <div className="scan-merkmal" data-art={merkmal.art} key={merkmal.id}>
+            <span>{merkmal.label}</span>
+            <strong>{merkmal.wert}</strong>
+            <small>{merkmal.hinweis}</small>
+          </div>
+        ))}
+      </div>
+      <p className="scan-merkmale__hinweis">
+        Diese Merkmale helfen bei der Einordnung, erzeugen aber selbst keine Freigabe. Das
+        Urteil stammt weiterhin aus dem lokalen Regelkatalog.
+      </p>
+    </section>
+  )
 }
 
 function Produktdaten({ produkt }: { produkt: Produkt }) {
@@ -51,21 +80,22 @@ function Produktdaten({ produkt }: { produkt: Produkt }) {
 }
 
 /**
- * Was nach einem gelesenen Strichcode passiert: Open Food Facts liefert
- * Produktmerkmale, die gemeinsam gegen den lokalen Katalog geprüft werden.
- *
- * Eine automatische Zuordnung gibt es nur bei ausreichend eindeutiger Evidenz.
- * Zutaten dürfen sie bestätigen oder bei einem klaren Nein-/Unklar-Signal
- * stoppen, aber nie ein Urteil lockern.
+ * Was nach einem gelesenen Strichcode passiert: Schweizer Arzneimittel-GTINs
+ * werden bereits vor dieser Ansicht lokal aufgelöst. Alles andere wird als
+ * Lebensmittel gegen Open Food Facts und anschliessend gegen den lokalen
+ * Katalog geprüft.
  */
 export function Scanergebnis({
   ean,
   trimester,
+  sswAnzeige,
   onNeuScannen,
   onZurSuche,
 }: {
   ean: string
   trimester?: number
+  ssw?: number
+  sswAnzeige?: string
   onNeuScannen: () => void
   onZurSuche: () => void
 }) {
@@ -82,6 +112,13 @@ export function Scanergebnis({
     setZuordnung(null)
     setGewaehlt(null)
     setBegriff('')
+
+    // Ein 7680-GTIN, der hier ankommt, konnte zuvor nicht eindeutig auf eine
+    // kuratierte Swissmedic-Packung gemappt werden. Nicht als Lebensmittel raten.
+    if (istSchweizerArzneimittelGtin(ean)) {
+      setStand('medikament-ohne')
+      return () => steuerung.abort()
+    }
 
     holeProdukt(ean, steuerung.signal).then((gefunden) => {
       if (steuerung.signal.aborted) return
@@ -130,6 +167,28 @@ export function Scanergebnis({
     )
   }
 
+  if (stand === 'medikament-ohne') {
+    return (
+      <section className="scan-medikament-offen" aria-labelledby="scan-medikament-offen-titel">
+        <h2 className="abschnitt__titel" id="scan-medikament-offen-titel">Medikament erkannt, aber nicht bewertbar</h2>
+        <p className="abschnitt__hinweis">
+          Der Code <span className="zuordnen__code">{ean}</span> sieht nach einem Schweizer
+          Arzneimittel-GTIN aus, lässt sich im lokalen kuratierten Swissmedic-Snapshot aber
+          keiner eindeutigen bewertbaren Packung zuordnen. Daraus wird bewusst kein Urteil
+          abgeleitet.
+        </p>
+        <div className="scan-knoepfe">
+          <button className="zurueck zurueck--flaeche" type="button" onClick={onNeuScannen}>
+            Nochmal scannen
+          </button>
+          <button className="zurueck" type="button" onClick={onZurSuche}>
+            Zur Medikamentensuche
+          </button>
+        </div>
+      </section>
+    )
+  }
+
   if (stand === 'urteil' && urteil) {
     return (
       <>
@@ -145,6 +204,7 @@ export function Scanergebnis({
                 </>
               )}
             </p>
+            <Produktmerkmale produkt={produkt} />
             <Produktdaten produkt={produkt} />
           </div>
         )}
@@ -161,7 +221,11 @@ export function Scanergebnis({
           </div>
         )}
 
-        <Ergebniskarte urteil={urteil} />
+        <Ergebniskarte
+          urteil={urteil}
+          {...(sswAnzeige ? { sswAnzeige } : {})}
+          {...(trimester ? { trimester } : {})}
+        />
         <div className="scan-knoepfe">
           <button className="zurueck zurueck--flaeche" type="button" onClick={onNeuScannen}>
             Nochmal scannen
@@ -201,7 +265,12 @@ export function Scanergebnis({
         )}
       </p>
 
-      {produkt && <Produktdaten produkt={produkt} />}
+      {produkt && (
+        <>
+          <Produktmerkmale produkt={produkt} />
+          <Produktdaten produkt={produkt} />
+        </>
+      )}
 
       <label className="feldtitel" htmlFor="scan-suche">
         {vorschlaege.length > 0 && !gesucht ? 'Oder selbst suchen' : 'Lebensmittel suchen'}
@@ -217,7 +286,6 @@ export function Scanergebnis({
         spellCheck={false}
       />
 
-      {/* Dieselben Zeilen wie in der Suche: das Urteil steht schon hier. */}
       {liste.length > 0 && <Trefferliste eintraege={liste} onOeffnen={waehlen} />}
 
       {gesucht && eigene.length === 0 && (
