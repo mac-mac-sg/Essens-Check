@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { entscheidungsgradMedikament } from './entscheidungsgrad'
+import { FavoritKnopf } from './FavoritKnopf'
 import { bewerteMedikament } from './medikamente/bewerten'
 import { findeMedikament, medikamentKatalog } from './medikamente/daten'
 import { medikamentProduktSnapshot } from './medikamente/produkte'
@@ -86,6 +87,8 @@ export function MedikamentDetail({
   sswAnzeige,
   onTerminAendern,
   onWirkstoffOeffnen,
+  favorit = false,
+  onFavorit,
 }: {
   produkt?: SwissmedicProdukt | null
   medikamentId?: string | null
@@ -93,6 +96,8 @@ export function MedikamentDetail({
   sswAnzeige?: string
   onTerminAendern: () => void
   onWirkstoffOeffnen: (id: string) => void
+  favorit?: boolean
+  onFavorit?: () => void
 }) {
   const [profilId, setProfilId] = useState<string | null>(null)
   const [perspektive, setPerspektive] = useState<Perspektive>('einnehmen')
@@ -181,6 +186,8 @@ export function MedikamentDetail({
           <p>{medikament.gruppe}</p>
         </div>
       )}
+
+      {onFavorit && <FavoritKnopf aktiv={favorit} onUmschalten={onFavorit} />}
 
       {profile.length > 1 && !profilId && <Profilwahl profile={profile} onWaehlen={setProfilId} />}
 
