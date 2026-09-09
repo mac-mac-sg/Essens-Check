@@ -17,7 +17,8 @@ function Bereichsschalter({
   onWechsel: (bereich: Suchbereich) => void
 }) {
   return (
-    <div className="suchbereich" role="group" aria-label="Was möchtest du prüfen?">
+    <div className="suchbereich" data-aktiv={aktiv} role="group" aria-label="Was möchtest du prüfen?">
+      <span className="suchbereich__indikator" aria-hidden="true" />
       <button
         type="button"
         aria-pressed={aktiv === 'lebensmittel'}
@@ -74,9 +75,11 @@ export function Suchansicht({
 }) {
   const sichtbar = treffer.slice(0, MAX_TREFFER)
   const weitere = treffer.length - sichtbar.length
+  const nochLeer = begriff.trim().length < 2
 
   return (
     <>
+      {nochLeer && <Hero bereich={bereich} />}
       <Bereichsschalter aktiv={bereich} onWechsel={onBereichWechsel} />
 
       {bereich === 'medikamente' ? (
@@ -94,14 +97,12 @@ export function Suchansicht({
         />
       ) : (
         <>
-          {!gesucht && <Hero />}
-
-          <div className="suchleiste">
-            <label className="feldtitel" htmlFor="suche">
-              Lebensmittel eingeben
+          <div className="suchleiste suchleiste--spotlight">
+            <label className="feldtitel feldtitel--versteckt" htmlFor="suche">
+              Lebensmittel suchen
             </label>
             <div className="suchfeld-huelle">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="2" />
                 <path
                   d="M13.5 13.5 L17 17"
@@ -114,7 +115,7 @@ export function Suchansicht({
                 id="suche"
                 className="suchfeld"
                 type="search"
-                placeholder="Camembert, Lachs, Kaffee …"
+                placeholder="Lebensmittel suchen …"
                 value={begriff}
                 onChange={(ereignis) => setBegriff(ereignis.target.value)}
                 autoFocus
