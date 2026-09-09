@@ -108,9 +108,9 @@ export function Einstellungen({
         </h2>
         <div className="einstellungen__info">
           <p>
-            Die Einschätzungen beruhen auf dokumentierten Fachinformationen und Empfehlungen
-            anerkannter Gesundheitsbehörden und medizinischer Fachstellen. Das Regelwerk wird
-            bei fachlichen Änderungen anhand dieser Grundlagen aktualisiert.
+            Die Angaben der App sind kuratiert und beruhen auf dokumentierten Fachinformationen
+            und Empfehlungen anerkannter Gesundheitsbehörden und medizinischer Fachstellen. Das
+            Regelwerk wird bei fachlichen Änderungen anhand dieser Grundlagen aktualisiert.
           </p>
           <p>Stand der hinterlegten fachlichen Prüfung: 08.09.2026.</p>
         </div>
@@ -211,8 +211,12 @@ export function Einstellungen({
         <div className="einstellungen__info">
           <p>
             Die App ersetzt keine individuelle Beratung durch Hebamme, Ärztin, Arzt oder
-            Apotheke. Verordnete Medikamente nicht eigenständig beginnen, absetzen oder in der
-            Dosis verändern.
+            Apotheke. Bei Unsicherheit oder persönlichen Risikofaktoren sollte fachlicher Rat
+            eingeholt werden.
+          </p>
+          <p>
+            Verordnete Medikamente nicht eigenständig beginnen, absetzen oder in der Dosis
+            verändern.
           </p>
           <p>
             Bei Lebensmitteln sind häufig Zubereitung, Pasteurisierung und Erhitzung
