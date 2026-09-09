@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { entscheidungsgradMedikament } from './entscheidungsgrad'
 import { bewerteMedikament } from './medikamente/bewerten'
 import { findeMedikament, medikamentKatalog } from './medikamente/daten'
 import { medikamentProduktSnapshot } from './medikamente/produkte'
@@ -132,6 +133,12 @@ export function MedikamentDetail({
           )}
         </div>
 
+        <section className="entscheidungsgrad" data-grad="offen">
+          <span>Entscheidungsgrad</span>
+          <strong>Keine belastbare Gesamtbewertung</strong>
+          <small>Produktdaten allein erzeugen kein medizinisches Urteil.</small>
+        </section>
+
         {vorbereitet.grund === 'kombination' && vorbereitet.medikamente.length > 0 && (
           <div className="med-detail__einzelwirkstoffe">
             <p className="med-detail__klaerung-titel">Einzelwirkstoffe ansehen</p>
@@ -159,6 +166,10 @@ export function MedikamentDetail({
           <p className="med-detail__sperre-titel">Keine belastbare Zuordnung</p>
           <p>Für diesen Eintrag ist kein kuratierter Wirkstoff hinterlegt.</p>
         </div>
+        <section className="entscheidungsgrad" data-grad="offen">
+          <span>Entscheidungsgrad</span>
+          <strong>Keine belastbare Einordnung</strong>
+        </section>
         <p className="med-detail__sicherheit">{medikamentKatalog.sicherheitshinweis}</p>
       </article>
     )
@@ -201,76 +212,93 @@ export function MedikamentDetail({
         </div>
       )}
 
-      {urteil?.status && (
-        <>
-          <div className="med-detail__kontext">
-            {sswAnzeige && <span>SSW {sswAnzeige}</span>}
-            {urteil.profil && <span>{urteil.profil.label}</span>}
-          </div>
+      {urteil?.status && (() => {
+        const grad = entscheidungsgradMedikament(urteil.status)
+        return (
+          <>
+            <div className="med-detail__kontext kontextleiste">
+              {sswAnzeige && <span>SSW {sswAnzeige}</span>}
+              {urteil.profil && <span>{urteil.profil.label}</span>}
+            </div>
 
-          <div className="med-detail__perspektive" role="group" aria-label="Fragestellung">
-            <button
-              type="button"
-              aria-pressed={perspektive === 'einnehmen'}
-              onClick={() => setPerspektive('einnehmen')}
-            >
-              Kann ich es einnehmen?
-            </button>
-            <button
-              type="button"
-              aria-pressed={perspektive === 'bereits-eingenommen'}
-              onClick={() => setPerspektive('bereits-eingenommen')}
-            >
-              Bereits eingenommen
-            </button>
-          </div>
+            <div className="med-detail__perspektive" role="group" aria-label="Fragestellung">
+              <button
+                type="button"
+                aria-pressed={perspektive === 'einnehmen'}
+                onClick={() => setPerspektive('einnehmen')}
+              >
+                Kann ich es einnehmen?
+              </button>
+              <button
+                type="button"
+                aria-pressed={perspektive === 'bereits-eingenommen'}
+                onClick={() => setPerspektive('bereits-eingenommen')}
+              >
+                Bereits eingenommen
+              </button>
+            </div>
 
-          {perspektive === 'einnehmen' ? (
-            <div className="med-detail__bewertung">
-              <div className="med-status" data-status={urteil.status}>
-                <span>Einordnung</span>
-                <strong>{MEDIKAMENT_STATUS_META[urteil.status].label}</strong>
+            {perspektive === 'einnehmen' ? (
+              <div className="med-detail__bewertung">
+                <div className="med-status" data-status={urteil.status}>
+                  <span>Einordnung</span>
+                  <strong>{MEDIKAMENT_STATUS_META[urteil.status].label}</strong>
+                </div>
+
+                <section className="entscheidungsgrad" data-grad={grad.grad}>
+                  <span>Entscheidungsgrad</span>
+                  <strong>{grad.label}</strong>
+                  <small>{grad.erklaerung}</small>
+                </section>
+
+                <section className="detailblock">
+                  <h3>Warum?</h3>
+                  <p className="med-detail__haupttext">{urteil.text}</p>
+                </section>
+
+                {urteil.hinweise.length > 0 && (
+                  <section className="detailblock detailblock--worauf">
+                    <h3>Worauf kommt es an?</h3>
+                    <ul className="med-detail__hinweise">
+                      {[...new Set(urteil.hinweise)].map((hinweis) => (
+                        <li key={hinweis}>{hinweis}</li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
               </div>
-              <p className="med-detail__haupttext">{urteil.text}</p>
-              {urteil.hinweise.length > 0 && (
-                <ul className="med-detail__hinweise">
-                  {[...new Set(urteil.hinweise)].map((hinweis) => (
-                    <li key={hinweis}>{hinweis}</li>
+            ) : (
+              <div className="med-detail__eingenommen">
+                <p className="med-detail__eingenommen-titel">Wenn du es bereits eingenommen hast</p>
+                <p>
+                  {urteil.bereits_eingenommen ??
+                    'Für eine bereits erfolgte Einnahme ist keine eigene lokale Aussage hinterlegt. Bitte medizinisch oder pharmazeutisch Rücksprache halten.'}
+                </p>
+              </div>
+            )}
+
+            {urteil.quellen.length > 0 && (
+              <div className="med-detail__quellen">
+                <p>Quellen zur Schwangerschaftsbewertung</p>
+                <ul>
+                  {urteil.quellen.map((quelle) => (
+                    <li key={quelle.id}>
+                      <a href={quelle.url} target="_blank" rel="noreferrer">
+                        {quelle.titel}
+                      </a>
+                    </li>
                   ))}
                 </ul>
-              )}
-            </div>
-          ) : (
-            <div className="med-detail__eingenommen">
-              <p className="med-detail__eingenommen-titel">Wenn du es bereits eingenommen hast</p>
-              <p>
-                {urteil.bereits_eingenommen ??
-                  'Für eine bereits erfolgte Einnahme ist keine eigene lokale Aussage hinterlegt. Bitte medizinisch oder pharmazeutisch Rücksprache halten.'}
-              </p>
-            </div>
-          )}
-
-          {urteil.quellen.length > 0 && (
-            <div className="med-detail__quellen">
-              <p>Quellen zur Schwangerschaftsbewertung</p>
-              <ul>
-                {urteil.quellen.map((quelle) => (
-                  <li key={quelle.id}>
-                    <a href={quelle.url} target="_blank" rel="noreferrer">
-                      {quelle.titel}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              {produkt && (
-                <small>
-                  Produktdaten: Swissmedic-Snapshot, Stand {formatiereDatum(medikamentProduktSnapshot.stand)}.
-                </small>
-              )}
-            </div>
-          )}
-        </>
-      )}
+                {produkt && (
+                  <small>
+                    Produktdaten: Swissmedic-Snapshot, Stand {formatiereDatum(medikamentProduktSnapshot.stand)}.
+                  </small>
+                )}
+              </div>
+            )}
+          </>
+        )
+      })()}
 
       <p className="med-detail__sicherheit">{medikamentKatalog.sicherheitshinweis}</p>
     </article>
