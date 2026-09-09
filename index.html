@@ -3,33 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <!-- Wird vom Skript unten und von farbschema.ts auf das geltende Schema gesetzt. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://world.openfoodfacts.org ws: wss:; media-src 'self' blob:; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <!-- Wird von theme-init.js und farbschema.ts auf das geltende Schema gesetzt. -->
     <meta name="theme-color" content="#075F74" />
     <!--
       Läuft vor dem ersten Malen: sonst erschiene die App kurz hell, bevor
-      React das dunkle Schema setzt. Der Schlüssel steht in src/farbschema.ts.
+      React das dunkle Schema setzt. Als externe Datei bleibt script-src der
+      Content Security Policy strikt auf 'self' begrenzt.
     -->
-    <script>
-      (function () {
-        var wunsch = null
-        try {
-          wunsch = localStorage.getItem('essens-check.farbschema')
-        } catch (e) {
-          /* gesperrter Speicher */
-        }
-        // Ohne gespeicherte Wahl: hell. Dem Gerät wird nur gefolgt, wenn das
-        // ausdrücklich gewählt wurde. Muss zu VOREINSTELLUNG in
-        // src/farbschema.ts passen.
-        var dunkel =
-          wunsch === 'dunkel' ||
-          (wunsch === 'system' &&
-            window.matchMedia &&
-            window.matchMedia('(prefers-color-scheme: dark)').matches)
-        document.documentElement.dataset.schema = dunkel ? 'dunkel' : 'hell'
-        var leiste = document.querySelector('meta[name="theme-color"]')
-        if (leiste) leiste.setAttribute('content', dunkel ? '#032F3B' : '#075F74')
-      })()
-    </script>
+    <script src="%BASE_URL%theme-init.js"></script>
     <meta name="description" content="Nachschlagewerk für die Schwangerschaft: Lebensmittel und ausgewählte Medikamente sicher einordnen." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
