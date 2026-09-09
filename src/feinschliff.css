@@ -154,6 +154,322 @@
   border-radius: inherit !important;
 }
 
+/* 94-%-Glasfläche der Hauptnavigation ist Teil des Feinschliffs statt eigener CSS-Schicht. */
+:root {
+  --navi-flaeche: rgba(255, 255, 255, 0.94);
+  --navi-kante: rgba(21, 32, 36, 0.10);
+  --navi-schatten:
+    0 2px 8px rgba(9, 48, 58, 0.10),
+    0 14px 34px rgba(9, 48, 58, 0.14);
+}
+
+:root[data-schema='dunkel'] {
+  --navi-flaeche: rgba(23, 33, 36, 0.94);
+  --navi-kante: rgba(255, 255, 255, 0.10);
+  --navi-schatten:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 14px 34px rgba(0, 0, 0, 0.55);
+}
+
+.navi {
+  background: var(--navi-flaeche);
+  border: 1px solid var(--navi-kante);
+  box-shadow: var(--navi-schatten);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
+/* Persönliche Checks */
+.meine-checks {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 1.35rem;
+  box-shadow: var(--schatten-klein);
+}
+
+.meine-checks__kopf,
+.meine-checks__unterkopf,
+.scan-verlauf__kopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.meine-checks__kopf h2,
+.meine-checks__gruppe h3,
+.scan-verlauf__kopf h3 {
+  margin: 0;
+}
+
+.meine-checks__kicker,
+.alternative-block__kicker,
+.wissen-fokus__kicker {
+  margin: 0 0 0.2rem;
+  color: var(--akzent);
+  font-size: 0.72rem;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.meine-checks__lokal {
+  flex: 0 0 auto;
+  color: var(--text-gedaempft);
+  font-size: 0.72rem;
+}
+
+.meine-checks__gruppe {
+  margin-top: 1rem;
+}
+
+.meine-checks__unterkopf button,
+.scan-verlauf__kopf button {
+  padding: 0.2rem 0.35rem;
+  color: var(--akzent);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.meine-checks__liste,
+.scan-verlauf__liste {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+}
+
+.meine-checks__eintrag,
+.scan-verlauf__liste > button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.72rem 0.78rem;
+  gap: 0.75rem;
+  text-align: left;
+  color: var(--text);
+  background: var(--flaeche-still);
+  border: 1px solid transparent;
+  border-radius: 0.9rem;
+  cursor: pointer;
+}
+
+.meine-checks__eintrag:active,
+.scan-verlauf__liste > button:active,
+.wissen-fokus__karte:active,
+.alternative-block__knopf:active {
+  transform: scale(0.985);
+}
+
+.meine-checks__eintrag > span:first-child,
+.scan-verlauf__liste > button > span:first-child {
+  display: grid;
+  min-width: 0;
+  gap: 0.12rem;
+}
+
+.meine-checks__meta,
+.scan-verlauf__liste small {
+  color: var(--text-gedaempft);
+  font-size: 0.72rem;
+}
+
+.meine-checks__eintrag strong,
+.scan-verlauf__liste strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meine-checks__pfeil {
+  color: var(--text-gedaempft);
+  font-size: 1.2rem;
+}
+
+.uebersicht-essen-kopf {
+  margin-top: 0.35rem;
+}
+
+/* Favoritenaktion in allen Detailtypen */
+.favorit-knopf {
+  display: inline-flex;
+  align-items: center;
+  margin: 0.8rem 0 0.2rem;
+  padding: 0.52rem 0.72rem;
+  gap: 0.4rem;
+  color: var(--text-gedaempft);
+  background: var(--flaeche-still);
+  border: 1px solid var(--rahmen);
+  border-radius: var(--radius-pille);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.favorit-knopf svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.favorit-knopf[aria-pressed='true'] {
+  color: var(--akzent);
+  background: var(--flaeche-still);
+  border-color: var(--akzent);
+}
+
+.favorit-knopf[aria-pressed='true'] svg {
+  fill: currentColor;
+}
+
+/* Alternativen sind nur Navigationshilfen in den bereits kuratierten Katalog. */
+.alternative-block {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--flaeche-still);
+  border: 1px solid var(--rahmen);
+  border-radius: 1rem;
+}
+
+.alternative-block h3 {
+  margin: 0;
+}
+
+.alternative-block__liste {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.7rem;
+}
+
+.alternative-block__knopf,
+.alternative-block__text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.65rem 0.7rem;
+  gap: 0.7rem;
+  color: var(--text);
+  text-align: left;
+  background: var(--karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 0.8rem;
+}
+
+.alternative-block__knopf {
+  font: inherit;
+  cursor: pointer;
+}
+
+.alternative-block__knopf > span:last-child {
+  flex: 0 0 auto;
+  color: var(--akzent);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.alternative-block__hinweis,
+.wissen-fokus__hinweis {
+  margin: 0.65rem 0 0;
+  color: var(--text-gedaempft);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+/* Drei wechselnde, aber ausschliesslich aus vorhandenen Fachartikeln stammende Fokus-Themen. */
+.wissen-fokus {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.9rem;
+}
+
+.wissen-fokus__karte {
+  display: flex;
+  min-width: 0;
+  padding: 0.9rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.32rem;
+  color: var(--text);
+  text-align: left;
+  background: var(--karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 1rem;
+  box-shadow: var(--schatten-klein);
+  font: inherit;
+  cursor: pointer;
+}
+
+.wissen-fokus__karte strong {
+  font-size: 0.96rem;
+}
+
+.wissen-fokus__karte > span:not(.wissen-fokus__kicker) {
+  color: var(--text-gedaempft);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.wissen-fokus__karte small {
+  margin-top: auto;
+  padding-top: 0.4rem;
+  color: var(--akzent);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+/* Scan-Historie bleibt lokal und kann ohne erneuten Kamerazugriff geöffnet werden. */
+.scan-verlauf {
+  margin: 1rem 0;
+  padding: 0.9rem;
+  background: var(--karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 1rem;
+}
+
+.scan-produkt-suchen {
+  display: grid;
+  width: 100%;
+  margin: 0.9rem 0;
+  padding: 0.82rem 0.9rem;
+  gap: 0.15rem;
+  color: var(--text);
+  text-align: left;
+  background: var(--flaeche-still);
+  border: 1px solid var(--rahmen);
+  border-radius: 0.9rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.scan-produkt-suchen span {
+  color: var(--text-gedaempft);
+  font-size: 0.76rem;
+}
+
+.scan-produkt-suchen strong {
+  color: var(--akzent);
+}
+
+@media (max-width: 620px) {
+  .wissen-fokus {
+    grid-template-columns: 1fr;
+  }
+
+  .wissen-fokus__karte {
+    min-height: 0;
+  }
+}
+
 @media (max-width: 360px) {
   .kopfzeile--suche .stand__kopf {
     gap: 0.38rem !important;
@@ -169,5 +485,18 @@
 
   .kopfzeile--suche .stand__rest {
     font-size: 0.8rem !important;
+  }
+
+  .meine-checks__kopf {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .navi {
+    background: var(--karte);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 }
