@@ -102,18 +102,121 @@ export function Einstellungen({
         </p>
       </section>
 
+      <section className="einstellungen__gruppe" aria-labelledby="einstellungen-quellen">
+        <h2 className="einstellungen__titel" id="einstellungen-quellen">
+          Quellen &amp; medizinische Grundlage
+        </h2>
+        <div className="einstellungen__info">
+          <p>
+            Die Einschätzungen beruhen auf dokumentierten Fachinformationen und Empfehlungen
+            anerkannter Gesundheitsbehörden und medizinischer Fachstellen. Das Regelwerk wird
+            bei fachlichen Änderungen anhand dieser Grundlagen aktualisiert.
+          </p>
+          <p>Stand der hinterlegten fachlichen Prüfung: 08.09.2026.</p>
+        </div>
+
+        <details className="gruppe">
+          <summary className="gruppe__titel">
+            <span className="gruppe__name">Quellen für Lebensmittel</span>
+            <span className="gruppe__pfeil" aria-hidden="true">›</span>
+          </summary>
+          <div className="einstellungen__info">
+            <p>
+              Das Lebensmittel-Regelwerk stützt sich insbesondere auf Schweizer Primärquellen
+              von SGE, BLV und BAG. Für einzelne Fragestellungen wird ergänzend Swissmedic
+              herangezogen.
+            </p>
+            <ul>
+              <li>
+                <a href="https://www.sge-ssn.ch/media/02apbag5/sge_mb_schwangerschaft_de.pdf" target="_blank" rel="noreferrer">
+                  SGE – Ernährung während der Schwangerschaft
+                </a>
+              </li>
+              <li>
+                <a href="https://www.blv.admin.ch/de/ernaehrung-schwangere-und-stillende" target="_blank" rel="noreferrer">
+                  BLV – Ernährung in Schwangerschaft und Stillzeit
+                </a>
+              </li>
+              <li>
+                <a href="https://www.bag.admin.ch/de/toxoplasmose-de" target="_blank" rel="noreferrer">
+                  BAG – Toxoplasmose
+                </a>
+              </li>
+              <li>
+                <a href="https://www.bag.admin.ch/de/listeriose" target="_blank" rel="noreferrer">
+                  BAG – Listeriose
+                </a>
+              </li>
+              <li>
+                <a href="https://www.blv.admin.ch/de/blei" target="_blank" rel="noreferrer">
+                  BLV – Blei im Wildfleisch
+                </a>
+              </li>
+              <li>
+                <a href="https://www.blv.admin.ch/de/jodiertes-salz" target="_blank" rel="noreferrer">
+                  BLV – Jodiertes Salz und Algen
+                </a>
+              </li>
+              <li>
+                <a href="https://www.blv.admin.ch/de/bedarf-nahrungsergaenzungsmitteln" target="_blank" rel="noreferrer">
+                  BLV – Bedarf an Nahrungsergänzungsmitteln
+                </a>
+              </li>
+              <li>
+                <a href="https://www.swissmedic.ch/swissmedic/de/home/news/mitteilungen/fencheltee-fuer-schwangere-kinder-unter-4-jahren.html" target="_blank" rel="noreferrer">
+                  Swissmedic – Fencheltee in Schwangerschaft und früher Kindheit
+                </a>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <details className="gruppe">
+          <summary className="gruppe__titel">
+            <span className="gruppe__name">Quellen für Medikamente</span>
+            <span className="gruppe__pfeil" aria-hidden="true">›</span>
+          </summary>
+          <div className="einstellungen__info">
+            <p>
+              Die Schwangerschaftsbewertungen der aktuell kuratierten Wirkstoffe basieren auf
+              Embryotox. Swissmedic liefert die Schweizer Produkt-, Wirkstoff- und
+              Packungsinformationen. Diese Produktdaten allein erzeugen keine medizinische
+              Freigabe oder Bewertung.
+            </p>
+            <ul>
+              <li>
+                <a href="https://www.embryotox.de/" target="_blank" rel="noreferrer">
+                  Embryotox – Arzneimittelsicherheit in Schwangerschaft und Stillzeit
+                </a>
+              </li>
+              <li>
+                <a href="https://www.swissmedic.ch/swissmedic/de/home/services/listen_neu.html" target="_blank" rel="noreferrer">
+                  Swissmedic – Listen und OGD zu zugelassenen Arzneimitteln
+                </a>
+              </li>
+              <li>
+                <a href="https://www.swissmedic.ch/swissmedic/de/home/humanarzneimittel/authorisations/aips.html" target="_blank" rel="noreferrer">
+                  Swissmedic – Fach- und Patienteninformationen (AIPS)
+                </a>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
       <section className="einstellungen__gruppe" aria-labelledby="einstellungen-info">
         <h2 className="einstellungen__titel" id="einstellungen-info">
           Informationen
         </h2>
         <div className="einstellungen__info">
           <p>
-            Die Angaben sind nach gängigen Schweizer Empfehlungen kuratiert. Die App ersetzt
-            keine Beratung durch Hebamme oder Ärztin.
+            Die App ersetzt keine individuelle Beratung durch Hebamme, Ärztin, Arzt oder
+            Apotheke. Verordnete Medikamente nicht eigenständig beginnen, absetzen oder in der
+            Dosis verändern.
           </p>
           <p>
-            Entscheidend sind häufig Zubereitung, Pasteurisierung und Erhitzung. Im Zweifel
-            gilt die strengere Einschätzung.
+            Bei Lebensmitteln sind häufig Zubereitung, Pasteurisierung und Erhitzung
+            entscheidend. Im Zweifel gilt die strengere Einschätzung.
           </p>
         </div>
       </section>
