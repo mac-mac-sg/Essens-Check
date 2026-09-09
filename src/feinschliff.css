@@ -24,6 +24,29 @@
   transform: scale(0.94);
 }
 
+/* Suche umfasst nur noch Lebensmittel und Medikamente. */
+.suchbereich {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.suchbereich__indikator {
+  width: calc((100% - 8px) / 2) !important;
+}
+
+.suchbereich[data-aktiv='medikamente'] .suchbereich__indikator {
+  transform: translateX(100%) !important;
+}
+
+/* Alltag ist jetzt ein eigener Inhaltsblock innerhalb von Wissen. */
+.wissen-alltag {
+  margin-top: 2rem;
+  scroll-margin-top: 1rem;
+}
+
+.wissen-alltag__liste {
+  margin-top: 0.85rem;
+}
+
 /*
  * SSW und verbleibende Tage sind die beiden primären Werte des Fortschritts.
  * Der Balken liegt wieder normal im Dokumentfluss, damit keine ältere absolute
