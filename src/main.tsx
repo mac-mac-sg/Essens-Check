@@ -11,7 +11,6 @@ import './erweiterungen.css'
 import './modernisierung.css'
 import './feinschliff.css'
 import './wissen-themen.css'
-import './navi-kontrast.css'
 
 const wurzel = document.getElementById('root')
 if (!wurzel) throw new Error('Wurzelelement #root fehlt')
