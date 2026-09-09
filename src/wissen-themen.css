@@ -1,0 +1,94 @@
+/* Eine einzige Themenebene im Wissen: Ernährung, Unterwegs & Aktiv, Alltag. */
+.wissen-hauptbereiche {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 0 0 1.35rem;
+}
+
+.wissen-hauptbereich {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.65rem;
+  min-width: 0;
+  min-height: 84px;
+  padding: 0.8rem;
+  font: inherit;
+  text-align: left;
+  color: var(--text-zweitrangig);
+  background: var(--karte);
+  border: 0;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px var(--linie);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 140ms var(--ease-out), background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+
+.wissen-hauptbereich[data-aktiv] {
+  color: var(--akzent);
+  background: var(--flaeche-still);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--akzent) 34%, var(--linie));
+}
+
+.wissen-hauptbereich:active {
+  transform: scale(0.98);
+}
+
+.wissen-hauptbereich__icon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--akzent);
+  background: color-mix(in srgb, var(--flaeche-still) 75%, transparent);
+  border-radius: 11px;
+}
+
+.wissen-hauptbereich__icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.wissen-hauptbereich strong {
+  min-width: 0;
+  font-size: 0.8rem;
+  font-weight: 720;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+
+/* Die alte interne Zwei-Themen-Navigation bleibt nur als Zustandsmechanik bestehen. */
+.wissen-themen__standard > .wissen-bereiche {
+  display: none !important;
+}
+
+.wissen-themen__inhalt {
+  scroll-margin-top: 1rem;
+}
+
+.wissen-themen__standard .wissen-abschnitt,
+.wissen-alltag {
+  margin-top: 0;
+}
+
+.wissen-alltag .wissen-abschnitt__kopf {
+  margin-top: 0;
+}
+
+@media (max-width: 360px) {
+  .wissen-hauptbereiche {
+    gap: 0.4rem;
+  }
+
+  .wissen-hauptbereich {
+    min-height: 78px;
+    padding: 0.68rem;
+  }
+
+  .wissen-hauptbereich strong {
+    font-size: 0.74rem;
+  }
+}
