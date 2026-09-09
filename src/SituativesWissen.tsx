@@ -48,6 +48,7 @@ export function SituativesWissen({
   sswAnzeige?: string
   trimester?: number
 }) {
+  void onPruefen
   void onAlltag
   const fokus = fokusFuer(trimester)
   const ssw = sswAnzeige ? Number.parseInt(sswAnzeige.split('+')[0] ?? '', 10) : undefined
@@ -72,7 +73,6 @@ export function SituativesWissen({
       </section>
 
       <WissensThemen
-        onPruefen={onPruefen}
         {...(Number.isFinite(ssw) ? { ssw } : {})}
         {...(sswAnzeige ? { sswAnzeige } : {})}
         {...(trimester ? { trimester } : {})}
