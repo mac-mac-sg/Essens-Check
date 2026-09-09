@@ -1,57 +1,32 @@
-import { WissensThemen } from './WissensThemen'
-
-type Wissensthema = 'ernaehrung' | 'unterwegs' | 'alltag'
-
-function waehleThema(thema: Wissensthema) {
-  document.querySelector<HTMLButtonElement>(`[data-wissen-thema="${thema}"]`)?.click()
-  window.requestAnimationFrame(() => {
-    document.getElementById('wissen-themen-inhalt')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  })
-}
-
-function fokusFuer(trimester?: number) {
-  if (trimester === 1) {
-    return {
-      kicker: 'Für dich gerade relevant',
-      titel: 'Folsäure, Ernährung und ein guter Start',
-      text: 'Im ersten Trimester stehen Versorgung, Verträglichkeit und sichere Lebensmittel besonders im Fokus.',
-      aktion: 'Ernährung ansehen',
-      onClick: () => waehleThema('ernaehrung'),
-    }
-  }
-  if (trimester === 3) {
-    return {
-      kicker: 'Für dich gerade relevant',
-      titel: 'Belastung, Reisen und Alltag gut dosieren',
-      text: 'Mit wachsendem Bauch werden Komfort, Gleichgewicht, Hitze und längere Wege im Alltag wichtiger.',
-      aktion: 'Alltag ansehen',
-      onClick: () => waehleThema('alltag'),
-    }
-  }
-  return {
-    kicker: 'Für dich gerade relevant',
-    titel: 'Bewegung, Energie und Alltag im Gleichgewicht',
-    text: 'Im mittleren Schwangerschaftsdrittel lassen sich viele Aktivitäten gut anpassen – solange Belastung und Risiko stimmen.',
-    aktion: 'Unterwegs & Aktiv ansehen',
-    onClick: () => waehleThema('unterwegs'),
-  }
-}
+import { useState } from 'react'
+import type { CheckRef } from './meineChecks'
+import { wissensFokusFuer } from './Wissen'
+import { WissensThemen, type WissensStart } from './WissensThemen'
 
 export function SituativesWissen({
-  onPruefen,
-  onAlltag,
   sswAnzeige,
   trimester,
+  start,
+  onCheck,
+  istFavorit,
+  onFavorit,
 }: {
-  onPruefen: (begriff: string) => void
-  onAlltag: () => void
   sswAnzeige?: string
   trimester?: number
+  start?: WissensStart | null
+  onCheck?: (ref: CheckRef) => void
+  istFavorit?: (ref: CheckRef) => boolean
+  onFavorit?: (ref: CheckRef) => void
 }) {
-  void onPruefen
-  void onAlltag
-  const fokus = fokusFuer(trimester)
+  const [internStart, setInternStart] = useState<WissensStart | null>(null)
   const ssw = sswAnzeige ? Number.parseInt(sswAnzeige.split('+')[0] ?? '', 10) : undefined
+  const fokus = wissensFokusFuer(Number.isFinite(ssw) ? ssw : undefined, trimester)
+  const effektiverStart =
+    !start ? internStart : !internStart ? start : start.token >= internStart.token ? start : internStart
+
+  const fokusOeffnen = (id: string) => {
+    setInternStart({ art: 'wissen', id, token: Date.now() })
+  }
 
   return (
     <>
@@ -59,23 +34,42 @@ export function SituativesWissen({
         <div className="wissen-editorial__kopf">
           <div>
             <p className="wissen-editorial__kicker">Wissen</p>
-            <h2 id="wissen-editorial-titel">Für deine Schwangerschaft</h2>
+            <h2 id="wissen-editorial-titel">
+              {sswAnzeige ? 'Diese Woche relevant' : 'Für deine Schwangerschaft'}
+            </h2>
           </div>
           {sswAnzeige && <span className="wissen-editorial__ssw">SSW {sswAnzeige}</span>}
         </div>
 
-        <article className="wissen-feature">
-          <p className="wissen-feature__kicker">{fokus.kicker}</p>
-          <h3>{fokus.titel}</h3>
-          <p>{fokus.text}</p>
-          <button type="button" onClick={fokus.onClick}>{fokus.aktion} <span aria-hidden="true">›</span></button>
-        </article>
+        <div className="wissen-fokus" aria-label="Aktuell ausgewählte Wissensthemen">
+          {fokus.map((artikel) => (
+            <button
+              className="wissen-fokus__karte"
+              type="button"
+              key={artikel.id}
+              onClick={() => fokusOeffnen(artikel.id)}
+            >
+              <span className="wissen-fokus__kicker">{artikel.kicker}</span>
+              <strong>{artikel.titel}</strong>
+              <span>{artikel.kurz}</span>
+              <small>Öffnen <span aria-hidden="true">›</span></small>
+            </button>
+          ))}
+        </div>
+        <p className="wissen-fokus__hinweis">
+          Die Auswahl priorisiert bereits fachlich hinterlegte Themen passend zur aktuellen
+          Schwangerschaftsphase. Sie erzeugt kein zusätzliches medizinisches Urteil.
+        </p>
       </section>
 
       <WissensThemen
         {...(Number.isFinite(ssw) ? { ssw } : {})}
         {...(sswAnzeige ? { sswAnzeige } : {})}
         {...(trimester ? { trimester } : {})}
+        start={effektiverStart}
+        {...(onCheck ? { onCheck } : {})}
+        {...(istFavorit ? { istFavorit } : {})}
+        {...(onFavorit ? { onFavorit } : {})}
       />
     </>
   )

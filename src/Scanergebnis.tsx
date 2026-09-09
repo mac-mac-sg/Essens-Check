@@ -91,13 +91,25 @@ export function Scanergebnis({
   sswAnzeige,
   onNeuScannen,
   onZurSuche,
+  onZurMedikamentensuche,
+  onProduktErkannt,
+  onLebensmittelGeoeffnet,
+  favoritFuer,
+  onFavorit,
+  onAlternativePruefen,
 }: {
   ean: string
   trimester?: number
   ssw?: number
   sswAnzeige?: string
   onNeuScannen: () => void
-  onZurSuche: () => void
+  onZurSuche: (begriff?: string) => void
+  onZurMedikamentensuche: () => void
+  onProduktErkannt: (ean: string, label: string) => void
+  onLebensmittelGeoeffnet: (id: string) => void
+  favoritFuer: (id: string) => boolean
+  onFavorit: (id: string) => void
+  onAlternativePruefen: (alternative: string) => void
 }) {
   const [stand, setStand] = useState<Stand>('laeuft')
   const [produkt, setProdukt] = useState<Produkt | null>(null)
@@ -128,10 +140,12 @@ export function Scanergebnis({
         return
       }
 
+      onProduktErkannt(ean, gefunden.name || gefunden.generischerName || `Code ${ean}`)
       const abgleich = ordneProduktZu(gefunden, lebensmittelKatalog, regelKatalog)
       setZuordnung(abgleich)
       if (abgleich.eindeutig) {
         setGewaehlt(abgleich.eindeutig)
+        onLebensmittelGeoeffnet(abgleich.eindeutig.id)
         setStand('urteil')
       } else {
         setStand('auswahl')
@@ -149,11 +163,13 @@ export function Scanergebnis({
   const eigene = useMemo(() => suche(begriff, lebensmittelKatalog), [begriff])
   const gesucht = begriff.trim().length >= MINDESTLAENGE
   const liste = gesucht ? eigene.slice(0, MAX_TREFFER) : vorschlaege
+  const produktSuchwort = produkt?.generischerName?.trim() || produkt?.name.trim() || ''
 
   const waehlen = (id: string) => {
     const eintrag = findeNachId(id, lebensmittelKatalog)
     if (!eintrag) return
     setGewaehlt(eintrag)
+    onLebensmittelGeoeffnet(eintrag.id)
     setStand('urteil')
     window.scrollTo({ top: 0 })
   }
@@ -181,7 +197,7 @@ export function Scanergebnis({
           <button className="zurueck zurueck--flaeche" type="button" onClick={onNeuScannen}>
             Nochmal scannen
           </button>
-          <button className="zurueck" type="button" onClick={onZurSuche}>
+          <button className="zurueck" type="button" onClick={onZurMedikamentensuche}>
             Zur Medikamentensuche
           </button>
         </div>
@@ -225,6 +241,9 @@ export function Scanergebnis({
           urteil={urteil}
           {...(sswAnzeige ? { sswAnzeige } : {})}
           {...(trimester ? { trimester } : {})}
+          favorit={favoritFuer(urteil.id)}
+          onFavorit={() => onFavorit(urteil.id)}
+          onAlternativePruefen={onAlternativePruefen}
         />
         <div className="scan-knoepfe">
           <button className="zurueck zurueck--flaeche" type="button" onClick={onNeuScannen}>
@@ -272,6 +291,17 @@ export function Scanergebnis({
         </>
       )}
 
+      {stand === 'auswahl' && produktSuchwort.length >= MINDESTLAENGE && (
+        <button
+          className="scan-produkt-suchen"
+          type="button"
+          onClick={() => onZurSuche(produktSuchwort)}
+        >
+          <span>In der normalen Suche weiterprüfen</span>
+          <strong>«{produktSuchwort}» suchen ›</strong>
+        </button>
+      )}
+
       <label className="feldtitel" htmlFor="scan-suche">
         {vorschlaege.length > 0 && !gesucht ? 'Oder selbst suchen' : 'Lebensmittel suchen'}
       </label>
@@ -299,7 +329,7 @@ export function Scanergebnis({
         <button className="zurueck zurueck--flaeche" type="button" onClick={onNeuScannen}>
           Nochmal scannen
         </button>
-        <button className="zurueck" type="button" onClick={onZurSuche}>
+        <button className="zurueck" type="button" onClick={() => onZurSuche()}>
           Zur Suche
         </button>
       </div>

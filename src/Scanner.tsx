@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { istGueltigeEan } from './engine/barcodes'
+import type { ScanEintrag } from './meineChecks'
 
 type Zustand = 'startet' | 'laeuft' | 'nicht-unterstuetzt' | 'kein-zugriff'
 
@@ -14,9 +15,15 @@ type Zustand = 'startet' | 'laeuft' | 'nicht-unterstuetzt' | 'kein-zugriff'
 export function Scanner({
   onErkannt,
   onAbbruch,
+  scans,
+  onScanWaehlen,
+  onScansLeeren,
 }: {
   onErkannt: (ean: string) => void
   onAbbruch: () => void
+  scans: readonly ScanEintrag[]
+  onScanWaehlen: (ean: string) => void
+  onScansLeeren: () => void
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [zustand, setZustand] = useState<Zustand>('startet')
@@ -105,6 +112,26 @@ export function Scanner({
           <video ref={videoRef} playsInline muted aria-label="Kamerabild" />
           <div className="scanner__rahmen" aria-hidden="true" />
         </div>
+      )}
+
+      {scans.length > 0 && (
+        <section className="scan-verlauf" aria-labelledby="scan-verlauf-titel">
+          <div className="scan-verlauf__kopf">
+            <h3 id="scan-verlauf-titel">Letzte Scans</h3>
+            <button type="button" onClick={onScansLeeren}>Leeren</button>
+          </div>
+          <div className="scan-verlauf__liste">
+            {scans.map((scan) => (
+              <button type="button" key={scan.ean} onClick={() => onScanWaehlen(scan.ean)}>
+                <span>
+                  <strong>{scan.label}</strong>
+                  <small>{scan.ean}</small>
+                </span>
+                <span aria-hidden="true">›</span>
+              </button>
+            ))}
+          </div>
+        </section>
       )}
 
       <button className="zurueck zurueck--flaeche" type="button" onClick={onAbbruch}>

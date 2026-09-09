@@ -1,4 +1,5 @@
 import { ALLTAG_STATUS_META, type AlltagEintrag } from './alltag/daten'
+import { FavoritKnopf } from './FavoritKnopf'
 import { ResultHero, type ResultTone } from './ResultHero'
 
 function sswHinweise(eintrag: AlltagEintrag, ssw?: number): string[] {
@@ -20,11 +21,15 @@ export function AlltagDetail({
   ssw,
   sswAnzeige,
   trimester,
+  favorit = false,
+  onFavorit,
 }: {
   eintrag: AlltagEintrag
   ssw?: number
   sswAnzeige?: string
   trimester?: number
+  favorit?: boolean
+  onFavorit?: () => void
 }) {
   const meta = ALLTAG_STATUS_META[eintrag.status]
   const aktuelleHinweise = sswHinweise(eintrag, ssw)
@@ -43,6 +48,8 @@ export function AlltagDetail({
         grad={meta.gradLabel}
         context={context}
       />
+
+      {onFavorit && <FavoritKnopf aktiv={favorit} onUmschalten={onFavorit} />}
 
       <p className="alltag-detail__lead">{eintrag.kurz}</p>
 

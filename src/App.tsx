@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import { AlltagDetail } from './AlltagDetail'
 import { findeAlltag } from './alltag/daten'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
@@ -14,11 +13,12 @@ import {
 } from './farbschema'
 import { berechneStand, fortschritt, restAnzeige } from './schwangerschaft'
 import { sternzeichenFuerDatum } from './sternzeichen'
-import { ergaenzt, leseVerlauf, speichereVerlauf } from './verlauf'
 import { Einstellungen } from './Einstellungen'
 import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
 import { MedikamentDetail } from './MedikamentDetail'
+import { type CheckAnzeige } from './MeineChecks'
+import { type CheckRef, useMeineChecks } from './meineChecks'
 import { findeMedikament } from './medikamente/daten'
 import { findeMedikamentProduktNachGtin } from './medikamente/produkte'
 import { findeMedikamentProdukt } from './medikamente/suche'
@@ -30,6 +30,8 @@ import { Suchansicht, type Suchbereich } from './Suchansicht'
 import { Uebersicht } from './Uebersicht'
 import { Fusszeile } from './Fusszeile'
 import { Navigation, type Ziel } from './Navigation'
+import { findeWissensartikel } from './Wissen'
+import type { WissensStart } from './WissensThemen'
 
 type Ansicht = 'suche' | 'uebersicht' | 'wissen' | 'scanner' | 'scanergebnis'
 
@@ -71,6 +73,34 @@ function Markenlogo() {
   )
 }
 
+function checkAnzeige(ref: CheckRef): CheckAnzeige | null {
+  if (ref.art === 'lebensmittel') {
+    const eintrag = findeNachId(ref.id, lebensmittelKatalog)
+    return eintrag ? { ref, titel: eintrag.name, meta: 'Lebensmittel' } : null
+  }
+  if (ref.art === 'medikament') {
+    const eintrag = findeMedikament(ref.id)
+    return eintrag ? { ref, titel: eintrag.wirkstoff, meta: 'Medikament · Wirkstoff' } : null
+  }
+  if (ref.art === 'medikament-produkt') {
+    const eintrag = findeMedikamentProdukt(ref.id)
+    return eintrag ? { ref, titel: eintrag.name, meta: 'Medikament · Präparat' } : null
+  }
+  if (ref.art === 'wissen') {
+    const eintrag = findeWissensartikel(ref.id)
+    return eintrag ? { ref, titel: eintrag.titel, meta: 'Wissen' } : null
+  }
+  const eintrag = findeAlltag(ref.id)
+  return eintrag ? { ref, titel: eintrag.titel, meta: 'Wissen · Alltag' } : null
+}
+
+function sichtbareChecks(refs: readonly CheckRef[]): CheckAnzeige[] {
+  return refs.flatMap((ref) => {
+    const anzeige = checkAnzeige(ref)
+    return anzeige ? [anzeige] : []
+  })
+}
+
 export function App() {
   const [ansicht, setAnsicht] = useState<Ansicht>('suche')
   const [suchbereich, setSuchbereich] = useState<Suchbereich>('lebensmittel')
@@ -78,17 +108,15 @@ export function App() {
   const [offeneId, setOffeneId] = useState<string | null>(null)
   const [medikamentProduktId, setMedikamentProduktId] = useState<string | null>(null)
   const [medikamentWirkstoffId, setMedikamentWirkstoffId] = useState<string | null>(null)
-  const [alltagId, setAlltagId] = useState<string | null>(null)
   /** Wohin der Rücksprung aus der Ergebniskarte führt. */
   const [herkunft, setHerkunft] = useState<Ansicht>('suche')
   /** Zuletzt gelesener Strichcode. */
   const [code, setCode] = useState<string | null>(null)
+  const [wissenStart, setWissenStart] = useState<WissensStart | null>(null)
   const [termin, setTermin] = useState(() => leseGeburtstermin())
   const [terminBearbeiten, setTerminBearbeiten] = useState(false)
   const [einstellungenOffen, setEinstellungenOffen] = useState(false)
   const [wunsch, setWunsch] = useState<Wunsch>(() => leseWunsch())
-  /** Was zuletzt nachgeschlagen wurde. Bleibt auf dem Gerät. */
-  const [verlauf, setVerlauf] = useState<string[]>(() => leseVerlauf())
   const [systemDunkel, setSystemDunkel] = useState(
     () => window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false,
   )
@@ -97,6 +125,17 @@ export function App() {
   const [installiert, setInstalliert] = useState(
     () => window.matchMedia?.('(display-mode: standalone)').matches ?? false,
   )
+  const {
+    verlauf,
+    favoriten,
+    scans,
+    merken,
+    favoritUmschalten,
+    istFavorit,
+    verlaufLeeren,
+    scanMerken,
+    scansLeeren,
+  } = useMeineChecks()
 
   const schema = ermittleSchema(wunsch, systemDunkel)
 
@@ -149,6 +188,8 @@ export function App() {
     () => (treffer.length === 0 ? kompositumVorschlaege(begriff, lebensmittelKatalog) : []),
     [begriff, treffer.length],
   )
+  const favoritenAnzeige = useMemo(() => sichtbareChecks(favoriten), [favoriten])
+  const verlaufAnzeige = useMemo(() => sichtbareChecks(verlauf), [verlauf])
 
   const offen = offeneId ? findeNachId(offeneId, lebensmittelKatalog) : undefined
   const urteil = offen ? bewerteLebensmittel(offen, regelKatalog, stand?.trimester) : undefined
@@ -158,7 +199,11 @@ export function App() {
   const medikamentWirkstoff = medikamentWirkstoffId
     ? findeMedikament(medikamentWirkstoffId)
     : null
-  const alltag = alltagId ? findeAlltag(alltagId) : null
+  const aktivesMedikamentRef: CheckRef | null = medikamentProdukt
+    ? { art: 'medikament-produkt', id: medikamentProdukt.id }
+    : medikamentWirkstoff
+      ? { art: 'medikament', id: medikamentWirkstoff.id }
+      : null
 
   const medikamentSchliessen = () => {
     setMedikamentProduktId(null)
@@ -168,19 +213,20 @@ export function App() {
   const detailsSchliessen = () => {
     setOffeneId(null)
     medikamentSchliessen()
-    setAlltagId(null)
   }
 
   const zumAnfang = () => {
     setBegriff('')
     detailsSchliessen()
     setCode(null)
+    setWissenStart(null)
     setHerkunft('suche')
     setAnsicht('suche')
   }
 
   const zumZiel = (ziel: Ziel) => {
     detailsSchliessen()
+    setWissenStart(null)
     if (ziel === 'scanner') setCode(null)
     if (ziel === 'suche') setBegriff('')
     setHerkunft(ziel === 'uebersicht' ? 'uebersicht' : 'suche')
@@ -191,34 +237,44 @@ export function App() {
 
   const oeffnen = (id: string, woher: Ansicht) => {
     medikamentSchliessen()
-    setAlltagId(null)
     setOffeneId(id)
     setHerkunft(woher)
-    setVerlauf((bisher) => {
-      const neu = ergaenzt(bisher, id)
-      speichereVerlauf(neu)
-      return neu
-    })
+    merken({ art: 'lebensmittel', id })
   }
 
   const medikamentProduktOeffnen = (id: string) => {
     setOffeneId(null)
-    setAlltagId(null)
     setMedikamentWirkstoffId(null)
     setMedikamentProduktId(id)
+    merken({ art: 'medikament-produkt', id })
   }
 
   const medikamentWirkstoffOeffnen = (id: string) => {
     setOffeneId(null)
-    setAlltagId(null)
     setMedikamentProduktId(null)
     setMedikamentWirkstoffId(id)
+    merken({ art: 'medikament', id })
   }
 
-  const alltagOeffnen = (id: string) => {
-    setOffeneId(null)
-    medikamentSchliessen()
-    setAlltagId(id)
+  const checkOeffnen = (ref: CheckRef) => {
+    if (ref.art === 'lebensmittel') {
+      oeffnen(ref.id, 'uebersicht')
+      return
+    }
+    if (ref.art === 'medikament') {
+      medikamentWirkstoffOeffnen(ref.id)
+      return
+    }
+    if (ref.art === 'medikament-produkt') {
+      medikamentProduktOeffnen(ref.id)
+      return
+    }
+
+    detailsSchliessen()
+    setCode(null)
+    merken(ref)
+    setWissenStart({ art: ref.art, id: ref.id, token: Date.now() })
+    setAnsicht('wissen')
   }
 
   const suchbereichWechseln = (neu: Suchbereich) => {
@@ -228,20 +284,37 @@ export function App() {
     detailsSchliessen()
   }
 
-  const verlaufLeeren = () => {
-    setVerlauf([])
-    speichereVerlauf([])
+  const zurLebensmittelSuche = (suchwort = '') => {
+    detailsSchliessen()
+    setCode(null)
+    setWissenStart(null)
+    setSuchbereich('lebensmittel')
+    setBegriff(suchwort)
+    setHerkunft('suche')
+    setAnsicht('suche')
+  }
+
+  const zurMedikamentenSuche = () => {
+    detailsSchliessen()
+    setCode(null)
+    setWissenStart(null)
+    setSuchbereich('medikamente')
+    setBegriff('')
+    setHerkunft('suche')
+    setAnsicht('suche')
   }
 
   const codeErkannt = (ean: string) => {
     detailsSchliessen()
     const medikament = findeMedikamentProduktNachGtin(ean)
     if (medikament) {
+      scanMerken(ean, medikament.name)
       setCode(null)
-      setMedikamentProduktId(medikament.id)
+      medikamentProduktOeffnen(medikament.id)
       setAnsicht('scanner')
       return
     }
+    scanMerken(ean, `Code ${ean}`)
     setCode(ean)
     setAnsicht('scanergebnis')
   }
@@ -249,24 +322,6 @@ export function App() {
   const zurueck = () => {
     setOffeneId(null)
     setAnsicht(herkunft === 'uebersicht' ? 'uebersicht' : 'suche')
-  }
-
-  const ausWissenPruefen = (suchwort: string) => {
-    detailsSchliessen()
-    setCode(null)
-    setSuchbereich('lebensmittel')
-    setBegriff(suchwort)
-    setHerkunft('suche')
-    setAnsicht('suche')
-  }
-
-  const ausWissenAlltag = () => {
-    detailsSchliessen()
-    setCode(null)
-    setSuchbereich('alltag')
-    setBegriff('')
-    setHerkunft('suche')
-    setAnsicht('suche')
   }
 
   const schwangerschaftsKarte = stand ? (
@@ -350,12 +405,20 @@ export function App() {
       <main className={`inhalt ${ansicht === 'suche' ? 'inhalt--suche' : ''}`}>
         {ansicht === 'wissen' ? (
           <SituativesWissen
-            onPruefen={ausWissenPruefen}
-            onAlltag={ausWissenAlltag}
             {...(stand ? { sswAnzeige: stand.anzeige, trimester: stand.trimester } : {})}
+            start={wissenStart}
+            onCheck={merken}
+            istFavorit={istFavorit}
+            onFavorit={favoritUmschalten}
           />
         ) : ansicht === 'scanner' ? (
-          <Scanner onErkannt={codeErkannt} onAbbruch={zumAnfang} />
+          <Scanner
+            onErkannt={codeErkannt}
+            onAbbruch={zumAnfang}
+            scans={scans}
+            onScanWaehlen={codeErkannt}
+            onScansLeeren={scansLeeren}
+          />
         ) : ansicht === 'scanergebnis' && code ? (
           <Scanergebnis
             ean={code}
@@ -366,10 +429,22 @@ export function App() {
               setCode(null)
               setAnsicht('scanner')
             }}
-            onZurSuche={zumAnfang}
+            onZurSuche={zurLebensmittelSuche}
+            onZurMedikamentensuche={zurMedikamentenSuche}
+            onProduktErkannt={scanMerken}
+            onLebensmittelGeoeffnet={(id) => merken({ art: 'lebensmittel', id })}
+            favoritFuer={(id) => istFavorit({ art: 'lebensmittel', id })}
+            onFavorit={(id) => favoritUmschalten({ art: 'lebensmittel', id })}
+            onAlternativePruefen={zurLebensmittelSuche}
           />
         ) : ansicht === 'uebersicht' ? (
-          <Uebersicht onOeffnen={(id) => oeffnen(id, 'uebersicht')} />
+          <Uebersicht
+            onOeffnen={(id) => oeffnen(id, 'uebersicht')}
+            favoriten={favoritenAnzeige}
+            verlauf={verlaufAnzeige}
+            onCheckOeffnen={checkOeffnen}
+            onVerlaufLeeren={verlaufLeeren}
+          />
         ) : (
           <Suchansicht
             bereich={suchbereich}
@@ -379,12 +454,9 @@ export function App() {
             treffer={treffer}
             teilwort={teilwort}
             gesucht={begriff.trim().length >= MINDESTLAENGE}
-            verlauf={verlauf}
             onOeffnen={(id) => oeffnen(id, 'suche')}
-            onVerlaufLeeren={verlaufLeeren}
             onMedikamentProduktOeffnen={medikamentProduktOeffnen}
             onMedikamentWirkstoffOeffnen={medikamentWirkstoffOeffnen}
-            onAlltagOeffnen={alltagOeffnen}
           />
         )}
       </main>
@@ -428,6 +500,9 @@ export function App() {
           <Ergebniskarte
             urteil={urteil}
             {...(stand ? { sswAnzeige: stand.anzeige, trimester: stand.trimester } : {})}
+            favorit={istFavorit({ art: 'lebensmittel', id: urteil.id })}
+            onFavorit={() => favoritUmschalten({ art: 'lebensmittel', id: urteil.id })}
+            onAlternativePruefen={zurLebensmittelSuche}
           />
         </Sheet>
       )}
@@ -448,16 +523,11 @@ export function App() {
               setTerminBearbeiten(true)
             }}
             onWirkstoffOeffnen={medikamentWirkstoffOeffnen}
-          />
-        </Sheet>
-      )}
-
-      {alltag && (
-        <Sheet titel={alltag.titel} onSchliessen={() => setAlltagId(null)} fussKnopf="Zurück zum Alltag">
-          <AlltagDetail
-            eintrag={alltag}
-            {...(stand
-              ? { ssw: stand.woche, sswAnzeige: stand.anzeige, trimester: stand.trimester }
+            {...(aktivesMedikamentRef
+              ? {
+                  favorit: istFavorit(aktivesMedikamentRef),
+                  onFavorit: () => favoritUmschalten(aktivesMedikamentRef),
+                }
               : {})}
           />
         </Sheet>

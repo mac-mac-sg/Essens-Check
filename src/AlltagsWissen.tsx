@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AlltagDetail } from './AlltagDetail'
 import { ALLTAG, type AlltagEintrag } from './alltag/daten'
 import { Sheet } from './Sheet'
@@ -33,12 +33,35 @@ export function AlltagsWissen({
   ssw,
   sswAnzeige,
   trimester,
+  startId,
+  startToken,
+  onGeoeffnet,
+  istFavorit,
+  onFavorit,
 }: {
   ssw?: number
   sswAnzeige?: string
   trimester?: number
+  startId?: string
+  startToken?: number
+  onGeoeffnet?: (id: string) => void
+  istFavorit?: (id: string) => boolean
+  onFavorit?: (id: string) => void
 }) {
   const [offen, setOffen] = useState<AlltagEintrag | null>(null)
+
+  useEffect(() => {
+    if (!startId) return
+    const eintrag = ALLTAG.find((kandidat) => kandidat.id === startId)
+    if (!eintrag) return
+    setOffen(eintrag)
+    onGeoeffnet?.(eintrag.id)
+  }, [startId, startToken])
+
+  const oeffnen = (eintrag: AlltagEintrag) => {
+    setOffen(eintrag)
+    onGeoeffnet?.(eintrag.id)
+  }
 
   return (
     <section className="wissen-alltag" id="wissen-alltag" aria-labelledby="wissen-alltag-titel">
@@ -53,7 +76,7 @@ export function AlltagsWissen({
             className="wissen-karte wissen-alltag__karte"
             type="button"
             key={eintrag.id}
-            onClick={() => setOffen(eintrag)}
+            onClick={() => oeffnen(eintrag)}
           >
             <AlltagSymbol gruppe={eintrag.gruppe} />
             <span className="wissen-karte__kicker">{eintrag.gruppe}</span>
@@ -71,6 +94,8 @@ export function AlltagsWissen({
             {...(ssw !== undefined ? { ssw } : {})}
             {...(sswAnzeige ? { sswAnzeige } : {})}
             {...(trimester ? { trimester } : {})}
+            favorit={istFavorit?.(offen.id) ?? false}
+            {...(onFavorit ? { onFavorit: () => onFavorit(offen.id) } : {})}
           />
         </Sheet>
       )}
