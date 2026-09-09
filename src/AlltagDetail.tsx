@@ -1,10 +1,18 @@
 import { ALLTAG_STATUS_META, type AlltagEintrag } from './alltag/daten'
+import { ResultHero, type ResultTone } from './ResultHero'
 
 function sswHinweise(eintrag: AlltagEintrag, ssw?: number): string[] {
   if (ssw === undefined) return []
   return (eintrag.ssw_hinweise ?? [])
     .filter((hinweis) => ssw >= hinweis.von_ssw && ssw <= hinweis.bis_ssw)
     .map((hinweis) => hinweis.text)
+}
+
+function toneFuer(status: AlltagEintrag['status']): ResultTone {
+  if (status === 'moeglich') return 'ok'
+  if (status === 'meiden') return 'meiden'
+  if (status === 'nicht_bewertet') return 'unklar'
+  return 'bedingt'
 }
 
 export function AlltagDetail({
@@ -20,25 +28,20 @@ export function AlltagDetail({
 }) {
   const meta = ALLTAG_STATUS_META[eintrag.status]
   const aktuelleHinweise = sswHinweise(eintrag, ssw)
+  const context = [
+    sswAnzeige ? `SSW ${sswAnzeige}` : null,
+    trimester ? `${trimester}. Trimester` : null,
+  ].filter((wert): wert is string => Boolean(wert))
 
   return (
     <article className="alltag-detail">
-      {(sswAnzeige || trimester) && (
-        <div className="kontextleiste" aria-label="Persönlicher Schwangerschaftskontext">
-          {sswAnzeige && <span>SSW {sswAnzeige}</span>}
-          {trimester && <span>{trimester}. Trimester</span>}
-        </div>
-      )}
-
-      <section className="alltag-entscheidung" data-status={eintrag.status} aria-label="Einordnung">
-        <span className="alltag-entscheidung__label">Einordnung</span>
-        <strong>{meta.label}</strong>
-      </section>
-
-      <section className="entscheidungsgrad" data-grad={meta.entscheidungsgrad}>
-        <span>Entscheidungsgrad</span>
-        <strong>{meta.gradLabel}</strong>
-      </section>
+      <ResultHero
+        subject={eintrag.titel}
+        status={meta.label}
+        tone={toneFuer(eintrag.status)}
+        grad={meta.gradLabel}
+        context={context}
+      />
 
       <p className="alltag-detail__lead">{eintrag.kurz}</p>
 
@@ -55,7 +58,7 @@ export function AlltagDetail({
       </section>
 
       {eintrag.beachten.length > 0 && (
-        <section className="detailblock">
+        <section className="detailblock detailblock--worauf">
           <h3>Worauf kommt es an?</h3>
           <ul>
             {eintrag.beachten.map((punkt) => <li key={punkt}>{punkt}</li>)}
