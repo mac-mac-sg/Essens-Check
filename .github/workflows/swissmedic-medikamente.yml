@@ -7,27 +7,34 @@ on:
     - cron: '23 5 5 * *'
   workflow_dispatch:
 
+# Standardmässig nur lesen. Schreibrechte erhält ausschliesslich der eine Job,
+# der den geprüften Update-Branch beziehungsweise PR erzeugen muss.
 permissions:
-  contents: write
-  pull-requests: write
-  issues: write
+  contents: read
 
 jobs:
   aktualisieren:
     name: Monatlichen Produktsnapshot prüfen
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: main
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: npm
 
       - run: npm ci
+
+      - name: Abhängigkeiten auf hohe Risiken prüfen
+        run: npm audit --audit-level=high
 
       - name: Swissmedic OGD laden und Snapshot erzeugen
         run: npm run medikamente:swissmedic
@@ -81,7 +88,7 @@ jobs:
           BODY=$(cat <<EOF
           Automatisch erzeugter monatlicher Swissmedic-Produktsnapshot mit Stand **${STAND}**.
 
-          Der Import verwendet ausschliesslich den offiziellen OGD-Export. Vor dem Erstellen dieses PR wurden TypeScript und die vollständige Unit-Test-Suite ausgeführt.
+          Der Import verwendet ausschliesslich den offiziellen OGD-Export. Vor dem Erstellen dieses PR wurden Dependency-Audit, TypeScript und die vollständige Unit-Test-Suite ausgeführt.
 
           **Sicherheitsgrenze:** Der Snapshot ändert keine kuratierten Schwangerschaftsbewertungen. Unvollständig gemappte Kombinationspräparate bleiben für automatische Aussagen gesperrt.
           EOF
