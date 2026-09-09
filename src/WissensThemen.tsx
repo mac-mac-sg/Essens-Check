@@ -1,8 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AlltagsWissen } from './AlltagsWissen'
-import { Wissensbereich, type WissensBereich } from './Wissen'
+import type { CheckRef } from './meineChecks'
+import { Wissensbereich, wissensbereichFuer, type WissensBereich } from './Wissen'
 
 type Wissensthema = WissensBereich | 'alltag'
+
+export interface WissensStart {
+  art: 'wissen' | 'alltag'
+  id: string
+  token: number
+}
 
 function ThemaIcon({ thema }: { thema: Wissensthema }) {
   if (thema === 'ernaehrung') {
@@ -34,12 +41,33 @@ export function WissensThemen({
   ssw,
   sswAnzeige,
   trimester,
+  start,
+  onCheck,
+  istFavorit,
+  onFavorit,
 }: {
   ssw?: number
   sswAnzeige?: string
   trimester?: number
+  start?: WissensStart | null
+  onCheck?: (ref: CheckRef) => void
+  istFavorit?: (ref: CheckRef) => boolean
+  onFavorit?: (ref: CheckRef) => void
 }) {
   const [thema, setThema] = useState<Wissensthema>('ernaehrung')
+
+  useEffect(() => {
+    if (!start) return
+    if (start.art === 'alltag') {
+      setThema('alltag')
+      return
+    }
+    const bereich = wissensbereichFuer(start.id)
+    if (bereich) setThema(bereich)
+  }, [start?.token])
+
+  const alltagRef = (id: string): CheckRef => ({ art: 'alltag', id })
+  const wissenRef = (id: string): CheckRef => ({ art: 'wissen', id })
 
   return (
     <section className="wissen-themen" aria-label="Wissensthemen">
@@ -85,9 +113,19 @@ export function WissensThemen({
             {...(ssw !== undefined ? { ssw } : {})}
             {...(sswAnzeige ? { sswAnzeige } : {})}
             {...(trimester ? { trimester } : {})}
+            {...(start?.art === 'alltag' ? { startId: start.id, startToken: start.token } : {})}
+            {...(onCheck ? { onGeoeffnet: (id: string) => onCheck(alltagRef(id)) } : {})}
+            {...(istFavorit ? { istFavorit: (id: string) => istFavorit(alltagRef(id)) } : {})}
+            {...(onFavorit ? { onFavorit: (id: string) => onFavorit(alltagRef(id)) } : {})}
           />
         ) : (
-          <Wissensbereich bereich={thema} />
+          <Wissensbereich
+            bereich={thema}
+            {...(start?.art === 'wissen' ? { startId: start.id, startToken: start.token } : {})}
+            {...(onCheck ? { onGeoeffnet: (id: string) => onCheck(wissenRef(id)) } : {})}
+            {...(istFavorit ? { istFavorit: (id: string) => istFavorit(wissenRef(id)) } : {})}
+            {...(onFavorit ? { onFavorit: (id: string) => onFavorit(wissenRef(id)) } : {})}
+          />
         )}
       </div>
     </section>
