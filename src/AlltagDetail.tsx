@@ -29,6 +29,7 @@ export function AlltagDetail({
   const meta = ALLTAG_STATUS_META[eintrag.status]
   const aktuelleHinweise = sswHinweise(eintrag, ssw)
   const context = [
+    eintrag.gruppe,
     sswAnzeige ? `SSW ${sswAnzeige}` : null,
     trimester ? `${trimester}. Trimester` : null,
   ].filter((wert): wert is string => Boolean(wert))
