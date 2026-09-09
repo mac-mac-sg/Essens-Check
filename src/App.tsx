@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
+import { AlltagDetail } from './AlltagDetail'
+import { findeAlltag } from './alltag/daten'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { bewerteLebensmittel } from './engine/bewerten'
 import { findeNachId, kompositumVorschlaege, MINDESTLAENGE, suche } from './engine/suchen'
@@ -18,13 +20,14 @@ import { Ergebniskarte } from './Ergebniskarte'
 import { Geburtstermin } from './Geburtstermin'
 import { MedikamentDetail } from './MedikamentDetail'
 import { findeMedikament } from './medikamente/daten'
+import { findeMedikamentProduktNachGtin } from './medikamente/produkte'
 import { findeMedikamentProdukt } from './medikamente/suche'
 import { Scanergebnis } from './Scanergebnis'
 import { Scanner } from './Scanner'
 import { Sheet } from './Sheet'
+import { SituativesWissen } from './SituativesWissen'
 import { Suchansicht, type Suchbereich } from './Suchansicht'
 import { Uebersicht } from './Uebersicht'
-import { Wissensbereich } from './Wissen'
 import { Fusszeile } from './Fusszeile'
 import { Navigation, type Ziel } from './Navigation'
 
@@ -75,6 +78,7 @@ export function App() {
   const [offeneId, setOffeneId] = useState<string | null>(null)
   const [medikamentProduktId, setMedikamentProduktId] = useState<string | null>(null)
   const [medikamentWirkstoffId, setMedikamentWirkstoffId] = useState<string | null>(null)
+  const [alltagId, setAlltagId] = useState<string | null>(null)
   /** Wohin der Rücksprung aus der Ergebniskarte führt. */
   const [herkunft, setHerkunft] = useState<Ansicht>('suche')
   /** Zuletzt gelesener Strichcode. */
@@ -154,24 +158,29 @@ export function App() {
   const medikamentWirkstoff = medikamentWirkstoffId
     ? findeMedikament(medikamentWirkstoffId)
     : null
+  const alltag = alltagId ? findeAlltag(alltagId) : null
 
   const medikamentSchliessen = () => {
     setMedikamentProduktId(null)
     setMedikamentWirkstoffId(null)
   }
 
-  const zumAnfang = () => {
-    setBegriff('')
+  const detailsSchliessen = () => {
     setOffeneId(null)
     medikamentSchliessen()
+    setAlltagId(null)
+  }
+
+  const zumAnfang = () => {
+    setBegriff('')
+    detailsSchliessen()
     setCode(null)
     setHerkunft('suche')
     setAnsicht('suche')
   }
 
   const zumZiel = (ziel: Ziel) => {
-    setOffeneId(null)
-    medikamentSchliessen()
+    detailsSchliessen()
     if (ziel === 'scanner') setCode(null)
     if (ziel === 'suche') setBegriff('')
     setHerkunft(ziel === 'uebersicht' ? 'uebersicht' : 'suche')
@@ -182,6 +191,7 @@ export function App() {
 
   const oeffnen = (id: string, woher: Ansicht) => {
     medikamentSchliessen()
+    setAlltagId(null)
     setOffeneId(id)
     setHerkunft(woher)
     setVerlauf((bisher) => {
@@ -193,22 +203,29 @@ export function App() {
 
   const medikamentProduktOeffnen = (id: string) => {
     setOffeneId(null)
+    setAlltagId(null)
     setMedikamentWirkstoffId(null)
     setMedikamentProduktId(id)
   }
 
   const medikamentWirkstoffOeffnen = (id: string) => {
     setOffeneId(null)
+    setAlltagId(null)
     setMedikamentProduktId(null)
     setMedikamentWirkstoffId(id)
+  }
+
+  const alltagOeffnen = (id: string) => {
+    setOffeneId(null)
+    medikamentSchliessen()
+    setAlltagId(id)
   }
 
   const suchbereichWechseln = (neu: Suchbereich) => {
     if (neu === suchbereich) return
     setSuchbereich(neu)
     setBegriff('')
-    setOffeneId(null)
-    medikamentSchliessen()
+    detailsSchliessen()
   }
 
   const verlaufLeeren = () => {
@@ -217,6 +234,14 @@ export function App() {
   }
 
   const codeErkannt = (ean: string) => {
+    detailsSchliessen()
+    const medikament = findeMedikamentProduktNachGtin(ean)
+    if (medikament) {
+      setCode(null)
+      setMedikamentProduktId(medikament.id)
+      setAnsicht('scanner')
+      return
+    }
     setCode(ean)
     setAnsicht('scanergebnis')
   }
@@ -227,11 +252,19 @@ export function App() {
   }
 
   const ausWissenPruefen = (suchwort: string) => {
-    setOffeneId(null)
-    medikamentSchliessen()
+    detailsSchliessen()
     setCode(null)
     setSuchbereich('lebensmittel')
     setBegriff(suchwort)
+    setHerkunft('suche')
+    setAnsicht('suche')
+  }
+
+  const ausWissenAlltag = () => {
+    detailsSchliessen()
+    setCode(null)
+    setSuchbereich('alltag')
+    setBegriff('')
     setHerkunft('suche')
     setAnsicht('suche')
   }
@@ -298,7 +331,7 @@ export function App() {
             </div>
             <div className="kopfzeile__marke">
               <h1 className="kopfzeile__titel">Darf ich das?</h1>
-              <p className="kopfzeile__unter">Lebensmittel & Medikamente in der Schwangerschaft</p>
+              <p className="kopfzeile__unter">Lebensmittel, Medikamente & Alltag in der Schwangerschaft</p>
             </div>
             {schwangerschaftsKarte}
           </>
@@ -307,7 +340,7 @@ export function App() {
             <Markenlogo />
             <div className="kopfzeile__marke">
               <h1 className="kopfzeile__titel">Darf ich das?</h1>
-              <p className="kopfzeile__unter">Lebensmittel & Medikamente in der Schwangerschaft</p>
+              <p className="kopfzeile__unter">Lebensmittel, Medikamente & Alltag in der Schwangerschaft</p>
             </div>
             {einstellungenKnopf}
           </div>
@@ -316,13 +349,19 @@ export function App() {
 
       <main className={`inhalt ${ansicht === 'suche' ? 'inhalt--suche' : ''}`}>
         {ansicht === 'wissen' ? (
-          <Wissensbereich onPruefen={ausWissenPruefen} />
+          <SituativesWissen
+            onPruefen={ausWissenPruefen}
+            onAlltag={ausWissenAlltag}
+            {...(stand ? { sswAnzeige: stand.anzeige, trimester: stand.trimester } : {})}
+          />
         ) : ansicht === 'scanner' ? (
           <Scanner onErkannt={codeErkannt} onAbbruch={zumAnfang} />
         ) : ansicht === 'scanergebnis' && code ? (
           <Scanergebnis
             ean={code}
-            {...(stand ? { trimester: stand.trimester } : {})}
+            {...(stand
+              ? { trimester: stand.trimester, ssw: stand.woche, sswAnzeige: stand.anzeige }
+              : {})}
             onNeuScannen={() => {
               setCode(null)
               setAnsicht('scanner')
@@ -345,6 +384,7 @@ export function App() {
             onVerlaufLeeren={verlaufLeeren}
             onMedikamentProduktOeffnen={medikamentProduktOeffnen}
             onMedikamentWirkstoffOeffnen={medikamentWirkstoffOeffnen}
+            onAlltagOeffnen={alltagOeffnen}
           />
         )}
       </main>
@@ -385,7 +425,10 @@ export function App() {
           onSchliessen={zurueck}
           fussKnopf={herkunft === 'uebersicht' ? 'Zurück zur Übersicht' : 'Zurück zur Suche'}
         >
-          <Ergebniskarte urteil={urteil} />
+          <Ergebniskarte
+            urteil={urteil}
+            {...(stand ? { sswAnzeige: stand.anzeige, trimester: stand.trimester } : {})}
+          />
         </Sheet>
       )}
 
@@ -393,7 +436,7 @@ export function App() {
         <Sheet
           titel={medikamentProdukt?.name ?? medikamentWirkstoff?.wirkstoff ?? 'Medikament'}
           onSchliessen={medikamentSchliessen}
-          fussKnopf="Zurück zur Medikamentensuche"
+          fussKnopf="Zurück"
         >
           <MedikamentDetail
             key={medikamentProdukt?.id ?? medikamentWirkstoff?.id}
@@ -405,6 +448,17 @@ export function App() {
               setTerminBearbeiten(true)
             }}
             onWirkstoffOeffnen={medikamentWirkstoffOeffnen}
+          />
+        </Sheet>
+      )}
+
+      {alltag && (
+        <Sheet titel={alltag.titel} onSchliessen={() => setAlltagId(null)} fussKnopf="Zurück zum Alltag">
+          <AlltagDetail
+            eintrag={alltag}
+            {...(stand
+              ? { ssw: stand.woche, sswAnzeige: stand.anzeige, trimester: stand.trimester }
+              : {})}
           />
         </Sheet>
       )}
