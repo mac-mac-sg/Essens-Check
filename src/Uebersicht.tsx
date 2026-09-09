@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import { lebensmittelKatalog, regelKatalog } from './daten'
 import { unbedenkliches, type UebersichtEintrag } from './engine/uebersicht'
+import { MeineChecks, type CheckAnzeige } from './MeineChecks'
+import type { CheckRef } from './meineChecks'
 
 const ALLE = 'Alle'
 
@@ -30,17 +32,38 @@ function Eintragsliste({ eintraege, onOeffnen }: { eintraege: UebersichtEintrag[
   )
 }
 
-export function Uebersicht({ onOeffnen }: { onOeffnen: (id: string) => void }) {
+export function Uebersicht({
+  onOeffnen,
+  favoriten,
+  verlauf,
+  onCheckOeffnen,
+  onVerlaufLeeren,
+}: {
+  onOeffnen: (id: string) => void
+  favoriten: readonly CheckAnzeige[]
+  verlauf: readonly CheckAnzeige[]
+  onCheckOeffnen: (ref: CheckRef) => void
+  onVerlaufLeeren: () => void
+}) {
   const gruppen = useMemo(() => unbedenkliches(lebensmittelKatalog, regelKatalog), [])
   const [filter, setFilter] = useState<string>(ALLE)
   const gewaehlt = gruppen.find((gruppe) => gruppe.name === filter)
 
   return (
     <section aria-labelledby="uebersicht-titel">
-      <h2 className="abschnitt__titel" id="uebersicht-titel">Was kann ich essen?</h2>
-      <p className="abschnitt__hinweis">
-        Nur Einträge mit einem klaren Ja. Wenn eine Zubereitung genannt ist, gilt die Freigabe nur dafür.
-      </p>
+      <MeineChecks
+        favoriten={favoriten}
+        verlauf={verlauf}
+        onOeffnen={onCheckOeffnen}
+        onVerlaufLeeren={onVerlaufLeeren}
+      />
+
+      <div className="uebersicht-essen-kopf">
+        <h2 className="abschnitt__titel" id="uebersicht-titel">Was kann ich essen?</h2>
+        <p className="abschnitt__hinweis">
+          Nur Einträge mit einem klaren Ja. Wenn eine Zubereitung genannt ist, gilt die Freigabe nur dafür.
+        </p>
+      </div>
 
       {filter === ALLE ? (
         <div className="kategorien" aria-label="Warengruppen">
