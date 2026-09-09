@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Sheet } from './Sheet'
 
-type Bereich = 'ernaehrung' | 'rezepte' | 'unterwegs'
+type Bereich = 'ernaehrung' | 'unterwegs'
 
 type Wissensartikel = {
   id: string
@@ -13,24 +13,24 @@ type Wissensartikel = {
   symbol: SymbolArt
 }
 
-type RezeptZutat = {
-  text: string
-  suche?: string
-}
-
-type Rezept = {
-  id: string
-  titel: string
-  kurz: string
-  zeit: string
-  tags: string[]
-  zutaten: RezeptZutat[]
-  schritte: string[]
-  hinweise: string[]
-  symbol: SymbolArt
-}
-
-type SymbolArt = 'blatt' | 'tropfen' | 'korn' | 'tasse' | 'fisch' | 'schild' | 'sonne' | 'teller' | 'topf' | 'berg' | 'koffer' | 'muecke'
+type SymbolArt =
+  | 'blatt'
+  | 'tropfen'
+  | 'korn'
+  | 'tasse'
+  | 'fisch'
+  | 'schild'
+  | 'sonne'
+  | 'teller'
+  | 'berg'
+  | 'koffer'
+  | 'muecke'
+  | 'velo'
+  | 'lauf'
+  | 'ski'
+  | 'schlitten'
+  | 'hantel'
+  | 'ball'
 
 const ARTIKEL: Wissensartikel[] = [
   {
@@ -148,12 +148,120 @@ const UNTERWEGS: Wissensartikel[] = [
     punkte: [
       'Für körperliche Aktivität nennt Gesundheitsförderung Schweiz Höhen bis rund 2000 m ü. M. als gut möglich. Das ist die praktische Orientierung für Wanderungen und aktive Bergtouren.',
       'Ein Aufstieg und Aufenthalt für einige Stunden bis etwa 2500 m ü. M. gilt bei unkomplizierter Schwangerschaft grundsätzlich als möglich, wenn dabei keine stärkere körperliche Belastung dazukommt.',
-      'Über 2500 m sollte man in der Schwangerschaft zurückhaltend sein: HealthyTravel empfiehlt Aufenthalte oberhalb dieser Höhe zu meiden, weil das Risiko für Höhenkrankheit und Komplikationen steigt. Das gilt besonders bei schnellem Aufstieg aus dem Flachland oder längerem Aufenthalt.',
+      'Über 2500 m sollte man in der Schwangerschaft zurückhaltend sein. Das gilt besonders bei schnellem Aufstieg aus dem Flachland oder längerem Aufenthalt.',
       'Aktivitäten mit hoher Sturz- oder Kollisionsgefahr werden nicht empfohlen. Bei anspruchsvollen Touren zählen deshalb neben der Höhe auch Gelände, Trittsicherheit und eine einfache Rückzugsmöglichkeit.',
       'Bei Schmerzen, Schwindel, Atemnot oder deutlichem Unwohlsein die Tour abbrechen. Bei Risikoschwangerschaft oder geplanten Aufenthalten nahe beziehungsweise über 2500 m die Tour vorher mit Ärztin oder Hebamme besprechen.',
     ],
     quelle: 'Quellen: Gesundheitsförderung Schweiz, «Gesundheitswirksame Bewegung bei Frauen während und nach der Schwangerschaft»; HealthyTravel / Schweizerisches Expertenkomitee für Reisemedizin, Schwangerschaft und Reisen.',
     symbol: 'berg',
+  },
+  {
+    id: 'mountainbiking',
+    titel: 'Mountainbiking',
+    kicker: 'Sturzrisiko',
+    kurz: 'Unwegsames Gelände und Tempo machen Mountainbiking in der Schwangerschaft zu einer ungünstigen Wahl.',
+    punkte: [
+      'Gesundheitsförderung Schweiz empfiehlt Bewegungsformen mit hohem Sturzrisiko während der Schwangerschaft generell nicht.',
+      'Beim Mountainbiken lässt sich das Sturzrisiko durch Wurzeln, Steine, Gefälle und wechselnden Untergrund auch mit viel Erfahrung nicht zuverlässig ausschliessen.',
+      'Für Ausdauertraining ohne vergleichbares Sturzrisiko eignen sich beispielsweise Ergometer oder angepasstes Spinning besser.',
+    ],
+    quelle: 'Grundlage: Gesundheitsförderung Schweiz, «Gesundheitswirksame Bewegung bei Frauen während und nach der Schwangerschaft».',
+    symbol: 'velo',
+  },
+  {
+    id: 'jogging',
+    titel: 'Jogging',
+    kicker: 'Gewohnte Aktivität',
+    kurz: 'Wer bereits vor der Schwangerschaft gelaufen ist, kann sich am eigenen Wohlbefinden und an der Belastung orientieren.',
+    punkte: [
+      'Die Schweizer Empfehlungen geben für Jogging kein eigenes pauschales Verbot. Bereits vor der Schwangerschaft aktive Frauen können ihre gewohnten Sportarten grundsätzlich weiterführen, solange sie sich dabei wohl fühlen.',
+      'Tempo, Dauer und Technik bei Bedarf reduzieren. Die Belastung soll nicht bis zur Erschöpfung gehen.',
+      'Wer neu mit intensivem Lauftraining beginnen möchte, sollte dies vorher mit einer Gesundheitsfachperson besprechen.',
+      'Bei Schmerzen, Schwindel, Blutungen, Atemnot oder deutlichem Unwohlsein Training abbrechen und medizinisch abklären.',
+    ],
+    quelle: 'Grundlage: Gesundheitsförderung Schweiz, «Gesundheitswirksame Bewegung bei Frauen während und nach der Schwangerschaft».',
+    symbol: 'lauf',
+  },
+  {
+    id: 'skifahren',
+    titel: 'Skifahren',
+    kicker: 'Nicht empfohlen',
+    kurz: 'Alpines Skifahren gehört wegen des Sturz- und Kollisionsrisikos nicht zu den empfohlenen Sportarten in der Schwangerschaft.',
+    punkte: [
+      'Gesundheitsförderung Schweiz nennt Skifahren ausdrücklich als Beispiel für eine Bewegungsform mit hohem Sturzrisiko, die in der Schwangerschaft nicht empfohlen wird.',
+      'Auch sehr gute Fahrtechnik verhindert weder einen eigenen Sturz noch eine Kollision mit anderen Personen zuverlässig.',
+      'Zusätzlich spielt im Skigebiet die Höhe eine Rolle: Körperliche Aktivität wird in den Schweizer Empfehlungen bis etwa 2000 m als unproblematisch eingeordnet.',
+    ],
+    quelle: 'Quelle: Gesundheitsförderung Schweiz, «Gesundheitswirksame Bewegung bei Frauen während und nach der Schwangerschaft».',
+    symbol: 'ski',
+  },
+  {
+    id: 'langlaufen',
+    titel: 'Langlaufen',
+    kicker: 'Gelände & Intensität',
+    kurz: 'Langlauf ist nicht pauschal ausgeschlossen; entscheidend sind Erfahrung, Tempo, Spur und Sturzrisiko.',
+    punkte: [
+      'Die Schweizer Schwangerschaftsempfehlung nennt Langlauf nicht als eigene verbotene Sportart. Es gelten deshalb die allgemeinen Kriterien für gewohnte Bewegung, Intensität und Sturzrisiko.',
+      'Wer bereits sicher langläuft, kann eine ruhige Einheit auf einfacher, gut präparierter Loipe eher an diese Kriterien anpassen als technisch anspruchsvolle oder schnelle Abfahrten.',
+      'Bei eisigen Bedingungen, schwierigen Abfahrten oder unsicherem Gleichgewicht besser auf eine Aktivität ohne Sturzrisiko wechseln.',
+      'Bei körperlicher Aktivität in der Höhe gilt rund 2000 m ü. M. als praktische Schweizer Orientierung.',
+    ],
+    quelle: 'Grundlagen: Gesundheitsförderung Schweiz, «Gesundheitswirksame Bewegung bei Frauen während und nach der Schwangerschaft»; ergänzend swissmom, Bewegung und Sport in der Schwangerschaft.',
+    symbol: 'ski',
+  },
+  {
+    id: 'schlitteln',
+    titel: 'Schlitteln',
+    kicker: 'Besser auslassen',
+    kurz: 'Tempo, Erschütterungen, Stürze und mögliche Kollisionen sprechen gegen Schlitteln in der Schwangerschaft.',
+    punkte: [
+      'Die Schweizer Bewegungsempfehlungen raten generell von Sportarten mit hohem Sturz- oder Kollisionsrisiko ab.',
+      'Auf Schlittelpisten können Geschwindigkeit und Bremsweg schwer kontrollierbar sein; Stürze oder Zusammenstösse lassen sich nicht zuverlässig vermeiden.',
+      'Für einen Wintertag sind Spaziergänge, einfache Wanderungen oder andere Aktivitäten mit kontrollierbarer Belastung die risikoärmere Wahl.',
+    ],
+    quelle: 'Grundlagen: Gesundheitsförderung Schweiz; ergänzend swissmom, «Ungünstige Sportarten für Schwangere».',
+    symbol: 'schlitten',
+  },
+  {
+    id: 'spinning',
+    titel: 'Spinning',
+    kicker: 'Gut anpassbar',
+    kurz: 'Training auf dem stationären Rad lässt sich gut dosieren und vermeidet das Sturzrisiko des Fahrens im Gelände.',
+    punkte: [
+      'Velofahren gehört in den Schweizer Empfehlungen zu den Beispielen für Bewegung mittlerer Intensität. Auf dem stationären Rad entfällt zusätzlich das verkehrs- oder geländebedingte Sturzrisiko.',
+      'Widerstand und Tempo so wählen, dass die Einheit fordernd, aber nicht erschöpfend wird. Ausreichend trinken und bei Überhitzung oder Unwohlsein pausieren.',
+      'Wer vor der Schwangerschaft nicht regelmässig trainiert hat, beginnt mit tieferer Intensität und steigert langsam.',
+      'Eine neue hochintensive Trainingsform sollte vorab mit einer Gesundheitsfachperson besprochen werden.',
+    ],
+    quelle: 'Grundlage: Gesundheitsförderung Schweiz, «Gesundheitswirksame Bewegung bei Frauen während und nach der Schwangerschaft».',
+    symbol: 'velo',
+  },
+  {
+    id: 'bodypump',
+    titel: 'BodyPump',
+    kicker: 'Gewichte anpassen',
+    kurz: 'Das Kursformat ist nicht eigens bewertet; mit angepassten Gewichten gelten die Grundsätze für leichtes Krafttraining.',
+    punkte: [
+      'Gesundheitsförderung Schweiz empfiehlt leichtes Krafttraining ohne Pressatmung auch während der Schwangerschaft mindestens zweimal pro Woche.',
+      'Für BodyPump bedeutet das: Gewichte und Wiederholungen so anpassen, dass die Technik sauber bleibt und keine Pressatmung nötig wird.',
+      'Übungen in Rückenlage sollen wegen eines möglichen Vena-Cava-Syndroms mit Vorsicht und bei Bedarf in einer angepassten Position durchgeführt werden.',
+      'Bei Schmerzen, Schwindel oder deutlichem Unwohlsein die Übung abbrechen. Neue hochintensive Trainingsformen vorher fachlich besprechen.',
+    ],
+    quelle: 'Grundlage: Gesundheitsförderung Schweiz, «Gesundheitswirksame Bewegung bei Frauen während und nach der Schwangerschaft».',
+    symbol: 'hantel',
+  },
+  {
+    id: 'volleyball',
+    titel: 'Volleyball',
+    kicker: 'Kollisionsrisiko',
+    kurz: 'Volleyball gehört zu den Mannschaftssportarten, von denen in der Schwangerschaft abgeraten wird.',
+    punkte: [
+      'Gesundheitsförderung Schweiz rät von Mannschaftssportarten mit Kollisionsgefahr ab und nennt Volleyball in den praktischen Empfehlungen ausdrücklich als Beispiel.',
+      'Neben Zusammenstössen gehören schnelle Richtungswechsel, Sprünge und unkontrollierbare Spielsituationen zum normalen Spielverlauf.',
+      'Für Bewegung mit vergleichbarem Trainingsziel besser auf kontrollierbare Ausdauer- und Kraftformen ohne Körperkontakt ausweichen.',
+    ],
+    quelle: 'Quelle: Gesundheitsförderung Schweiz, «Tipps für Bewegung in der Schwangerschaft und nach der Geburt».',
+    symbol: 'ball',
   },
   {
     id: 'sonne-hitze',
@@ -222,221 +330,6 @@ const UNTERWEGS: Wissensartikel[] = [
   },
 ]
 
-const REZEPTE: Rezept[] = [
-  {
-    id: 'porridge',
-    titel: 'Apfel-Zimt-Porridge',
-    kurz: 'Warmes Frühstück mit Haferflocken, Apfel und Baumnüssen.',
-    zeit: '15 Min.',
-    tags: ['Frühstück', 'Vegetarisch'],
-    zutaten: [
-      { text: '60 g Haferflocken' },
-      { text: '250 ml Milch oder angereicherter Pflanzendrink', suche: 'Milch' },
-      { text: '1 Apfel, gewaschen und gerieben' },
-      { text: '1 EL Baumnüsse' },
-      { text: 'Zimt nach Geschmack' },
-    ],
-    schritte: [
-      'Haferflocken mit Milch oder Pflanzendrink aufkochen und 5–7 Minuten leise köcheln.',
-      'Den geriebenen Apfel kurz mitwärmen.',
-      'Mit Baumnüssen und etwas Zimt servieren.',
-    ],
-    hinweise: ['Milch nur pasteurisiert beziehungsweise UHT verwenden.'],
-    symbol: 'topf',
-  },
-  {
-    id: 'beeren-mueesli',
-    titel: 'Beeren-Müesli',
-    kurz: 'Schnelles Frühstück mit Joghurt, Hafer und Beeren.',
-    zeit: '10 Min.',
-    tags: ['Frühstück', 'Schnell'],
-    zutaten: [
-      { text: '150–200 g pasteurisierter Naturjoghurt', suche: 'Joghurt' },
-      { text: '50 g Haferflocken' },
-      { text: '1 Handvoll frische Beeren, gründlich gewaschen' },
-      { text: '1 EL Nüsse oder Samen' },
-      { text: 'Optional etwas Banane für Süsse' },
-    ],
-    schritte: [
-      'Beeren gründlich unter fliessendem Wasser waschen.',
-      'Joghurt und Haferflocken verrühren.',
-      'Mit Beeren, Banane und Nüssen oder Samen toppen.',
-    ],
-    hinweise: ['Bei Milchprodukten auf pasteurisierte Ware achten. Früchte und Beeren gründlich waschen.'],
-    symbol: 'teller',
-  },
-  {
-    id: 'linseneintopf',
-    titel: 'Tomaten-Linsen-Eintopf',
-    kurz: 'Sättigend, pflanzlich und gut vorzubereiten.',
-    zeit: '35 Min.',
-    tags: ['Hauptgericht', 'Vegan'],
-    zutaten: [
-      { text: '150 g rote Linsen' },
-      { text: '1 Dose gehackte Tomaten' },
-      { text: '1 Rüebli und 1 kleine Zucchetti, gewaschen' },
-      { text: '1 kleine Zwiebel' },
-      { text: '500 ml Gemüsebouillon' },
-      { text: '1 EL Rapsöl' },
-    ],
-    schritte: [
-      'Gemüse klein schneiden und in Rapsöl kurz andünsten.',
-      'Linsen, Tomaten und Bouillon zugeben.',
-      '20–25 Minuten köcheln, bis Linsen und Gemüse vollständig gar sind.',
-    ],
-    hinweise: ['Gemüse vor der Verarbeitung gründlich waschen.'],
-    symbol: 'topf',
-  },
-  {
-    id: 'lachs-blech',
-    titel: 'Lachs mit Ofengemüse',
-    kurz: 'Ein Blech, wenig Aufwand und eine Portion Fisch.',
-    zeit: '35 Min.',
-    tags: ['Hauptgericht', 'Fisch'],
-    zutaten: [
-      { text: '1 Lachsfilet pro Person', suche: 'Lachs' },
-      { text: 'Kartoffeln' },
-      { text: 'Broccoli und Rüebli, gründlich gewaschen' },
-      { text: '1 EL Rapsöl' },
-      { text: 'Zitrone und Kräuter' },
-    ],
-    schritte: [
-      'Kartoffeln und Gemüse schneiden, mit Rapsöl mischen und bei 200 °C vorgaren.',
-      'Lachs nach etwa 15 Minuten dazugeben.',
-      'Weitergaren, bis der Fisch im Innern vollständig durchgegart und nicht mehr glasig ist.',
-    ],
-    hinweise: ['Fisch vollständig durchgaren. Die Eignung einzelner Fischarten lässt sich über «Suchen» prüfen.'],
-    symbol: 'fisch',
-  },
-  {
-    id: 'kichererbsen-bowl',
-    titel: 'Warme Kichererbsen-Bowl',
-    kurz: 'Ofengemüse, Kichererbsen und Tahini auf Quinoa.',
-    zeit: '30 Min.',
-    tags: ['Hauptgericht', 'Vegan'],
-    zutaten: [
-      { text: '80 g Quinoa pro Person' },
-      { text: '1 Dose Kichererbsen, abgespült' },
-      { text: 'Peperoni, Zucchetti und Rüebli, gewaschen' },
-      { text: '1 EL Tahini' },
-      { text: 'Zitronensaft und Rapsöl' },
-    ],
-    schritte: [
-      'Quinoa nach Packungsangabe vollständig garen.',
-      'Gemüse und Kichererbsen im Ofen rösten, bis alles heiss und gar ist.',
-      'Tahini mit etwas Wasser und Zitronensaft zu einer Sauce verrühren und über die warme Bowl geben.',
-    ],
-    hinweise: ['Rohes Gemüse vor dem Schneiden gründlich waschen.'],
-    symbol: 'teller',
-  },
-  {
-    id: 'spinat-curry',
-    titel: 'Spinat-Kichererbsen-Curry',
-    kurz: 'Cremiges Curry mit Hülsenfrüchten und viel Gemüse.',
-    zeit: '30 Min.',
-    tags: ['Hauptgericht', 'Vegan'],
-    zutaten: [
-      { text: '1 Dose Kichererbsen, abgespült' },
-      { text: '200 g Spinat, gründlich gewaschen oder tiefgekühlt' },
-      { text: '1 Dose Kokosmilch' },
-      { text: '1 Dose gehackte Tomaten' },
-      { text: 'Currypulver, Ingwer und Zwiebel' },
-      { text: 'Vollkornreis' },
-    ],
-    schritte: [
-      'Reis vollständig garen.',
-      'Zwiebel und Gewürze andünsten, Tomaten und Kokosmilch zugeben.',
-      'Kichererbsen und Spinat einrühren und alles mehrere Minuten gut durcherhitzen.',
-    ],
-    hinweise: ['Frischen Spinat gründlich waschen; Reste rasch kühlen und beim Wiedererwärmen vollständig erhitzen.'],
-    symbol: 'blatt',
-  },
-  {
-    id: 'linsen-bolognese',
-    titel: 'Linsen-Bolognese',
-    kurz: 'Vollkornpasta mit einer kräftigen Tomaten-Linsen-Sauce.',
-    zeit: '35 Min.',
-    tags: ['Hauptgericht', 'Vegetarisch'],
-    zutaten: [
-      { text: 'Vollkornpasta' },
-      { text: '120 g rote oder braune Linsen' },
-      { text: 'Passierte Tomaten' },
-      { text: 'Rüebli, Sellerie und Zwiebel' },
-      { text: 'Raps- oder Olivenöl' },
-    ],
-    schritte: [
-      'Gemüse fein schneiden und in etwas Öl andünsten.',
-      'Linsen und Tomaten zugeben und köcheln, bis die Linsen weich sind.',
-      'Pasta vollständig garen und mit der Sauce servieren.',
-    ],
-    hinweise: ['Gemüse vor der Verarbeitung gründlich waschen.'],
-    symbol: 'topf',
-  },
-  {
-    id: 'gemuese-eierreis',
-    titel: 'Gemüse-Eierreis',
-    kurz: 'Schnelle Reispfanne mit Ei und knackigem Gemüse.',
-    zeit: '25 Min.',
-    tags: ['Hauptgericht', 'Schnell'],
-    zutaten: [
-      { text: 'Gekochter Reis, frisch zubereitet oder rasch gekühlt' },
-      { text: '1–2 Eier pro Person', suche: 'Ei' },
-      { text: 'Erbsen, Rüebli und Peperoni' },
-      { text: 'Rapsöl' },
-      { text: 'Sojasauce nach Geschmack' },
-    ],
-    schritte: [
-      'Gemüse in einer grossen Pfanne vollständig garen.',
-      'Reis zugeben und gut durcherhitzen.',
-      'Eier einrühren und weiterbraten, bis das Ei vollständig gestockt und durchgegart ist.',
-    ],
-    hinweise: ['Ei vollständig durchgaren. Gekochten Reis nicht lange bei Raumtemperatur stehen lassen.'],
-    symbol: 'teller',
-  },
-  {
-    id: 'ofenkartoffel',
-    titel: 'Ofenkartoffel mit Kräuterquark',
-    kurz: 'Einfaches Abendessen mit Kartoffeln und frischen Kräutern.',
-    zeit: '50 Min.',
-    tags: ['Hauptgericht', 'Vegetarisch'],
-    zutaten: [
-      { text: 'Grosse Kartoffeln, gründlich gewaschen' },
-      { text: 'Pasteurisierter Quark', suche: 'Quark' },
-      { text: 'Schnittlauch oder Petersilie, gründlich gewaschen' },
-      { text: 'Gurke, gründlich gewaschen' },
-      { text: 'Etwas Rapsöl' },
-    ],
-    schritte: [
-      'Kartoffeln waschen und im Ofen vollständig weich garen.',
-      'Kräuter und Gurke gründlich waschen und fein schneiden.',
-      'Mit pasteurisiertem Quark verrühren und zur heissen Kartoffel servieren.',
-    ],
-    hinweise: ['Quark nur aus pasteurisierter Milch verwenden. Kräuter und Gurke gründlich waschen.'],
-    symbol: 'korn',
-  },
-  {
-    id: 'bananen-pancakes',
-    titel: 'Bananen-Hafer-Pancakes',
-    kurz: 'Drei Grundzutaten für Frühstück oder Zwischenmahlzeit.',
-    zeit: '20 Min.',
-    tags: ['Frühstück', 'Vegetarisch'],
-    zutaten: [
-      { text: '1 reife Banane' },
-      { text: '2 Eier', suche: 'Ei' },
-      { text: '60 g Haferflocken' },
-      { text: 'Etwas Rapsöl für die Pfanne' },
-      { text: 'Optional Beeren, gründlich gewaschen' },
-    ],
-    schritte: [
-      'Banane zerdrücken und mit Eiern und Haferflocken verrühren.',
-      'Kleine Pancakes bei mittlerer Hitze von beiden Seiten backen.',
-      'So lange backen, bis die Masse auch im Innern vollständig durchgegart ist.',
-    ],
-    hinweise: ['Ei vollständig durchgaren; die Pancakes nicht innen flüssig lassen.'],
-    symbol: 'teller',
-  },
-]
-
 function Illustration({ art }: { art: SymbolArt }) {
   const inhalt = (() => {
     switch (art) {
@@ -454,14 +347,24 @@ function Illustration({ art }: { art: SymbolArt }) {
         return <path d="M10 2.8 15.5 5v4.6c0 3.5-2.1 6.1-5.5 7.6-3.4-1.5-5.5-4.1-5.5-7.6V5L10 2.8Zm-2.3 7 1.5 1.5 3.3-3.5" />
       case 'sonne':
         return <><circle cx="10" cy="10" r="3.3" /><path d="M10 2.4v2M10 15.6v2M2.4 10h2M15.6 10h2M4.6 4.6 6 6M14 14l1.4 1.4M15.4 4.6 14 6M6 14l-1.4 1.4" /></>
-      case 'topf':
-        return <><path d="M4.2 8h11.6v6.2a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V8ZM2.8 8h14.4M7.4 5.2h5.2" /><path d="M7 3.5c.8-.7.8-1.3 0-2M11 3.5c.8-.7.8-1.3 0-2" /></>
       case 'berg':
         return <><path d="M2.7 16 7.5 8l2.2 3.1 2.6-4.4L17.3 16H2.7Z" /><path d="m6.2 10.2 1.3-2.2 1.3 1.9" /></>
       case 'koffer':
         return <><rect x="4" y="6.2" width="12" height="9.2" rx="1.8" /><path d="M7.5 6.2V4.8c0-.7.5-1.2 1.2-1.2h2.6c.7 0 1.2.5 1.2 1.2v1.4M7 10.8h6M10 8.8v4" /></>
       case 'muecke':
         return <><ellipse cx="10" cy="10.5" rx="1.8" ry="3.2" /><path d="M8.5 8.8 5.2 6.2M11.5 8.8l3.3-2.6M8.4 11l-3.6 1.5M11.6 11l3.6 1.5M10 7.3V4.5M10 13.7v2.2" /></>
+      case 'velo':
+        return <><circle cx="5.2" cy="13.2" r="3" /><circle cx="14.8" cy="13.2" r="3" /><path d="m5.2 13.2 3-6h3l3.6 6M8.2 7.2l3.1 6H5.2M10.8 5.2h2.5" /></>
+      case 'lauf':
+        return <><circle cx="11.8" cy="4.1" r="1.5" /><path d="m10.7 6.2-2.4 3.2 2.3 2.2-2 4.1M8.3 9.4 5 11M10.6 11.6l3.2 1.2 2.2 3" /></>
+      case 'ski':
+        return <><path d="M3 15.2c3.5 1.3 8.4 1.3 14 0M7 5.2l3.2 3.1-1.8 4.4M10.2 8.3l3.2-1.3M6.2 13.4 4.4 7M13.8 13.4l1.8-6.4" /><circle cx="7.2" cy="3.5" r="1.3" /></>
+      case 'schlitten':
+        return <><path d="M4 7.2h9.8l1.4 5.8H5.4L4 7.2ZM6 7.2V4.5M12 7.2V4.5M3.5 15.2h10.7c1.7 0 2.7-.5 3.3-1.4" /></>
+      case 'hantel':
+        return <><path d="M6.2 10h7.6M4.2 7v6M2.7 8.3v3.4M15.8 7v6M17.3 8.3v3.4" /></>
+      case 'ball':
+        return <><circle cx="10" cy="10" r="6.5" /><path d="M4.3 7.1c3.3.7 7.8.6 11.4-.2M4.5 13.4c3.4-.9 7.7-.8 11 .1M8.1 3.8c1.8 3.7 1.8 8.7 0 12.4M12 3.8c-1.8 3.7-1.8 8.7 0 12.4" /></>
       default:
         return <><path d="M3.5 10h13a6.5 6.5 0 0 1-13 0Z" /><path d="M6.2 7.4c1.4-.9 2.6-.9 3.8 0 1.2-.9 2.4-.9 3.8 0" /></>
     }
@@ -494,53 +397,12 @@ function ArtikelDetail({ artikel }: { artikel: Wissensartikel }) {
   )
 }
 
-function RezeptDetail({ rezept, onPruefen }: { rezept: Rezept; onPruefen: (begriff: string) => void }) {
-  return (
-    <article className="rezept-detail">
-      <div className="rezept-detail__hero">
-        <Illustration art={rezept.symbol} />
-        <div>
-          <p className="rezept-detail__lead">{rezept.kurz}</p>
-          <div className="rezept-tags" aria-label="Rezeptmerkmale">
-            <span>{rezept.zeit}</span>
-            {rezept.tags.map((tag) => <span key={tag}>{tag}</span>)}
-          </div>
-        </div>
-      </div>
-
-      <h3 className="wissen-detail__titel">Zutaten</h3>
-      <ul className="rezept-zutaten">
-        {rezept.zutaten.map((zutat) => (
-          <li key={zutat.text}>
-            <span>{zutat.text}</span>
-            {zutat.suche && (
-              <button type="button" onClick={() => onPruefen(zutat.suche!)}>
-                prüfen
-              </button>
-            )}
-          </li>
-        ))}
-      </ul>
-
-      <h3 className="wissen-detail__titel">Zubereitung</h3>
-      <ol className="rezept-schritte">
-        {rezept.schritte.map((schritt) => <li key={schritt}>{schritt}</li>)}
-      </ol>
-
-      <div className="rezept-hinweis">
-        <p className="rezept-hinweis__titel">In der Schwangerschaft beachten</p>
-        <ul>
-          {rezept.hinweise.map((hinweis) => <li key={hinweis}>{hinweis}</li>)}
-        </ul>
-      </div>
-    </article>
-  )
-}
-
 export function Wissensbereich({ onPruefen }: { onPruefen: (begriff: string) => void }) {
+  void onPruefen
   const [bereich, setBereich] = useState<Bereich>('ernaehrung')
   const [artikelOffen, setArtikelOffen] = useState<Wissensartikel | null>(null)
-  const [rezeptOffen, setRezeptOffen] = useState<Rezept | null>(null)
+
+  const artikel = bereich === 'ernaehrung' ? ARTIKEL : UNTERWEGS
 
   return (
     <>
@@ -548,7 +410,7 @@ export function Wissensbereich({ onPruefen }: { onPruefen: (begriff: string) => 
         <p className="wissen-start__kicker">Good to know</p>
         <h2 className="wissen-start__titel" id="wissen-titel">Wissen für den Alltag</h2>
         <p className="wissen-start__text">
-          Ernährung verstehen, Rezeptideen finden und auch draussen oder auf Reisen schnell die wichtigsten Punkte nachschlagen.
+          Ernährung verstehen und bei Sport, Ausflügen oder Reisen schnell die wichtigsten Punkte nachschlagen.
         </p>
       </section>
 
@@ -563,20 +425,7 @@ export function Wissensbereich({ onPruefen }: { onPruefen: (begriff: string) => 
           <Illustration art="blatt" />
           <span className="wissen-bereich__text">
             <strong>Ernährung</strong>
-            <span>8 kompakte Themen</span>
-          </span>
-        </button>
-        <button
-          type="button"
-          className="wissen-bereich"
-          data-aktiv={bereich === 'rezepte' || undefined}
-          aria-pressed={bereich === 'rezepte'}
-          onClick={() => setBereich('rezepte')}
-        >
-          <Illustration art="topf" />
-          <span className="wissen-bereich__text">
-            <strong>Rezeptideen</strong>
-            <span>10 einfache Rezepte</span>
+            <span>{ARTIKEL.length} kompakte Themen</span>
           </span>
         </button>
         <button
@@ -588,101 +437,54 @@ export function Wissensbereich({ onPruefen }: { onPruefen: (begriff: string) => 
         >
           <Illustration art="sonne" />
           <span className="wissen-bereich__text">
-            <strong>Unterwegs & Reisen</strong>
-            <span>6 praktische Themen</span>
+            <strong>Unterwegs & Aktiv</strong>
+            <span>{UNTERWEGS.length} praktische Themen</span>
           </span>
         </button>
       </div>
 
-      {bereich === 'ernaehrung' ? (
-        <section className="wissen-abschnitt" aria-labelledby="wissen-ernaehrung">
-          <div className="wissen-abschnitt__kopf">
-            <h2 id="wissen-ernaehrung">Ernährung in der Schwangerschaft</h2>
-            <p>Orientierung nach Schweizer Empfehlungen.</p>
-          </div>
-          <div className="wissen-karten">
-            {ARTIKEL.map((artikel) => (
-              <button
-                key={artikel.id}
-                className="wissen-karte"
-                type="button"
-                onClick={() => setArtikelOffen(artikel)}
-              >
-                <Illustration art={artikel.symbol} />
-                <span className="wissen-karte__kicker">{artikel.kicker}</span>
-                <strong>{artikel.titel}</strong>
-                <span className="wissen-karte__kurz">{artikel.kurz}</span>
-                <span className="wissen-karte__mehr">Mehr erfahren <span aria-hidden="true">›</span></span>
-              </button>
-            ))}
-          </div>
-        </section>
-      ) : bereich === 'rezepte' ? (
-        <section className="wissen-abschnitt" aria-labelledby="wissen-rezepte">
-          <div className="wissen-abschnitt__kopf">
-            <h2 id="wissen-rezepte">Rezeptideen</h2>
-            <p>Einfach, alltagstauglich und mit konkreten Zubereitungshinweisen.</p>
-          </div>
-          <div className="rezept-karten">
-            {REZEPTE.map((rezept) => (
-              <button
-                key={rezept.id}
-                className="rezept-karte"
-                type="button"
-                onClick={() => setRezeptOffen(rezept)}
-              >
-                <span className="rezept-karte__bild"><Illustration art={rezept.symbol} /></span>
-                <span className="rezept-karte__inhalt">
-                  <strong>{rezept.titel}</strong>
-                  <span className="rezept-karte__kurz">{rezept.kurz}</span>
-                  <span className="rezept-tags">
-                    <span>{rezept.zeit}</span>
-                    {rezept.tags.slice(0, 2).map((tag) => <span key={tag}>{tag}</span>)}
-                  </span>
-                </span>
-                <span className="rezept-karte__pfeil" aria-hidden="true">›</span>
-              </button>
-            ))}
-          </div>
-        </section>
-      ) : (
-        <section className="wissen-abschnitt" aria-labelledby="wissen-unterwegs">
-          <div className="wissen-abschnitt__kopf">
-            <h2 id="wissen-unterwegs">Unterwegs & Reisen</h2>
-            <p>Praktische Orientierung für Wandern, Naturtage und Reisen — mit Schweizer Quellen.</p>
-          </div>
-          <div className="wissen-karten">
-            {UNTERWEGS.map((artikel) => (
-              <button
-                key={artikel.id}
-                className="wissen-karte"
-                type="button"
-                onClick={() => setArtikelOffen(artikel)}
-              >
-                <Illustration art={artikel.symbol} />
-                <span className="wissen-karte__kicker">{artikel.kicker}</span>
-                <strong>{artikel.titel}</strong>
-                <span className="wissen-karte__kurz">{artikel.kurz}</span>
-                <span className="wissen-karte__mehr">Mehr erfahren <span aria-hidden="true">›</span></span>
-              </button>
-            ))}
-          </div>
-        </section>
-      )}
+      <section
+        className="wissen-abschnitt"
+        aria-labelledby={bereich === 'ernaehrung' ? 'wissen-ernaehrung' : 'wissen-unterwegs'}
+      >
+        <div className="wissen-abschnitt__kopf">
+          {bereich === 'ernaehrung' ? (
+            <>
+              <h2 id="wissen-ernaehrung">Ernährung in der Schwangerschaft</h2>
+              <p>Orientierung nach Schweizer Empfehlungen.</p>
+            </>
+          ) : (
+            <>
+              <h2 id="wissen-unterwegs">Unterwegs & Aktiv</h2>
+              <p>Sport, Naturtage und Reisen — mit Fokus auf Belastung, Sturzrisiko und praktische Planung.</p>
+            </>
+          )}
+        </div>
+        <div className="wissen-karten">
+          {artikel.map((eintrag) => (
+            <button
+              key={eintrag.id}
+              className="wissen-karte"
+              type="button"
+              onClick={() => setArtikelOffen(eintrag)}
+            >
+              <Illustration art={eintrag.symbol} />
+              <span className="wissen-karte__kicker">{eintrag.kicker}</span>
+              <strong>{eintrag.titel}</strong>
+              <span className="wissen-karte__kurz">{eintrag.kurz}</span>
+              <span className="wissen-karte__mehr">Mehr erfahren <span aria-hidden="true">›</span></span>
+            </button>
+          ))}
+        </div>
+      </section>
 
       <p className="wissen-einordnung">
-        Wissensartikel, Reisetipps und Rezepte sind Orientierung. Konkrete Gesundheitsfragen und individuelle Reise- oder Schwangerschaftsrisiken gehören in die medizinische Beratung; für Lebensmittel und Medikamente bleibt «Suchen» massgebend.
+        Wissensartikel, Sport- und Reisetipps sind Orientierung. Konkrete Gesundheitsfragen und individuelle Schwangerschaftsrisiken gehören in die medizinische Beratung; für Lebensmittel und Medikamente bleibt «Suchen» massgebend.
       </p>
 
       {artikelOffen && (
         <Sheet titel={artikelOffen.titel} onSchliessen={() => setArtikelOffen(null)}>
           <ArtikelDetail artikel={artikelOffen} />
-        </Sheet>
-      )}
-
-      {rezeptOffen && (
-        <Sheet titel={rezeptOffen.titel} onSchliessen={() => setRezeptOffen(null)}>
-          <RezeptDetail rezept={rezeptOffen} onPruefen={onPruefen} />
         </Sheet>
       )}
     </>
