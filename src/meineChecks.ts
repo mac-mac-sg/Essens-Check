@@ -136,6 +136,11 @@ function leseDaten(): MeineChecksDaten {
   }
 }
 
+/** Aktueller lokaler Verlauf für rein lesende Oberflächen wie die Suche. */
+export function leseVerlauf(): CheckRef[] {
+  return leseDaten().verlauf
+}
+
 function speichereDaten(daten: MeineChecksDaten): void {
   try {
     localStorage.setItem(SCHLUESSEL, JSON.stringify(daten))
