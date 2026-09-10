@@ -1,5 +1,7 @@
 import { NICHTS_GEFUNDEN } from './ampel'
 import { MAX_TREFFER } from './engine/suchen'
+import { GerichtTreffer } from './GerichtTreffer'
+import { sucheGerichte } from './gerichte'
 import { Hero } from './Hero'
 import { Medikamentensuche } from './Medikamentensuche'
 import { Trefferliste } from './Trefferliste'
@@ -61,6 +63,7 @@ export function Suchansicht({
   const sichtbar = treffer.slice(0, MAX_TREFFER)
   const weitere = treffer.length - sichtbar.length
   const nochLeer = begriff.trim().length < 2
+  const gerichte = bereich === 'lebensmittel' ? sucheGerichte(begriff) : []
 
   return (
     <>
@@ -78,7 +81,7 @@ export function Suchansicht({
         <>
           <div className="suchleiste suchleiste--spotlight">
             <label className="feldtitel feldtitel--versteckt" htmlFor="suche">
-              Lebensmittel suchen
+              Lebensmittel oder Gericht suchen
             </label>
             <div className="suchfeld-huelle">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -94,7 +97,7 @@ export function Suchansicht({
                 id="suche"
                 className="suchfeld"
                 type="search"
-                placeholder="Lebensmittel suchen …"
+                placeholder="Lebensmittel oder Gericht suchen …"
                 value={begriff}
                 onChange={(ereignis) => setBegriff(ereignis.target.value)}
                 autoComplete="off"
@@ -124,6 +127,10 @@ export function Suchansicht({
             </div>
           </div>
 
+          {gesucht && gerichte.length > 0 && (
+            <GerichtTreffer gerichte={gerichte} onPruefen={setBegriff} />
+          )}
+
           {gesucht && treffer.length > 0 && (
             <>
               <Trefferliste eintraege={sichtbar} onOeffnen={onOeffnen} />
@@ -133,7 +140,7 @@ export function Suchansicht({
             </>
           )}
 
-          {gesucht && treffer.length === 0 && (
+          {gesucht && treffer.length === 0 && gerichte.length === 0 && (
             <div className="leer" role="status">
               <p className="leer__titel">{NICHTS_GEFUNDEN}</p>
               <p className="leer__text">
@@ -144,7 +151,7 @@ export function Suchansicht({
             </div>
           )}
 
-          {gesucht && treffer.length === 0 && teilwort.length > 0 && (
+          {gesucht && treffer.length === 0 && gerichte.length === 0 && teilwort.length > 0 && (
             <>
               <p className="teilwort__frage">Meintest du eines davon?</p>
               <Trefferliste eintraege={teilwort} onOeffnen={onOeffnen} />
