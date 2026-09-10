@@ -135,7 +135,7 @@ export function Suchansicht({
                 id="suche"
                 className="suchfeld"
                 type="search"
-                placeholder="Lebensmittel oder Gericht …"
+                placeholder="Lebensmittel / Gericht"
                 value={begriff}
                 onChange={(ereignis) => setBegriff(ereignis.target.value)}
                 autoComplete="off"
