@@ -4,6 +4,8 @@ import { GerichtTreffer } from './GerichtTreffer'
 import { sucheGerichte } from './gerichte'
 import { Hero } from './Hero'
 import { Medikamentensuche } from './Medikamentensuche'
+import { CheckListe, type CheckAnzeige } from './MeineChecks'
+import type { CheckRef } from './meineChecks'
 import { Trefferliste } from './Trefferliste'
 import type { Lebensmittel } from './typen'
 
@@ -45,6 +47,9 @@ export function Suchansicht({
   treffer,
   teilwort,
   gesucht,
+  verlauf,
+  onCheckOeffnen,
+  onVerlaufLeeren,
   onOeffnen,
   onMedikamentProduktOeffnen,
   onMedikamentWirkstoffOeffnen,
@@ -56,6 +61,9 @@ export function Suchansicht({
   treffer: Lebensmittel[]
   teilwort: Lebensmittel[]
   gesucht: boolean
+  verlauf: readonly CheckAnzeige[]
+  onCheckOeffnen: (ref: CheckRef) => void
+  onVerlaufLeeren: () => void
   onOeffnen: (id: string) => void
   onMedikamentProduktOeffnen: (id: string) => void
   onMedikamentWirkstoffOeffnen: (id: string) => void
@@ -63,6 +71,7 @@ export function Suchansicht({
   const sichtbar = treffer.slice(0, MAX_TREFFER)
   const weitere = treffer.length - sichtbar.length
   const nochLeer = begriff.trim().length < 2
+  const verlaufSichtbar = begriff.trim().length === 0 && verlauf.length > 0
   const gerichte = bereich === 'lebensmittel' ? sucheGerichte(begriff) : []
 
   return (
@@ -97,7 +106,7 @@ export function Suchansicht({
                 id="suche"
                 className="suchfeld"
                 type="search"
-                placeholder="Lebensmittel oder Gericht suchen …"
+                placeholder="Lebensmittel oder Gericht …"
                 value={begriff}
                 onChange={(ereignis) => setBegriff(ereignis.target.value)}
                 autoComplete="off"
@@ -158,6 +167,19 @@ export function Suchansicht({
             </>
           )}
         </>
+      )}
+
+      {verlaufSichtbar && (
+        <section className="suchverlauf" aria-labelledby="suchverlauf-titel">
+          <div className="meine-checks__unterkopf">
+            <div>
+              <p className="meine-checks__kicker">Verlauf</p>
+              <h2 id="suchverlauf-titel">Zuletzt geprüft</h2>
+            </div>
+            <button type="button" onClick={onVerlaufLeeren}>Leeren</button>
+          </div>
+          <CheckListe eintraege={verlauf.slice(0, 5)} onOeffnen={onCheckOeffnen} />
+        </section>
       )}
     </>
   )
