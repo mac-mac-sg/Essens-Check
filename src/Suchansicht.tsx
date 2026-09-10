@@ -1,11 +1,14 @@
 import { NICHTS_GEFUNDEN } from './ampel'
-import { MAX_TREFFER } from './engine/suchen'
+import { lebensmittelKatalog } from './daten'
+import { findeNachId, MAX_TREFFER } from './engine/suchen'
 import { GerichtTreffer } from './GerichtTreffer'
 import { sucheGerichte } from './gerichte'
 import { Hero } from './Hero'
 import { Medikamentensuche } from './Medikamentensuche'
 import { CheckListe, type CheckAnzeige } from './MeineChecks'
-import type { CheckRef } from './meineChecks'
+import { leseVerlauf, type CheckRef } from './meineChecks'
+import { findeMedikament } from './medikamente/daten'
+import { findeMedikamentProdukt } from './medikamente/suche'
 import { Trefferliste } from './Trefferliste'
 import type { Lebensmittel } from './typen'
 
@@ -39,6 +42,22 @@ function Bereichsschalter({
   )
 }
 
+function anzeigeFuerSuchverlauf(ref: CheckRef): CheckAnzeige | null {
+  if (ref.art === 'lebensmittel') {
+    const eintrag = findeNachId(ref.id, lebensmittelKatalog)
+    return eintrag ? { ref, titel: eintrag.name, meta: 'Lebensmittel' } : null
+  }
+  if (ref.art === 'medikament') {
+    const eintrag = findeMedikament(ref.id)
+    return eintrag ? { ref, titel: eintrag.wirkstoff, meta: 'Medikament · Wirkstoff' } : null
+  }
+  if (ref.art === 'medikament-produkt') {
+    const eintrag = findeMedikamentProdukt(ref.id)
+    return eintrag ? { ref, titel: eintrag.name, meta: 'Medikament · Präparat' } : null
+  }
+  return null
+}
+
 export function Suchansicht({
   bereich,
   onBereichWechsel,
@@ -47,9 +66,6 @@ export function Suchansicht({
   treffer,
   teilwort,
   gesucht,
-  verlauf,
-  onCheckOeffnen,
-  onVerlaufLeeren,
   onOeffnen,
   onMedikamentProduktOeffnen,
   onMedikamentWirkstoffOeffnen,
@@ -61,9 +77,6 @@ export function Suchansicht({
   treffer: Lebensmittel[]
   teilwort: Lebensmittel[]
   gesucht: boolean
-  verlauf: readonly CheckAnzeige[]
-  onCheckOeffnen: (ref: CheckRef) => void
-  onVerlaufLeeren: () => void
   onOeffnen: (id: string) => void
   onMedikamentProduktOeffnen: (id: string) => void
   onMedikamentWirkstoffOeffnen: (id: string) => void
@@ -71,8 +84,24 @@ export function Suchansicht({
   const sichtbar = treffer.slice(0, MAX_TREFFER)
   const weitere = treffer.length - sichtbar.length
   const nochLeer = begriff.trim().length < 2
+  const verlauf = leseVerlauf().flatMap((ref) => {
+    const anzeige = anzeigeFuerSuchverlauf(ref)
+    return anzeige ? [anzeige] : []
+  })
   const verlaufSichtbar = begriff.trim().length === 0 && verlauf.length > 0
   const gerichte = bereich === 'lebensmittel' ? sucheGerichte(begriff) : []
+
+  const verlaufOeffnen = (ref: CheckRef) => {
+    if (ref.art === 'lebensmittel') {
+      onOeffnen(ref.id)
+      return
+    }
+    if (ref.art === 'medikament') {
+      onMedikamentWirkstoffOeffnen(ref.id)
+      return
+    }
+    if (ref.art === 'medikament-produkt') onMedikamentProduktOeffnen(ref.id)
+  }
 
   return (
     <>
@@ -171,14 +200,11 @@ export function Suchansicht({
 
       {verlaufSichtbar && (
         <section className="suchverlauf" aria-labelledby="suchverlauf-titel">
-          <div className="meine-checks__unterkopf">
-            <div>
-              <p className="meine-checks__kicker">Verlauf</p>
-              <h2 id="suchverlauf-titel">Zuletzt geprüft</h2>
-            </div>
-            <button type="button" onClick={onVerlaufLeeren}>Leeren</button>
+          <div>
+            <p className="meine-checks__kicker">Verlauf</p>
+            <h2 id="suchverlauf-titel">Zuletzt geprüft</h2>
           </div>
-          <CheckListe eintraege={verlauf.slice(0, 5)} onOeffnen={onCheckOeffnen} />
+          <CheckListe eintraege={verlauf.slice(0, 5)} onOeffnen={verlaufOeffnen} />
         </section>
       )}
     </>
