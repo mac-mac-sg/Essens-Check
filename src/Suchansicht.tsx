@@ -199,10 +199,13 @@ export function Suchansicht({
       )}
 
       {verlaufSichtbar && (
-        <section className="suchverlauf" aria-labelledby="suchverlauf-titel">
-          <div>
-            <p className="meine-checks__kicker">Verlauf</p>
-            <h2 id="suchverlauf-titel">Zuletzt geprüft</h2>
+        <section className="meine-checks" aria-labelledby="suchverlauf-titel">
+          <div className="meine-checks__kopf">
+            <div>
+              <p className="meine-checks__kicker">Verlauf</p>
+              <h2 id="suchverlauf-titel">Zuletzt geprüft</h2>
+            </div>
+            <span className="meine-checks__lokal">Nur auf diesem Gerät</span>
           </div>
           <CheckListe eintraege={verlauf.slice(0, 5)} onOeffnen={verlaufOeffnen} />
         </section>
