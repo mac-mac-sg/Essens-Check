@@ -1,0 +1,132 @@
+.gerichte {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.gerichte__kopf {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.gerichte__kicker {
+  margin: 0;
+  color: var(--akzent);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gerichte__kopf h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.gericht {
+  padding: 1rem;
+  border-radius: var(--radius-klein);
+  background: var(--karte);
+  box-shadow: 0 0 0 1px var(--linie), var(--schatten);
+}
+
+.gericht__titelzeile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.gericht__titelzeile h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.gericht__badge {
+  flex: 0 0 auto;
+  padding: 0.22rem 0.5rem;
+  border-radius: var(--radius-pille);
+  background: var(--flaeche-still);
+  color: var(--text-gedaempft);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.gericht__erklaerung,
+.gericht__hinweis,
+.gericht__disclaimer {
+  color: var(--text-gedaempft);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.gericht__erklaerung {
+  margin: 0.55rem 0 0.75rem;
+}
+
+.gericht__bestandteile {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.gericht__bestandteil {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0.55rem 0.65rem;
+  border: 0;
+  border-radius: 11px;
+  background: var(--flaeche-still);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-align: left;
+}
+
+button.gericht__bestandteil {
+  cursor: pointer;
+}
+
+button.gericht__bestandteil:active {
+  background: var(--flaeche-gedrueckt);
+}
+
+.gericht__bestandteil > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gericht__bestandteil > span:last-child {
+  flex: 0 0 auto;
+  color: var(--pfeil);
+  font-size: 1.15rem;
+}
+
+.gericht__bestandteil--info {
+  justify-content: flex-start;
+  color: var(--text-zweitrangig);
+}
+
+.gericht__hinweis {
+  margin: 0.75rem 0 0;
+  padding-left: 0.7rem;
+  border-left: 2px solid var(--trennlinie);
+}
+
+.gericht__disclaimer {
+  margin: 0.75rem 0 0;
+  font-size: 0.72rem;
+}
+
+@media (max-width: 360px) {
+  .gericht__bestandteile {
+    grid-template-columns: 1fr;
+  }
+}
