@@ -6,7 +6,7 @@ export interface CheckAnzeige {
   meta: string
 }
 
-function CheckListe({
+export function CheckListe({
   eintraege,
   onOeffnen,
 }: {
