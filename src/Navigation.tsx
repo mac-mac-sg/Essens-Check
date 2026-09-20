@@ -1,5 +1,5 @@
 /** Die vier Wege durch die App. Reihenfolge wie im Alltag: erst suchen. */
-export type Ziel = 'suche' | 'uebersicht' | 'wissen' | 'scanner'
+export type Ziel = 'suche' | 'uebersicht' | 'wissen' | 'scanner' | 'checkliste'
 
 function Lupe() {
   return (
@@ -35,11 +35,16 @@ function Strichcode() {
   )
 }
 
+function ChecklisteIcon() {
+  return <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m3 5 1.5 1.5L7 4M9 5h8M3 11h3M9 11h8M3 16h3M9 16h8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+}
+
 const ZIELE: { ziel: Ziel; wort: string; Zeichen: () => JSX.Element }[] = [
   { ziel: 'suche', wort: 'Suchen', Zeichen: Lupe },
   { ziel: 'uebersicht', wort: 'Liste', Zeichen: Liste },
   { ziel: 'scanner', wort: 'Scannen', Zeichen: Strichcode },
   { ziel: 'wissen', wort: 'Wissen', Zeichen: Buch },
+  { ziel: 'checkliste', wort: 'Checkliste', Zeichen: ChecklisteIcon },
 ]
 
 export function Navigation({

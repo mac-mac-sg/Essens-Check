@@ -1,0 +1,174 @@
+[
+  {
+    "id": "hebamme",
+    "phase": "frueh",
+    "kategorie": "Betreuung",
+    "titel": "Hebamme fürs Wochenbett organisieren",
+    "text": "Verfügbarkeit am Wohnort anfragen, Zeitraum rund um den Geburtstermin und Vertretung klären. Auch bei einer Spitalgeburt brauchst du für zu Hause eine passende Betreuung.",
+    "quelle": {
+      "titel": "Schweizerischer Hebammenverband",
+      "url": "https://www.hebammensuche.ch/"
+    }
+  },
+  {
+    "id": "geburtsort",
+    "phase": "frueh",
+    "kategorie": "Geburt",
+    "titel": "Geburtsort auswählen",
+    "text": "Spital, Geburtshaus oder Hausgeburt mit dem Betreuungsteam besprechen. Anmeldung, Informationsabend und Kostenübernahme beim gewählten Ort klären.",
+    "quelle": {
+      "titel": "BAG · Mutterschaft",
+      "url": "https://www.bag.admin.ch/de/krankenversicherung-leistungen-bei-mutterschaft"
+    }
+  },
+  {
+    "id": "kurs",
+    "phase": "frueh",
+    "kategorie": "Vorbereitung",
+    "titel": "Geburtsvorbereitung planen",
+    "text": "Passenden Kurs oder ein persönliches Gespräch suchen und Begleitperson einbeziehen. Kursplätze und allfällige Kosten vorher klären.",
+    "quelle": {
+      "titel": "Hebammensuche",
+      "url": "https://www.hebammensuche.ch/"
+    }
+  },
+  {
+    "id": "betreuung",
+    "phase": "frueh",
+    "kategorie": "Familienalltag",
+    "titel": "Kinderbetreuung früh abklären",
+    "text": "Falls gewünscht: Kita oder Tagesfamilie kontaktieren, Wartelisten und geplanten Betreuungsbeginn klären."
+  },
+  {
+    "id": "arbeit",
+    "phase": "frueh",
+    "kategorie": "Arbeit",
+    "titel": "Urlaub und Wiedereinstieg besprechen",
+    "text": "Mit HR Mutterschaftsurlaub, Urlaub des anderen Elternteils, Lohnfortzahlung, Anträge und eine mögliche Pensumsänderung klären. Bei belastender Arbeit den Schutz am Arbeitsplatz ansprechen."
+  },
+  {
+    "id": "grundversicherung",
+    "phase": "mitte",
+    "kategorie": "Krankenkasse",
+    "titel": "Grundversicherung fürs Baby vorbereiten",
+    "text": "Angebote samt Unfalldeckung vergleichen und vorgeburtliche Anmeldung prüfen. Gesetzliche Frist: innert drei Monaten nach der Geburt anmelden; dann gelten Versicherung und Prämien rückwirkend ab Geburt. Die Grundversicherung darf das Kind nicht aus Gesundheitsgründen ablehnen.",
+    "quelle": {
+      "titel": "BAG · Versicherungspflicht",
+      "url": "https://www.bag.admin.ch/de/krankenversicherung-versicherungspflicht-fuer-in-der-schweiz-wohnhafte-versicherte"
+    }
+  },
+  {
+    "id": "zusatzversicherung",
+    "phase": "mitte",
+    "kategorie": "Versicherungen",
+    "titel": "Zusatzversicherung bewusst prüfen",
+    "text": "Freiwillig und getrennt von der Grundversicherung: Bedarf, Leistungen, Ausschlüsse und Bedingungen einer vorgeburtlichen Aufnahme schriftlich klären. Eine spätere Aufnahme kann Gesundheitsfragen, Vorbehalte oder eine Ablehnung beinhalten.",
+    "quelle": {
+      "titel": "BAG · Grund- und Zusatzversicherung",
+      "url": "https://www.bag.admin.ch/de/krankenversicherung-versicherungspflicht-fuer-in-der-schweiz-wohnhafte-versicherte"
+    }
+  },
+  {
+    "id": "deckung",
+    "phase": "mitte",
+    "kategorie": "Krankenkasse",
+    "titel": "Kosten rund um Geburt und Wochenbett klären",
+    "text": "Mit Krankenkasse und Geburtsort prüfen, was gedeckt ist und welche privaten Zusatzkosten entstehen können. Auch Hebammenbetreuung und Stillberatung ansprechen.",
+    "quelle": {
+      "titel": "BAG · Mutterschaft",
+      "url": "https://www.bag.admin.ch/de/krankenversicherung-leistungen-bei-mutterschaft"
+    }
+  },
+  {
+    "id": "policen",
+    "phase": "mitte",
+    "kategorie": "Versicherungen",
+    "titel": "Bestehende Versicherungen durchsehen",
+    "text": "Beim Versicherer klären, ob und ab wann das Baby in der Privathaftpflicht eingeschlossen ist. Hausrat und die finanzielle Absicherung der Familie bei Erwerbsausfall oder Todesfall nach Bedarf prüfen."
+  },
+  {
+    "id": "zivilstand",
+    "phase": "mitte",
+    "kategorie": "Formalitäten",
+    "titel": "Zivilstand, Elternschaft und Namen klären",
+    "text": "Beim zuständigen Zivilstandsamt benötigte Dokumente und Namensführung erfragen. Je nach Familienkonstellation Anerkennung der Elternschaft und elterliche Sorge rechtzeitig klären."
+  },
+  {
+    "id": "kinderarzt",
+    "phase": "mitte",
+    "kategorie": "Betreuung",
+    "titel": "Kinderarztpraxis finden",
+    "text": "Fragen, ob die Praxis Neugeborene aufnimmt, wie die erste Kontrolle organisiert wird und wer ausserhalb der Öffnungszeiten erreichbar ist."
+  },
+  {
+    "id": "budget",
+    "phase": "mitte",
+    "kategorie": "Finanzen",
+    "titel": "Familienbudget und Zulagen planen",
+    "text": "Kosten für Krankenkasse, Betreuung und eine mögliche Einkommensreduktion einplanen. Mit Arbeitgeber oder Ausgleichskasse klären, wie Familienzulagen und Entschädigungen beantragt werden."
+  },
+  {
+    "id": "wuensche",
+    "phase": "spaet",
+    "kategorie": "Geburt",
+    "titel": "Geburtswünsche besprechen",
+    "text": "Wünsche, Begleitperson, Schmerzbehandlung und Fragen mit dem Geburtsteam durchgehen. Raum lassen, falls der Verlauf eine andere Vorgehensweise erfordert."
+  },
+  {
+    "id": "tasche",
+    "phase": "spaet",
+    "kategorie": "Vorbereitung",
+    "titel": "Spitaltasche und Unterlagen bereitlegen",
+    "text": "Packliste des Geburtsorts verwenden. Ausweise, Versicherungsangaben, Schwangerschaftsunterlagen, Medikamente und Kleidung für dich und das Baby griffbereit halten."
+  },
+  {
+    "id": "anfahrt",
+    "phase": "spaet",
+    "kategorie": "Organisation",
+    "titel": "Anfahrt und Kontaktplan festlegen",
+    "text": "Nummer der Geburtsabteilung speichern und besprechen, wann du dort anrufen sollst. Fahrt, Begleitperson sowie gegebenenfalls Betreuung von Geschwistern oder Haustieren organisieren."
+  },
+  {
+    "id": "zuhause",
+    "phase": "spaet",
+    "kategorie": "Familienalltag",
+    "titel": "Die ersten Tage zu Hause vorbereiten",
+    "text": "Schlafplatz und eine kleine Grundausstattung vorbereiten. Sicheren Babyschlaf mit der Hebamme besprechen und für die Heimfahrt eine passende Babyschale organisieren, falls ihr Auto fahrt."
+  },
+  {
+    "id": "wochenbett",
+    "phase": "spaet",
+    "kategorie": "Unterstützung",
+    "titel": "Hilfe fürs Wochenbett vereinbaren",
+    "text": "Konkret absprechen, wer Essen, Einkäufe, Haushalt oder Geschwisterbetreuung übernimmt. Besuchswünsche und Ruhezeiten besprechen; Kontakt zur Still- oder Ernährungsberatung bereithalten.",
+    "quelle": {
+      "titel": "Hebammensuche",
+      "url": "https://www.hebammensuche.ch/"
+    }
+  },
+  {
+    "id": "geburtsmeldung",
+    "phase": "danach",
+    "kategorie": "Formalitäten",
+    "titel": "Geburtsmeldung und Dokumente kontrollieren",
+    "text": "Schon vorher mit dem Geburtsort klären, wer die Meldung übernimmt und welche Unterlagen nötig sind. Nach der Geburt die benötigten Bestätigungen und Dokumente organisieren."
+  },
+  {
+    "id": "anmeldung",
+    "phase": "danach",
+    "kategorie": "Krankenkasse",
+    "titel": "Baby bei der Krankenkasse definitiv anmelden",
+    "text": "Geburtsdatum und Namen nachreichen und die Aufnahmebestätigung prüfen. Auch bei vorgeburtlicher Anmeldung nachfragen, was noch fehlt. Gesetzliche Frist der Grundversicherung: drei Monate ab Geburt.",
+    "quelle": {
+      "titel": "BAG · Versicherungspflicht",
+      "url": "https://www.bag.admin.ch/de/krankenversicherung-versicherungspflicht-fuer-in-der-schweiz-wohnhafte-versicherte"
+    }
+  },
+  {
+    "id": "nachsorge",
+    "phase": "danach",
+    "kategorie": "Betreuung",
+    "titel": "Nachsorge und Anträge abschliessen",
+    "text": "Hebamme über die Geburt und Heimkehr informieren, erste Kinderarztkontrolle vereinbaren sowie nötige Unterlagen an Arbeitgeber oder Ausgleichskasse weitergeben."
+  }
+]

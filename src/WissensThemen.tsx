@@ -12,6 +12,7 @@ export interface WissensStart {
 }
 
 function ThemaIcon({ thema }: { thema: Wissensthema }) {
+  if (thema === 'koerper') return <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15.8 12.3A6.8 6.8 0 0 1 7.7 4.2 6.8 6.8 0 1 0 15.8 12.3Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" /></svg>
   if (thema === 'ernaehrung') {
     return (
       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -104,6 +105,10 @@ export function WissensThemen({
         >
           <span className="wissen-hauptbereich__icon"><ThemaIcon thema="alltag" /></span>
           <strong>Alltag</strong>
+        </button>
+        <button type="button" className="wissen-hauptbereich" data-wissen-thema="koerper" data-aktiv={thema === 'koerper' || undefined} aria-pressed={thema === 'koerper'} onClick={() => setThema('koerper')}>
+          <span className="wissen-hauptbereich__icon"><ThemaIcon thema="koerper" /></span>
+          <strong>Körperhaltung &amp; Schlaf</strong>
         </button>
       </div>
 

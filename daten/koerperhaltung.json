@@ -1,0 +1,115 @@
+[
+  {
+    "id": "ruecken-schlafen",
+    "titel": "Darf ich auf dem Rücken schlafen?",
+    "kicker": "Ab 28+0 seitlich einschlafen",
+    "kurz": "Ab 28 vollendeten Schwangerschaftswochen zum Einschlafen die Seitenlage wählen – links oder rechts.",
+    "punkte": [
+      "Das gilt auch für ein Nickerchen. Ein Kissen zwischen den Knien oder unter dem Bauch kann die Seitenlage bequemer machen.",
+      "Wachst du auf dem Rücken auf, musst du dir deshalb keine Vorwürfe machen: Dreh dich auf die Seite und schlafe weiter."
+    ],
+    "quelle": "NHS · Schlaf in der Schwangerschaft · geprüft 19.09.2026.",
+    "quellen": [
+      {
+        "titel": "NHS · Schlaf in der Schwangerschaft",
+        "url": "https://www.nhs.uk/pregnancy/common-symptoms/tiredness/"
+      }
+    ],
+    "symbol": "mond"
+  },
+  {
+    "id": "bauch-liegen",
+    "titel": "Darf ich auf dem Bauch liegen?",
+    "kicker": "Solange es bequem bleibt",
+    "kurz": "In der frühen Schwangerschaft ist Bauchlage normalerweise möglich, solange sie angenehm ist.",
+    "punkte": [
+      "Mit wachsendem Bauch wird diese Position meist von selbst unbequem. Erzwinge sie nicht und wechsle bei Druck oder Schmerzen die Lage.",
+      "Für das Einschlafen ab 28+0 gilt die Empfehlung zur Seitenlage. Bei Beschwerden oder besonderen Schwangerschaftsrisiken besprich geeignete Positionen mit deiner Hebamme oder Ärztin."
+    ],
+    "quelle": "Parents · Bauchlage (ärztliche Einordnung); NHS · Schlaf · geprüft 19.09.2026.",
+    "quellen": [
+      {
+        "titel": "Parents · Bauchlage (ärztliche Einordnung); NHS · Schlaf",
+        "url": "https://www.parents.com/is-it-safe-to-lay-on-your-stomach-while-pregnant-8641792"
+      },
+      {
+        "titel": "NHS · Schlaf",
+        "url": "https://www.nhs.uk/pregnancy/common-symptoms/tiredness/"
+      }
+    ],
+    "symbol": "mond"
+  },
+  {
+    "id": "seite-schlafen",
+    "titel": "Muss ich immer links liegen?",
+    "kicker": "Beide Seiten sind möglich",
+    "kurz": "Zum Einschlafen sind sowohl die linke als auch die rechte Seite geeignet.",
+    "punkte": [
+      "Du darfst die Seite wechseln. Du musst nicht die ganze Nacht dieselbe Position halten.",
+      "Kissen unter dem Bauch und zwischen den Knien können entlasten. Wähle die Seite, die für dich bequem ist."
+    ],
+    "quelle": "NHS · Schlaf in der Schwangerschaft · geprüft 19.09.2026.",
+    "quellen": [
+      {
+        "titel": "NHS · Schlaf in der Schwangerschaft",
+        "url": "https://www.nhs.uk/pregnancy/common-symptoms/tiredness/"
+      }
+    ],
+    "symbol": "mond"
+  },
+  {
+    "id": "ruecken-liegen",
+    "titel": "Kurz auf dem Rücken liegen oder trainieren?",
+    "kicker": "Lange flache Rückenlage vermeiden",
+    "kurz": "Kurzes Umlagern ist etwas anderes als längeres flaches Liegen oder Training in Rückenlage.",
+    "punkte": [
+      "Der NHS rät besonders nach 16 Wochen von längerem flachem Liegen auf dem Rücken ab: Der Bauch kann den Blutrückfluss zum Herzen behindern und Schwindel auslösen.",
+      "Passe Übungen an, zum Beispiel in Seitenlage oder auf allen vieren, und informiere die Kursleitung über die Schwangerschaft. Eine pauschal sichere Minutenzahl gibt es hier nicht.",
+      "Bei Schwindel oder Unwohlsein unterbrechen und auf die Seite drehen. Anhaltende Beschwerden ärztlich abklären; bei Ohnmacht, Brustschmerz oder starker Atemnot sofort Hilfe holen (144)."
+    ],
+    "quelle": "NHS · Bewegung in der Schwangerschaft · geprüft 19.09.2026.",
+    "quellen": [
+      {
+        "titel": "NHS · Bewegung in der Schwangerschaft",
+        "url": "https://www.nhs.uk/pregnancy/keeping-well/exercise/"
+      }
+    ],
+    "symbol": "mond"
+  },
+  {
+    "id": "sitzen-buecken",
+    "titel": "Wie sitze und bücke ich mich günstig?",
+    "kicker": "Den Rücken entlasten",
+    "kurz": "Stütze deinen Rücken beim Sitzen gut ab. Zum Aufheben die Knie beugen und den Rücken gerade halten.",
+    "punkte": [
+      "Schwere Gegenstände besser von jemand anderem heben lassen. Einkaufslasten gleichmässig verteilen.",
+      "Beim Drehen die Füsse mitbewegen, statt nur den Rücken zu verdrehen. Bei stärkeren Rückenschmerzen Hebamme oder Ärztin ansprechen."
+    ],
+    "quelle": "NHS · Rückenschmerzen in der Schwangerschaft · geprüft 19.09.2026.",
+    "quellen": [
+      {
+        "titel": "NHS · Rückenschmerzen in der Schwangerschaft",
+        "url": "https://www.nhs.uk/pregnancy/common-symptoms/back-pain/"
+      }
+    ],
+    "symbol": "mond"
+  },
+  {
+    "id": "haltung-schmerzen",
+    "titel": "Wann sollte ich Beschwerden abklären?",
+    "kicker": "Warnzeichen ernst nehmen",
+    "kurz": "Starke oder neue Beschwerden nicht einfach als Haltungsproblem einordnen.",
+    "punkte": [
+      "Rückenschmerzen zusammen mit Blutungen, Fieber oder Schmerzen beim Wasserlassen zeitnah medizinisch abklären. Auch neue Rückenschmerzen im zweiten oder dritten Trimester können eine Abklärung erfordern.",
+      "Bei Gefühlsverlust in den Beinen, am Gesäss oder im Genitalbereich sofort medizinische Hilfe holen."
+    ],
+    "quelle": "NHS · Rückenschmerzen in der Schwangerschaft · geprüft 19.09.2026.",
+    "quellen": [
+      {
+        "titel": "NHS · Rückenschmerzen in der Schwangerschaft",
+        "url": "https://www.nhs.uk/pregnancy/common-symptoms/back-pain/"
+      }
+    ],
+    "symbol": "mond"
+  }
+]

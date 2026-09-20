@@ -13,6 +13,7 @@ import './feinschliff.css'
 import './wissen-themen.css'
 import './blockpause.css'
 import './gerichte.css'
+import './checkliste.css'
 
 const wurzel = document.getElementById('root')
 if (!wurzel) throw new Error('Wurzelelement #root fehlt')
