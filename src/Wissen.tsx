@@ -1,9 +1,10 @@
+import koerperhaltung from '@daten/koerperhaltung.json'
 import { useEffect, useState } from 'react'
 import { FavoritKnopf } from './FavoritKnopf'
 import { ResultHero, type ResultTone } from './ResultHero'
 import { Sheet } from './Sheet'
 
-export type WissensBereich = 'ernaehrung' | 'unterwegs'
+export type WissensBereich = 'ernaehrung' | 'unterwegs' | 'koerper'
 
 export type Wissensartikel = {
   id: string
@@ -11,6 +12,7 @@ export type Wissensartikel = {
   kicker: string
   kurz: string
   punkte: string[]
+  quellen?: { titel: string; url: string }[]
   quelle: string
   symbol: SymbolArt
 }
@@ -23,6 +25,7 @@ type WissensEinordnung = {
 }
 
 type SymbolArt =
+  | 'mond'
   | 'blatt'
   | 'tropfen'
   | 'korn'
@@ -40,6 +43,8 @@ type SymbolArt =
   | 'schlitten'
   | 'hantel'
   | 'ball'
+
+const KOERPER = koerperhaltung as Wissensartikel[]
 
 const ARTIKEL: Wissensartikel[] = [
   {
@@ -365,10 +370,11 @@ const EINORDNUNGEN: Record<string, WissensEinordnung> = {
 }
 
 export function findeWissensartikel(id: string): Wissensartikel | undefined {
-  return [...ARTIKEL, ...UNTERWEGS].find((artikel) => artikel.id === id)
+  return [...ARTIKEL, ...UNTERWEGS, ...KOERPER].find((artikel) => artikel.id === id)
 }
 
 export function wissensbereichFuer(id: string): WissensBereich | undefined {
+  if (KOERPER.some((artikel) => artikel.id === id)) return 'koerper'
   if (ARTIKEL.some((artikel) => artikel.id === id)) return 'ernaehrung'
   if (UNTERWEGS.some((artikel) => artikel.id === id)) return 'unterwegs'
   return undefined
@@ -403,6 +409,8 @@ function einordnungFuer(artikel: Wissensartikel): WissensEinordnung {
 function Illustration({ art }: { art: SymbolArt }) {
   const inhalt = (() => {
     switch (art) {
+      case 'mond':
+        return <path d="M15.8 12.3A6.8 6.8 0 0 1 7.7 4.2 6.8 6.8 0 1 0 15.8 12.3Z" />
       case 'blatt':
         return <path d="M15.8 4.2C10.4 4.5 6.6 6.7 5.3 11.1c2.9.6 5.7-.1 8-2.2M5.3 11.1c-.7 2-.9 3.8-.7 5.4" />
       case 'tropfen':
@@ -484,6 +492,7 @@ function ArtikelDetail({
       <section className="detailblock detailblock--quellen">
         <h3>Quelle</h3>
         <p className="wissen-quelle">{artikel.quelle}</p>
+        {artikel.quellen?.map((q) => <p key={q.url}><a href={q.url} target="_blank" rel="noopener noreferrer">{q.titel} ↗</a></p>)}
       </section>
     </article>
   )
@@ -505,7 +514,7 @@ export function Wissensbereich({
   onFavorit?: (id: string) => void
 }) {
   const [artikelOffen, setArtikelOffen] = useState<Wissensartikel | null>(null)
-  const artikel = bereich === 'ernaehrung' ? ARTIKEL : UNTERWEGS
+  const artikel = bereich === 'koerper' ? KOERPER : bereich === 'ernaehrung' ? ARTIKEL : UNTERWEGS
 
   useEffect(() => {
     if (!startId) return
@@ -524,10 +533,15 @@ export function Wissensbereich({
     <>
       <section
         className="wissen-abschnitt"
-        aria-labelledby={bereich === 'ernaehrung' ? 'wissen-ernaehrung' : 'wissen-unterwegs'}
+        aria-labelledby={`wissen-${bereich}`}
       >
         <div className="wissen-abschnitt__kopf">
-          {bereich === 'ernaehrung' ? (
+          {bereich === 'koerper' ? (
+            <>
+              <h2 id="wissen-koerper">Körperhaltung &amp; Schlaf</h2>
+              <p>Liegen, schlafen und den Rücken entlasten. Allgemeine Orientierung bei unkomplizierter Schwangerschaft; individuelle Empfehlungen deiner Hebamme oder Ärztin gehen vor.</p>
+            </>
+          ) : bereich === 'ernaehrung' ? (
             <>
               <h2 id="wissen-ernaehrung">Ernährung in der Schwangerschaft</h2>
               <p>Orientierung nach Schweizer Empfehlungen.</p>

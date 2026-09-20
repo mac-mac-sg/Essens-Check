@@ -1,3 +1,4 @@
+import { GeburtsCheckliste } from './GeburtsCheckliste'
 import { useEffect, useMemo, useState } from 'react'
 import { findeAlltag } from './alltag/daten'
 import { lebensmittelKatalog, regelKatalog } from './daten'
@@ -33,7 +34,7 @@ import { Navigation, type Ziel } from './Navigation'
 import { findeWissensartikel } from './Wissen'
 import type { WissensStart } from './WissensThemen'
 
-type Ansicht = 'suche' | 'uebersicht' | 'wissen' | 'scanner' | 'scanergebnis'
+type Ansicht = 'suche' | 'uebersicht' | 'wissen' | 'scanner' | 'scanergebnis' | 'checkliste'
 
 interface Installationsaufforderung extends Event {
   readonly platforms: string[]
@@ -403,7 +404,7 @@ export function App() {
       </header>
 
       <main className={`inhalt ${ansicht === 'suche' ? 'inhalt--suche' : ''}`}>
-        {ansicht === 'wissen' ? (
+        {ansicht === 'checkliste' ? <GeburtsCheckliste /> : ansicht === 'wissen' ? (
           <SituativesWissen
             {...(stand ? { sswAnzeige: stand.anzeige, trimester: stand.trimester } : {})}
             start={wissenStart}

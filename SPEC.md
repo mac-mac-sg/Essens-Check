@@ -389,3 +389,28 @@ macht sie offline lauffähig.
 Die Inhalte orientieren sich an den gängigen Schweizer Empfehlungen, sind aber
 nicht fachlich verifiziert. Vor dem produktiven Einsatz einmal von der Hebamme
 gegenlesen lassen. Keine Inhalte erfinden: was nicht belegt ist, wird `unklar`.
+
+## Ergänzung September 2026: Körperhaltung und Geburtscheckliste
+
+Auf Wunsch erweitert sich der Umfang um Körperhaltung und Geburtsvorbereitung.
+«Wissen» enthält den vierten Bereich «Körperhaltung & Schlaf» mit sechs
+quellenverlinkten Artikeln aus `daten/koerperhaltung.json`. Die Hinweise
+unterscheiden Einschlafen ab 28+0, längere flache Rückenlage beim Training,
+Bauchlage, Seitenlage und Rückenentlastung. Es entstehen keine automatischen
+medizinischen Freigaben. Artikel funktionieren mit den bestehenden Favoriten.
+
+Das fünfte Navigationsziel «Checkliste» bietet 20 Schweizer Planungspunkte aus
+`daten/geburtscheckliste.json` in vier Zeitabschnitten. Diese Abschnitte sind
+Planungshilfen, keine medizinischen oder gesetzlichen Fristen. Die gesetzliche
+Dreimonatsfrist für die Grundversicherung ist ausdrücklich gekennzeichnet.
+Andere Formalitäten sind als Abklärungsaufträge bei der zuständigen Stelle
+formuliert, ohne pauschale Leistungs- oder Aufnahmegarantie.
+
+«Erledigt» und «Nicht relevant» werden unter einem eigenen lokalen Schlüssel
+gespeichert; ohne Geburtstermin ist alles nutzbar. Offene Punkte lassen sich
+filtern, Markierungen rückgängig machen und nach Bestätigung zurücksetzen.
+Beschädigte Speicherwerte erzeugen keine Erledigt-Markierung. Speicherfehler
+werden angezeigt. Die Texte funktionieren offline; externe Quellenlinks
+brauchen eine Verbindung. Die bestehende Lebensmittel- und Medikamentenlogik
+bleibt unverändert. Die projektspezifischen CSS- und SVG-Muster haben Vorrang
+vor allgemeinen Skill-Empfehlungen für zusätzliche UI-Bibliotheken.

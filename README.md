@@ -396,3 +396,18 @@ Liste bleibt für die Vorbereitung.
 Die Inhalte orientieren sich an den gängigen Schweizer Empfehlungen, sind aber
 fachlich nicht verifiziert. Vor dem produktiven Einsatz von der Hebamme gegenlesen
 lassen. Diese App ersetzt keine Beratung.
+
+## Neu: Körperhaltung und Vorbereitung auf die Geburt
+
+Im Wissen ergänzt «Körperhaltung & Schlaf» sechs Artikel zu Rücken- und
+Bauchlage, Schlafpositionen, Sitzen/Bücken und Warnzeichen. Quellen und
+Prüfdatum stehen direkt im Artikel. Zur Seitenlage ist die NHS-Empfehlung
+massgebend: links und rechts sind geeignet. Der verlinkte Parents-Artikel
+wird ausschliesslich für die frühe Bauchlage herangezogen; seine abweichende
+Aussage zur rechten Seitenlage wird nicht übernommen.
+
+Die separate «Checkliste» umfasst 20 Punkte für die Schweiz, von Hebamme und
+Geburtsort über Krankenversicherung und Formalitäten bis zur Organisation
+des Wochenbetts. Häkchen und «Nicht relevant» bleiben auf dem Gerät, sind
+umkehrbar und überleben einen Neustart. Ein Filter zeigt nur offene Punkte.
+Quellenprüfung: 19.09.2026; keine individuelle medizinische Durchsicht.
