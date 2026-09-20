@@ -170,5 +170,161 @@
     "kategorie": "Betreuung",
     "titel": "Nachsorge und Anträge abschliessen",
     "text": "Hebamme über die Geburt und Heimkehr informieren, erste Kinderarztkontrolle vereinbaren sowie nötige Unterlagen an Arbeitgeber oder Ausgleichskasse weitergeben."
+  },
+  {
+    "id": "ausstattung-kinderwagen",
+    "phase": "ausstattung",
+    "kategorie": "Unterwegs · Nach Bedarf",
+    "titel": "Kinderwagen auswählen",
+    "text": "Prüfen, ob er für Neugeborene geeignet ist und zu eurem Alltag passt: zusammenklappen, Gewicht, Stauraum und Platz im Auto oder ÖV ausprobieren. Lieferzeit einplanen.",
+    "quelle": {
+      "titel": "NHS · Baby-Grundausstattung",
+      "url": "https://www.nhs.uk/baby/caring-for-a-newborn/what-you-will-need-for-your-baby/"
+    }
+  },
+  {
+    "id": "ausstattung-babyschale",
+    "phase": "ausstattung",
+    "kategorie": "Unterwegs · Bei Autofahrten",
+    "titel": "Babyschale fürs Auto beschaffen",
+    "text": "Eine für Neugeborene geeignete Babyschale wählen, die zu eurem Auto passt. Befestigung und Einbau vor der ersten Fahrt gemäss Herstelleranleitung üben; bei gebrauchten Sitzen die Vorgeschichte klären."
+  },
+  {
+    "id": "ausstattung-trage",
+    "phase": "ausstattung",
+    "kategorie": "Unterwegs · Optional",
+    "titel": "Babytrage oder Tragetuch ausprobieren",
+    "text": "Vor dem Kauf Passform und Handhabung testen, beispielsweise in einer Trageberatung. Nicht jede Trage passt zu jedem Körper; auch Leihen kann zum Ausprobieren sinnvoll sein."
+  },
+  {
+    "id": "ausstattung-wickeltasche",
+    "phase": "ausstattung",
+    "kategorie": "Unterwegs · Optional",
+    "titel": "Wickeltasche oder vorhandenen Rucksack packen",
+    "text": "Platz für Windeln, Reinigungstücher, eine Wickelunterlage, Ersatzkleider und einen Beutel für verschmutzte Wäsche einplanen. Eine spezielle Wickeltasche ist nicht nötig."
+  },
+  {
+    "id": "ausstattung-babybett",
+    "phase": "ausstattung",
+    "kategorie": "Schlafen · Grundausstattung",
+    "titel": "Babybett oder Beistellbett organisieren",
+    "text": "Einen stabilen, für Neugeborene vorgesehenen Schlafplatz einrichten. Bei einem Beistellbett Montage und Befestigung genau nach Herstellerangaben prüfen.",
+    "quelle": {
+      "titel": "NHS · Baby-Grundausstattung",
+      "url": "https://www.nhs.uk/baby/caring-for-a-newborn/what-you-will-need-for-your-baby/"
+    }
+  },
+  {
+    "id": "ausstattung-matratze",
+    "phase": "ausstattung",
+    "kategorie": "Schlafen · Grundausstattung",
+    "titel": "Passende Babymatratze beschaffen",
+    "text": "Die Matratze soll fest, flach und passend sein, ohne Lücken zum Bettrand. Keine zusätzlichen weichen Auflagen oder Nestchen als Schlafunterlage einplanen.",
+    "quelle": {
+      "titel": "NHS · Baby-Grundausstattung",
+      "url": "https://www.nhs.uk/baby/caring-for-a-newborn/what-you-will-need-for-your-baby/"
+    }
+  },
+  {
+    "id": "ausstattung-bettwaesche",
+    "phase": "ausstattung",
+    "kategorie": "Schlafen · Grundausstattung",
+    "titel": "Spannbettlaken bereitlegen",
+    "text": "Passende Laken zum Wechseln beschaffen. Kopfkissen, Bettumrandungen und schwere Bettdecken gehören nicht zur Schlafausstattung eines Neugeborenen.",
+    "quelle": {
+      "titel": "NHS · Baby-Grundausstattung",
+      "url": "https://www.nhs.uk/baby/caring-for-a-newborn/what-you-will-need-for-your-baby/"
+    }
+  },
+  {
+    "id": "ausstattung-schlafsack",
+    "phase": "ausstattung",
+    "kategorie": "Schlafen · Grundausstattung",
+    "titel": "Passende Babyschlafsäcke auswählen",
+    "text": "Auf passende Grösse sowie die Herstellerangaben zur Raumtemperatur achten. Der Kopf darf nicht durch die Halsöffnung rutschen können; keine zu grossen Modelle auf Vorrat verwenden."
+  },
+  {
+    "id": "ausstattung-wickelplatz",
+    "phase": "ausstattung",
+    "kategorie": "Wickeln · Grundausstattung",
+    "titel": "Wickeltisch oder Wickelplatz einrichten",
+    "text": "Eine abwischbare Wickelunterlage und Platz für Windeln und Tücher vorbereiten. Ein eigener Wickeltisch ist optional: Eine geeignete Unterlage auf dem Boden ist eine Alternative. Das Baby auf erhöhten Flächen nie unbeaufsichtigt lassen."
+  },
+  {
+    "id": "ausstattung-windeln",
+    "phase": "ausstattung",
+    "kategorie": "Wickeln · Grundausstattung",
+    "titel": "Windeln / Pampers besorgen",
+    "text": "Eine kleine Startpackung in passender Neugeborenengrösse besorgen. Marke und Passform könnt ihr erst im Alltag beurteilen; deshalb nicht gleich grosse Vorräte kaufen. Bei Stoffwindeln ein geeignetes Startset und die Wäscheorganisation planen."
+  },
+  {
+    "id": "ausstattung-reinigung",
+    "phase": "ausstattung",
+    "kategorie": "Wickeln · Grundausstattung",
+    "titel": "Waschlappen und Reinigungstücher bereitlegen",
+    "text": "Weiche Waschlappen oder Reinigungspads und eine kleine Wasserschale griffbereit halten. Für unterwegs bei Bedarf unparfümierte Feuchttücher ergänzen."
+  },
+  {
+    "id": "ausstattung-windeleimer",
+    "phase": "ausstattung",
+    "kategorie": "Wickeln · Optional",
+    "titel": "Windelentsorgung organisieren",
+    "text": "Einen passenden Abfalleimer und Beutel bereitstellen. Ein spezieller Windeleimer ist optional; bei Stoffwindeln einen geeigneten Wäschebehälter einplanen."
+  },
+  {
+    "id": "ausstattung-babykleidung",
+    "phase": "ausstattung",
+    "kategorie": "Kleidung · Grundausstattung",
+    "titel": "Bodys, Strampler und Schlafanzüge besorgen",
+    "text": "Eine kleine Auswahl in den Startgrössen, beispielsweise 50/56 und 62, vorbereiten. Jahreszeit und Waschmöglichkeiten berücksichtigen. Gut erhaltene Secondhand-Kleider sind eine praktische Möglichkeit."
+  },
+  {
+    "id": "ausstattung-wetterkleidung",
+    "phase": "ausstattung",
+    "kategorie": "Kleidung · Nach Jahreszeit",
+    "titel": "Socken, Mützchen und Kleidung für draussen",
+    "text": "Passende Schichten für die Jahreszeit bereitlegen. Für kalte Tage zusätzliche Kleidung für unterwegs einplanen; nicht alles in der kleinsten Grösse kaufen."
+  },
+  {
+    "id": "ausstattung-spucktuecher",
+    "phase": "ausstattung",
+    "kategorie": "Pflege · Grundausstattung",
+    "titel": "Mull- und Spucktücher bereitlegen",
+    "text": "Mehrere waschbare Tücher zum Wechseln besorgen. Sie sind beim Füttern, Aufstossen und für kleine Missgeschicke im Alltag praktisch."
+  },
+  {
+    "id": "ausstattung-baden",
+    "phase": "ausstattung",
+    "kategorie": "Pflege · Grundausstattung",
+    "titel": "Waschlappen und weiche Badetücher besorgen",
+    "text": "Weiche Waschlappen und Handtücher bereitlegen. Babybadewanne und Badethermometer sind mögliche Ergänzungen; die Handhabung könnt ihr mit der Hebamme besprechen."
+  },
+  {
+    "id": "ausstattung-fieberthermometer",
+    "phase": "ausstattung",
+    "kategorie": "Pflege · Grundausstattung",
+    "titel": "Digitales Fieberthermometer besorgen",
+    "text": "Ein für Babys geeignetes digitales Thermometer bereithalten. Die korrekte Anwendung und das Vorgehen bei Fieber mit Hebamme oder Kinderarztpraxis besprechen."
+  },
+  {
+    "id": "ausstattung-stillzubehoer",
+    "phase": "ausstattung",
+    "kategorie": "Ernährung · Falls ihr stillen möchtet",
+    "titel": "Stillzubehör nach Bedarf vorbereiten",
+    "text": "Bequeme, gut zugängliche Kleidung und bei Bedarf Still-BHs sowie Stilleinlagen organisieren. Stillkissen und Milchpumpe sind optional; eine Pumpe lässt sich bei Bedarf später auswählen oder mieten."
+  },
+  {
+    "id": "ausstattung-flaeschchen",
+    "phase": "ausstattung",
+    "kategorie": "Ernährung · Falls ihr Fläschchen nutzt",
+    "titel": "Fläschchen und Reinigungszubehör vorbereiten",
+    "text": "Passende Fläschchen, Sauger und eine Flaschenbürste besorgen. Reinigung, Sterilisation und gegebenenfalls geeignete Säuglingsnahrung vorab mit der Hebamme besprechen. Ein Flaschenwärmer ist optional."
+  },
+  {
+    "id": "ausstattung-babyphone",
+    "phase": "ausstattung",
+    "kategorie": "Zu Hause · Optional",
+    "titel": "Babyphone und Nachtlicht prüfen",
+    "text": "Überlegen, ob ihr diese im Alltag braucht. Beides ist optional und kann auch später ergänzt werden; ein Babyphone ersetzt nicht die Betreuung des Babys."
   }
 ]

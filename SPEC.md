@@ -414,3 +414,13 @@ werden angezeigt. Die Texte funktionieren offline; externe Quellenlinks
 brauchen eine Verbindung. Die bestehende Lebensmittel- und Medikamentenlogik
 bleibt unverändert. Die projektspezifischen CSS- und SVG-Muster haben Vorrang
 vor allgemeinen Skill-Empfehlungen für zusätzliche UI-Bibliotheken.
+
+
+### Anschaffungen für das Baby
+
+Die Checkliste umfasst neu 40 Punkte. Im Abschnitt «Ausstattung beschaffen»
+stehen 20 einzeln abhakbare Anschaffungen für unterwegs, Schlafen, Wickeln,
+Kleidung, Pflege und Ernährung. Grundausstattung, optionale Gegenstände und
+Anschaffungen je nach Bedarf sind in der Kategorie sichtbar gekennzeichnet.
+Bestehende IDs und der lokale Speicherschlüssel bleiben erhalten; neue Punkte
+erscheinen offen, vorhandene Markierungen bleiben bestehen.

@@ -411,3 +411,13 @@ Geburtsort über Krankenversicherung und Formalitäten bis zur Organisation
 des Wochenbetts. Häkchen und «Nicht relevant» bleiben auf dem Gerät, sind
 umkehrbar und überleben einen Neustart. Ein Filter zeigt nur offene Punkte.
 Quellenprüfung: 19.09.2026; keine individuelle medizinische Durchsicht.
+
+
+### Anschaffungen für das Baby
+
+Die Checkliste umfasst neu 40 Punkte. Im Abschnitt «Ausstattung beschaffen»
+stehen 20 einzeln abhakbare Anschaffungen für unterwegs, Schlafen, Wickeln,
+Kleidung, Pflege und Ernährung. Grundausstattung, optionale Gegenstände und
+Anschaffungen je nach Bedarf sind in der Kategorie sichtbar gekennzeichnet.
+Bestehende IDs und der lokale Speicherschlüssel bleiben erhalten; neue Punkte
+erscheinen offen, vorhandene Markierungen bleiben bestehen.
