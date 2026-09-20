@@ -4,6 +4,7 @@ import { CHECKLISTE, CHECKLIST_KEY, parseCheckStand, readCheckStand, type CheckS
 const PHASEN = [
   { id: 'frueh', titel: 'Früh organisieren', kurz: 'Betreuung und Plätze sichern' },
   { id: 'mitte', titel: 'In Ruhe klären', kurz: 'Versicherungen, Finanzen und Formalitäten' },
+  { id: 'ausstattung', titel: 'Ausstattung beschaffen', kurz: 'Vor der Geburt · Kaufen, leihen oder gebraucht übernehmen. Optionale Dinge nur nach Bedarf.' },
   { id: 'spaet', titel: 'Vor der Geburt bereitlegen', kurz: 'Praktisch vorbereitet sein' },
   { id: 'danach', titel: 'Für nach der Geburt vormerken', kurz: 'Jetzt vorbereiten, später abschliessen' },
 ]
