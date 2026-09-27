@@ -5,6 +5,12 @@ import {
   medikamentProduktSnapshot,
 } from './produkte'
 import type { SwissmedicProdukt } from './swissmedic'
+import { zusatzprodukte } from './zusatzprodukte'
+
+const suchProdukte = {
+  ...medikamentProduktSnapshot,
+  produkte: [...medikamentProduktSnapshot.produkte, ...zusatzprodukte],
+}
 
 function normalisiere(text: string): string {
   return text
@@ -51,11 +57,11 @@ export function findeWirkstoffe(
 
 export function sucheMedikamentProdukte(suche: string, limit = 20): SwissmedicProdukt[] {
   if (normalisiere(suche).length < 2) return []
-  return findeMedikamentProdukte(suche, medikamentProduktSnapshot, limit)
+  return findeMedikamentProdukte(suche, suchProdukte, limit)
 }
 
 export function findeMedikamentProdukt(id: string): SwissmedicProdukt | null {
-  return medikamentProduktSnapshot.produkte.find((produkt) => produkt.id === id) ?? null
+  return suchProdukte.produkte.find((produkt) => produkt.id === id) ?? null
 }
 
 /**

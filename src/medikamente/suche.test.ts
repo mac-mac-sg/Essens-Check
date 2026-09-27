@@ -3,6 +3,7 @@ import { medikamentProduktSnapshot } from './produkte'
 import {
   bereiteProduktBewertungVor,
   darreichungswegeFuer,
+  findeMedikamentProdukt,
   findeWirkstoffe,
   sucheMedikamentProdukte,
 } from './suche'
@@ -19,6 +20,18 @@ describe('Medikamentensuche Phase 3', () => {
   it('findet reale Schweizer Präparate über den Handelsnamen', () => {
     expect(sucheMedikamentProdukte('Dafalgan').some((produkt) => produkt.medikament_ids.includes('paracetamol'))).toBe(true)
     expect(sucheMedikamentProdukte('Algifor').some((produkt) => produkt.medikament_ids.includes('ibuprofen'))).toBe(true)
+  })
+
+  it('findet alle Mebucaïne-Varianten auch ohne Akzent und verhindert eine pauschale Freigabe', () => {
+    const produkte = sucheMedikamentProdukte('Mebucaine')
+    expect(produkte.filter((produkt) => produkt.produktquelle)).toHaveLength(8)
+    expect(sucheMedikamentProdukte('Mebucaïne Dolo Spray').some((produkt) => produkt.name === 'Mebucaïne Dolo Spray')).toBe(true)
+    for (const produkt of produkte.filter((eintrag) => eintrag.produktquelle)) {
+      expect(findeMedikamentProdukt(produkt.id)).toEqual(produkt)
+      expect(bereiteProduktBewertungVor(produkt)).toMatchObject({ art: 'gesperrt', grund: 'unvollstaendig' })
+    }
+    expect(produkte.find((produkt) => produkt.name === 'Mebucaïne Dolo Orange')?.wirkstoffe.map((stoff) => stoff.name)).toEqual(['Flurbiprofen'])
+    expect(produkte.find((produkt) => produkt.name === 'Mebucaïne N')?.wirkstoffe.map((stoff) => stoff.name)).toEqual(['Lidocain', 'Cetylpyridin'])
   })
 
   it('ordnet nur eindeutige Arzneiformen einem Darreichungsweg zu', () => {
