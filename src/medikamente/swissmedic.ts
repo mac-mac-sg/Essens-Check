@@ -34,6 +34,8 @@ export interface SwissmedicPackung {
 
 export interface SwissmedicProdukt {
   id: string
+  /** Ergänzte Herstellerangabe ausserhalb des datierten Swissmedic-OGD-Snapshots. */
+  produktquelle?: string
   zulassungsnummer: string
   sequenznummer: string
   name: string

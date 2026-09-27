@@ -44,10 +44,12 @@ function Produktdaten({ produkt }: { produkt: SwissmedicProdukt }) {
             ))}
           </dd>
         </div>
-        <div>
-          <dt>Swissmedic</dt>
-          <dd>Zulassung {produkt.zulassungsnummer}</dd>
-        </div>
+        {produkt.zulassungsnummer && (
+          <div>
+            <dt>Swissmedic</dt>
+            <dd>Zulassung {produkt.zulassungsnummer}</dd>
+          </div>
+        )}
       </dl>
     </div>
   )
@@ -127,7 +129,9 @@ export function MedikamentDetail({
           </p>
           <p>
             {vorbereitet.grund === 'unvollstaendig'
-              ? 'Mindestens ein von Swissmedic deklarierter Wirkstoff ist noch nicht im kuratierten Schwangerschaftskatalog bewertet. Ein bekannter Bestandteil darf deshalb nicht als Freigabe des Gesamtprodukts verwendet werden.'
+              ? produkt.produktquelle
+                ? 'Die Inhaltsstoffe dieses Präparats sind noch nicht für die Schwangerschaft bewertet. Aus dem Produktnamen oder einzelnen Wirkstoffen lässt sich keine Freigabe ableiten.'
+                : 'Mindestens ein von Swissmedic deklarierter Wirkstoff ist noch nicht im kuratierten Schwangerschaftskatalog bewertet. Ein bekannter Bestandteil darf deshalb nicht als Freigabe des Gesamtprodukts verwendet werden.'
               : vorbereitet.grund === 'kombination'
                 ? 'Alle Wirkstoffe sind einzeln bekannt, für das Kombinationspräparat wird aber bewusst kein gemeinsames Schwangerschaftsurteil aus Einzelurteilen errechnet.'
                 : vorbereitet.grund === 'darreichungsform'
@@ -138,6 +142,12 @@ export function MedikamentDetail({
             <p className="med-detail__unbekannt">Noch nicht bewertet: {unbekannte.map((wirkstoff) => wirkstoff.name).join(', ')}</p>
           )}
         </div>
+
+        {produkt.produktquelle && (
+          <p className="med-detail__sicherheit">
+            Produktangaben: <a href={produkt.produktquelle} target="_blank" rel="noopener noreferrer">Herstellerseite</a>. Bitte die genaue Variante auf der Packung abgleichen und vor der Anwendung in der Schwangerschaft ärztlich oder in der Apotheke nachfragen.
+          </p>
+        )}
 
         {vorbereitet.grund === 'kombination' && vorbereitet.medikamente.length > 0 && (
           <div className="med-detail__einzelwirkstoffe">
