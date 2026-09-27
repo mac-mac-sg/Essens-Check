@@ -137,7 +137,7 @@
     {
       "id": "ibuprofen",
       "wirkstoff": "Ibuprofen",
-      "synonyme": [],
+      "synonyme": ["Iboprufen"],
       "gruppe": "Schmerz, Fieber und Entzündung",
       "verschreibungspflichtig": null,
       "allgemeiner_hinweis": "Eine länger dauernde NSAID-Therapie gehört in ärztliche Hände.",
