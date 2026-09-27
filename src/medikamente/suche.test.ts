@@ -17,6 +17,13 @@ describe('Medikamentensuche Phase 3', () => {
     expect(findeWirkstoffe('racetam').map((eintrag) => eintrag.id)).not.toContain('paracetamol')
   })
 
+  it('findet Ibuprofen direkt und über den häufigen Schreibfehler iboprufen', () => {
+    for (const begriff of ['Ibuprofen', 'iboprufen']) {
+      const treffer = findeWirkstoffe(begriff)
+      expect(treffer[0]).toMatchObject({ id: 'ibuprofen', wirkstoff: 'Ibuprofen' })
+    }
+  })
+
   it('findet reale Schweizer Präparate über den Handelsnamen', () => {
     expect(sucheMedikamentProdukte('Dafalgan').some((produkt) => produkt.medikament_ids.includes('paracetamol'))).toBe(true)
     expect(sucheMedikamentProdukte('Algifor').some((produkt) => produkt.medikament_ids.includes('ibuprofen'))).toBe(true)
