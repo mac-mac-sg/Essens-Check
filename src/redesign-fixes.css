@@ -158,6 +158,43 @@
   overflow: hidden;
 }
 
+/* Saisonale Konturen nur an den Rändern; ohne Layout- oder Zeigerwirkung. */
+.seasonal-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: inherit;
+  opacity: 0.055;
+}
+
+.seasonal-pattern__motif {
+  position: absolute;
+  width: 5.25rem;
+  height: 5.25rem;
+}
+
+.seasonal-pattern__motif--left {
+  left: -2.4rem;
+  top: 42%;
+  transform: rotate(-28deg);
+}
+
+.seasonal-pattern__motif--right {
+  right: -1.5rem;
+  top: 26%;
+  transform: rotate(22deg);
+}
+
+.seasonal-pattern__motif--corner {
+  width: 3.5rem;
+  height: 3.5rem;
+  right: 3.75rem;
+  top: -1.1rem;
+  transform: rotate(-12deg);
+}
+
 .kopfzeile--suche {
   isolation: isolate;
   gap: 0.9rem;
