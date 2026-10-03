@@ -74,6 +74,51 @@ function Markenlogo() {
   )
 }
 
+/** Rein dekorativ; meteorologische Jahreszeiten nach dem lokalen Datum. */
+function SeasonalPattern() {
+  const [month, setMonth] = useState(() => new Date().getMonth())
+  useEffect(() => {
+    const refresh = () => setMonth(new Date().getMonth())
+    const timer = window.setInterval(refresh, 60 * 60 * 1000)
+    document.addEventListener('visibilitychange', refresh)
+    return () => {
+      window.clearInterval(timer)
+      document.removeEventListener('visibilitychange', refresh)
+    }
+  }, [])
+  const season = month < 2 || month === 11 ? 'winter' : month < 5 ? 'spring' : month < 8 ? 'summer' : 'autumn'
+  const motif = season === 'autumn' ? (
+    <>
+      <path d="M8 54C-3 28 13 8 49 5C55 36 38 55 8 54Z" />
+      <path d="M3 61 43 12M15 44 14 27M25 33 42 31" />
+    </>
+  ) : season === 'winter' ? (
+    <>
+      <path d="M32 4v56M8 18l48 28M8 46l48-28" />
+      <path d="m24 9 8 8 8-8m-16 46 8-8 8 8M9 27l11-3-3-11m30 38-3-11 11-3M17 51l3-11-11-3m46-10-11-3 3-11" />
+    </>
+  ) : season === 'spring' ? (
+    <>
+      <path d="M32 22C15-3 3 15 22 28C-4 29 2 51 25 39C16 64 40 69 40 43C58 63 72 43 47 34C73 21 59 3 42 24C47-2 24-6 32 22Z" />
+      <circle cx="34" cy="33" r="7" />
+    </>
+  ) : (
+    <>
+      <circle cx="32" cy="32" r="13" />
+      <path d="M32 2v9m0 42v9M2 32h9m42 0h9M11 11l7 7m28 28 7 7M11 53l7-7m28-28 7-7" />
+    </>
+  )
+  return (
+    <div className="seasonal-pattern" data-season={season} aria-hidden="true">
+      {['left', 'right', 'corner'].map(position => (
+        <svg key={position} className={`seasonal-pattern__motif seasonal-pattern__motif--${position}`} viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" focusable="false">
+          {motif}
+        </svg>
+      ))}
+    </div>
+  )
+}
+
 function checkAnzeige(ref: CheckRef): CheckAnzeige | null {
   if (ref.art === 'lebensmittel') {
     const eintrag = findeNachId(ref.id, lebensmittelKatalog)
@@ -379,6 +424,7 @@ export function App() {
   return (
     <div className="app">
       <header className={`kopfzeile ${ansicht === 'suche' ? 'kopfzeile--suche' : ''}`}>
+        <SeasonalPattern />
         {ansicht === 'suche' ? (
           <>
             <div className="kopfzeile__suche-kopf">
